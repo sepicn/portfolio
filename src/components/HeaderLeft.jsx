@@ -8,12 +8,9 @@ import {
   BiSun,
 } from "react-icons/bi"
 import image from "../../public/image.png"
+import CV from "../../public/CV.pdf"
 import PropTypes from "prop-types"
-import {
-  BsFileEarmarkPerson,
-  BsFileEarmarkPersonFill,
-  BsFilePerson,
-} from "react-icons/bs"
+import { BsFileEarmarkPersonFill } from "react-icons/bs"
 
 function HeaderLeft({ isDark, toggleDarkMode }) {
   return (
@@ -84,7 +81,7 @@ function HeaderLeft({ isDark, toggleDarkMode }) {
             </div>
 
             <div className="duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-black rounded-sm">
-              <a href="../../public/CV.pdf" download="Nikola_Sepic_CV.pdf">
+              <a href={CV} download="Nikola_Sepic_CV.pdf">
                 <li className="flex items-center gap-2 ">
                   <BsFileEarmarkPersonFill className="text-2xl" />
                   <span className="font-semibold">Curriculum vitae</span>
