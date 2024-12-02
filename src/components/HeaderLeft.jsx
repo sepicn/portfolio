@@ -9,6 +9,11 @@ import {
 } from "react-icons/bi"
 import image from "../../public/image.png"
 import PropTypes from "prop-types"
+import {
+  BsFileEarmarkPerson,
+  BsFileEarmarkPersonFill,
+  BsFilePerson,
+} from "react-icons/bs"
 
 function HeaderLeft({ isDark, toggleDarkMode }) {
   return (
@@ -74,6 +79,15 @@ function HeaderLeft({ isDark, toggleDarkMode }) {
                 <li className="flex items-center gap-2 ">
                   <BiLogoLinkedin className="text-2xl" />
                   <span className="font-semibold">sepicn</span>
+                </li>
+              </a>
+            </div>
+
+            <div className="duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-black rounded-sm">
+              <a href="../../public/CV.pdf" download="Nikola_Sepic_CV.pdf">
+                <li className="flex items-center gap-2 ">
+                  <BsFileEarmarkPersonFill className="text-2xl" />
+                  <span className="font-semibold">Curriculum vitae</span>
                 </li>
               </a>
             </div>
