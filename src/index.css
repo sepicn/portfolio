@@ -2,9 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .fill-hover {
+    @apply relative overflow-hidden;
+  }
+
+  .fill-hover::before {
+    content: "";
+    @apply absolute inset-0 w-0 bg-zinc-200 transition-all duration-300 ease-out;
+  }
+
+  .fill-hover:hover::before {
+    @apply w-full;
+  }
+
+  .dark .fill-hover::before {
+    @apply bg-zinc-800;
+  }
+
+  .fill-hover > * {
+    @apply relative z-10;
+  }
+
+  .dark .fill-hover:hover * {
+    @apply text-white;
+  }
+
+  .project-dot::before {
+    @apply transition-all duration-300 ease-out scale-100;
+  }
+
+  .project-card:hover .project-dot::before {
+    @apply bg-blue-500 scale-[2];
+  }
+
+  .dark .project-card:hover .project-dot::before {
+    @apply bg-blue-400;
+  }
+
+  .certificate-dot::before {
+    @apply transition-all duration-300 ease-out scale-100;
+  }
+
+  .certificate-card:hover .certificate-dot::before {
+    @apply bg-blue-500 scale-[2];
+  }
+
+  .dark .certificate-card:hover .certificate-dot::before {
+    @apply bg-blue-400;
+  }
+}
+
 * {
   font-family: "Inter";
 }
+
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {

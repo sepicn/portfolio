@@ -11,16 +11,16 @@ function App() {
   }
 
   return (
-    <>
-      <div
-        className={`min-h-screen w-full flex flex-col sm:flex-row subpixel-antialiase ${
-          isDark ? "bg-black" : "bg-white"
-        }`}
-      >
+    <div
+      className={`${
+        isDark ? "bg-black" : "bg-white"
+      } w-full min-h-screen flex justify-center transition-colors duration-300`}
+    >
+      <div className="w-full max-w-7xl min-h-screen flex flex-col sm:flex-row subpixel-antialiased px-0 lg:px-4">
         <HeaderLeft isDark={isDark} toggleDarkMode={toggleDarkMode} />
         <Home />
       </div>
-    </>
+    </div>
   )
 }
 

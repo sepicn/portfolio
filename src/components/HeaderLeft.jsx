@@ -44,13 +44,13 @@ function HeaderLeft({ isDark, toggleDarkMode }) {
               <BiCurrentLocation className="text-2xl" />
               <span>Belgrade Serbia</span>
             </li>
-            <li className="flex items-center gap-2 duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-black rounded-sm">
+            <li className="flex items-center gap-2 duration-300 fill-hover rounded-sm">
               <BiEnvelope className="text-2xl" />
               <a href="mailto:sepicnikola@gmail.com">
                 <span>sepicnikola@gmail.com</span>
               </a>
             </li>
-            <li className="flex items-center gap-2 duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-black rounded-sm ">
+            <li className="flex items-center gap-2 duration-300 fill-hover rounded-sm">
               <BiPhone className="text-2xl" />
               <a href="tel:+381637624555">
                 <span className="">+381 63 7624 555</span>
@@ -62,27 +62,27 @@ function HeaderLeft({ isDark, toggleDarkMode }) {
         <div className="flex flex-col items-start justify-start gap-5 border-b p-5 dark:border-gray-700 ">
           <h2 className="text-base font-semibold md:text-2xl">SOCIAL</h2>
           <ul className="space-y-3">
-            <div className="duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-black rounded-sm">
+            <div className="duration-300 fill-hover rounded-sm">
               <a href="https://github.com/sepicn">
-                <li className="flex items-center gap-2 ">
+                <li className="flex items-center gap-2">
                   <BiLogoGithub className="text-2xl" />
                   <span className="font-semibold">sepicn</span>
                 </li>
               </a>
             </div>
 
-            <div className="duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-black rounded-sm">
+            <div className="duration-300 fill-hover rounded-sm">
               <a href="https://www.linkedin.com/in/sepicn/">
-                <li className="flex items-center gap-2 ">
+                <li className="flex items-center gap-2">
                   <BiLogoLinkedin className="text-2xl" />
                   <span className="font-semibold">sepicn</span>
                 </li>
               </a>
             </div>
 
-            <div className="duration-300 hover:bg-zinc-200 dark:hover:bg-zinc-200 dark:hover:text-black rounded-sm">
+            <div className="duration-300 fill-hover rounded-sm">
               <a href={CV} download="Nikola_Sepic_CV.pdf">
-                <li className="flex items-center gap-2 ">
+                <li className="flex items-center gap-2">
                   <BsFileEarmarkPersonFill className="text-2xl" />
                   <span className="font-semibold">Curriculum vitae</span>
                 </li>
