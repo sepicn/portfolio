@@ -127,7 +127,9 @@ function HeaderLeft() {
         <div className="win95-window">
           <div className="win95-window-title">Skills</div>
           <div className="skills-container relative">
-            <div className="skills-title">root@portfolio:~# ./skills.sh</div>
+            <div className="skills-title text-[#00ff00]">
+              root@portfolio:~# ./skills.sh
+            </div>
             <div className="flex flex-col">
               {[
                 "HTML",
@@ -146,7 +148,7 @@ function HeaderLeft() {
                 </div>
               ))}
             </div>
-            <div className="terminal-cursor">root@portfolio:~#</div>
+            <div className="terminal-cursor">root@portfolio:~# &nbsp;</div>
           </div>
         </div>
 

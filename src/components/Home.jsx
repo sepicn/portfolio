@@ -5,7 +5,7 @@ function Home() {
         <div className="win95-window">
           <div className="win95-window-title">About</div>
           <div className="terminal-container">
-            <div className="terminal-title">
+            <div className="terminal-title text-[#00ff00]">
               root@portfolio ~/about % cat profile.txt
             </div>
             <div className="terminal-text">
@@ -32,7 +32,9 @@ function Home() {
                 through workouts at the gym.
               </p>
             </div>
-            <div className="terminal-cursor">root@portfolio ~/about %</div>
+            <div className="terminal-cursor">
+              root@portfolio ~/about % &nbsp;
+            </div>
           </div>
         </div>
 

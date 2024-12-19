@@ -105,7 +105,7 @@
 
   .skill-button::before {
     content: "$ ";
-    @apply text-[#00ff00] dark:text-[#00ff00] opacity-80 mr-2;
+    @apply text-[#00ff00] dark:text-[#00ff00] opacity-90 mr-2;
   }
 
   .skill-button .skill-text {
@@ -222,7 +222,7 @@
 
   .terminal-cursor {
     @apply text-[#00ff00] dark:text-[#00ff00] mt-4 opacity-90 text-base;
-    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
   }
 
   .terminal-cursor::before {
@@ -233,7 +233,7 @@
   .terminal-cursor::after {
     content: "█";
     animation: blink 1.2s step-start infinite;
-    text-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
   }
 
   @keyframes blink {
@@ -260,8 +260,8 @@
   }
 
   .terminal-title {
-    @apply text-[#006400] dark:text-[#006400] mb-8 opacity-90 font-bold text-base;
-    text-shadow: 0 0 8px rgba(0, 100, 0, 0.4);
+    @apply text-[#00ff00] dark:text-[#00ff00] mb-8 opacity-90 font-bold text-base;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
   }
 
   .terminal-title::before {
@@ -286,7 +286,7 @@
 
   .terminal-text p::before {
     content: ">";
-    @apply absolute left-0 text-[#006400] opacity-90 text-[1.125rem];
+    @apply absolute left-0 text-[#00ff00] opacity-90 text-[1.125rem];
   }
 
   .terminal-text p:last-child {
@@ -321,22 +321,6 @@
       rgba(0, 0, 0, 0.02) 50%
     );
     background-size: 100% 4px;
-  }
-
-  .terminal-cursor {
-    @apply text-[#006400] dark:text-[#006400] mt-4 opacity-90 text-base;
-    text-shadow: 0 0 8px rgba(0, 100, 0, 0.3);
-  }
-
-  .terminal-cursor::before {
-    content: "$ ";
-    @apply text-[#006400] dark:text-[#006400] opacity-90 mr-2 text-base;
-  }
-
-  .terminal-cursor::after {
-    content: "█";
-    animation: blink 1.2s step-start infinite;
-    text-shadow: 0 0 8px rgba(0, 100, 0, 0.3);
   }
 
   /* Update project description text size */
