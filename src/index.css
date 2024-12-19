@@ -247,21 +247,21 @@
   }
 
   .terminal-container {
-    @apply font-mono bg-[#3b3b3b] dark:bg-[#3b3b3b] p-4 rounded relative;
+    @apply font-mono bg-[#a0a0a0] dark:bg-[#a0a0a0] p-4 rounded relative;
     box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
     text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
     background-image: repeating-linear-gradient(
       0deg,
-      rgba(0, 0, 0, 0.05) 0px,
-      rgba(0, 0, 0, 0.05) 1px,
+      rgba(0, 0, 0, 0.04) 0px,
+      rgba(0, 0, 0, 0.04) 1px,
       transparent 1px,
       transparent 2px
     );
   }
 
   .terminal-title {
-    @apply text-[#00ff00] dark:text-[#00ff00] mb-8 opacity-90 font-bold text-base;
-    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+    @apply text-[#006400] dark:text-[#006400] mb-8 opacity-90 font-bold text-base;
+    text-shadow: 0 0 8px rgba(0, 100, 0, 0.4);
   }
 
   .terminal-title::before {
@@ -275,8 +275,8 @@
   }
 
   .terminal-text {
-    @apply text-white dark:text-white leading-relaxed text-[1.125rem];
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    @apply text-black dark:text-black leading-relaxed text-[1.125rem];
+    text-shadow: none;
     line-height: 1.75;
   }
 
@@ -286,7 +286,7 @@
 
   .terminal-text p::before {
     content: ">";
-    @apply absolute left-0 text-[#00ff00] opacity-80 text-[1.125rem];
+    @apply absolute left-0 text-[#006400] opacity-90 text-[1.125rem];
   }
 
   .terminal-text p:last-child {
@@ -324,19 +324,19 @@
   }
 
   .terminal-cursor {
-    @apply text-[#00ff00] dark:text-[#00ff00] mt-4 opacity-90;
-    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+    @apply text-[#006400] dark:text-[#006400] mt-4 opacity-90 text-base;
+    text-shadow: 0 0 8px rgba(0, 100, 0, 0.3);
   }
 
   .terminal-cursor::before {
     content: "$ ";
-    @apply text-[#00ff00] dark:text-[#00ff00] opacity-90 mr-2;
+    @apply text-[#006400] dark:text-[#006400] opacity-90 mr-2 text-base;
   }
 
   .terminal-cursor::after {
     content: "█";
     animation: blink 1.2s step-start infinite;
-    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+    text-shadow: 0 0 8px rgba(0, 100, 0, 0.3);
   }
 
   /* Update project description text size */
