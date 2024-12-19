@@ -29,7 +29,7 @@ function App() {
             </button>
           </div>
           <div className="flex-1 overflow-auto">
-            <HeaderLeft isDark={isDark} toggleDarkMode={toggleDarkMode} />
+            <HeaderLeft />
           </div>
         </div>
         <div className="win95-window flex-[3] flex flex-col">

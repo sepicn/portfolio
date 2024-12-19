@@ -139,28 +139,13 @@
     @apply win95-button text-black dark:text-white text-sm px-2 py-0;
   }
 
-  .project-dot::before {
-    @apply transition-all duration-300 ease-out scale-100;
-  }
-
-  .project-card:hover .project-dot::before {
-    @apply bg-[#000080] scale-[2];
-  }
-
-  .dark .project-card:hover .project-dot::before {
-    @apply bg-[#4169e1] scale-[2];
-  }
-
-  .certificate-dot::before {
-    @apply transition-all duration-300 ease-out scale-100;
-  }
-
-  .certificate-card:hover .certificate-dot::before {
-    @apply bg-[#000080] scale-[2];
-  }
-
+  .project-dot::before,
+  .project-card:hover .project-dot::before,
+  .dark .project-card:hover .project-dot::before,
+  .certificate-dot::before,
+  .certificate-card:hover .certificate-dot::before,
   .dark .certificate-card:hover .certificate-dot::before {
-    @apply bg-[#4169e1] scale-[2];
+    display: none;
   }
 
   .certificate-year {
