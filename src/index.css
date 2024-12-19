@@ -2,30 +2,141 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "W95FA";
+  src: url("/fonts/W95FA.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer components {
-  .fill-hover {
-    @apply relative overflow-hidden;
+  .win95-bg {
+    @apply bg-[#c0c0c0] dark:bg-[#3b3b3b];
   }
 
-  .fill-hover::before {
-    content: "";
-    @apply absolute inset-0 w-0 bg-zinc-200 transition-all duration-300 ease-out;
+  .win95-border {
+    @apply border-[3px];
+    border-style: solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
   }
 
-  .fill-hover:hover::before {
-    @apply w-full;
+  .dark .win95-border {
+    border-color: #4f4f4f #2b2b2b #2b2b2b #4f4f4f;
   }
 
-  .dark .fill-hover::before {
-    @apply bg-zinc-800;
+  .win95-border-inset {
+    @apply border-[3px];
+    border-style: solid;
+    border-color: #808080 #ffffff #ffffff #808080;
   }
 
-  .fill-hover > * {
-    @apply relative z-10;
+  .dark .win95-border-inset {
+    border-color: #2b2b2b #4f4f4f #4f4f4f #2b2b2b;
   }
 
-  .dark .fill-hover:hover * {
-    @apply text-white;
+  .win95-button {
+    @apply win95-bg win95-border px-4 py-1 active:win95-border-inset hover:cursor-pointer transition-all duration-200;
+  }
+
+  .win95-button:hover {
+    filter: brightness(1.1);
+  }
+
+  .dark .win95-button:hover {
+    filter: brightness(1.2);
+  }
+
+  .win95-button:active {
+    filter: brightness(0.9);
+  }
+
+  .dark .win95-button:active {
+    filter: brightness(0.8);
+  }
+
+  .win95-window {
+    @apply win95-bg win95-border p-1 dark:text-white;
+  }
+
+  .win95-window-title {
+    @apply bg-[#000080] dark:bg-[#000040] text-white px-2 py-1.5 flex justify-between items-center mb-1 text-base;
+  }
+
+  .win95-text {
+    font-family: "W95FA", "Microsoft Sans Serif", "Segoe UI", "Arial",
+      sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Add win95-text to all text elements by default */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  div,
+  a,
+  button {
+    @apply win95-text;
+  }
+
+  /* Terminal text should keep its monospace font */
+  .terminal-container,
+  .terminal-text,
+  .skill-button {
+    font-family: "Courier New", monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  .social-button {
+    @apply win95-button flex items-center gap-2 w-full;
+  }
+
+  .skill-button {
+    @apply font-mono text-left py-1.5 bg-transparent border-none text-[#e0e0e0] dark:text-[#e0e0e0] relative cursor-default text-base;
+  }
+
+  .skill-button::before {
+    content: "$ ";
+    @apply text-[#00ff00] dark:text-[#00ff00] opacity-80 mr-2;
+  }
+
+  .skill-button .skill-text {
+    @apply opacity-100 transition-all duration-200;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    font-size: 1rem;
+  }
+
+  .skill-button .scramble-text {
+    @apply absolute left-7 top-1 opacity-0 transition-all duration-200 text-[#00ff00];
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
+  }
+
+  .skill-button:hover .scramble-text {
+    @apply opacity-90;
+  }
+
+  .skill-button:hover .skill-text {
+    @apply opacity-0;
+  }
+
+  .skills-container {
+    @apply terminal-container;
+  }
+
+  .skills-title {
+    @apply terminal-title;
+  }
+
+  .header-button {
+    @apply win95-button text-black dark:text-white text-sm px-2 py-0;
   }
 
   .project-dot::before {
@@ -33,11 +144,11 @@
   }
 
   .project-card:hover .project-dot::before {
-    @apply bg-blue-500 scale-[2];
+    @apply bg-[#000080] scale-[2];
   }
 
   .dark .project-card:hover .project-dot::before {
-    @apply bg-blue-400;
+    @apply bg-[#4169e1] scale-[2];
   }
 
   .certificate-dot::before {
@@ -45,16 +156,236 @@
   }
 
   .certificate-card:hover .certificate-dot::before {
-    @apply bg-blue-500 scale-[2];
+    @apply bg-[#000080] scale-[2];
   }
 
   .dark .certificate-card:hover .certificate-dot::before {
-    @apply bg-blue-400;
+    @apply bg-[#4169e1] scale-[2];
+  }
+
+  .certificate-year {
+    @apply text-base text-gray-600 dark:text-gray-300;
+  }
+
+  /* Windows 95 Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #c0c0c0;
+    border-left: 1px solid #808080;
+    border-top: 1px solid #808080;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    filter: brightness(1.1);
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #c0c0c0;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: #3b3b3b;
+    border-left: 1px solid #2b2b2b;
+    border-top: 1px solid #2b2b2b;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: #3b3b3b;
+    border-color: #4f4f4f #2b2b2b #2b2b2b #4f4f4f;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    filter: brightness(1.2);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:active {
+    border-color: #2b2b2b #4f4f4f #4f4f4f #2b2b2b;
+  }
+
+  .dark ::-webkit-scrollbar-corner {
+    background: #3b3b3b;
+  }
+
+  .terminal-cursor {
+    @apply text-[#00ff00] dark:text-[#00ff00] mt-4 opacity-90 text-base;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+  }
+
+  .terminal-cursor::before {
+    content: "$ ";
+    @apply text-[#00ff00] dark:text-[#00ff00] opacity-90 mr-2 text-base;
+  }
+
+  .terminal-cursor::after {
+    content: "█";
+    animation: blink 1.2s step-start infinite;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .terminal-container {
+    @apply font-mono bg-[#3b3b3b] dark:bg-[#3b3b3b] p-4 rounded relative;
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.05) 0px,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  }
+
+  .terminal-title {
+    @apply text-[#00ff00] dark:text-[#00ff00] mb-8 opacity-90 font-bold text-base;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+  }
+
+  .terminal-title::before {
+    content: "[";
+    @apply mr-1 text-[#00ff00] opacity-80;
+  }
+
+  .terminal-title::after {
+    content: "]";
+    @apply ml-1 text-[#00ff00] opacity-80;
+  }
+
+  .terminal-text {
+    @apply text-white dark:text-white leading-relaxed text-[1.125rem];
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    line-height: 1.75;
+  }
+
+  .terminal-text p {
+    @apply mb-6 relative pl-8;
+  }
+
+  .terminal-text p::before {
+    content: ">";
+    @apply absolute left-0 text-[#00ff00] opacity-80 text-[1.125rem];
+  }
+
+  .terminal-text p:last-child {
+    @apply mb-0;
+  }
+
+  .terminal-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 0, 0.3),
+      transparent
+    );
+  }
+
+  .terminal-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      rgba(255, 255, 255, 0.02) 50%,
+      rgba(0, 0, 0, 0.02) 50%
+    );
+    background-size: 100% 4px;
+  }
+
+  .terminal-cursor {
+    @apply text-[#00ff00] dark:text-[#00ff00] mt-4 opacity-90;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+  }
+
+  .terminal-cursor::before {
+    content: "$ ";
+    @apply text-[#00ff00] dark:text-[#00ff00] opacity-90 mr-2;
+  }
+
+  .terminal-cursor::after {
+    content: "█";
+    animation: blink 1.2s step-start infinite;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+  }
+
+  /* Update project description text size */
+  .win95-window p.text-sm {
+    @apply text-lg leading-relaxed;
+  }
+
+  /* Update certificate organization text size */
+  .win95-window div.text-sm {
+    @apply text-base;
+  }
+
+  /* Update general content text size */
+  .win95-window .text-sm {
+    @apply text-base;
+  }
+
+  /* Increase size for specific sections */
+  .win95-window div.p-2 span,
+  .win95-window div.p-2 div,
+  .win95-window div.p-2 a span,
+  .win95-window ul li {
+    @apply text-base;
+  }
+
+  /* Specific size for social icons */
+  .social-button .text-2xl {
+    @apply text-3xl;
+  }
+
+  /* Increase education text size */
+  .win95-window div.space-y-1 span.font-bold,
+  .win95-window div.space-y-1 div.text-sm {
+    @apply text-base;
+  }
+
+  /* Increase hobbies text size */
+  .win95-window ul.list-disc li {
+    @apply text-base;
+  }
+
+  /* Increase contact text size */
+  .win95-window div.flex.items-center span {
+    @apply text-base;
   }
 }
 
 * {
-  font-family: "Inter";
+  font-family: "W95FA", sans-serif;
 }
 
 @layer utilities {
