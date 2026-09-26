@@ -229,13 +229,13 @@
     "open": "Otvori",
     "skip": "Preskoči",
     "desc": {
-      "projects": "Monitor: produkcioni sistemi i lični projekti.",
-      "services": "Neon OPEN: izrada sajtova, Google Ads i SEO.",
-      "clients": "Bilbordi napolju: firme za koje sam radio.",
-      "about": "Polica: muzika, knjige i teretana. Ko sam van koda.",
-      "education": "Diploma i sertifikati na zidu.",
-      "cv": "Fotografija na stolu: ceo CV, PDF i DOCX.",
-      "contact": "Telefon: javi se za projekat ili posao."
+      "projects": "Produkcioni sistemi i lični projekti, sa studijama slučaja.",
+      "services": "Izrada sajtova, Google Ads, Meta Ads i SEO.",
+      "clients": "Firme sa kojima radim i šta smo zajedno napravili.",
+      "about": "Ko sam, kako radim i šta me pokreće van koda.",
+      "education": "Diploma iz informacionih tehnologija i sertifikati.",
+      "cv": "Iskustvo i veštine, za čitanje ili preuzimanje u PDF i DOCX formatu.",
+      "contact": "Javi se za projekat, kampanju ili posao."
     }
   }
 }

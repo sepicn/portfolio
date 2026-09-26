@@ -11,7 +11,6 @@ import { hotspots } from "@/lib/hotspots";
 import { SceneProvider, useScene } from "@/components/scene/scene-state";
 import { HeroStatic } from "./hero-static";
 import { HeroTour } from "./hero-tour";
-import { CrtExit } from "@/components/motion/crt-exit";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,13 +24,11 @@ type Mode = "pending" | "webgl" | "tour" | "static";
 function detectMode(): Mode {
   if (typeof window === "undefined") return "pending";
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const coarse = window.matchMedia("(pointer: coarse)").matches;
-  const narrow = window.innerWidth < 768;
-  // Reduced motion gets the plain render with pins. Phones and narrow windows get the
-  // scroll tour over the same render: the room needs width to read, and a full WebGL scene
-  // on a small battery-powered screen is not worth it.
+  // Only width decides between phone and desktop behaviour. Touch laptops and tablets
+  // report a coarse pointer too, and they have the width and the GPU for the real room.
+  const phone = window.innerWidth < 768;
   if (reduce) return "static";
-  if (coarse || narrow) return "tour";
+  if (phone) return "tour";
   const canvas = document.createElement("canvas");
   const gl = canvas.getContext("webgl2");
   return gl ? "webgl" : "static";
@@ -148,7 +145,6 @@ function PinnedRoom({ overlay }: HeroProps) {
           }`}
         />
         <div className="pointer-events-none absolute inset-0 z-10">{overlay}</div>
-        <CrtExit trigger={sectionRef} />
         {/* Keyboard and screen-reader path: the same hotspots as plain links. */}
         <nav
           aria-label="Room"

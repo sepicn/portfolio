@@ -229,13 +229,13 @@
     "open": "Open",
     "skip": "Skip",
     "desc": {
-      "projects": "The monitor: production systems and personal projects.",
-      "services": "The OPEN sign: websites, Google Ads and SEO.",
-      "clients": "Billboards outside: companies I have worked for.",
-      "about": "The shelf: music, books and the gym. Who I am off the clock.",
-      "education": "Degree and certificates on the wall.",
-      "cv": "The photo on the desk: the full CV, PDF and DOCX.",
-      "contact": "The phone: get in touch about a project or a job."
+      "projects": "Production systems and personal projects, with case studies.",
+      "services": "Websites, Google Ads, Meta Ads and SEO.",
+      "clients": "The companies I work with and what we built together.",
+      "about": "Who I am, how I work and what drives me off the clock.",
+      "education": "A degree in information technology and certificates.",
+      "cv": "Experience and skills, to read here or download as PDF and DOCX.",
+      "contact": "Get in touch about a project, a campaign or a job."
     }
   }
 }

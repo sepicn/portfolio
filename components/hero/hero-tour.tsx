@@ -8,6 +8,27 @@ import { useGSAP } from "@gsap/react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { hotspots, tourOrder, tourViews } from "@/lib/hotspots";
+import {
+  AcademicCapIcon,
+  ArrowRightIcon,
+  BuildingOffice2Icon,
+  ChevronDoubleDownIcon,
+  CodeBracketIcon,
+  DocumentTextIcon,
+  PhoneIcon,
+  SparklesIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
+
+const icons: Record<string, typeof CodeBracketIcon> = {
+  projects: CodeBracketIcon,
+  services: SparklesIcon,
+  clients: BuildingOffice2Icon,
+  about: UserIcon,
+  education: AcademicCapIcon,
+  cv: DocumentTextIcon,
+  contact: PhoneIcon,
+};
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -174,7 +195,10 @@ export function HeroTour({ overlay }: Props) {
         <p
           className={`pointer-events-none absolute inset-x-0 bottom-6 z-10 text-center font-mono text-[11px] tracking-[0.3em] text-neon-cyan uppercase transition-opacity duration-300 ${active < 0 ? "opacity-100" : "opacity-0"}`}
         >
-          {t("hint")} &darr;
+          <span className="inline-flex items-center gap-2">
+            {t("hint")}
+            <ChevronDoubleDownIcon aria-hidden="true" className="size-4 animate-bounce" />
+          </span>
         </p>
 
         <ol
@@ -202,13 +226,22 @@ export function HeroTour({ overlay }: Props) {
               </p>
               <div className="mt-1 flex items-end justify-between gap-4">
                 <div>
-                  <p className="font-display text-2xl font-semibold text-ink-100">
+                  <p className="flex items-center gap-2 font-display text-2xl font-semibold text-ink-100">
+                    {(() => {
+                      const Icon = icons[spot.id];
+                      return Icon ? (
+                        <Icon aria-hidden="true" className="size-6 text-neon-cyan" />
+                      ) : null;
+                    })()}
                     {labels(spot.id)}
                   </p>
                   <p className="mt-1 text-sm text-ink-200">{t(`desc.${spot.id}`)}</p>
                 </div>
                 <span className="shrink-0 rounded-md bg-neon-cyan px-4 py-2.5 text-sm font-medium text-night-950 shadow-neon-cyan">
-                  {t("open")} &rarr;
+                  <span className="inline-flex items-center gap-1.5">
+                    {t("open")}
+                    <ArrowRightIcon aria-hidden="true" className="size-4" />
+                  </span>
                 </span>
               </div>
             </Link>

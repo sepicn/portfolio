@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { pick } from "@/content/i18n";
@@ -99,7 +100,11 @@ export function ProjectCard({ project, index = 0, priority = false }: Props) {
           <span
             className={`shrink-0 font-mono text-[11px] tracking-widest uppercase ${a.text} opacity-0 transition group-hover:opacity-100`}
           >
-            {t("open")} &rarr;
+            {t("open")}{" "}
+            <ArrowRightIcon
+              aria-hidden="true"
+              className="inline size-4 align-[-3px] transition group-hover:translate-x-0.5"
+            />
           </span>
         </div>
       </div>
