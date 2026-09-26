@@ -1,6 +1,7 @@
 // Renders the logo mark in Blender and writes every size the site uses:
 // the header mark, the favicon (app/icon.png) and the Apple touch icon.
 import { execFileSync } from "node:child_process";
+import { writeFileSync } from "node:fs";
 import sharp from "sharp";
 
 const blender =
@@ -37,4 +38,27 @@ await sharp({ create: { width: 180, height: 180, channels: 4, background: "#0b04
   ])
   .png()
   .toFile("app/apple-icon.png");
-console.log("logo updated: public/images/logo.webp, app/icon.png, app/apple-icon.png");
+// favicon.ico for browsers that request it directly: an ICO wrapping 32px and 16px PNGs.
+const sizes = [32, 16];
+const pngs = await Promise.all(
+  sizes.map((size) => sharp("app/icon.png").resize(size, size).png().toBuffer()),
+);
+const header = Buffer.alloc(6 + 16 * sizes.length);
+header.writeUInt16LE(0, 0);
+header.writeUInt16LE(1, 2);
+header.writeUInt16LE(sizes.length, 4);
+let offset = header.length;
+sizes.forEach((size, i) => {
+  const entry = 6 + i * 16;
+  header.writeUInt8(size, entry);
+  header.writeUInt8(size, entry + 1);
+  header.writeUInt16LE(1, entry + 4);
+  header.writeUInt16LE(32, entry + 6);
+  header.writeUInt32LE(pngs[i].length, entry + 8);
+  header.writeUInt32LE(offset, entry + 12);
+  offset += pngs[i].length;
+});
+writeFileSync("app/favicon.ico", Buffer.concat([header, ...pngs]));
+console.log(
+  "logo updated: public/images/logo.webp, app/icon.png, app/apple-icon.png, app/favicon.ico",
+);
