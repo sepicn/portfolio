@@ -223,5 +223,19 @@
     "updated": "Poslednja izmena: septembar 2026.",
     "metaTitle": "Politika privatnosti",
     "metaDescription": "Koje podatke sepic.me prikuplja (Google Analytics i Google Ads samo uz saglasnost, kontakt forma preko Resend-a) i kako menjaš izbor o kolačićima."
+  },
+  "tour": {
+    "hint": "Skroluj kroz sobu",
+    "open": "Otvori",
+    "skip": "Preskoči",
+    "desc": {
+      "projects": "Monitor: produkcioni sistemi i lični projekti.",
+      "services": "Neon OPEN: izrada sajtova, Google Ads i SEO.",
+      "clients": "Bilbordi napolju: firme za koje sam radio.",
+      "about": "Polica: muzika, knjige i teretana. Ko sam van koda.",
+      "education": "Diploma i sertifikati na zidu.",
+      "cv": "Fotografija na stolu: ceo CV, PDF i DOCX.",
+      "contact": "Telefon: javi se za projekat ili posao."
+    }
   }
 }

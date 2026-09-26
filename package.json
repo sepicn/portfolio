@@ -16,7 +16,7 @@
     "e2e": "playwright test",
     "cv": "node scripts/build-cv.mjs",
     "shots": "node scripts/screenshots.mjs",
-    "room": "\"C:/Program Files/Blender Foundation/Blender 5.2/blender.exe\" -b -P blender/build_room.py && gltf-transform optimize blender/out/room.glb public/models/room.glb --compress draco --texture-compress webp --join false --flatten false --palette false",
+    "room": "node scripts/room.mjs",
     "check": "npm run lint && npm run typecheck && npm run test && npm run format:check",
     "og": "node scripts/og.mjs"
   },

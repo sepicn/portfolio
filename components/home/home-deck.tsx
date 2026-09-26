@@ -11,7 +11,11 @@ import { services, process } from "@/content/data/services";
 import { profile } from "@/content/data/profile";
 import { encodeContact } from "@/lib/obfuscate";
 
-/** The five scroll-driven panels under the 3D hero. */
+/**
+ * Four scroll-driven panels under the 3D hero, then the contact call to action as a plain
+ * section. As the last deck panel it stayed on screen while the pin released, so it read as
+ * appearing twice.
+ */
 export function HomeDeck() {
   const t = useTranslations("home");
   const locale = useLocale();
@@ -200,6 +204,11 @@ export function HomeDeck() {
   );
 
   return (
-    <SlideDeck panels={[intro, servicesPanel, projectsPanel, processPanel, ctaPanel]} />
+    <>
+      <SlideDeck panels={[intro, servicesPanel, projectsPanel, processPanel]} />
+      <section className="relative flex min-h-[70vh] items-center py-24">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">{ctaPanel}</div>
+      </section>
+    </>
   );
 }
