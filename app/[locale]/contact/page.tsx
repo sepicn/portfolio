@@ -46,7 +46,7 @@ export default function ContactPage({ params }: Props) {
       <PageIntro
         title={t("title")}
         intro={t("intro")}
-        aside={<FloatingProp src="/images/props/phone.webp" glow="pink" priority />}
+        aside={<FloatingProp src="/images/props/telephone.webp" glow="pink" priority />}
       >
         <SignalLed label={t("signal")} className="mt-6" />
       </PageIntro>

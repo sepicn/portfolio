@@ -43,6 +43,39 @@
   --animate-terminal: terminal 28s linear infinite;
   --animate-grid: grid-run 2.4s linear infinite;
   --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-neon: neon 7s steps(1) infinite;
+
+  /* A real sign: mostly lit, a stutter now and then, one longer drop-out per cycle. */
+  @keyframes neon {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    31% {
+      opacity: 0;
+    }
+    32% {
+      opacity: 1;
+    }
+    33% {
+      opacity: 0.2;
+    }
+    35% {
+      opacity: 1;
+    }
+    72% {
+      opacity: 0;
+    }
+    79% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 0.3;
+    }
+    81% {
+      opacity: 1;
+    }
+  }
 
   @keyframes float {
     0%,

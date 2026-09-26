@@ -21,7 +21,18 @@ export function SmoothScroll() {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
+    // Lenis caches the scrollable height. Pinned sections (room, deck, phone tour) change
+    // it when ScrollTrigger measures, and the wheel then stopped short of the page end while
+    // dragging the scrollbar still worked. Re-measure after every ScrollTrigger refresh and
+    // whenever the document grows.
+    const resize = () => lenis.resize();
+    ScrollTrigger.addEventListener("refresh", resize);
+    const observer = new ResizeObserver(resize);
+    observer.observe(document.body);
+
     return () => {
+      ScrollTrigger.removeEventListener("refresh", resize);
+      observer.disconnect();
       gsap.ticker.remove(tick);
       lenis.destroy();
     };

@@ -289,6 +289,30 @@ def asset(slug, name, location, rotation_z=0.0, scale=1.0):
     return obj
 
 
+def tapered_box(name, bottom, top, height, location, mat, bevel=None):
+    """A box whose top face is smaller and shifted back, built directly as a mesh.
+
+    bottom = (width, depth); top = (width, depth, shift towards +Y); location is the
+    centre of the bottom face.
+    """
+    bw, bd = bottom
+    tw, td, shift = top
+    verts = [
+        (-bw / 2, -bd / 2, 0), (bw / 2, -bd / 2, 0), (bw / 2, bd / 2, 0), (-bw / 2, bd / 2, 0),
+        (-tw / 2, -td / 2 + shift, height), (tw / 2, -td / 2 + shift, height),
+        (tw / 2, td / 2 + shift, height), (-tw / 2, td / 2 + shift, height),
+    ]
+    faces = [(0, 3, 2, 1), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+    mesh = bpy.data.meshes.new(name)
+    mesh.from_pydata(verts, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.scene.collection.objects.link(obj)
+    obj.location = location
+    bpy.context.view_layer.update()
+    return finish(obj, name, mat, bevel, 5, True)
+
+
 def curved_screen(name, width, height, bulge, location, mat, rotation=(0, 0, 0), divisions=14):
     """A slightly domed CRT screen: a grid whose centre pushes toward the viewer."""
     mesh = bpy.data.meshes.new(name)
@@ -424,6 +448,7 @@ def build():
     M["neon_green"] = material("neon_green", rgb(HEX["green"]), emission=rgb(HEX["green"]), strength=4)
     M["neon_red"] = material("neon_red", rgb(HEX["red"]), emission=rgb(HEX["red"]), strength=4)
     M["neon_sun"] = material("neon_sun", rgb(HEX["sun"]), emission=rgb(HEX["sun"]), strength=4)
+    M["phone_plastic"] = material("phone_plastic", rgb("f59ac4"), roughness=0.22)
     M["neon_white"] = material("neon_white", rgb("e8e6ee"), emission=rgb("e8e6ee"), strength=3)
     M["neon_gold"] = material("neon_gold", rgb("d8b04a"), emission=rgb("d8b04a"), strength=4)
     M["bulb"] = material("bulb", rgb("fff1c8"), emission=rgb("ffd9a0"), strength=10)
@@ -695,32 +720,54 @@ def build():
     cat.rotation_euler = (0, 0, math.radians(-20))
 
     # ---------------- Rotary phone (contact) ----------------
+    # A 1970s desk phone in glossy pastel pink: a tapered, rounded body on a low plinth, a
+    # tilted rotary dial with a chrome finger wheel, and the handset resting on two prongs.
     phone_y = 1.72
     px = -0.98
+    plastic = M["phone_plastic"]
+    body = tapered_box("phone_body", (0.22, 0.2), (0.17, 0.14, 0.025), 0.085, (px, phone_y, 0.79), plastic, bevel=0.026)
     ph = [
-        box("phone_base", (0.24, 0.2, 0.06), (px, phone_y, 0.81), M["black"], bevel=0.014, segments=3, smooth=True),
-        box("phone_top", (0.2, 0.15, 0.05), (px, phone_y + 0.01, 0.855), M["black"], bevel=0.02, segments=3, smooth=True),
-        cylinder("phone_dial_ring", 0.055, 0.008, (px, phone_y - 0.03, 0.882), M["chrome"], vertices=32),
-        cylinder("phone_dial", 0.046, 0.006, (px, phone_y - 0.03, 0.889), M["black_soft"], vertices=32),
-        cylinder("phone_dial_center", 0.014, 0.004, (px, phone_y - 0.03, 0.893), M["paper"], vertices=16),
+        body,
+        box("phone_plinth", (0.235, 0.215, 0.018), (px, phone_y, 0.781), M["black"], bevel=0.006, segments=2),
+    ]
+    # Dial on the sloped front face, its axis along the face normal.
+    slope = math.atan2(0.085, 0.055)  # body height over how far the front leans back
+    tilt = (slope, 0, 0)
+    face = Vector((px, phone_y - 0.0725, 0.8325))
+    normal = Vector((0, -math.sin(slope), math.cos(slope)))
+
+    def on_face(lift, dx=0.0, dy=0.0):
+        """A point on the dial plane: dx across, dy up the slope, lifted along the normal."""
+        up = Vector((0, math.cos(slope), math.sin(slope)))
+        return tuple(face + normal * lift + Vector((dx, 0, 0)) + up * dy)
+
+    ph += [
+        cylinder("phone_dial_plate", 0.046, 0.004, on_face(0.003), M["paper"], rotation=tilt, vertices=40),
+        cylinder("phone_finger_wheel", 0.044, 0.003, on_face(0.0065), M["chrome"], rotation=tilt, vertices=48),
+        cylinder("phone_dial_center", 0.015, 0.005, on_face(0.009), plastic, rotation=tilt, vertices=24),
+        box("phone_finger_stop", (0.004, 0.016, 0.004), on_face(0.008, 0.04, -0.012), M["chrome"], rotation=tilt),
     ]
     for i in range(10):
-        a = math.radians(-60 - i * 27)
-        ph.append(cylinder(f"phone_hole_{i}", 0.006, 0.004, (px + 0.033 * math.cos(a), phone_y - 0.03 + 0.033 * math.sin(a), 0.893), M["black"], vertices=10))
-    ph.append(cylinder("phone_cradle_l", 0.012, 0.03, (px - 0.06, phone_y + 0.06, 0.89), M["black"]))
-    ph.append(cylinder("phone_cradle_r", 0.012, 0.03, (px + 0.06, phone_y + 0.06, 0.89), M["black"]))
-    ph.append(tube("phone_handset", [(px - 0.12, phone_y + 0.06, 0.915), (px - 0.06, phone_y + 0.06, 0.935), (px, phone_y + 0.06, 0.942), (px + 0.06, phone_y + 0.06, 0.935), (px + 0.12, phone_y + 0.06, 0.915)], 0.017, M["black"], resolution=6))
-    ph.append(sphere("phone_ear", 0.036, (px - 0.12, phone_y + 0.06, 0.915), M["black"], scale=(1, 1, 0.6)))
-    ph.append(sphere("phone_mouth", 0.036, (px + 0.12, phone_y + 0.06, 0.915), M["black"], scale=(1, 1, 0.6)))
-    # Coiled cord: a helix dropping off the desk edge.
+        a = math.radians(-50 - i * 28)
+        ph.append(cylinder(f"phone_hole_{i}", 0.0068, 0.004, on_face(0.0075, 0.03 * math.cos(a), 0.03 * math.sin(a)), M["black"], rotation=tilt, vertices=16))
+    # Cradle prongs and the handset lying across them.
+    hy, hz = phone_y + 0.05, 0.9
+    for side in (-1, 1):
+        ph.append(cylinder(f"phone_prong_{side}", 0.011, 0.03, (px + side * 0.055, hy, hz - 0.02), plastic, vertices=16))
+        ph.append(sphere(f"phone_prong_cap_{side}", 0.012, (px + side * 0.055, hy, hz - 0.005), M["chrome"]))
+    ph.append(tube("phone_handset", [(px - 0.115, hy, hz + 0.012), (px - 0.06, hy, hz + 0.03), (px, hy, hz + 0.034), (px + 0.06, hy, hz + 0.03), (px + 0.115, hy, hz + 0.012)], 0.016, plastic, resolution=8))
+    for side, name in ((-1, "ear"), (1, "mouth")):
+        cup = (px + side * 0.12, hy, hz + 0.004)
+        ph.append(cylinder(f"phone_{name}", 0.034, 0.03, cup, plastic, vertices=32, bevel=0.01))
+        ph.append(cylinder(f"phone_{name}_grille", 0.022, 0.004, (cup[0], cup[1], cup[2] - 0.016), M["black_soft"], vertices=24))
+    # Coiled cord from the mouthpiece down the side of the body.
     coil = []
-    for k in range(50):
-        t = k / 49
-        a = t * math.pi * 12
-        # Runs from the mouthpiece down the right side of the base and into the base back.
-        coil.append((px + 0.13 + 0.01 * math.cos(a), phone_y + 0.05 + t * 0.09, 0.9 - t * 0.09 + 0.01 * math.sin(a)))
-    ph.append(tube("phone_cord", coil, 0.003, M["black"], resolution=3))
-    ph.append(tube("phone_line", [(px, phone_y + 0.1, 0.8), (px, 1.95, 0.795), (px + 0.02, 2.05, 0.75), (px + 0.03, 2.06, 0.2)], 0.003, M["black"]))
+    for k in range(60):
+        t = k / 59
+        a = t * math.pi * 14
+        coil.append((px + 0.14 + 0.009 * math.cos(a), hy - 0.01 + t * 0.07, hz - 0.01 - t * 0.1 + 0.009 * math.sin(a)))
+    ph.append(tube("phone_cord", coil, 0.0028, plastic, resolution=3))
+    ph.append(tube("phone_line", [(px, phone_y + 0.1, 0.79), (px, 1.95, 0.79), (px + 0.02, 2.05, 0.75), (px + 0.03, 2.06, 0.2)], 0.003, M["black"]))
     join(ph, "phone")
 
     # ---------------- Desk lamp ----------------
@@ -980,6 +1027,7 @@ TOUR_FRAMING = {
     "clients": ((-0.09, 1.78, -1.0), (-0.09, 1.45, -3.6), 16),
     "about": ((2.08, 1.52, -0.8), (2.08, 1.45, -2.83), 20),
     "cv": ((-0.58, 1.22, -0.98), (-0.58, 0.86, -1.55), 30),
+    "contact": ((-0.98, 1.1, -1.28), (-0.98, 0.86, -1.72), 30),
 }
 
 

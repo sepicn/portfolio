@@ -64,6 +64,7 @@ for (const file of readdirSync("blender/out/props").filter((name) =>
     .webp({ quality: 84, alphaQuality: 90 })
     .toFile(`public/images/props/${file.replace(".png", ".webp")}`);
 }
+copyFileSync("blender/out/props/screens.json", "lib/prop-screens.json");
 copyFileSync("blender/out/views.json", "lib/room-views.json");
 console.log(
   "room updated: public/models/room.glb, public/images (preview and tour), lib/room-views.json",

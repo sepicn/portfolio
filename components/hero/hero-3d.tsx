@@ -139,9 +139,43 @@ function PinnedRoom({ overlay }: HeroProps) {
     return () => trigger.kill();
   }, [scroll]);
 
+  // Old-TV power-off while the room leaves the screen: the picture squashes to a bright
+  // line and the line shrinks to nothing. It runs as the section scrolls out, with the next
+  // section already rising underneath, so it never leaves an empty black screen behind.
+  const screenRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const section = sectionRef.current;
+    const screen = screenRef.current;
+    if (!section || !screen) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "bottom bottom",
+        end: "bottom 35%",
+        scrub: 0.3,
+      },
+    });
+    tl.to(screen, {
+      scaleY: 0.008,
+      filter: "brightness(2.4)",
+      duration: 0.6,
+      ease: "power3.in",
+    })
+      .to(screen, { scaleX: 0, duration: 0.3, ease: "power2.in" })
+      .to(screen, { autoAlpha: 0, duration: 0.1 });
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
+    };
+  }, []);
+
   return (
     <div ref={sectionRef} className="relative h-[180vh]">
-      <div className="sticky top-16 h-[calc(100dvh-4rem)] w-full overflow-hidden">
+      <div
+        ref={screenRef}
+        className="sticky top-16 h-[calc(100dvh-4rem)] w-full overflow-hidden will-change-transform"
+      >
         {mountScene ? <RoomCanvas onReady={onReady} /> : null}
         <Image
           src="/images/room-preview.webp"

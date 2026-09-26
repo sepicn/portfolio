@@ -11,6 +11,8 @@ import { SplitHeading } from "@/components/motion/split-heading";
 import { Marquee } from "@/components/motion/marquee";
 import { clientProjects, personalProjects } from "@/content/data/projects";
 import { FloatingProp } from "@/components/ambient/floating-prop";
+import { CrtScreen, type Quad } from "@/components/ambient/crt-screen";
+import screens from "@/lib/prop-screens.json";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -60,7 +62,9 @@ export default function ProjectsPage({ params }: Props) {
             glow="cyan"
             priority
             className="mx-auto w-60 sm:w-80"
-          />
+          >
+            <CrtScreen quad={screens.computer as Quad} />
+          </FloatingProp>
         </div>
       </section>
 
