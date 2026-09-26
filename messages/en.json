@@ -223,5 +223,19 @@
     "updated": "Last updated: September 2026.",
     "metaTitle": "Privacy policy",
     "metaDescription": "What sepic.me collects (Google Analytics and Google Ads only with consent, the contact form through Resend) and how to change your cookie choice."
+  },
+  "tour": {
+    "hint": "Scroll through the room",
+    "open": "Open",
+    "skip": "Skip",
+    "desc": {
+      "projects": "The monitor: production systems and personal projects.",
+      "services": "The OPEN sign: websites, Google Ads and SEO.",
+      "clients": "Billboards outside: companies I have worked for.",
+      "about": "The shelf: music, books and the gym. Who I am off the clock.",
+      "education": "Degree and certificates on the wall.",
+      "cv": "The photo on the desk: the full CV, PDF and DOCX.",
+      "contact": "The phone: get in touch about a project or a job."
+    }
   }
 }

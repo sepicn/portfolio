@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 import { hotspots } from "@/lib/hotspots";
 import { SceneProvider, useScene } from "@/components/scene/scene-state";
 import { HeroStatic } from "./hero-static";
+import { HeroTour } from "./hero-tour";
 import { CrtExit } from "@/components/motion/crt-exit";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,16 +20,18 @@ const RoomCanvas = dynamic(
   { ssr: false },
 );
 
-type Mode = "pending" | "webgl" | "static";
+type Mode = "pending" | "webgl" | "tour" | "static";
 
 function detectMode(): Mode {
   if (typeof window === "undefined") return "pending";
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const coarse = window.matchMedia("(pointer: coarse)").matches;
   const narrow = window.innerWidth < 768;
-  // Phones and narrow windows get the static render: the room needs width to read, and
-  // a full WebGL scene on a small battery-powered screen is not worth it.
-  if (reduce || coarse || narrow) return "static";
+  // Reduced motion gets the plain render with pins. Phones and narrow windows get the
+  // scroll tour over the same render: the room needs width to read, and a full WebGL scene
+  // on a small battery-powered screen is not worth it.
+  if (reduce) return "static";
+  if (coarse || narrow) return "tour";
   const canvas = document.createElement("canvas");
   const gl = canvas.getContext("webgl2");
   return gl ? "webgl" : "static";
@@ -89,6 +92,8 @@ export function Hero3D({ overlay }: HeroProps) {
     const id = window.requestAnimationFrame(() => setMode(detectMode()));
     return () => window.cancelAnimationFrame(id);
   }, []);
+
+  if (mode === "tour") return <HeroTour overlay={overlay} />;
 
   if (mode !== "webgl") {
     return (

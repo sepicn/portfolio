@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { hotspots } from "@/lib/hotspots";
+import { hotspots, roomViews } from "@/lib/hotspots";
 
 /**
  * Static version of the room for phones, reduced motion and browsers without WebGL.
@@ -27,7 +27,10 @@ export function HeroStatic() {
             <li
               key={spot.id}
               className="absolute"
-              style={{ left: `${spot.fallback.x}%`, top: `${spot.fallback.y}%` }}
+              style={{
+                left: `${roomViews[spot.id].x}%`,
+                top: `${roomViews[spot.id].y}%`,
+              }}
             >
               <Link
                 href={spot.href!}

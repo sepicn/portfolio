@@ -6,7 +6,11 @@ Run headless:
 
 Outputs (in blender/out/):
     room.glb        the scene, Y-up, metres, Draco compressed
-    preview.png     an Eevee render for a quick visual check
+    preview.png     Eevee render, 2560x1440, from the web camera (static hero, phone tour, OG)
+    views.json      each hotspot focus point projected onto preview.png ("landscape") and
+                    onto tour_overview.png ("tour"), in percent
+    tour_*.png      1080x1920 stills for the phone tour: an overview, then one per hotspot
+                    from the camera the web scene flies to (hotspot camera and look)
     room.blend      the generated scene, so it can be opened and hand tuned
 
 Clickable objects carry stable names that the web app looks up (see lib/hotspots.ts):
@@ -442,7 +446,9 @@ def build():
     billboards = [
         ("billboard_1", "MEDICAL TIME", M["neon_pink"], -0.8, 1.68, 0.5),
         ("billboard_2", "MANGO", M["neon_yellow"], 0.75, 1.55, 0.36),
-        ("billboard_3", "VUK STUDIO", M["neon_cyan"], 0.05, 1.3, 0.42),
+        # Between the centre mullion and the MANGO pole: at x=0.05 the mullion hid the "V",
+        # further right the pole crossed the "D".
+        ("billboard_3", "VUK STUDIO", M["neon_cyan"], 0.33, 1.25, 0.5),
     ]
     for i, (name, label, mat, x, z, w) in enumerate(billboards):
         y = WALL_Y + 0.55 + i * 0.05
@@ -871,6 +877,10 @@ def build():
     light("light_neon", "AREA", rgb(HEX["pink"]), 60, (0, WALL_Y - 0.3, 2.6), rotation=(math.pi / 2, 0, 0), size=1.0)
     light("light_lamp", "POINT", rgb("ffd9a0"), 25, (bulb_pos[0] - 0.03, bulb_pos[1] - 0.03, bulb_pos[2] - 0.07))
     light("light_screen", "AREA", rgb("ff6fb0"), 18, (0, 1.45, 1.12), rotation=(math.pi / 2, 0, 0), size=0.35)
+    # Render-only fill for the shelf and the left of the desk: the web scene lights them with
+    # its own lights, and glTF does not export area lights, so these only affect preview.png.
+    light("light_shelf", "AREA", rgb(HEX["pink"]), 45, (1.7, 1.9, 2.0), rotation=(math.pi / 2, 0, 0), size=1.4)
+    light("light_desk_left", "AREA", rgb("ffd9a0"), 14, (-0.9, 1.5, 1.45), size=0.7)
     light("light_fill", "AREA", rgb(HEX["violet"]), 30, (-2.2, -0.5, 2.6), rotation=(math.radians(60), 0, math.radians(-40)), size=3)
 
     cam_data = bpy.data.cameras.new("camera")
@@ -884,19 +894,97 @@ def build():
     return scene
 
 
-def render_preview(scene, path):
+PREVIEW_SIZE = (2560, 1440)
+
+
+def hotspot_labels():
+    """Reads the point each hotspot camera looks at from lib/hotspots.ts (three.js, Y up)."""
+    import re
+
+    source = open(os.path.join(HERE, "..", "lib", "hotspots.ts"), encoding="utf-8").read()
+    pattern = re.compile(r'id: "(\w+)".*?look: \[([-\d., ]+)\]', re.S)
+    return {m.group(1): [float(v) for v in m.group(2).split(",")] for m in pattern.finditer(source)}
+
+
+def hotspot_cameras():
+    """Camera position and look-at point per hotspot from lib/hotspots.ts (three.js, Y up)."""
+    import re
+
+    source = open(os.path.join(HERE, "..", "lib", "hotspots.ts"), encoding="utf-8").read()
+    num = r"\[([-\d., ]+)\]"
+    pattern = re.compile(r'id: "(\w+)".*?href: ([^,]+),.*?camera: ' + num + r".*?look: " + num, re.S)
+    parse = lambda text: [float(v) for v in text.split(",")]
+    return {
+        m.group(1): (parse(m.group(3)), parse(m.group(4)))
+        for m in pattern.finditer(source)
+        if m.group(2).strip() != "null"
+    }
+
+
+def three_to_blender(p):
+    x, y, z = p
+    return Vector((x, -z, y))
+
+
+TOUR_SIZE = (1080, 1920)
+
+
+def render_tour(scene):
+    """Portrait stills for the phone tour, sharp at phone resolution instead of a zoomed crop."""
+    data = bpy.data.cameras.new("camera_tour")
+    data.sensor_fit = "VERTICAL"
+    cam = bpy.data.objects.new("camera_tour", data)
+    scene.collection.objects.link(cam)
+    scene.camera = cam
+    shots = {"overview": ((0.3, 1.55, 0.9), (0.15, 1.5, -2.5), 15)}
+    for spot, (position, look) in hotspot_cameras().items():
+        # The web camera stops close to each object; back off along the view line a little so
+        # the object sits in context on a tall screen.
+        p, t = Vector(position), Vector(look)
+        shots[spot] = (tuple(p + (p - t) * 0.35), tuple(t), 28)
+    overview_points = None
+    for name, (position, look, lens) in shots.items():
+        data.lens = lens
+        cam.location = three_to_blender(position)
+        target = three_to_blender(look)
+        cam.rotation_euler = (target - cam.location).to_track_quat("-Z", "Y").to_euler()
+        if name == "overview":
+            bpy.context.view_layer.update()
+            overview_points = project_hotspots(scene, cam, TOUR_SIZE)
+        render_preview(scene, os.path.join(OUT, f"tour_{name}.png"), TOUR_SIZE)
+    return overview_points
+
+
+def project_hotspots(scene, cam, size):
+    """Each hotspot focus point on the rendered image, as percent from the top left."""
+    from bpy_extras.object_utils import world_to_camera_view
+
+    # The projection uses the render aspect ratio, so match the image it describes.
+    scene.render.resolution_x, scene.render.resolution_y = size
+    out = {}
+    for spot, (x, y, z) in hotspot_labels().items():
+        # three.js (x, y, z) with Y up is Blender (x, -z, y) with Z up.
+        v = world_to_camera_view(scene, cam, Vector((x, -z, y)))
+        out[spot] = {"x": round(v.x * 100, 1), "y": round((1 - v.y) * 100, 1)}
+    return out
+
+
+def render_preview(scene, path, size=PREVIEW_SIZE):
     for engine in ("BLENDER_EEVEE", "BLENDER_EEVEE_NEXT"):
         try:
             scene.render.engine = engine
             break
         except TypeError:
             continue
-    scene.render.resolution_x = 1280
-    scene.render.resolution_y = 720
+    scene.render.resolution_x, scene.render.resolution_y = size
+    scene.render.resolution_percentage = 100
     scene.render.image_settings.file_format = "PNG"
     scene.render.filepath = path
     scene.view_settings.view_transform = "AgX"
     scene.view_settings.look = "AgX - Punchy"
+    if scene.world is not None:
+        bpy.ops.render.render(write_still=True)
+        return
     world = bpy.data.worlds.new("world")
     world.use_nodes = True
     world.node_tree.nodes["Background"].inputs["Color"].default_value = rgb("07030f")
@@ -932,5 +1020,11 @@ if __name__ == "__main__":
     bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, "room.blend"))
     export_gltf(os.path.join(OUT, "room.glb"))
     render_preview(scene, os.path.join(OUT, "preview.png"))
+    import json
+
+    landscape = project_hotspots(scene, scene.camera, PREVIEW_SIZE)
+    tour = render_tour(scene)
+    with open(os.path.join(OUT, "views.json"), "w") as fh:
+        json.dump({"landscape": landscape, "tour": tour}, fh, indent=2)
     size = os.path.getsize(os.path.join(OUT, "room.glb"))
     print(f"ROOM_OK glb={size / 1024:.0f} KB objects={len(scene.objects)} faces={tris}")
