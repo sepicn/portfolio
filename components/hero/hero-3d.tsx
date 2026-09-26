@@ -139,31 +139,35 @@ function PinnedRoom({ overlay }: HeroProps) {
     return () => trigger.kill();
   }, [scroll]);
 
-  // Old-TV power-off while the room leaves the screen: the picture squashes to a bright
-  // line and the line shrinks to nothing. It runs as the section scrolls out, with the next
-  // section already rising underneath, so it never leaves an empty black screen behind.
+  // Old-TV power-off while the room leaves the screen: the picture closes from top and
+  // bottom into a bright line, and the line shrinks to nothing. It runs as the section
+  // scrolls out, with the next section already rising underneath. It animates a clip-path
+  // and an overlay line, never the WebGL canvas itself: scaling or filtering the canvas
+  // dropped frames to black in Chrome.
   const screenRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const section = sectionRef.current;
     const screen = screenRef.current;
-    if (!section || !screen) return;
+    const line = lineRef.current;
+    if (!section || !screen || !line) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: "bottom bottom",
-        end: "bottom 35%",
+        end: "bottom 40%",
         scrub: 0.3,
       },
     });
-    tl.to(screen, {
-      scaleY: 0.008,
-      filter: "brightness(2.4)",
-      duration: 0.6,
-      ease: "power3.in",
-    })
-      .to(screen, { scaleX: 0, duration: 0.3, ease: "power2.in" })
-      .to(screen, { autoAlpha: 0, duration: 0.1 });
+    tl.fromTo(
+      screen,
+      { clipPath: "inset(0% 0% 0% 0%)" },
+      { clipPath: "inset(49.6% 0% 49.6% 0%)", duration: 0.6, ease: "power3.in" },
+    )
+      .fromTo(line, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, 0.45)
+      .to(line, { scaleX: 0, duration: 0.3, ease: "power2.in" }, 0.6)
+      .to(line, { autoAlpha: 0, duration: 0.05 }, 0.9);
     return () => {
       tl.scrollTrigger?.kill();
       tl.kill();
@@ -174,19 +178,28 @@ function PinnedRoom({ overlay }: HeroProps) {
     <div ref={sectionRef} className="relative h-[180vh]">
       <div
         ref={screenRef}
-        className="sticky top-16 h-[calc(100dvh-4rem)] w-full overflow-hidden will-change-transform"
+        className="sticky top-16 h-[calc(100dvh-4rem)] w-full overflow-hidden"
       >
-        {mountScene ? <RoomCanvas onReady={onReady} /> : null}
-        <Image
-          src="/images/room-preview.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className={`pointer-events-none object-cover transition-opacity duration-700 ${
-            sceneReady ? "opacity-0" : "opacity-100"
-          }`}
+        <div
+          ref={lineRef}
+          aria-hidden="true"
+          className="pointer-events-none invisible absolute inset-x-0 top-1/2 z-30 h-[3px] -translate-y-1/2 bg-white shadow-[0_0_24px_8px_rgba(0,229,255,0.65)]"
         />
+        {mountScene ? <RoomCanvas onReady={onReady} /> : null}
+        {/* A capture of this very scene (scripts/poster.mjs), so the fade into WebGL is seamless.
+            Wrapped because next/image fill needs a positioned parent, and this one is sticky. */}
+        <div className="pointer-events-none absolute inset-0">
+          <Image
+            src="/images/room-poster.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={`pointer-events-none object-cover transition-opacity duration-700 ${
+              sceneReady ? "opacity-0" : "opacity-100"
+            }`}
+          />
+        </div>
         <div className="pointer-events-none absolute inset-0 z-10">{overlay}</div>
         {/* Keyboard and screen-reader path: the same hotspots as plain links. */}
         <nav
