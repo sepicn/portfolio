@@ -10,6 +10,9 @@ import { profile } from "@/content/data/profile";
 import { pick } from "@/content/i18n";
 import { RevealContact } from "@/components/reveal-contact";
 import { encodeContact } from "@/lib/obfuscate";
+import { FloatingProp } from "@/components/ambient/floating-prop";
+import { SignalLed } from "@/components/ambient/signal-led";
+import { Marquee } from "@/components/motion/marquee";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -40,7 +43,13 @@ export default function ContactPage({ params }: Props) {
 
   return (
     <>
-      <PageIntro title={t("title")} intro={t("intro")} />
+      <PageIntro
+        title={t("title")}
+        intro={t("intro")}
+        aside={<FloatingProp src="/images/props/phone.webp" glow="pink" priority />}
+      >
+        <SignalLed label={t("signal")} className="mt-6" />
+      </PageIntro>
       <div className="mx-auto grid max-w-6xl gap-12 px-4 pb-28 sm:px-6 md:grid-cols-2">
         <Reveal from="left">
           <div className="space-y-3">
@@ -85,6 +94,35 @@ export default function ContactPage({ params }: Props) {
           <ContactForm encodedEmail={encodeContact(profile.email)} />
         </Reveal>
       </div>
+      <Marquee
+        reverse
+        className="mb-16"
+        items={
+          locale === "en"
+            ? [
+                "Websites",
+                "Web apps",
+                "Google Ads",
+                "Meta Ads",
+                "SEO",
+                "Freelance",
+                "Full-time",
+                "Belgrade",
+                "Remote",
+              ]
+            : [
+                "Sajtovi",
+                "Web aplikacije",
+                "Google Ads",
+                "Meta Ads",
+                "SEO",
+                "Freelance",
+                "Stalni posao",
+                "Beograd",
+                "Remote",
+              ]
+        }
+      />
     </>
   );
 }

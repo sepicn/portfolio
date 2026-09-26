@@ -16,6 +16,10 @@ import {
 } from "@/content/data/profile";
 import { experience } from "@/content/data/experience";
 import { graph, personJsonLd, serializeJsonLd } from "@/lib/structured-data";
+import { FloatingProp } from "@/components/ambient/floating-prop";
+import { NeonHorizon } from "@/components/ambient/neon-horizon";
+import { TerminalLog } from "@/components/ambient/terminal-log";
+import { Marquee } from "@/components/motion/marquee";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -77,7 +81,13 @@ export default function AboutPage({ params }: Props) {
           <p className="mt-4 text-ink-200">{pick(personal, locale)}</p>
           <p className="mt-4 text-ink-400">{pick(profile.availability, locale)}</p>
         </Reveal>
-        <Reveal from="right" delay={0.15} className="justify-self-center">
+        <Reveal from="right" delay={0.15} className="relative justify-self-center">
+          <FloatingProp
+            src="/images/props/boombox.webp"
+            glow="violet"
+            delay={1.5}
+            className="absolute -bottom-12 -left-16 z-10 w-36 sm:w-44"
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={profile.photo}
@@ -89,7 +99,33 @@ export default function AboutPage({ params }: Props) {
         </Reveal>
       </section>
 
-      <section id="experience" className="scroll-mt-24 border-t border-white/5 py-20">
+      <Marquee
+        items={
+          locale === "en"
+            ? [
+                "Synthwave",
+                "Gym",
+                "Books",
+                "Cats",
+                "Night walks",
+                "Blender",
+                "Next.js",
+                "Belgrade",
+              ]
+            : [
+                "Synthwave",
+                "Teretana",
+                "Knjige",
+                "Mačke",
+                "Noćne šetnje",
+                "Blender",
+                "Next.js",
+                "Beograd",
+              ]
+        }
+      />
+
+      <section id="experience" className="scroll-mt-24 py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <Reveal>
             <SectionHeading
@@ -158,14 +194,35 @@ export default function AboutPage({ params }: Props) {
 
       <section id="skills" className="scroll-mt-24 py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <Reveal from="right">
-            <SectionHeading
-              eyebrow={t("skillsEyebrow")}
-              title={t("skillsTitle")}
-              lead={t("skillsLead")}
-              align="right"
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <TerminalLog
+              className="order-2 md:order-1"
+              lines={[
+                "> git push origin main",
+                "  main -> main (1 commit)",
+                "> npm run build",
+                "  compiled in 4.7s, 44 pages",
+                "> lighthouse sepic.me",
+                "  performance 99 · seo 100 · a11y 100",
+                "> gtm: consent mode v2",
+                "  tags fire only after consent",
+                "> google-ads: campaign live",
+                "  conversions tracked in GA4",
+                "> blender -b -P build_room.py",
+                "  room.glb 870 KB, 7 tour stops",
+                "> deploy medicaltime.rs",
+                "  ok",
+              ]}
             />
-          </Reveal>
+            <Reveal from="right" className="order-1 md:order-2">
+              <SectionHeading
+                eyebrow={t("skillsEyebrow")}
+                title={t("skillsTitle")}
+                lead={t("skillsLead")}
+                align="right"
+              />
+            </Reveal>
+          </div>
           <ul className="mt-6 flex flex-wrap justify-end gap-5 font-mono text-[11px] tracking-widest text-ink-400 uppercase">
             {(["daily", "solid", "working"] as const).map((level) => (
               <li key={level} className="flex items-center gap-2">
@@ -200,7 +257,8 @@ export default function AboutPage({ params }: Props) {
         </div>
       </section>
 
-      <section id="education" className="scroll-mt-24 border-t border-white/5 py-20">
+      <NeonHorizon />
+      <section id="education" className="scroll-mt-24 py-20">
         <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 md:grid-cols-2">
           <Reveal from="left">
             <SectionHeading eyebrow={t("educationEyebrow")} title={t("educationTitle")} />
