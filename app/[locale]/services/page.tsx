@@ -11,6 +11,9 @@ import { pick, pickList } from "@/content/i18n";
 import { services, process, faq } from "@/content/data/services";
 import { siteConfig } from "@/lib/site-config";
 import { personId, serializeJsonLd } from "@/lib/structured-data";
+import { FloatingProp } from "@/components/ambient/floating-prop";
+import { NeonHorizon } from "@/components/ambient/neon-horizon";
+import { Marquee } from "@/components/motion/marquee";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -80,7 +83,28 @@ export default function ServicesPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <PageIntro eyebrow={t("title")} title={t("headline")} intro={t("intro")} />
+      <PageIntro
+        eyebrow={t("title")}
+        title={t("headline")}
+        intro={t("intro")}
+        aside={<FloatingProp src="/images/props/open-sign.webp" glow="pink" priority />}
+      />
+      <Marquee
+        reverse
+        className="mb-20"
+        items={[
+          "Next.js",
+          "Nuxt",
+          "Laravel",
+          "Google Ads",
+          "Meta Ads",
+          "SEO",
+          "GA4",
+          "GTM",
+          "Core Web Vitals",
+          "Landing pages",
+        ]}
+      />
 
       <div className="mx-auto max-w-6xl space-y-24 px-4 pb-24 sm:px-6">
         {services.map((service, i) => (
@@ -102,7 +126,7 @@ export default function ServicesPage({ params }: Props) {
                 </p>
               </Reveal>
               <Reveal from={i % 2 === 0 ? "right" : "left"} delay={0.1}>
-                <ul className="rounded-2xl border border-white/10 bg-night-800/50 p-7">
+                <ul className="neon-frame rounded-2xl border border-white/5 bg-night-800/50 p-7">
                   <li className="mb-3 font-mono text-xs tracking-widest text-ink-400 uppercase">
                     {t("includes")}
                   </li>
@@ -122,7 +146,8 @@ export default function ServicesPage({ params }: Props) {
         ))}
       </div>
 
-      <section className="border-t border-white/5 py-24">
+      <NeonHorizon />
+      <section className="py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <Reveal>
             <SectionHeading eyebrow={t("processEyebrow")} title={t("processTitle")} />

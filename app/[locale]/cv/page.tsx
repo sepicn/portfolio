@@ -14,6 +14,7 @@ import {
 } from "@/content/data/profile";
 import { experience } from "@/content/data/experience";
 import { projects } from "@/content/data/projects";
+import { FloatingProp } from "@/components/ambient/floating-prop";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -57,8 +58,15 @@ export default function CvPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-4xl px-4 pt-12 pb-28 sm:px-6">
       <Reveal className="no-print">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-night-800/50 p-5">
-          <p className="text-ink-200">{t("intro")}</p>
+        <div className="neon-frame flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/5 bg-night-800/50 p-5">
+          <div className="flex items-center gap-4">
+            <FloatingProp
+              src="/images/props/floppy.webp"
+              glow="cyan"
+              className="hidden w-20 shrink-0 sm:block"
+            />
+            <p className="text-ink-200">{t("intro")}</p>
+          </div>
           <div className="flex gap-3">
             <a
               href={

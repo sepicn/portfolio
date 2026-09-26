@@ -11,6 +11,7 @@ const blender =
 const run = (cmd, args) => execFileSync(cmd, args, { stdio: "inherit", shell: false });
 
 run(blender, ["-b", "-P", "blender/build_room.py"]);
+run(blender, ["-b", "-P", "blender/render_props.py"]);
 // Called through node directly: spawning npx.cmd without a shell is refused on Windows.
 run(process.execPath, [
   "node_modules/@gltf-transform/cli/bin/cli.js",
@@ -53,6 +54,15 @@ for (const file of readdirSync("blender/out/fly").filter((name) =>
   await sharp(`blender/out/fly/${file}`)
     .webp({ quality: 72 })
     .toFile(`public/images/tour/fly/${spot}/${frame}.webp`);
+}
+mkdirSync("public/images/props", { recursive: true });
+for (const file of readdirSync("blender/out/props").filter((name) =>
+  name.endsWith(".png"),
+)) {
+  await sharp(`blender/out/props/${file}`)
+    .resize(640, 640)
+    .webp({ quality: 84, alphaQuality: 90 })
+    .toFile(`public/images/props/${file.replace(".png", ".webp")}`);
 }
 copyFileSync("blender/out/views.json", "lib/room-views.json");
 console.log(

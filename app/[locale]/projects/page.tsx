@@ -10,6 +10,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { Marquee } from "@/components/motion/marquee";
 import { clientProjects, personalProjects } from "@/content/data/projects";
+import { FloatingProp } from "@/components/ambient/floating-prop";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -38,20 +39,28 @@ export default function ProjectsPage({ params }: Props) {
   return (
     <>
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 grid-floor" />
-        <div className="mx-auto max-w-6xl px-4 pt-20 pb-24 sm:px-6">
-          <p className="font-mono text-xs tracking-[0.3em] text-neon-cyan uppercase">
-            {t("title")}
-          </p>
-          <SplitHeading
-            as="h1"
-            text={t("headline")}
-            className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink-100 sm:text-6xl"
-            accentLast
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 animate-grid grid-floor" />
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-20 pb-24 sm:px-6 lg:grid-cols-[3fr_2fr]">
+          <div>
+            <p className="font-mono text-xs tracking-[0.3em] text-neon-cyan uppercase">
+              {t("title")}
+            </p>
+            <SplitHeading
+              as="h1"
+              text={t("headline")}
+              className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink-100 sm:text-6xl"
+              accentLast
+            />
+            <Reveal delay={0.3}>
+              <p className="mt-6 max-w-2xl text-xl text-ink-200">{t("intro")}</p>
+            </Reveal>
+          </div>
+          <FloatingProp
+            src="/images/props/computer.webp"
+            glow="cyan"
+            priority
+            className="mx-auto w-60 sm:w-80"
           />
-          <Reveal delay={0.3}>
-            <p className="mt-6 max-w-2xl text-xl text-ink-200">{t("intro")}</p>
-          </Reveal>
         </div>
       </section>
 
