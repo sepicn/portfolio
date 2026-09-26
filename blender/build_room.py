@@ -1,0 +1,936 @@
+"""
+Builds the synthwave office scene for sepic.me procedurally and exports it as glTF.
+
+Run headless:
+    blender -b -P blender/build_room.py
+
+Outputs (in blender/out/):
+    room.glb        the scene, Y-up, metres, Draco compressed
+    preview.png     an Eevee render for a quick visual check
+    room.blend      the generated scene, so it can be opened and hand tuned
+
+Clickable objects carry stable names that the web app looks up (see lib/hotspots.ts):
+    monitor, monitor_screen, neon_sign, neon_border, neon_panel, window_glass,
+    billboard_1..3, phone, diploma, hifi, speaker, cassettes, floppy, lamp, lamp_bulb
+"""
+
+import math
+import os
+import random
+
+import bmesh
+import bpy
+import numpy as np
+from mathutils import Vector
+
+random.seed(7)
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out")
+os.makedirs(OUT, exist_ok=True)
+
+WALL_Y = 3.0
+
+HEX = {
+    "wall": "1a0b33",
+    "wall_dark": "120826",
+    "floor": "0e061f",
+    "rug": "1c0f3a",
+    "desk": "2b1a40",
+    "desk_edge": "3a2455",
+    "beige": "d9cbb0",
+    "beige_dark": "b9a98c",
+    "keycap": "e4d8be",
+    "black": "0d0d16",
+    "black_soft": "1a1a26",
+    "grey": "3a3a4a",
+    "chrome": "8a8a9a",
+    "pink": "ff2d95",
+    "cyan": "00e5ff",
+    "violet": "8a2be2",
+    "sun": "ff8c42",
+    "yellow": "ffd60a",
+    "green": "39ff88",
+    "red": "ff3b5c",
+    "paper": "efe7d6",
+    "wood": "5a3a2a",
+    "gold": "d4a94a",
+    "leaf": "2f9e5b",
+    "soil": "2a1a12",
+    "book_1": "c23b6a",
+    "book_2": "2a7de1",
+    "book_3": "e0b83c",
+    "book_4": "3fbf9f",
+    "book_5": "8a2be2",
+    "note_1": "ffe066",
+    "note_2": "ff7eb6",
+}
+
+
+def srgb_to_linear(c):
+    return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+
+def rgb(hex_value, alpha=1.0):
+    r, g, b = (int(hex_value[i : i + 2], 16) / 255 for i in (0, 2, 4))
+    return (srgb_to_linear(r), srgb_to_linear(g), srgb_to_linear(b), alpha)
+
+
+# --------------------------------------------------------------------------- #
+# Scene helpers
+# --------------------------------------------------------------------------- #
+
+
+def clear_scene():
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    for block in (bpy.data.meshes, bpy.data.materials, bpy.data.images, bpy.data.lights, bpy.data.curves):
+        for item in list(block):
+            block.remove(item)
+
+
+MATERIALS = {}
+
+
+def material(name, color, roughness=0.6, metallic=0.0, emission=None, strength=0.0, image=None, alpha=None):
+    if name in MATERIALS:
+        return MATERIALS[name]
+    mat = bpy.data.materials.new(name)
+    mat.use_nodes = True
+    nodes = mat.node_tree.nodes
+    links = mat.node_tree.links
+    bsdf = nodes["Principled BSDF"]
+    bsdf.inputs["Base Color"].default_value = color
+    bsdf.inputs["Roughness"].default_value = roughness
+    bsdf.inputs["Metallic"].default_value = metallic
+    if image is not None:
+        tex = nodes.new("ShaderNodeTexImage")
+        tex.image = image
+        links.new(tex.outputs["Color"], bsdf.inputs["Emission Color"])
+        bsdf.inputs["Base Color"].default_value = (0, 0, 0, 1)
+        bsdf.inputs["Emission Strength"].default_value = strength or 1.0
+    elif emission is not None:
+        bsdf.inputs["Emission Color"].default_value = emission
+        bsdf.inputs["Emission Strength"].default_value = strength
+    if alpha is not None:
+        bsdf.inputs["Alpha"].default_value = alpha
+        mat.blend_method = "BLEND"
+    MATERIALS[name] = mat
+    return mat
+
+
+def finish(obj, name, mat, bevel=None, segments=2, smooth=False):
+    obj.name = name
+    obj.data.name = name
+    if mat is not None:
+        obj.data.materials.clear()
+        obj.data.materials.append(mat)
+    if bevel:
+        mod = obj.modifiers.new("Bevel", "BEVEL")
+        mod.width = bevel
+        mod.segments = segments
+        mod.limit_method = "ANGLE"
+    if smooth:
+        bpy.ops.object.select_all(action="DESELECT")
+        obj.select_set(True)
+        bpy.context.view_layer.objects.active = obj
+        try:
+            bpy.ops.object.shade_smooth_by_angle(angle=math.radians(40))
+        except Exception:
+            bpy.ops.object.shade_smooth()
+    return obj
+
+
+def box(name, size, location, mat, bevel=None, rotation=(0, 0, 0), segments=2, smooth=False):
+    bpy.ops.mesh.primitive_cube_add(size=1, location=location, rotation=rotation)
+    obj = bpy.context.active_object
+    obj.scale = Vector(size)
+    bpy.ops.object.transform_apply(scale=True)
+    return finish(obj, name, mat, bevel, segments, smooth)
+
+
+def cylinder(name, radius, depth, location, mat, rotation=(0, 0, 0), vertices=24, bevel=None, smooth=True):
+    bpy.ops.mesh.primitive_cylinder_add(vertices=vertices, radius=radius, depth=depth, location=location, rotation=rotation)
+    return finish(bpy.context.active_object, name, mat, bevel, 2, smooth)
+
+
+def cone(name, r1, r2, depth, location, mat, rotation=(0, 0, 0), vertices=32):
+    bpy.ops.mesh.primitive_cone_add(vertices=vertices, radius1=r1, radius2=r2, depth=depth, location=location, rotation=rotation)
+    return finish(bpy.context.active_object, name, mat, None, 2, True)
+
+
+def segment(name, p0, p1, radius, mat, vertices=16):
+    """Cylinder from p0 to p1, so multi-part arms line up exactly."""
+    p0, p1 = Vector(p0), Vector(p1)
+    d = p1 - p0
+    mid = (p0 + p1) / 2
+    rot = Vector((0, 0, 1)).rotation_difference(d).to_euler()
+    return cylinder(name, radius, d.length, mid, mat, rotation=rot, vertices=vertices)
+
+
+def cone_toward(name, r_wide, r_narrow, depth, tip, direction, mat, vertices=32):
+    """Cone whose wide opening faces the given direction; tip is the centre of the wide end."""
+    d = Vector(direction).normalized()
+    rot = Vector((0, 0, -1)).rotation_difference(d).to_euler()
+    centre = Vector(tip) - d * (depth / 2)
+    bpy.ops.mesh.primitive_cone_add(vertices=vertices, radius1=r_wide, radius2=r_narrow, depth=depth, location=centre, rotation=rot)
+    return finish(bpy.context.active_object, name, mat, None, 2, True)
+
+
+def sphere(name, radius, location, mat, segments=16, rings=10, scale=(1, 1, 1)):
+    bpy.ops.mesh.primitive_uv_sphere_add(segments=segments, ring_count=rings, radius=radius, location=location)
+    obj = bpy.context.active_object
+    obj.scale = Vector(scale)
+    bpy.ops.object.transform_apply(scale=True)
+    return finish(obj, name, mat, None, 2, True)
+
+
+def torus(name, major, minor, location, mat, rotation=(0, 0, 0), major_segments=32, minor_segments=12):
+    bpy.ops.mesh.primitive_torus_add(major_radius=major, minor_radius=minor, location=location, rotation=rotation, major_segments=major_segments, minor_segments=minor_segments)
+    return finish(bpy.context.active_object, name, mat, None, 2, True)
+
+
+def plane(name, size, location, mat, rotation=(0, 0, 0)):
+    bpy.ops.mesh.primitive_plane_add(size=1, location=location, rotation=rotation)
+    obj = bpy.context.active_object
+    obj.scale = Vector((size[0], size[1], 1))
+    bpy.ops.object.transform_apply(scale=True)
+    return finish(obj, name, mat)
+
+
+def text(name, body, location, size, extrude, mat, rotation=(0, 0, 0), bevel=0.0, align="CENTER"):
+    bpy.ops.object.text_add(location=location, rotation=rotation)
+    obj = bpy.context.active_object
+    obj.data.body = body
+    obj.data.size = size
+    obj.data.extrude = extrude
+    obj.data.align_x = align
+    obj.data.align_y = "CENTER"
+    if bevel:
+        obj.data.bevel_depth = bevel
+        obj.data.bevel_resolution = 2
+    bpy.ops.object.convert(target="MESH")
+    obj = bpy.context.active_object
+    return finish(obj, name, mat)
+
+
+def tube(name, points, radius, mat, cyclic=False, resolution=6, smooth=True):
+    """A tube along a poly/bezier path, converted to a mesh."""
+    curve = bpy.data.curves.new(name, "CURVE")
+    curve.dimensions = "3D"
+    curve.bevel_depth = radius
+    curve.bevel_resolution = resolution
+    spline = curve.splines.new("NURBS")
+    spline.points.add(len(points) - 1)
+    for i, p in enumerate(points):
+        spline.points[i].co = (p[0], p[1], p[2], 1)
+    spline.use_cyclic_u = cyclic
+    spline.use_endpoint_u = not cyclic
+    spline.order_u = min(4, len(points))
+    obj = bpy.data.objects.new(name, curve)
+    bpy.context.scene.collection.objects.link(obj)
+    bpy.ops.object.select_all(action="DESELECT")
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.convert(target="MESH")
+    obj = bpy.context.active_object
+    return finish(obj, name, mat, None, 2, smooth)
+
+
+def join(objects, name):
+    objects = [o for o in objects if o is not None]
+    bpy.ops.object.select_all(action="DESELECT")
+    for obj in objects:
+        obj.select_set(True)
+    bpy.context.view_layer.objects.active = objects[0]
+    bpy.ops.object.join()
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.data.name = name
+    return obj
+
+
+def curved_screen(name, width, height, bulge, location, mat, rotation=(0, 0, 0), divisions=14):
+    """A slightly domed CRT screen: a grid whose centre pushes toward the viewer."""
+    mesh = bpy.data.meshes.new(name)
+    bm = bmesh.new()
+    bmesh.ops.create_grid(bm, x_segments=divisions, y_segments=divisions, size=0.5)
+    for v in bm.verts:
+        x, y = v.co.x, v.co.y
+        r2 = min(1.0, (x * 2) ** 2 * 0.9 + (y * 2) ** 2 * 0.9)
+        v.co.x = x * width
+        v.co.y = y * height
+        v.co.z = bulge * (1 - r2)
+    bm.to_mesh(mesh)
+    bm.free()
+    # UVs for the emissive texture.
+    uv = mesh.uv_layers.new(name="UVMap")
+    for loop in mesh.loops:
+        co = mesh.vertices[loop.vertex_index].co
+        uv.data[loop.index].uv = (co.x / width + 0.5, co.y / height + 0.5)
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.scene.collection.objects.link(obj)
+    obj.location = location
+    obj.rotation_euler = rotation
+    bpy.ops.object.select_all(action="DESELECT")
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    return finish(obj, name, mat, None, 2, True)
+
+
+def image_from_array(name, pixels):
+    height, width, _ = pixels.shape
+    image = bpy.data.images.new(name, width=width, height=height, alpha=True, float_buffer=False)
+    image.pixels.foreach_set(pixels.astype(np.float32).ravel())
+    path = os.path.join(OUT, f"{name}.png")
+    image.filepath_raw = path
+    image.file_format = "PNG"
+    image.save()
+    image.pack()
+    return image
+
+
+# --------------------------------------------------------------------------- #
+# Procedural textures
+# --------------------------------------------------------------------------- #
+
+
+def hex_to_rgb01(hex_value):
+    return np.array([int(hex_value[i : i + 2], 16) / 255 for i in (0, 2, 4)], dtype=np.float32)
+
+
+def screen_texture(width=512, height=384):
+    y, x = np.mgrid[0:height, 0:width].astype(np.float32)
+    u = x / width
+    v = y / height
+    img = np.zeros((height, width, 4), dtype=np.float32)
+    img[..., 3] = 1
+    top = hex_to_rgb01("1b0638")
+    horizon = hex_to_rgb01("ff2d95")
+    t = np.clip((v - 0.42) / 0.58, 0, 1)[..., None]
+    sky = horizon * (1 - t) + top * t
+    cx, cy, r = 0.5, 0.62, 0.2
+    d = np.sqrt(((u - cx) * (width / height)) ** 2 + (v - cy) ** 2)
+    sun_t = np.clip((v - (cy - r)) / (2 * r), 0, 1)[..., None]
+    sun = hex_to_rgb01("ffd60a") * sun_t + hex_to_rgb01("ff5e3a") * (1 - sun_t)
+    stripes = ((v - (cy - r)) * 90) % 8 < (3 * (1 - sun_t[..., 0]) + 0.5)
+    sun_mask = (d < r) & ~(stripes & (v < cy - 0.02))
+    sky = np.where(sun_mask[..., None], sun, sky)
+    ground = np.tile(hex_to_rgb01("0b0416"), (height, width, 1))
+    gv = np.clip((0.42 - v) / 0.42, 0, 1)
+    depth = 1 / (gv * 6 + 0.35)
+    horizontal = np.abs(((depth * 3.2) % 1) - 0.5) < (0.035 + gv * 0.03)
+    px = (u - 0.5) * depth * 6
+    vertical = np.abs((px % 1) - 0.5) < 0.04
+    grid = (horizontal | vertical) & (v < 0.42)
+    cyan = hex_to_rgb01("00e5ff")
+    glow = np.clip(1.2 - gv * 1.4, 0.35, 1)[..., None]
+    ground = np.where(grid[..., None], cyan * glow, ground)
+    img[..., :3] = np.where((v < 0.42)[..., None], ground, sky)
+    scan = (y.astype(int) % 3 == 0)[..., None]
+    img[..., :3] *= np.where(scan, 0.82, 1.0)
+    return img
+
+
+def city_texture(width=1024, height=512):
+    img = np.zeros((height, width, 4), dtype=np.float32)
+    img[..., 3] = 1
+    y = np.arange(height, dtype=np.float32)[:, None] / height
+    top = hex_to_rgb01("05020c")
+    low = hex_to_rgb01("2a0f52")
+    img[..., :3] = low * (1 - y)[..., None] + top * y[..., None]
+    haze = np.clip(1 - np.abs(y - 0.18) / 0.18, 0, 1)[..., None]
+    img[..., :3] += hex_to_rgb01("ff2d95") * haze * 0.18
+    window_colors = [hex_to_rgb01(h) for h in ("ffd60a", "00e5ff", "ff2d95", "ffffff")]
+    body = hex_to_rgb01("0a0514")
+    x = 0
+    while x < width:
+        w = random.randint(28, 90)
+        center_bias = 1 - abs((x + w / 2) / width - 0.5) * 1.4
+        h = int(height * random.uniform(0.22, 0.34 + 0.45 * max(center_bias, 0)))
+        img[:h, x : x + w, :3] = body
+        for wy in range(6, h - 6, 9):
+            for wx in range(x + 5, x + w - 5, 8):
+                if random.random() < 0.28:
+                    color = random.choice(window_colors) * random.uniform(0.5, 1.0)
+                    img[wy : wy + 4, wx : wx + 3, :3] = color
+        if h > height * 0.6 and random.random() < 0.7:
+            img[h : h + 3, x + w // 2 - 1 : x + w // 2 + 1, :3] = hex_to_rgb01("ff2d95")
+        x += w + random.randint(2, 10)
+    return img
+
+
+# --------------------------------------------------------------------------- #
+# Build
+# --------------------------------------------------------------------------- #
+
+
+def build():
+    clear_scene()
+    scene = bpy.context.scene
+    scene.unit_settings.system = "METRIC"
+
+    M = {}
+    for key in ("wall", "wall_dark", "floor", "rug", "desk", "desk_edge", "beige", "beige_dark", "keycap", "black", "black_soft", "paper", "wood", "soil", "leaf", "gold"):
+        M[key] = material(key, rgb(HEX[key]), roughness=0.85 if key in ("wall", "wall_dark", "paper", "rug") else 0.55)
+    M["grey"] = material("grey", rgb(HEX["grey"]), roughness=0.45, metallic=0.4)
+    M["chrome"] = material("chrome", rgb(HEX["chrome"]), roughness=0.25, metallic=0.9)
+    M["floor"].node_tree.nodes["Principled BSDF"].inputs["Roughness"].default_value = 0.3
+    for key in ("book_1", "book_2", "book_3", "book_4", "book_5", "note_1", "note_2"):
+        M[key] = material(key, rgb(HEX[key]), roughness=0.8)
+    M["neon_pink"] = material("neon_pink", rgb(HEX["pink"]), emission=rgb(HEX["pink"]), strength=8)
+    M["neon_cyan"] = material("neon_cyan", rgb(HEX["cyan"]), emission=rgb(HEX["cyan"]), strength=6)
+    M["neon_yellow"] = material("neon_yellow", rgb(HEX["yellow"]), emission=rgb(HEX["yellow"]), strength=5)
+    M["neon_violet"] = material("neon_violet", rgb(HEX["violet"]), emission=rgb(HEX["violet"]), strength=4)
+    M["neon_green"] = material("neon_green", rgb(HEX["green"]), emission=rgb(HEX["green"]), strength=4)
+    M["neon_red"] = material("neon_red", rgb(HEX["red"]), emission=rgb(HEX["red"]), strength=4)
+    M["neon_sun"] = material("neon_sun", rgb(HEX["sun"]), emission=rgb(HEX["sun"]), strength=4)
+    M["bulb"] = material("bulb", rgb("fff1c8"), emission=rgb("ffd9a0"), strength=10)
+    M["led"] = material("led", rgb(HEX["cyan"]), emission=rgb(HEX["cyan"]), strength=4)
+    M["screen"] = material("screen", (0, 0, 0, 1), image=image_from_array("screen", screen_texture()), strength=2.2)
+    M["city"] = material("city", (0, 0, 0, 1), image=image_from_array("city", city_texture()), strength=1.6)
+    photo_path = os.path.join(HERE, "..", "public", "image.png")
+    photo_img = bpy.data.images.load(photo_path)
+    photo_img.scale(240, 320)
+    photo_img.pack()
+    M["photo"] = material("photo", (1, 1, 1, 1), roughness=0.6)
+    tex = M["photo"].node_tree.nodes.new("ShaderNodeTexImage")
+    tex.image = photo_img
+    bsdf_photo = M["photo"].node_tree.nodes["Principled BSDF"]
+    M["photo"].node_tree.links.new(tex.outputs["Color"], bsdf_photo.inputs["Base Color"])
+    M["photo"].node_tree.links.new(tex.outputs["Color"], bsdf_photo.inputs["Emission Color"])
+    bsdf_photo.inputs["Emission Strength"].default_value = 0.35
+    for key, hexv in (("cat", "ff9a3c"), ("cat_dark", "c86a1e"), ("cat_white", "fff4e6"), ("cat_pink", "ff7eb6")):
+        M[key] = material(key, rgb(hexv), roughness=0.9)
+    M["glass"] = material("glass", rgb("a8d8ff", 0.08), roughness=0.05, alpha=0.08)
+    M["dark_glass"] = material("dark_glass", rgb("101018", 0.6), roughness=0.1, alpha=0.6)
+
+    # ---------------- Room shell ----------------
+    plane("floor", (7, 7), (0, 0.5, 0), M["floor"])
+    box("rug", (2.6, 1.8, 0.012), (0.1, 0.9, 0.006), M["rug"], bevel=0.005)
+    box("wall_back_left", (2.2, 0.1, 3.2), (-2.4, WALL_Y + 0.05, 1.6), M["wall"])
+    box("wall_back_right", (2.2, 0.1, 3.2), (2.4, WALL_Y + 0.05, 1.6), M["wall"])
+    box("wall_back_bottom", (2.6, 0.1, 1.1), (0, WALL_Y + 0.05, 0.55), M["wall"])
+    box("wall_back_top", (2.6, 0.1, 0.9), (0, WALL_Y + 0.05, 2.75), M["wall"])
+    box("wall_left", (0.1, 7, 3.2), (-3.5, 0.5, 1.6), M["wall_dark"])
+    box("skirting", (7, 0.03, 0.12), (0, WALL_Y - 0.015, 0.06), M["wall_dark"])
+    box("skirting_left", (0.03, 7, 0.12), (-3.435, 0.5, 0.06), M["wall_dark"])
+    box("floor_strip", (7, 0.015, 0.015), (0, WALL_Y - 0.04, 0.125), M["neon_violet"])
+    box("ceiling_strip", (7, 0.02, 0.02), (0, WALL_Y - 0.02, 3.18), M["neon_violet"])
+    box("ceiling_strip_left", (0.02, 7, 0.02), (-3.43, 0.5, 3.18), M["neon_cyan"])
+
+    # ---------------- Window, city, billboards ----------------
+    frame = [
+        box("wf_l", (0.07, 0.14, 1.3), (-1.335, WALL_Y, 1.7), M["grey"]),
+        box("wf_r", (0.07, 0.14, 1.3), (1.335, WALL_Y, 1.7), M["grey"]),
+        box("wf_t", (2.74, 0.14, 0.07), (0, WALL_Y, 2.335), M["grey"]),
+        box("wf_b", (2.74, 0.14, 0.09), (0, WALL_Y, 1.065), M["grey"]),
+        box("wf_m", (0.035, 0.12, 1.2), (0, WALL_Y, 1.7), M["grey"]),
+        box("wf_sill", (2.9, 0.22, 0.04), (0, WALL_Y - 0.06, 1.03), M["grey"]),
+    ]
+    join(frame, "window_frame")
+    plane("window_glass", (2.6, 1.2), (0, WALL_Y + 0.01, 1.7), M["glass"], rotation=(math.pi / 2, 0, 0))
+    plane("window", (6.5, 3.2), (0, WALL_Y + 1.4, 1.75), M["city"], rotation=(math.pi / 2, 0, 0))
+    # Foreground towers between the wall and the skyline, for depth.
+    towers = []
+    for i, (x, w, h) in enumerate([(-1.7, 0.5, 1.9), (-0.9, 0.36, 1.45), (0.25, 0.42, 1.25), (1.0, 0.55, 1.75), (1.9, 0.4, 1.5)]):
+        towers.append(box(f"tower_{i}", (w, 0.3, h), (x, WALL_Y + 0.75 + i * 0.05, h / 2), M["black_soft"]))
+        for z in np.arange(0.35, h - 0.1, 0.16):
+            for dx in (-w * 0.3, 0, w * 0.3):
+                if random.random() < 0.55:
+                    towers.append(box(f"tw_{i}_{z:.2f}_{dx:.2f}", (0.04, 0.02, 0.06), (x + dx, WALL_Y + 0.6 + i * 0.05, z), random.choice([M["neon_yellow"], M["led"], M["neon_pink"]])))
+    join(towers, "towers")
+    billboards = [
+        ("billboard_1", "MEDICAL TIME", M["neon_pink"], -0.8, 1.68, 0.5),
+        ("billboard_2", "MANGO", M["neon_yellow"], 0.75, 1.55, 0.36),
+        ("billboard_3", "VUK STUDIO", M["neon_cyan"], 0.05, 1.3, 0.42),
+    ]
+    for i, (name, label, mat, x, z, w) in enumerate(billboards):
+        y = WALL_Y + 0.55 + i * 0.05
+        parts = [
+            box(f"{name}_panel", (w, 0.02, w * 0.4), (x, y + 0.02, z), M["black_soft"], bevel=0.004),
+            text(f"{name}_text", label, (x, y, z), w * 0.16, 0.004, mat, rotation=(math.pi / 2, 0, 0)),
+            box(f"{name}_edge", (w + 0.02, 0.01, 0.006), (x, y, z + w * 0.2), mat),
+            box(f"{name}_edge2", (w + 0.02, 0.01, 0.006), (x, y, z - w * 0.2), mat),
+            box(f"{name}_pole", (0.02, 0.02, 0.5), (x, y + 0.03, z - w * 0.2 - 0.25), M["grey"]),
+        ]
+        join(parts, name)
+    # Blinds with a cord.
+    slats = []
+    for i in range(7):
+        slats.append(box(f"slat_{i}", (2.62, 0.05, 0.03), (0, WALL_Y - 0.09, 2.28 - i * 0.075), M["grey"], rotation=(math.radians(18), 0, 0)))
+    slats.append(box("blind_rail", (2.66, 0.06, 0.04), (0, WALL_Y - 0.09, 2.34), M["grey"]))
+    slats.append(cylinder("blind_cord", 0.003, 0.75, (1.25, WALL_Y - 0.09, 1.95), M["paper"]))
+    join(slats, "blinds")
+
+    # ---------------- Neon OPEN sign ----------------
+    box("neon_panel", (1.16, 0.03, 0.46), (0, WALL_Y - 0.02, 2.62), M["black"], bevel=0.01)
+    text("neon_sign", "OPEN", (0, WALL_Y - 0.06, 2.62), 0.3, 0.014, M["neon_pink"], rotation=(math.pi / 2, 0, 0), bevel=0.004)
+    y = WALL_Y - 0.055
+    tube("neon_border", [(-0.5, y, 2.44), (0.5, y, 2.44), (0.5, y, 2.8), (-0.5, y, 2.8)], 0.008, M["neon_cyan"], cyclic=True, resolution=5)
+    box("neon_bracket", (0.04, 0.04, 0.02), (-0.55, WALL_Y - 0.02, 2.84), M["grey"])
+    box("neon_bracket_2", (0.04, 0.04, 0.02), (0.55, WALL_Y - 0.02, 2.84), M["grey"])
+
+    # ---------------- Desk ----------------
+    box("desk_top", (2.4, 0.9, 0.05), (0, 1.6, 0.755), M["desk"], bevel=0.015, segments=3)
+    box("desk_edge", (2.4, 0.9, 0.02), (0, 1.6, 0.72), M["desk_edge"])
+    for x in (-1.12, 1.12):
+        box(f"desk_leg_{'l' if x < 0 else 'r'}", (0.06, 0.8, 0.72), (x, 1.6, 0.36), M["desk_edge"])
+    box("desk_drawer", (0.55, 0.75, 0.55), (0.82, 1.6, 0.44), M["desk_edge"], bevel=0.008)
+    box("drawer_line", (0.5, 0.002, 0.004), (0.82, 1.22, 0.44), M["black"])
+    box("drawer_handle_1", (0.18, 0.02, 0.02), (0.82, 1.215, 0.55), M["chrome"], bevel=0.004)
+    box("drawer_handle_2", (0.18, 0.02, 0.02), (0.82, 1.215, 0.33), M["chrome"], bevel=0.004)
+    box("desk_mat", (0.9, 0.42, 0.004), (0, 1.32, 0.782), M["black_soft"], bevel=0.003)
+    box("desk_led", (2.3, 0.012, 0.012), (0, 1.16, 0.715), M["neon_pink"])
+    box("desk_led_back", (2.3, 0.012, 0.012), (0, 2.04, 0.715), M["neon_violet"])
+
+    # ---------------- Computer case ----------------
+    case = [
+        box("case_body", (0.52, 0.44, 0.13), (0, 1.75, 0.845), M["beige"], bevel=0.008),
+        box("case_front_plate", (0.5, 0.01, 0.11), (0, 1.526, 0.845), M["beige_dark"]),
+        box("case_bay_1", (0.13, 0.012, 0.045), (-0.15, 1.522, 0.86), M["black"]),
+        box("case_bay_2", (0.13, 0.012, 0.045), (0.0, 1.522, 0.86), M["black"]),
+        box("case_slot_1", (0.1, 0.006, 0.006), (-0.15, 1.518, 0.868), M["black_soft"]),
+        box("case_slot_2", (0.1, 0.006, 0.006), (0.0, 1.518, 0.868), M["black_soft"]),
+        box("case_eject_1", (0.018, 0.008, 0.012), (-0.1, 1.517, 0.848), M["beige"]),
+        box("case_eject_2", (0.018, 0.008, 0.012), (0.05, 1.517, 0.848), M["beige"]),
+        box("case_power", (0.035, 0.01, 0.018), (0.16, 1.519, 0.86), M["beige_dark"], bevel=0.003),
+        cylinder("case_lock", 0.009, 0.01, (0.21, 1.521, 0.86), M["chrome"], rotation=(math.pi / 2, 0, 0)),
+        box("case_badge", (0.06, 0.004, 0.012), (-0.2, 1.519, 0.815), M["chrome"]),
+        box("case_led", (0.012, 0.006, 0.006), (0.13, 1.519, 0.832), M["led"]),
+        box("case_led_2", (0.012, 0.006, 0.006), (0.15, 1.519, 0.832), M["neon_red"]),
+    ]
+    for i in range(6):
+        case.append(box(f"case_vent_{i}", (0.006, 0.3, 0.06), (0.24, 1.75 + (i - 2.5) * 0.02, 0.845), M["beige_dark"]))
+    for x in (-0.22, 0.22):
+        for yy in (1.58, 1.92):
+            case.append(cylinder(f"case_foot_{x}_{yy}", 0.012, 0.01, (x, yy, 0.775), M["black"], vertices=12))
+    join(case, "computer_case")
+
+    # ---------------- CRT monitor ----------------
+    monitor = [
+        box("monitor_body", (0.46, 0.34, 0.40), (0, 1.82, 1.11), M["beige"], bevel=0.022, segments=3),
+        box("monitor_tube", (0.36, 0.14, 0.32), (0, 2.05, 1.13), M["beige_dark"], bevel=0.03, segments=3),
+        box("monitor_bezel", (0.44, 0.03, 0.38), (0, 1.645, 1.11), M["beige"], bevel=0.012, segments=3),
+        box("monitor_recess", (0.37, 0.02, 0.29), (0, 1.63, 1.125), M["black"], bevel=0.006),
+        box("monitor_chin", (0.4, 0.012, 0.03), (0, 1.628, 0.945), M["beige_dark"]),
+        cylinder("monitor_power", 0.012, 0.012, (0.16, 1.626, 0.945), M["beige_dark"], rotation=(math.pi / 2, 0, 0)),
+        cylinder("monitor_knob_1", 0.009, 0.014, (-0.15, 1.625, 0.945), M["black"], rotation=(math.pi / 2, 0, 0)),
+        cylinder("monitor_knob_2", 0.009, 0.014, (-0.12, 1.625, 0.945), M["black"], rotation=(math.pi / 2, 0, 0)),
+        box("monitor_led", (0.01, 0.006, 0.006), (0.12, 1.624, 0.945), M["neon_green"]),
+        box("monitor_stand", (0.3, 0.26, 0.03), (0, 1.8, 0.925), M["beige_dark"], bevel=0.008),
+        box("monitor_stand_neck", (0.2, 0.18, 0.02), (0, 1.8, 0.9), M["beige_dark"]),
+        text("monitor_brand", "SEPIC 2000", (-0.13, 1.627, 0.945), 0.014, 0.001, M["black"], rotation=(math.pi / 2, 0, 0), align="LEFT"),
+        # Sticky notes on the bezel.
+        box("note_1", (0.05, 0.003, 0.05), (0.21, 1.63, 1.26), M["note_1"], rotation=(0, math.radians(6), 0)),
+        box("note_2", (0.045, 0.003, 0.045), (-0.215, 1.63, 0.99), M["note_2"], rotation=(0, math.radians(-8), 0)),
+    ]
+    for i in range(8):
+        monitor.append(box(f"monitor_vent_{i}", (0.32, 0.012, 0.004), (0, 1.9 + i * 0.016, 1.312), M["beige_dark"]))
+    join(monitor, "monitor")
+    curved_screen("monitor_screen", 0.34, 0.255, 0.012, (0, 1.626, 1.125), M["screen"], rotation=(math.pi / 2, 0, 0))
+
+    # ---------------- Keyboard ----------------
+    kb = [box("keyboard_base", (0.47, 0.18, 0.026), (0, 1.3, 0.796), M["beige"], bevel=0.006, segments=3)]
+    kb.append(box("keyboard_lip", (0.47, 0.012, 0.03), (0, 1.392, 0.8), M["beige_dark"], bevel=0.004))
+    kb.append(box("keyboard_led_1", (0.008, 0.006, 0.003), (0.17, 1.385, 0.816), M["neon_green"]))
+    kb.append(box("keyboard_led_2", (0.008, 0.006, 0.003), (0.19, 1.385, 0.816), M["neon_green"]))
+    unit = 0.0305
+    rows = [
+        [1] * 13 + [1.6],           # number row
+        [1.5] + [1] * 12 + [1.1],   # tab row
+        [1.75] + [1] * 11 + [1.85], # home row
+        [2.25] + [1] * 10 + [2.35], # shift row
+        [1.25, 1.25, 1.25, 6.25, 1.25, 1.25, 1.25, 1.25],  # bottom row
+    ]
+    total = 14.6 * unit
+    for r, row in enumerate(rows):
+        x = -total / 2
+        yy = 1.36 - r * unit
+        for c, w in enumerate(row):
+            kw = w * unit - 0.004
+            kb.append(box(f"key_{r}_{c}", (kw, unit - 0.004, 0.011), (x + w * unit / 2, yy, 0.816), M["keycap"], bevel=0.0025, segments=2))
+            x += w * unit
+    # Function row.
+    for c in range(12):
+        kb.append(box(f"key_f_{c}", (unit - 0.006, unit - 0.008, 0.009), (-total / 2 + unit * (1.5 + c + (c // 4) * 0.5), 1.36 + unit * 1.1, 0.815), M["beige_dark"], bevel=0.002))
+    kb_all = join(kb, "keyboard")
+    kb_all.rotation_euler = (math.radians(4), 0, 0)
+    tube("keyboard_cable", [(0.2, 1.39, 0.8), (0.2, 1.45, 0.79), (0.15, 1.5, 0.785), (0.1, 1.53, 0.79)], 0.004, M["black"])
+
+    # ---------------- Mouse ----------------
+    mouse = [
+        box("mouse_body", (0.062, 0.105, 0.036), (0.42, 1.3, 0.798), M["beige"], bevel=0.016, segments=4, smooth=True),
+        box("mouse_split", (0.002, 0.045, 0.004), (0.42, 1.27, 0.817), M["black"]),
+        box("mouse_line", (0.05, 0.002, 0.004), (0.42, 1.293, 0.817), M["black"]),
+    ]
+    join(mouse, "mouse")
+    tube("mouse_cable", [(0.42, 1.35, 0.79), (0.4, 1.42, 0.786), (0.3, 1.5, 0.785), (0.27, 1.53, 0.79)], 0.003, M["black"])
+
+    # ---------------- Floppy disks (CV) ----------------
+    stack = []
+    for i in range(4):
+        rot = (0, 0, math.radians(-10 + i * 6))
+        z = 0.782 + i * 0.0045
+        stack.append(box(f"floppy_{i}", (0.09, 0.093, 0.0035), (-0.72 + i * 0.005, 1.42 + i * 0.004, z), M["black"] if i % 2 else M["grey"], rotation=rot, bevel=0.001))
+        stack.append(box(f"floppy_label_{i}", (0.06, 0.032, 0.001), (-0.72 + i * 0.005, 1.445 + i * 0.004, z + 0.0022), M["paper"], rotation=rot))
+        stack.append(box(f"floppy_shutter_{i}", (0.032, 0.026, 0.001), (-0.715 + i * 0.005, 1.395 + i * 0.004, z + 0.0022), M["chrome"], rotation=rot))
+    stack.append(text("floppy_text", "CV", (-0.706, 1.457, 0.8035), 0.014, 0.0005, M["black"], rotation=(0, 0, math.radians(8))))
+    join(stack, "floppy")
+
+    # ---------------- Framed photo on the desk (CV) ----------------
+    fx, fy, fz = -0.55, 1.62, 0.79
+    tilt = (math.radians(-12), 0, math.radians(18))
+    photo = [
+        box("photo_frame", (0.15, 0.012, 0.19), (fx, fy, fz + 0.095), M["wood"], rotation=tilt, bevel=0.004),
+        box("photo_inner", (0.128, 0.004, 0.168), (fx - 0.002, fy - 0.006, fz + 0.095), M["paper"], rotation=tilt),
+        plane("photo_picture", (0.112, 0.15), (fx - 0.004, fy - 0.0095, fz + 0.095), M["photo"], rotation=(math.pi / 2 + tilt[0], 0, tilt[2])),
+        box("photo_stand", (0.02, 0.09, 0.006), (fx + 0.01, fy + 0.05, fz + 0.06), M["wood"], rotation=(math.radians(50), 0, tilt[2])),
+        text("photo_label", "CV", (fx - 0.004, fy - 0.011, fz + 0.03), 0.02, 0.001, M["neon_cyan"], rotation=(math.pi / 2 + tilt[0], 0, tilt[2])),
+    ]
+    join(photo, "photo")
+
+    # ---------------- Pixel-art cat asleep on the desk ----------------
+    V = 0.022
+    cat_parts = []
+    voxels = []
+    for x in range(-5, 4):
+        for y in range(-2, 3):
+            for z in range(0, 3):
+                edge = abs(y) == 2 or x in (-5, 3)
+                if z == 2 and edge:
+                    continue
+                col = "cat_dark" if (x % 3 == 0 and z == 2) else "cat"
+                if z == 0 and abs(y) <= 1 and -3 <= x <= 1:
+                    col = "cat_white"
+                voxels.append((x, y, z, col))
+    for x in range(4, 8):
+        for y in range(-2, 3):
+            for z in range(0, 4):
+                if (abs(y) == 2 and z in (0, 3)) or (x == 7 and z == 3):
+                    continue
+                col = "cat"
+                if z == 1 and x == 7 and abs(y) <= 1:
+                    col = "cat_white"
+                voxels.append((x, y, z, col))
+    voxels += [(5, -2, 4, "cat"), (5, 2, 4, "cat"), (5, -2, 5, "cat_dark"), (5, 2, 5, "cat_dark")]
+    voxels += [(8, -1, 1, "cat_dark"), (8, 1, 1, "cat_dark"), (8, 0, 1, "cat_pink")]
+    for i, (x, y) in enumerate([(-6, 1), (-7, 2), (-7, 3), (-6, 4), (-5, 4)]):
+        voxels.append((x, y, 0, "cat_dark" if i % 2 else "cat"))
+    voxels += [(2, -2, 0, "cat_white"), (2, 2, 0, "cat_white"), (3, -2, 0, "cat_white"), (3, 2, 0, "cat_white")]
+    cx, cy, cz = 0.5, 1.82, 0.78 + V / 2
+    for i, (x, y, z, col) in enumerate(voxels):
+        cat_parts.append(box(f"cat_{i}", (V, V, V), (cx + x * V, cy + y * V, cz + z * V), M[col]))
+    cat = join(cat_parts, "cat")
+    cat.rotation_euler = (0, 0, math.radians(-20))
+
+    # ---------------- Rotary phone (contact) ----------------
+    phone_y = 1.72
+    px = -0.98
+    ph = [
+        box("phone_base", (0.24, 0.2, 0.06), (px, phone_y, 0.81), M["black"], bevel=0.014, segments=3, smooth=True),
+        box("phone_top", (0.2, 0.15, 0.05), (px, phone_y + 0.01, 0.855), M["black"], bevel=0.02, segments=3, smooth=True),
+        cylinder("phone_dial_ring", 0.055, 0.008, (px, phone_y - 0.03, 0.882), M["chrome"], vertices=32),
+        cylinder("phone_dial", 0.046, 0.006, (px, phone_y - 0.03, 0.889), M["black_soft"], vertices=32),
+        cylinder("phone_dial_center", 0.014, 0.004, (px, phone_y - 0.03, 0.893), M["paper"], vertices=16),
+    ]
+    for i in range(10):
+        a = math.radians(-60 - i * 27)
+        ph.append(cylinder(f"phone_hole_{i}", 0.006, 0.004, (px + 0.033 * math.cos(a), phone_y - 0.03 + 0.033 * math.sin(a), 0.893), M["black"], vertices=10))
+    ph.append(cylinder("phone_cradle_l", 0.012, 0.03, (px - 0.06, phone_y + 0.06, 0.89), M["black"]))
+    ph.append(cylinder("phone_cradle_r", 0.012, 0.03, (px + 0.06, phone_y + 0.06, 0.89), M["black"]))
+    ph.append(tube("phone_handset", [(px - 0.12, phone_y + 0.06, 0.915), (px - 0.06, phone_y + 0.06, 0.935), (px, phone_y + 0.06, 0.942), (px + 0.06, phone_y + 0.06, 0.935), (px + 0.12, phone_y + 0.06, 0.915)], 0.017, M["black"], resolution=6))
+    ph.append(sphere("phone_ear", 0.036, (px - 0.12, phone_y + 0.06, 0.915), M["black"], scale=(1, 1, 0.6)))
+    ph.append(sphere("phone_mouth", 0.036, (px + 0.12, phone_y + 0.06, 0.915), M["black"], scale=(1, 1, 0.6)))
+    # Coiled cord: a helix dropping off the desk edge.
+    coil = []
+    for k in range(50):
+        t = k / 49
+        a = t * math.pi * 12
+        # Runs from the mouthpiece down the right side of the base and into the base back.
+        coil.append((px + 0.13 + 0.01 * math.cos(a), phone_y + 0.05 + t * 0.09, 0.9 - t * 0.09 + 0.01 * math.sin(a)))
+    ph.append(tube("phone_cord", coil, 0.003, M["black"], resolution=3))
+    ph.append(tube("phone_line", [(px, phone_y + 0.1, 0.8), (px, 1.95, 0.795), (px + 0.02, 2.05, 0.75), (px + 0.03, 2.06, 0.2)], 0.003, M["black"]))
+    join(ph, "phone")
+
+    # ---------------- Desk lamp ----------------
+    base = (0.95, 1.85, 0.80)
+    j1 = (0.84, 1.78, 1.24)
+    j2 = (0.66, 1.66, 1.22)
+    head_dir = (-0.45, -0.35, -1.0)
+    head_tip = (0.6, 1.6, 1.13)
+    lamp = [
+        cylinder("lamp_base", 0.09, 0.022, (base[0], base[1], 0.791), M["black"], vertices=32, bevel=0.004),
+        sphere("lamp_joint_0", 0.02, base, M["chrome"]),
+        segment("lamp_arm", base, j1, 0.011, M["black"]),
+        sphere("lamp_joint_1", 0.02, j1, M["chrome"]),
+        segment("lamp_arm_2", j1, j2, 0.011, M["black"]),
+        sphere("lamp_joint_2", 0.018, j2, M["chrome"]),
+        segment("lamp_neck", j2, (0.63, 1.63, 1.19), 0.009, M["black"]),
+        cone_toward("lamp_head", 0.1, 0.035, 0.15, head_tip, head_dir, M["black"]),
+        box("lamp_switch", (0.012, 0.02, 0.008), (1.0, 1.8, 0.806), M["neon_red"]),
+    ]
+    join(lamp, "lamp")
+    bulb_pos = (head_tip[0] + 0.03, head_tip[1] + 0.025, head_tip[2] + 0.06)
+    sphere("lamp_bulb", 0.03, bulb_pos, M["bulb"])
+    # Mug with handle.
+    mug = [
+        cylinder("mug_body", 0.04, 0.1, (0.62, 1.45, 0.83), M["neon_violet"], vertices=24, bevel=0.005),
+        torus("mug_handle", 0.028, 0.007, (0.66, 1.45, 0.835), M["neon_violet"], rotation=(math.pi / 2, 0, 0), major_segments=20, minor_segments=8),
+        cylinder("mug_coffee", 0.036, 0.004, (0.62, 1.45, 0.876), M["soil"], vertices=24),
+    ]
+    join(mug, "mug")
+
+    # ---------------- Shelf, hi-fi, speaker, books, plant (about) ----------------
+    # Shelf runs along the back wall, right of the window, at eye height.
+    box("shelf", (1.5, 0.3, 0.03), (2.15, WALL_Y - 0.17, 1.55), M["wood"], bevel=0.004)
+    box("shelf_bracket_1", (0.03, 0.26, 0.2), (1.5, WALL_Y - 0.15, 1.44), M["grey"])
+    box("shelf_bracket_2", (0.03, 0.26, 0.2), (2.8, WALL_Y - 0.15, 1.44), M["grey"])
+    box("shelf_led", (1.4, 0.012, 0.012), (2.15, WALL_Y - 0.31, 1.53), M["neon_cyan"])
+    hx = -3.27
+    hifi = [
+        box("hifi_body", (0.28, 0.46, 0.15), (hx, 1.35, 1.645), M["black"], bevel=0.006),
+        box("hifi_face", (0.012, 0.44, 0.13), (hx + 0.14, 1.35, 1.645), M["black_soft"]),
+        box("hifi_deck_window", (0.01, 0.17, 0.08), (hx + 0.146, 1.24, 1.655), M["dark_glass"]),
+        cylinder("hifi_reel_1", 0.022, 0.006, (hx + 0.148, 1.2, 1.655), M["grey"], rotation=(0, math.pi / 2, 0), vertices=16),
+        cylinder("hifi_reel_2", 0.022, 0.006, (hx + 0.148, 1.28, 1.655), M["grey"], rotation=(0, math.pi / 2, 0), vertices=16),
+        box("hifi_display", (0.008, 0.14, 0.03), (hx + 0.148, 1.47, 1.685), M["black"]),
+        cylinder("hifi_knob_1", 0.02, 0.016, (hx + 0.152, 1.44, 1.62), M["chrome"], rotation=(0, math.pi / 2, 0), vertices=16),
+        cylinder("hifi_knob_2", 0.02, 0.016, (hx + 0.152, 1.52, 1.62), M["chrome"], rotation=(0, math.pi / 2, 0), vertices=16),
+        text("hifi_brand", "SW-9000", (hx + 0.148, 1.35, 1.6), 0.012, 0.001, M["grey"], rotation=(math.pi / 2, 0, math.pi / 2)),
+    ]
+    for i in range(12):
+        col = M["neon_green"] if i < 8 else (M["neon_yellow"] if i < 10 else M["neon_red"])
+        hifi.append(box(f"hifi_vu_{i}", (0.004, 0.007, 0.02 if i < 7 else 0.012), (hx + 0.152, 1.41 + i * 0.01, 1.685), col if i < 7 + random.randint(0, 3) else M["grey"]))
+    for i in range(6):
+        hifi.append(box(f"hifi_btn_{i}", (0.008, 0.02, 0.01), (hx + 0.152, 1.19 + i * 0.026, 1.6), M["grey"]))
+    hifi_obj = join(hifi, "hifi")
+    cassettes = []
+    for i in range(3):
+        cassettes.append(box(f"cassette_{i}", (0.11, 0.07, 0.016), (hx, 1.7, 1.575 + i * 0.018), M["black"] if i != 1 else M["paper"], rotation=(0, 0, math.radians(-4 + i * 5)), bevel=0.002))
+        cassettes.append(box(f"cassette_label_{i}", (0.09, 0.035, 0.002), (hx, 1.705, 1.584 + i * 0.018), M["note_1"] if i != 1 else M["neon_pink"], rotation=(0, 0, math.radians(-4 + i * 5))))
+    cassettes_obj = join(cassettes, "cassettes")
+    speaker = [
+        box("speaker_box", (0.24, 0.24, 0.42), (hx + 0.02, 0.62, 1.78), M["black"], bevel=0.008),
+        box("speaker_grille", (0.006, 0.21, 0.39), (hx + 0.142, 0.62, 1.78), M["black_soft"]),
+        cylinder("speaker_woofer_ring", 0.08, 0.012, (hx + 0.146, 0.62, 1.69), M["grey"], rotation=(0, math.pi / 2, 0), vertices=32),
+        sphere("speaker_woofer", 0.065, (hx + 0.14, 0.62, 1.69), M["black"], scale=(0.4, 1, 1)),
+        cylinder("speaker_tweeter", 0.03, 0.012, (hx + 0.146, 0.62, 1.9), M["grey"], rotation=(0, math.pi / 2, 0), vertices=24),
+        box("speaker_led", (0.006, 0.01, 0.006), (hx + 0.148, 0.72, 1.6), M["led"]),
+    ]
+    speaker_obj = join(speaker, "speaker")
+    books = []
+    for i, (h, w, key) in enumerate([(0.24, 0.035, "book_1"), (0.21, 0.028, "book_2"), (0.26, 0.04, "book_3"), (0.2, 0.025, "book_4"), (0.23, 0.032, "book_5"), (0.22, 0.03, "book_1")]):
+        yy = 1.86 + sum(b[1] for b in [(0.24, 0.035), (0.21, 0.028), (0.26, 0.04), (0.2, 0.025), (0.23, 0.032), (0.22, 0.03)][:i]) + i * 0.003
+        lean = math.radians(0 if i < 5 else -14)
+        books.append(box(f"book_{i}", (0.2, w, h), (hx, yy, 1.565 + h / 2), M[key], rotation=(lean, 0, 0), bevel=0.002))
+        books.append(box(f"book_page_{i}", (0.19, w - 0.006, h - 0.012), (hx - 0.006, yy, 1.565 + h / 2), M["paper"], rotation=(lean, 0, 0)))
+    books_obj = join(books, "books")
+    plant = [
+        cylinder("pot", 0.06, 0.1, (hx, 0.72, 1.615), M["neon_sun"], vertices=20, bevel=0.006),
+        cylinder("pot_soil", 0.054, 0.01, (hx, 0.72, 1.665), M["soil"], vertices=20),
+    ]
+    for i in range(7):
+        a = math.radians(i * 51)
+        plant.append(sphere(f"leaf_{i}", 0.05, (hx + 0.045 * math.cos(a), 0.72 + 0.045 * math.sin(a), 1.7 + 0.03 * (i % 3)), M["leaf"], scale=(1.3, 0.5, 0.35)))
+    plant.append(sphere("leaf_top", 0.05, (hx, 0.72, 1.76), M["leaf"], scale=(1, 1, 0.5)))
+    plant_obj = join(plant, "plant")
+    # The set above was laid out along the left wall, facing +X, around x = hx.
+    # Rotate it by -90 degrees so it faces the room from the back wall: (x, y) -> (y, -x).
+    # A source point (hx, y0) lands at (y0, -hx); shift so y0 = 1.35 sits at x = 2.35 and
+    # the row hugs the wall at WALL_Y - 0.17.
+    for obj in (hifi_obj, cassettes_obj, speaker_obj, books_obj, plant_obj):
+        obj.rotation_euler = (0, 0, math.radians(-90))
+        obj.location = (2.15 - 1.35, WALL_Y - 0.17 + hx, 0)
+
+    # ---------------- Diploma and certificates (education) ----------------
+    dx, dz = -2.15, 2.0
+    frames = [
+        box("diploma_frame", (0.56, 0.03, 0.42), (dx, WALL_Y - 0.02, dz), M["wood"], bevel=0.008),
+        box("diploma_mat", (0.5, 0.012, 0.36), (dx, WALL_Y - 0.04, dz), M["paper"]),
+        box("diploma_trim", (0.44, 0.004, 0.3), (dx, WALL_Y - 0.047, dz), M["gold"]),
+        box("diploma_paper", (0.42, 0.004, 0.28), (dx, WALL_Y - 0.05, dz), M["paper"]),
+        text("diploma_t1", "UNIVERZITET SINGIDUNUM", (dx, WALL_Y - 0.055, dz + 0.1), 0.024, 0.001, M["black"], rotation=(math.pi / 2, 0, 0)),
+        text("diploma_t2", "DIPLOMA", (dx, WALL_Y - 0.055, dz + 0.045), 0.05, 0.001, M["black"], rotation=(math.pi / 2, 0, 0)),
+        text("diploma_t3", "Nikola Šepić", (dx, WALL_Y - 0.055, dz - 0.015), 0.03, 0.001, M["black"], rotation=(math.pi / 2, 0, 0)),
+        text("diploma_t4", "Informacione tehnologije, 2024", (dx, WALL_Y - 0.055, dz - 0.06), 0.017, 0.001, M["black"], rotation=(math.pi / 2, 0, 0)),
+        cylinder("diploma_seal", 0.026, 0.005, (dx + 0.14, WALL_Y - 0.055, dz - 0.1), M["gold"], rotation=(math.pi / 2, 0, 0), vertices=24),
+        box("diploma_ribbon", (0.014, 0.004, 0.05), (dx + 0.132, WALL_Y - 0.056, dz - 0.13), M["neon_red"], rotation=(0, math.radians(12), 0)),
+        box("diploma_ribbon2", (0.014, 0.004, 0.05), (dx + 0.15, WALL_Y - 0.056, dz - 0.13), M["neon_red"], rotation=(0, math.radians(-12), 0)),
+        box("diploma_line", (0.2, 0.004, 0.002), (dx - 0.08, WALL_Y - 0.055, dz - 0.1), M["black"]),
+    ]
+    certs = [("REACT", "Udemy 2024"), ("JAVASCRIPT", "Udemy 2023"), ("RESPONSIVE WEB", "freeCodeCamp 2023")]
+    for i, (label, org) in enumerate(certs):
+        cx = dx - 0.34 + i * 0.34
+        cz = 1.56
+        frames.append(box(f"cert_frame_{i}", (0.3, 0.03, 0.22), (cx, WALL_Y - 0.02, cz), M["black"], bevel=0.006))
+        frames.append(box(f"cert_mat", (0.26, 0.012, 0.18), (cx, WALL_Y - 0.04, cz), M["paper"]))
+        frames.append(box(f"cert_trim_{i}", (0.23, 0.004, 0.15), (cx, WALL_Y - 0.047, cz), M["gold"]))
+        frames.append(box(f"cert_paper_{i}", (0.215, 0.004, 0.135), (cx, WALL_Y - 0.05, cz), M["paper"]))
+        frames.append(text(f"cert_t0_{i}", "CERTIFICATE", (cx, WALL_Y - 0.055, cz + 0.045), 0.013, 0.001, M["grey"], rotation=(math.pi / 2, 0, 0)))
+        frames.append(text(f"cert_t1_{i}", label, (cx, WALL_Y - 0.055, cz + 0.012), 0.022, 0.001, M["black"], rotation=(math.pi / 2, 0, 0)))
+        frames.append(text(f"cert_t2_{i}", org, (cx, WALL_Y - 0.055, cz - 0.022), 0.013, 0.001, M["grey"], rotation=(math.pi / 2, 0, 0)))
+        frames.append(box(f"cert_line_{i}", (0.12, 0.004, 0.002), (cx, WALL_Y - 0.055, cz - 0.045), M["gold"]))
+    join(frames, "diploma")
+    # Picture light over the diploma.
+    box("picture_light", (0.5, 0.05, 0.03), (dx, WALL_Y - 0.06, dz + 0.27), M["chrome"], bevel=0.008)
+    box("picture_light_glow", (0.44, 0.02, 0.006), (dx, WALL_Y - 0.075, dz + 0.24), M["bulb"])
+
+    # ---------------- Posters and clock on the left wall ----------------
+    poster = [
+        plane("poster_1_bg", (0.55, 0.75), (-2.65, WALL_Y - 0.03, 2.55), M["black_soft"], rotation=(math.pi / 2, 0, 0)),
+        cylinder("poster_1_sun", 0.16, 0.004, (-2.65, WALL_Y - 0.035, 2.68), M["neon_sun"], rotation=(math.pi / 2, 0, 0), vertices=40),
+        text("poster_1_text", "BEOGRAD", (-2.65, WALL_Y - 0.04, 2.4), 0.075, 0.002, M["neon_pink"], rotation=(math.pi / 2, 0, 0)),
+        text("poster_1_text2", "NIGHT DRIVE", (-2.65, WALL_Y - 0.04, 2.3), 0.05, 0.002, M["neon_cyan"], rotation=(math.pi / 2, 0, 0)),
+    ]
+    for i in range(4):
+        poster.append(box(f"poster_1_stripe_{i}", (0.3 - i * 0.03, 0.004, 0.012), (-2.65, WALL_Y - 0.037, 2.6 - i * 0.03), M["black_soft"]))
+    join(poster, "poster_1")
+    text("wall_neon_1", "SYNTH", (2.15, WALL_Y - 0.05, 2.62), 0.2, 0.012, M["neon_cyan"], rotation=(math.pi / 2, 0, 0), bevel=0.003)
+    text("wall_neon_2", "WAVE", (2.15, WALL_Y - 0.05, 2.4), 0.2, 0.012, M["neon_pink"], rotation=(math.pi / 2, 0, 0), bevel=0.003)
+    box("wall_neon_bracket", (0.02, 0.04, 0.5), (1.65, WALL_Y - 0.03, 2.5), M["grey"])
+    box("wall_neon_bracket2", (0.02, 0.04, 0.5), (2.65, WALL_Y - 0.03, 2.5), M["grey"])
+    clock = [
+        cylinder("clock_face", 0.14, 0.03, (2.1, WALL_Y - 0.02, 2.5), M["black"], rotation=(math.pi / 2, 0, 0), vertices=40),
+        cylinder("clock_dial", 0.125, 0.004, (2.1, WALL_Y - 0.04, 2.5), M["paper"], rotation=(math.pi / 2, 0, 0), vertices=40),
+        box("clock_hand_h", (0.006, 0.004, 0.07), (2.1, WALL_Y - 0.045, 2.535), M["black"]),
+        box("clock_hand_m", (0.1, 0.004, 0.006), (2.15, WALL_Y - 0.045, 2.5), M["black"]),
+        box("clock_hand_s", (0.11, 0.003, 0.003), (2.05, WALL_Y - 0.047, 2.51), M["neon_red"], rotation=(0, 0, math.radians(35))),
+    ]
+    join(clock, "clock")
+
+    # ---------------- Chair ----------------
+    chair = [
+        box("chair_seat", (0.48, 0.46, 0.08), (0, 0, 0.5), M["black_soft"], bevel=0.03, segments=3, smooth=True),
+        box("chair_back", (0.46, 0.08, 0.5), (0, -0.21, 0.83), M["black_soft"], bevel=0.03, segments=3, smooth=True),
+        box("chair_back_stripe", (0.3, 0.004, 0.015), (0, -0.252, 0.95), M["neon_pink"]),
+        cylinder("chair_column", 0.03, 0.4, (0, 0, 0.26), M["chrome"]),
+        cylinder("chair_hub", 0.05, 0.03, (0, 0, 0.08), M["black"]),
+    ]
+    for i in range(5):
+        a = math.radians(i * 72)
+        chair.append(box(f"chair_leg_{i}", (0.3, 0.035, 0.025), (0.15 * math.cos(a), 0.15 * math.sin(a), 0.06), M["black"], rotation=(0, 0, a)))
+        chair.append(sphere(f"chair_wheel_{i}", 0.028, (0.3 * math.cos(a), 0.3 * math.sin(a), 0.03), M["black_soft"]))
+    chair_obj = join(chair, "chair")
+    # Parked at the right end of the desk, turned toward the room, out of the camera's way.
+    chair_obj.location = (1.55, 1.05, 0)
+    chair_obj.rotation_euler = (0, 0, math.radians(-35))
+
+    # ---------------- Gym corner and reading (about) ----------------
+    gym = []
+    for i, (gx, gy, rot) in enumerate([(1.95, 1.7, 0), (1.95, 1.85, math.radians(6))]):
+        gym.append(cylinder(f"db_bar_{i}", 0.012, 0.3, (gx, gy, 0.045), M["chrome"], rotation=(0, math.pi / 2, rot), vertices=12))
+        for side in (-1, 1):
+            gym.append(cylinder(f"db_plate_{i}_{side}", 0.045, 0.035, (gx + side * 0.11, gy, 0.045), M["black"], rotation=(0, math.pi / 2, rot), vertices=24))
+            gym.append(cylinder(f"db_plate2_{i}_{side}", 0.035, 0.03, (gx + side * 0.145, gy, 0.045), M["black_soft"], rotation=(0, math.pi / 2, rot), vertices=24))
+    gym.append(sphere("kettlebell_body", 0.09, (2.35, 1.6, 0.09), M["black"], scale=(1, 1, 0.9)))
+    gym.append(torus("kettlebell_handle", 0.06, 0.013, (2.35, 1.6, 0.2), M["black"], rotation=(math.pi / 2, 0, 0), major_segments=20, minor_segments=8))
+    gym.append(text("kettlebell_kg", "16", (2.35, 1.51, 0.1), 0.035, 0.002, M["neon_pink"], rotation=(math.pi / 2, 0, 0)))
+    gym.append(cylinder("yoga_mat", 0.075, 0.62, (2.4, 2.55, 0.075), M["rug"], rotation=(0, math.pi / 2, math.radians(10)), vertices=24))
+    gym.append(cylinder("yoga_mat_core", 0.03, 0.64, (2.4, 2.55, 0.075), M["black"], rotation=(0, math.pi / 2, math.radians(10)), vertices=16))
+    join(gym, "gym")
+    book_open = [
+        box("book_cover_l", (0.16, 0.22, 0.008), (-1.0, 1.25, 0.784), M["book_2"], rotation=(0, math.radians(-6), math.radians(15))),
+        box("book_cover_r", (0.16, 0.22, 0.008), (-0.845, 1.29, 0.784), M["book_2"], rotation=(0, math.radians(6), math.radians(15))),
+        box("book_pages_l", (0.15, 0.21, 0.018), (-0.995, 1.252, 0.795), M["paper"], rotation=(0, math.radians(-6), math.radians(15))),
+        box("book_pages_r", (0.15, 0.21, 0.018), (-0.85, 1.29, 0.795), M["paper"], rotation=(0, math.radians(6), math.radians(15))),
+    ]
+    for i in range(7):
+        book_open.append(box(f"book_text_l_{i}", (0.1, 0.003, 0.001), (-1.0, 1.17 + i * 0.024, 0.806), M["grey"], rotation=(0, 0, math.radians(15))))
+        book_open.append(box(f"book_text_r_{i}", (0.1, 0.003, 0.001), (-0.85, 1.21 + i * 0.024, 0.806), M["grey"], rotation=(0, 0, math.radians(15))))
+    book_open.append(box("bookmark", (0.02, 0.09, 0.001), (-0.83, 1.4, 0.807), M["neon_pink"], rotation=(0, 0, math.radians(15))))
+    join(book_open, "book_open")
+    headphones = [
+        torus("hp_band", 0.075, 0.008, (-0.45, 1.22, 0.86), M["black"], rotation=(0, math.pi / 2, 0), major_segments=28, minor_segments=8),
+        cylinder("hp_cup_l", 0.038, 0.03, (-0.45, 1.145, 0.86), M["black"], rotation=(math.pi / 2, 0, 0), vertices=24),
+        cylinder("hp_cup_r", 0.038, 0.03, (-0.45, 1.295, 0.86), M["black"], rotation=(math.pi / 2, 0, 0), vertices=24),
+        cylinder("hp_pad_l", 0.034, 0.012, (-0.45, 1.165, 0.86), M["neon_pink"], rotation=(math.pi / 2, 0, 0), vertices=24),
+        cylinder("hp_pad_r", 0.034, 0.012, (-0.45, 1.275, 0.86), M["neon_pink"], rotation=(math.pi / 2, 0, 0), vertices=24),
+    ]
+    hp = join(headphones, "headphones")
+    hp.rotation_euler = (math.radians(90), 0, math.radians(20))
+    hp.location = (-0.42, 1.2, 0.78)
+
+    # ---------------- Cables ----------------
+    tube("cable_1", [(-0.2, 1.97, 0.79), (-0.22, 2.03, 0.7), (-0.25, 2.04, 0.3), (-0.3, 2.0, 0.05)], 0.005, M["black"])
+    tube("cable_2", [(0.95, 1.95, 0.79), (0.98, 2.03, 0.6), (1.0, 2.04, 0.1)], 0.004, M["black"])
+
+    # ---------------- Lights (only point/spot survive glTF export) ----------------
+    def light(name, kind, color, energy, location, rotation=(0, 0, 0), size=1.0):
+        data = bpy.data.lights.new(name, kind)
+        data.color = color[:3]
+        data.energy = energy
+        if kind == "AREA":
+            data.size = size
+        obj = bpy.data.objects.new(name, data)
+        obj.location = location
+        obj.rotation_euler = rotation
+        scene.collection.objects.link(obj)
+        return obj
+
+    light("light_window", "AREA", rgb(HEX["cyan"]), 120, (0, WALL_Y - 0.3, 1.7), rotation=(math.pi / 2, 0, 0), size=2.4)
+    light("light_neon", "AREA", rgb(HEX["pink"]), 60, (0, WALL_Y - 0.3, 2.6), rotation=(math.pi / 2, 0, 0), size=1.0)
+    light("light_lamp", "POINT", rgb("ffd9a0"), 25, (bulb_pos[0] - 0.03, bulb_pos[1] - 0.03, bulb_pos[2] - 0.07))
+    light("light_screen", "AREA", rgb("ff6fb0"), 18, (0, 1.45, 1.12), rotation=(math.pi / 2, 0, 0), size=0.35)
+    light("light_fill", "AREA", rgb(HEX["violet"]), 30, (-2.2, -0.5, 2.6), rotation=(math.radians(60), 0, math.radians(-40)), size=3)
+
+    cam_data = bpy.data.cameras.new("camera")
+    cam_data.lens = 32
+    cam = bpy.data.objects.new("camera", cam_data)
+    cam.location = (1.1, -2.0, 1.7)
+    target = Vector((0.4, 1.7, 1.35))
+    cam.rotation_euler = (target - cam.location).to_track_quat("-Z", "Y").to_euler()
+    scene.collection.objects.link(cam)
+    scene.camera = cam
+    return scene
+
+
+def render_preview(scene, path):
+    for engine in ("BLENDER_EEVEE", "BLENDER_EEVEE_NEXT"):
+        try:
+            scene.render.engine = engine
+            break
+        except TypeError:
+            continue
+    scene.render.resolution_x = 1280
+    scene.render.resolution_y = 720
+    scene.render.image_settings.file_format = "PNG"
+    scene.render.filepath = path
+    scene.view_settings.view_transform = "AgX"
+    scene.view_settings.look = "AgX - Punchy"
+    world = bpy.data.worlds.new("world")
+    world.use_nodes = True
+    world.node_tree.nodes["Background"].inputs["Color"].default_value = rgb("07030f")
+    world.node_tree.nodes["Background"].inputs["Strength"].default_value = 0.6
+    scene.world = world
+    bpy.ops.render.render(write_still=True)
+
+
+def export_gltf(path):
+    bpy.ops.object.select_all(action="SELECT")
+    kwargs = dict(
+        filepath=path,
+        export_format="GLB",
+        export_apply=True,
+        export_lights=True,
+        export_cameras=False,
+        export_yup=True,
+        export_texcoords=True,
+        export_normals=True,
+        export_materials="EXPORT",
+        export_image_format="AUTO",
+        use_selection=False,
+    )
+    try:
+        bpy.ops.export_scene.gltf(export_draco_mesh_compression_enable=True, **kwargs)
+    except TypeError:
+        bpy.ops.export_scene.gltf(**kwargs)
+
+
+if __name__ == "__main__":
+    scene = build()
+    tris = sum(len(o.data.polygons) for o in scene.objects if o.type == "MESH")
+    bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, "room.blend"))
+    export_gltf(os.path.join(OUT, "room.glb"))
+    render_preview(scene, os.path.join(OUT, "preview.png"))
+    size = os.path.getsize(os.path.join(OUT, "room.glb"))
+    print(f"ROOM_OK glb={size / 1024:.0f} KB objects={len(scene.objects)} faces={tris}")
