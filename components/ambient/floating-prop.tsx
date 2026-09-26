@@ -16,6 +16,8 @@ type Props = {
   priority?: boolean;
   /** Offsets the float cycle so props on one page do not bob in sync. */
   delay?: number;
+  /** Drawn over the render and moving with it, e.g. an animated screen. */
+  children?: React.ReactNode;
 };
 
 /**
@@ -28,6 +30,7 @@ export function FloatingProp({
   className = "",
   priority,
   delay = 0,
+  children,
 }: Props) {
   return (
     <div className={`relative aspect-square ${className}`} aria-hidden="true">
@@ -48,6 +51,7 @@ export function FloatingProp({
             sizes="(max-width: 768px) 60vw, 360px"
             className="object-contain drop-shadow-[0_24px_28px_rgba(0,0,0,0.55)]"
           />
+          {children}
         </div>
       </Tilt>
     </div>

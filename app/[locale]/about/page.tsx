@@ -16,7 +16,6 @@ import {
 } from "@/content/data/profile";
 import { experience } from "@/content/data/experience";
 import { graph, personJsonLd, serializeJsonLd } from "@/lib/structured-data";
-import { FloatingProp } from "@/components/ambient/floating-prop";
 import { NeonHorizon } from "@/components/ambient/neon-horizon";
 import { TerminalLog } from "@/components/ambient/terminal-log";
 import { Marquee } from "@/components/motion/marquee";
@@ -82,20 +81,20 @@ export default function AboutPage({ params }: Props) {
           <p className="mt-4 text-ink-400">{pick(profile.availability, locale)}</p>
         </Reveal>
         <Reveal from="right" delay={0.15} className="relative justify-self-center">
-          <FloatingProp
-            src="/images/props/boombox.webp"
-            glow="violet"
-            delay={1.5}
-            className="absolute -bottom-12 -left-16 z-10 w-36 sm:w-44"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={profile.photo}
-            alt={profile.name}
-            width={320}
-            height={320}
-            className="aspect-square w-64 rounded-2xl border border-white/10 object-cover sm:w-80"
-          />
+          {/* The portrait in a slowly rotating neon frame, with a soft glow behind it. */}
+          <div className="relative">
+            <div className="absolute -inset-6 animate-glow rounded-[2rem] bg-gradient-to-br from-neon-pink/40 via-neon-violet/25 to-neon-cyan/40 blur-2xl" />
+            <div className="neon-frame relative rounded-2xl p-[3px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={profile.photo}
+                alt={profile.name}
+                width={320}
+                height={320}
+                className="aspect-square w-64 rounded-[14px] object-cover sm:w-80"
+              />
+            </div>
+          </div>
         </Reveal>
       </section>
 

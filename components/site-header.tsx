@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { navItems } from "@/lib/site-config";
@@ -12,12 +13,17 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/5 bg-night-900/70 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link
-          href="/"
-          className="font-display text-lg font-semibold tracking-tight text-ink-100"
-        >
-          <span className="text-neon-pink text-glow-pink">N</span>
-          {site("name").slice(1)}
+        {/* The mark is the brand: a neon code tag on a synthwave sun (blender/render_logo.py).
+            The name stays in the accessible label for screen readers and search. */}
+        <Link href="/" aria-label={site("name")} className="group -m-1 rounded-full p-1">
+          <Image
+            src="/images/logo.webp"
+            alt=""
+            width={44}
+            height={44}
+            priority
+            className="size-11 transition duration-300 group-hover:rotate-[-8deg] group-hover:drop-shadow-[0_0_12px_rgba(255,45,149,0.7)]"
+          />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">

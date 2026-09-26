@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import { useTranslations } from "next-intl";
@@ -87,7 +88,18 @@ export default function ServicesPage({ params }: Props) {
         eyebrow={t("title")}
         title={t("headline")}
         intro={t("intro")}
-        aside={<FloatingProp src="/images/props/open-sign.webp" glow="pink" priority />}
+        aside={
+          <FloatingProp src="/images/props/open-sign-off.webp" glow="pink" priority>
+            {/* The lit render over the unlit one, flickering like a real neon sign. */}
+            <Image
+              src="/images/props/open-sign.webp"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 60vw, 360px"
+              className="animate-neon object-contain"
+            />
+          </FloatingProp>
+        }
       />
       <Marquee
         reverse

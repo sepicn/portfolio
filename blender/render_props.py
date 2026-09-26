@@ -5,13 +5,18 @@ reuses the exact objects of the 3D office instead of separate artwork.
 Run after build_room.py (it opens blender/out/room.blend):
     blender -b -P blender/render_props.py
 
-Outputs blender/out/props/<name>.png (900x900, transparent background).
+Outputs blender/out/props/<name>.png (900x900, transparent background) and
+blender/out/props/screens.json: the four corners of the monitor screen on computer.png, so
+the page can map an animated screen onto it.
 """
 
 import math
 import os
 
+import json
+
 import bpy
+from bpy_extras.object_utils import world_to_camera_view
 from mathutils import Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -21,14 +26,15 @@ os.makedirs(OUT, exist_ok=True)
 # name -> (objects in the room, yaw in degrees from straight on, camera height factor, zoom).
 # Zoom above 1 crops in. Framing only counts geometry above FRAME_MIN_Z, so the phone cord
 # hanging to the floor does not pull the camera away from the phone.
-FRAME_MIN_Z = {"phone": 0.76}
+FRAME_MIN_Z = {"telephone": 0.76}
+UNLIT = {"open-sign-off"}
 PROPS = {
     "computer": (["monitor", "monitor_screen", "computer_case", "keyboard"], -28, 0.45, 1.0),
     "open-sign": (["neon_sign", "neon_border", "neon_panel"], -18, 0.1, 1.0),
-    "boombox": (["hifi"], -30, 0.35, 1.0),
+    # Same framing with the tubes switched off; the page flickers between the two.
+    "open-sign-off": (["neon_sign", "neon_border", "neon_panel"], -18, 0.1, 1.0),
     "floppy": (["floppy"], -20, 1.1, 1.0),
-    "phone": (["phone"], -32, 0.7, 1.0),
-    "plant": (["plant"], -20, 0.35, 1.0),
+    "telephone": (["phone"], -32, 0.7, 0.88),
 }
 SIZE = 900
 
@@ -110,7 +116,8 @@ for name, (objects, yaw, rise, zoom) in PROPS.items():
     centre = (lo + hi) / 2
     radius = max((p - centre).length for p in points)
     fov = 2 * math.atan(18 / cam_data.lens)
-    distance = radius / math.sin(fov / 2) * 1.05 / zoom
+    # The bounding sphere over-estimates what is on screen, so pull in a little.
+    distance = radius / math.sin(fov / 2) * 0.86 / zoom
     a = math.radians(yaw)
     # The room faces -Y (the web camera looks towards +Y), so "in front" is -Y.
     direction = Vector((math.sin(a), -math.cos(a), rise)).normalized()
@@ -121,6 +128,32 @@ for name, (objects, yaw, rise, zoom) in PROPS.items():
     rig["cyan"].location = centre + Vector((-1.4, 0.8, 0.2)) * radius * 2.2
     for light in rig.values():
         aim(light, centre)
+    if name == "computer":
+        bpy.context.view_layer.update()
+        screen = scene.objects["monitor_screen"]
+        uv = []
+        for v in screen.data.vertices:
+            p = world_to_camera_view(scene, cam, screen.matrix_world @ v.co)
+            uv.append((p.x * 100, (1 - p.y) * 100))
+        # Corners of the projected screen, in percent from the top left of the image.
+        corners = {
+            "tl": min(uv, key=lambda q: q[0] + q[1]),
+            "tr": max(uv, key=lambda q: q[0] - q[1]),
+            "br": max(uv, key=lambda q: q[0] + q[1]),
+            "bl": min(uv, key=lambda q: q[0] - q[1]),
+        }
+        with open(os.path.join(OUT, "screens.json"), "w") as fh:
+            json.dump({"computer": {k: [round(c, 2) for c in v] for k, v in corners.items()}}, fh, indent=2)
+    dimmed = []
+    if name in UNLIT:
+        for obj_name in objects:
+            for slot in scene.objects[obj_name].material_slots:
+                bsdf = slot.material.node_tree.nodes.get("Principled BSDF") if slot.material else None
+                if bsdf and bsdf.inputs["Emission Strength"].default_value > 0.5:
+                    dimmed.append((bsdf, bsdf.inputs["Emission Strength"].default_value))
+                    bsdf.inputs["Emission Strength"].default_value = 0.04
     scene.render.filepath = os.path.join(OUT, f"{name}.png")
     bpy.ops.render.render(write_still=True)
+    for bsdf, strength in dimmed:
+        bsdf.inputs["Emission Strength"].default_value = strength
     print(f"PROP_OK {name}")
