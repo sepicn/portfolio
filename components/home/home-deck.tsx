@@ -1,4 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
+import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Link } from "@/i18n/navigation";
 import { SlideDeck } from "@/components/motion/slide-deck";
 import { SplitHeading } from "@/components/motion/split-heading";
@@ -131,7 +132,11 @@ export function HomeDeck() {
           href="/projects"
           className="font-mono text-sm tracking-widest text-neon-cyan uppercase hover:underline"
         >
-          {t("allProjects")} ({projects.length}) &rarr;
+          {t("allProjects")} ({projects.length}){" "}
+          <ArrowRightIcon
+            aria-hidden="true"
+            className="inline size-4 align-[-3px] transition group-hover:translate-x-0.5"
+          />
         </Link>
       </p>
     </div>

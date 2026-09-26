@@ -586,14 +586,18 @@ def build():
     # ---------------- Framed photo on the desk (CV) ----------------
     fx, fy, fz = -0.55, 1.62, 0.79
     tilt = (math.radians(-12), 0, math.radians(18))
+    # Built upright around the origin and rotated as one piece, so the mat and the picture
+    # stay centred in the frame (offsetting each part and then rotating it drifted them).
+    upright = (math.pi / 2, 0, 0)
     photo = [
-        box("photo_frame", (0.15, 0.012, 0.19), (fx, fy, fz + 0.095), M["wood"], rotation=tilt, bevel=0.004),
-        box("photo_inner", (0.128, 0.004, 0.168), (fx - 0.002, fy - 0.006, fz + 0.095), M["paper"], rotation=tilt),
-        plane("photo_picture", (0.112, 0.15), (fx - 0.004, fy - 0.0095, fz + 0.095), M["photo"], rotation=(math.pi / 2 + tilt[0], 0, tilt[2])),
-        box("photo_stand", (0.02, 0.09, 0.006), (fx + 0.01, fy + 0.05, fz + 0.06), M["wood"], rotation=(math.radians(50), 0, tilt[2])),
-        text("photo_label", "CV", (fx - 0.004, fy - 0.011, fz + 0.03), 0.02, 0.001, M["neon_cyan"], rotation=(math.pi / 2 + tilt[0], 0, tilt[2])),
+        box("photo_frame", (0.15, 0.012, 0.19), (0, 0, 0), M["wood"], bevel=0.004),
+        box("photo_inner", (0.128, 0.004, 0.168), (0, -0.006, 0), M["paper"]),
+        plane("photo_picture", (0.112, 0.15), (0, -0.0085, 0.004), M["photo"], rotation=upright),
+        box("photo_stand", (0.02, 0.09, 0.006), (0, 0.045, -0.04), M["wood"], rotation=(math.radians(50), 0, 0)),
     ]
-    join(photo, "photo")
+    frame = join(photo, "photo")
+    frame.location = (fx, fy, fz + 0.095)
+    frame.rotation_euler = tilt
 
     # ---------------- Pixel-art cat asleep on the desk ----------------
     V = 0.022
@@ -817,9 +821,9 @@ def build():
         chair.append(box(f"chair_leg_{i}", (0.3, 0.035, 0.025), (0.15 * math.cos(a), 0.15 * math.sin(a), 0.06), M["black"], rotation=(0, 0, a)))
         chair.append(sphere(f"chair_wheel_{i}", 0.028, (0.3 * math.cos(a), 0.3 * math.sin(a), 0.03), M["black_soft"]))
     chair_obj = join(chair, "chair")
-    # Parked at the right end of the desk, turned toward the room, out of the camera's way.
-    chair_obj.location = (1.55, 1.05, 0)
-    chair_obj.rotation_euler = (0, 0, math.radians(-35))
+    # Pulled out at the front right corner of the desk, turned towards it, as if just left.
+    chair_obj.location = (0.95, 0.8, 0)
+    chair_obj.rotation_euler = (0, 0, math.radians(-25))
 
     # ---------------- Gym corner and reading (about) ----------------
     gym = []
@@ -938,10 +942,12 @@ def render_tour(scene):
     scene.camera = cam
     shots = {"overview": ((0.3, 1.55, 0.9), (0.15, 1.5, -2.5), 15)}
     for spot, (position, look) in hotspot_cameras().items():
-        # The web camera stops close to each object; back off along the view line a little so
-        # the object sits in context on a tall screen.
+        # Straight on from the front (+z in three.js), at a distance based on how close the
+        # web camera gets. Things on the desk are seen slightly from above, wall pieces level.
         p, t = Vector(position), Vector(look)
-        shots[spot] = (tuple(p + (p - t) * 0.35), tuple(t), 28)
+        distance = (p - t).length * 1.3
+        rise = 0.3 if t.y < 1.3 else 0.03
+        shots[spot] = ((t.x, t.y + rise * distance, t.z + distance), tuple(t), 30)
     overview_points = None
     for name, (position, look, lens) in shots.items():
         data.lens = lens

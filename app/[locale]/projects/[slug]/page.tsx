@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -108,7 +109,11 @@ export default function ProjectPage({ params }: Props) {
               href="/projects"
               className="font-mono text-xs tracking-widest text-neon-cyan uppercase hover:underline"
             >
-              ← {t("back")}
+              <ArrowLeftIcon
+                aria-hidden="true"
+                className="inline size-4 align-[-3px] transition group-hover:-translate-x-0.5"
+              />{" "}
+              {t("back")}
             </Link>
             <p className="mt-6 font-mono text-xs tracking-[0.3em] text-ink-400 uppercase">
               {project.client ?? t("personal")} · {project.year}
@@ -332,7 +337,11 @@ export default function ProjectPage({ params }: Props) {
       >
         <Link href={`/projects/${prev.slug}`} className="group max-w-[45%]">
           <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-            ← {t("previous")}
+            <ArrowLeftIcon
+              aria-hidden="true"
+              className="inline size-4 align-[-3px] transition group-hover:-translate-x-0.5"
+            />{" "}
+            {t("previous")}
           </span>
           <span className="mt-1 block font-display text-xl text-ink-100 group-hover:text-neon-cyan">
             {prev.title}
@@ -340,7 +349,11 @@ export default function ProjectPage({ params }: Props) {
         </Link>
         <Link href={`/projects/${next.slug}`} className="group max-w-[45%] text-right">
           <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-            {t("next")} →
+            {t("next")}{" "}
+            <ArrowRightIcon
+              aria-hidden="true"
+              className="inline size-4 align-[-3px] transition group-hover:translate-x-0.5"
+            />
           </span>
           <span className="mt-1 block font-display text-xl text-ink-100 group-hover:text-neon-cyan">
             {next.title}
