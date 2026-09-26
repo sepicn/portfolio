@@ -1,0 +1,227 @@
+{
+  "site": {
+    "name": "Nikola Šepić",
+    "tagline": "Web developer and digital marketing",
+    "description": "Websites and web apps built with React, Next.js and Vue, plus Google Ads, Meta Ads and SEO that bring in customers. Freelance web developer in Belgrade.",
+    "metaTitle": "Nikola Šepić | Web developer, Google Ads and SEO, Belgrade"
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "services": "Services",
+    "about": "About",
+    "cv": "CV",
+    "contact": "Contact",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "switchTo": "Srpski"
+  },
+  "footer": {
+    "rights": "Nikola Šepić. All content is mine, except client logos.",
+    "privacy": "Privacy",
+    "cookies": "Cookie settings"
+  },
+  "home": {
+    "title": "Web developer and digital marketing, Belgrade",
+    "intro": "I build web apps and websites, then bring them customers through Google Ads, Meta Ads and SEO. I work freelance and I am open to full-time roles.",
+    "ctaProjects": "See projects",
+    "ctaContact": "Get in touch",
+    "hint": "Click around the room. The monitor opens projects, the phone opens contact, the floppy is the CV.",
+    "scrollHint": "Scroll",
+    "introEyebrow": "Who I am",
+    "introTitle": "Nikola Šepić, a developer who also knows how customers are won",
+    "servicesEyebrow": "Services",
+    "servicesTitle": "What I do for businesses",
+    "servicesLead": "A site that brings inquiries and the campaigns that fill it. I do both parts, so there is no blame passing between the developer and the marketer.",
+    "projectsEyebrow": "Projects",
+    "projectsTitle": "Selected work",
+    "projectsLead": "Production systems I work on and personal projects I built from scratch.",
+    "allProjects": "All projects",
+    "processEyebrow": "Process",
+    "processTitle": "What working together looks like",
+    "ctaEyebrow": "Contact",
+    "ctaTitle": "Have a project or a role?",
+    "ctaBody": "Email or call. I reply the same day, weekdays 9 to 18."
+  },
+  "projects": {
+    "title": "Projects",
+    "headline": "Websites and web apps I have built",
+    "intro": "Client work and personal projects. For each one I write what I actually did and what was hard.",
+    "clientEyebrow": "Clients",
+    "clientTitle": "Sites and systems real businesses use",
+    "clientLead": "A hospital, a US logistics company, a web agency, a magazine, a pastry shop, a music studio and a sports centre.",
+    "personalEyebrow": "Personal projects",
+    "personalTitle": "What I build when nobody asks",
+    "personalLead": "Next.js, React 19, TypeScript, real databases and real auth. Each has a live demo or a public repo.",
+    "filterAll": "All",
+    "filterClient": "Clients",
+    "filterPersonal": "Personal",
+    "open": "Open case study",
+    "live": "Live site",
+    "repo": "Code",
+    "metaTitle": "Projects: websites, web apps and campaigns",
+    "metaDescription": "A private hospital platform, a TMS for a US logistics company, sites for local businesses and personal Next.js projects. What I did on each and what was hard."
+  },
+  "services": {
+    "title": "Services",
+    "headline": "Web development, Google Ads and SEO",
+    "intro": "Websites and web apps, Google Ads, Meta Ads, SEO and analytics. Pricing on request, a fixed quote after a conversation.",
+    "forWhom": "For whom",
+    "includes": "What is included",
+    "processEyebrow": "Process",
+    "processTitle": "From a conversation to launch in four steps",
+    "faqTitle": "Questions everyone asks",
+    "cta": "Book a call",
+    "metaTitle": "Web development, Google Ads and SEO in Belgrade",
+    "metaDescription": "Websites and web apps, Google Ads and Meta Ads campaign management, SEO and GA4/GTM analytics. A fixed quote after a short conversation."
+  },
+  "about": {
+    "title": "About",
+    "intro": "Nikola Šepić, Belgrade. BSc in Information Technology, Singidunum University.",
+    "experienceEyebrow": "Experience",
+    "experienceTitle": "Where I worked and what I built there",
+    "skillsEyebrow": "Skills",
+    "skillsTitle": "What I know, honestly",
+    "skillsLead": "Three levels, no percentages or stars.",
+    "level": {
+      "daily": "use it every week",
+      "solid": "shipped with it",
+      "working": "can work with it, not an expert"
+    },
+    "educationEyebrow": "Education",
+    "educationTitle": "University",
+    "languages": "Languages",
+    "certificatesEyebrow": "Certificates",
+    "certificatesTitle": "Courses I completed",
+    "metaTitle": "About: web developer and marketer in Belgrade",
+    "metaDescription": "Nikola Šepić, BSc in IT (Singidunum University). React, Next.js, Vue and .NET UI in production, plus Google Ads and Meta Ads campaigns for clients."
+  },
+  "cv": {
+    "title": "CV",
+    "intro": "The same CV in two forms: this one to read, PDF and DOCX to send.",
+    "downloadPdf": "Download PDF",
+    "downloadDocx": "Download DOCX (ATS)",
+    "sections": {
+      "summary": "Summary",
+      "skills": "Skills",
+      "experience": "Experience",
+      "projects": "Selected personal projects",
+      "education": "Education",
+      "languages": "Languages",
+      "certificates": "Certificates"
+    },
+    "metaTitle": "Web developer CV",
+    "metaDescription": "Nikola Šepić's CV: experience, skills, projects and certificates. A version to read on the site, plus PDF and DOCX to send."
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "The form or a call is fastest. Email and phone are hidden from bots, click to reveal them.",
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Belgrade, Serbia",
+    "metaTitle": "Contact: a website, a campaign or a role",
+    "metaDescription": "Ask about a website, a Google Ads campaign, SEO or a job opening. Use the form, call or WhatsApp; you get a quote after a short conversation."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "There is nothing here. Head back to the start.",
+    "back": "Back to home"
+  },
+  "hotspots": {
+    "projects": "Projects",
+    "services": "Services",
+    "clients": "Clients",
+    "contact": "Contact",
+    "education": "Education",
+    "about": "About",
+    "cv": "CV",
+    "lamp": "Lamp"
+  },
+  "music": {
+    "play": "Play music",
+    "mute": "Mute music",
+    "on": "sound on",
+    "off": "sound off"
+  },
+  "reveal": {
+    "email": "Show email",
+    "phone": "Show phone",
+    "whatsapp": "Show WhatsApp",
+    "labelEmail": "Email",
+    "labelPhone": "Phone",
+    "openWhatsapp": "Open chat",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "contactForm": {
+    "name": "Name",
+    "email": "Your email",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "sent": "Got it. I reply the same day.",
+    "error": "That did not go through. Try again or write to me directly.",
+    "unavailable": "Sending is not set up yet. Write to me directly:",
+    "note": "No newsletter, no spam. The message goes only to me."
+  },
+  "projectPage": {
+    "back": "All projects",
+    "personal": "Personal project",
+    "summary": "About the project",
+    "did": "What I did",
+    "hard": "What was hard",
+    "role": "Role",
+    "stack": "Stack",
+    "links": "Links",
+    "privateNote": "The repo is private and client-owned, so no code or screenshots.",
+    "moreNav": "Other projects",
+    "previous": "Previous",
+    "next": "Next",
+    "period": "Period",
+    "team": "Team",
+    "scale": "Scale",
+    "visit": "Visit site",
+    "screenshot": "screenshot",
+    "privateLabel": "private system",
+    "facts": "Project facts",
+    "impact": "What this says about me",
+    "gallery": "More screens",
+    "phone": "On a phone",
+    "caseStudy": "case study"
+  },
+  "consent": {
+    "label": "Cookie consent",
+    "eyebrow": "Cookies",
+    "text": "With your permission I use Google Analytics and Google Ads measurement to see where visitors come from. Without it, none of that is stored.",
+    "more": "Details",
+    "accept": "Allow",
+    "decline": "Decline"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "intro": "What this site collects, why, and how to change it. Short, no legalese.",
+    "sections": [
+      {
+        "h": "Analytics and ads",
+        "p": "Google Tag Manager loads Google Analytics 4 and Google Ads conversion measurement. Until you click Allow, Google only receives anonymous cookieless signals (Consent Mode v2). Once you allow it, cookies record which pages you open and where you came from, so I can tell which campaigns work."
+      },
+      {
+        "h": "Contact form",
+        "p": "The name, email and message from the form go through Resend straight to my inbox. I use them only to reply and do not share them with anyone."
+      },
+      {
+        "h": "What your browser keeps",
+        "p": "Only your cookie choice (localStorage, key sepic-consent). The music setting is not stored and sound never starts on its own."
+      },
+      {
+        "h": "Changing your choice",
+        "p": "The Cookie settings button in every page footer reopens the choice. To have form data deleted, write to me through the contact page."
+      }
+    ],
+    "updated": "Last updated: September 2026.",
+    "metaTitle": "Privacy policy",
+    "metaDescription": "What sepic.me collects (Google Analytics and Google Ads only with consent, the contact form through Resend) and how to change your cookie choice."
+  }
+}

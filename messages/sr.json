@@ -1,0 +1,227 @@
+{
+  "site": {
+    "name": "Nikola Šepić",
+    "tagline": "Web developer i digitalni marketing",
+    "description": "Izrada sajtova i web aplikacija u React, Next.js i Vue, plus Google Ads, Meta Ads i SEO koji dovode klijente. Freelance web developer iz Beograda.",
+    "metaTitle": "Nikola Šepić | Web developer, Google Ads i SEO, Beograd"
+  },
+  "nav": {
+    "home": "Početna",
+    "projects": "Projekti",
+    "services": "Usluge",
+    "about": "O meni",
+    "cv": "CV",
+    "contact": "Kontakt",
+    "skipToContent": "Preskoči na sadržaj",
+    "openMenu": "Otvori meni",
+    "closeMenu": "Zatvori meni",
+    "language": "Jezik",
+    "switchTo": "English"
+  },
+  "footer": {
+    "rights": "Nikola Šepić. Sav sadržaj je moj, osim logotipa klijenata.",
+    "privacy": "Privatnost",
+    "cookies": "Podešavanja kolačića"
+  },
+  "home": {
+    "title": "Web developer i digitalni marketing iz Beograda",
+    "intro": "Pravim web aplikacije i sajtove, a zatim im dovodim klijente kroz Google Ads, Meta Ads i SEO. Radim kao freelancer i otvoren sam za stalno zaposlenje.",
+    "ctaProjects": "Pogledaj projekte",
+    "ctaContact": "Javi se",
+    "hint": "Klikni na stvari u sobi. Monitor vodi na projekte, telefon na kontakt, disketa na CV.",
+    "scrollHint": "Skroluj",
+    "introEyebrow": "Ko sam",
+    "introTitle": "Nikola Šepić, developer koji zna i kako se dolazi do klijenata",
+    "servicesEyebrow": "Usluge",
+    "servicesTitle": "Šta radim za firme",
+    "servicesLead": "Sajt koji donosi upite i kampanje koje ga pune. Oba dela radim ja, pa nema prebacivanja krivice između developera i marketara.",
+    "projectsEyebrow": "Projekti",
+    "projectsTitle": "Izabrani radovi",
+    "projectsLead": "Produkcioni sistemi na kojima radim i lični projekti koje sam napravio od nule.",
+    "allProjects": "Svi projekti",
+    "processEyebrow": "Proces",
+    "processTitle": "Kako izgleda saradnja",
+    "ctaEyebrow": "Kontakt",
+    "ctaTitle": "Imaš projekat ili poziciju?",
+    "ctaBody": "Javi se mejlom ili pozivom. Odgovaram istog dana, radnim danima od 9 do 18."
+  },
+  "projects": {
+    "title": "Projekti",
+    "headline": "Sajtovi i web aplikacije koje sam izradio",
+    "intro": "Klijentski rad i lični projekti. Za svaki pišem šta sam tačno radio i šta je bilo teško.",
+    "clientEyebrow": "Klijenti",
+    "clientTitle": "Sajtovi i sistemi koje koriste prave firme",
+    "clientLead": "Bolnica, logistička firma iz SAD, web agencija, magazin, poslastičarnica, muzički studio i sportski centar.",
+    "personalEyebrow": "Lični projekti",
+    "personalTitle": "Ono što pravim kad niko ne traži",
+    "personalLead": "Next.js, React 19, TypeScript, prave baze i prava autentikacija. Svaki ima live demo ili javan repo.",
+    "filterAll": "Sve",
+    "filterClient": "Klijenti",
+    "filterPersonal": "Lični",
+    "open": "Otvori studiju slučaja",
+    "live": "Sajt uživo",
+    "repo": "Kod",
+    "metaTitle": "Projekti: sajtovi, web aplikacije i kampanje",
+    "metaDescription": "Platforma privatne bolnice, TMS za logističku firmu iz SAD, sajtovi za lokalne firme i lični projekti u Next.js. Za svaki: šta sam radio i šta je bilo teško."
+  },
+  "services": {
+    "title": "Usluge",
+    "headline": "Izrada sajtova, Google Ads i SEO",
+    "intro": "Izrada sajtova i aplikacija, Google Ads, Meta Ads, SEO i analitika. Cene na upit, fiksna ponuda posle razgovora.",
+    "forWhom": "Za koga",
+    "includes": "Šta ulazi",
+    "processEyebrow": "Proces",
+    "processTitle": "Od razgovora do lansiranja u četiri koraka",
+    "faqTitle": "Pitanja koja mi svi postave",
+    "cta": "Zakaži razgovor",
+    "metaTitle": "Izrada sajtova, Google Ads i SEO u Beogradu",
+    "metaDescription": "Izrada sajtova i web aplikacija, vođenje Google Ads i Meta Ads kampanja, SEO optimizacija i GA4/GTM analitika. Fiksna ponuda posle kratkog razgovora."
+  },
+  "about": {
+    "title": "O meni",
+    "intro": "Nikola Šepić, Beograd. Diplomirani inženjer informacionih tehnologija, Univerzitet Singidunum.",
+    "experienceEyebrow": "Iskustvo",
+    "experienceTitle": "Gde sam radio i šta sam tamo napravio",
+    "skillsEyebrow": "Veštine",
+    "skillsTitle": "Šta znam, iskreno",
+    "skillsLead": "Tri nivoa, bez procenata i zvezdica.",
+    "level": {
+      "daily": "koristim svake nedelje",
+      "solid": "isporučio sam sa tim",
+      "working": "znam da radim, ne ekspert"
+    },
+    "educationEyebrow": "Obrazovanje",
+    "educationTitle": "Fakultet",
+    "languages": "Jezici",
+    "certificatesEyebrow": "Sertifikati",
+    "certificatesTitle": "Kursevi koje sam završio",
+    "metaTitle": "O meni: web developer i marketing, Beograd",
+    "metaDescription": "Nikola Šepić, diplomirani inženjer IT (Singidunum). React, Next.js, Vue i .NET UI u produkciji, plus Google Ads i Meta Ads kampanje za klijente."
+  },
+  "cv": {
+    "title": "CV",
+    "intro": "Ista biografija u dve verzije: ova za čitanje, PDF i DOCX za slanje.",
+    "downloadPdf": "Preuzmi PDF",
+    "downloadDocx": "Preuzmi DOCX (ATS)",
+    "sections": {
+      "summary": "Sažetak",
+      "skills": "Veštine",
+      "experience": "Iskustvo",
+      "projects": "Izabrani lični projekti",
+      "education": "Obrazovanje",
+      "languages": "Jezici",
+      "certificates": "Sertifikati"
+    },
+    "metaTitle": "CV web developera",
+    "metaDescription": "Biografija Nikole Šepića: iskustvo, veštine, projekti i sertifikati. Verzija za čitanje na sajtu, PDF i DOCX za slanje."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "intro": "Najbrže je preko forme ili poziva. Mejl i telefon su sakriveni od botova, klikni da ih vidiš.",
+    "email": "Mejl",
+    "phone": "Telefon",
+    "location": "Beograd, Srbija",
+    "metaTitle": "Kontakt: upit za sajt, kampanju ili posao",
+    "metaDescription": "Pošalji upit za izradu sajta, Google Ads kampanju, SEO ili ponudu za posao. Forma, poziv ili WhatsApp, a ponudu dobijaš posle kratkog razgovora."
+  },
+  "notFound": {
+    "title": "Stranica ne postoji",
+    "body": "Ovde nema ničega. Vrati se na početnu.",
+    "back": "Nazad na početnu"
+  },
+  "hotspots": {
+    "projects": "Projekti",
+    "services": "Usluge",
+    "clients": "Klijenti",
+    "contact": "Kontakt",
+    "education": "Obrazovanje",
+    "about": "O meni",
+    "cv": "CV",
+    "lamp": "Lampa"
+  },
+  "music": {
+    "play": "Pusti muziku",
+    "mute": "Utišaj muziku",
+    "on": "zvuk on",
+    "off": "zvuk off"
+  },
+  "reveal": {
+    "email": "Prikaži mejl",
+    "phone": "Prikaži telefon",
+    "whatsapp": "Prikaži WhatsApp",
+    "labelEmail": "Mejl",
+    "labelPhone": "Telefon",
+    "openWhatsapp": "Otvori chat",
+    "copy": "Kopiraj",
+    "copied": "Kopirano"
+  },
+  "contactForm": {
+    "name": "Ime",
+    "email": "Tvoj mejl",
+    "message": "Poruka",
+    "send": "Pošalji",
+    "sending": "Šaljem...",
+    "sent": "Poruka je stigla. Javljam se istog dana.",
+    "error": "Nije prošlo. Probaj ponovo ili mi piši direktno.",
+    "unavailable": "Slanje trenutno nije podešeno. Piši mi direktno:",
+    "note": "Bez newslettera, bez spama. Poruka ide samo meni."
+  },
+  "projectPage": {
+    "back": "Svi projekti",
+    "personal": "Lični projekat",
+    "summary": "O projektu",
+    "did": "Šta sam uradio",
+    "hard": "Šta je bilo teško",
+    "role": "Uloga",
+    "stack": "Tehnologije",
+    "links": "Linkovi",
+    "privateNote": "Repo je privatan i vlasništvo klijenta, pa nema koda ni screenshotova.",
+    "moreNav": "Drugi projekti",
+    "previous": "Prethodni",
+    "next": "Sledeći",
+    "period": "Period",
+    "team": "Tim",
+    "scale": "Obim",
+    "visit": "Otvori sajt",
+    "screenshot": "snimak ekrana",
+    "privateLabel": "privatni sistem",
+    "facts": "Osnovni podaci o projektu",
+    "impact": "Šta ovo govori o meni",
+    "gallery": "Još ekrana",
+    "phone": "Na telefonu",
+    "caseStudy": "studija slučaja"
+  },
+  "consent": {
+    "label": "Saglasnost za kolačiće",
+    "eyebrow": "Kolačići",
+    "text": "Uz tvoju dozvolu koristim Google Analytics i Google Ads merenje da vidim odakle posetioci dolaze. Bez dozvole ništa od toga se ne pamti.",
+    "more": "Detalji",
+    "accept": "Dozvoli",
+    "decline": "Odbij"
+  },
+  "privacy": {
+    "title": "Privatnost",
+    "intro": "Šta ovaj sajt prikuplja, zašto, i kako to menjaš. Kratko, bez pravničkog jezika.",
+    "sections": [
+      {
+        "h": "Analitika i oglasi",
+        "p": "Google Tag Manager učitava Google Analytics 4 i Google Ads merenje konverzija. Dok ne klikneš Dozvoli, Google dobija samo anonimne signale bez kolačića (Consent Mode v2). Kada dozvoliš, kolačići beleže koje stranice otvaraš i odakle si došao, kako bih znao koje kampanje rade."
+      },
+      {
+        "h": "Kontakt forma",
+        "p": "Ime, mejl i poruka iz forme idu preko servisa Resend direktno na moj mejl. Koristim ih samo da ti odgovorim i ne delim ih ni sa kim."
+      },
+      {
+        "h": "Šta se čuva u tvom pregledaču",
+        "p": "Samo tvoj izbor o kolačićima (localStorage, ključ sepic-consent). Muzika se ne pamti i nikad ne kreće sama."
+      },
+      {
+        "h": "Promena izbora",
+        "p": "Dugme Podešavanja kolačića u podnožju svake stranice ponovo otvara izbor. Za brisanje podataka koje sam dobio preko forme piši mi preko kontakt stranice."
+      }
+    ],
+    "updated": "Poslednja izmena: septembar 2026.",
+    "metaTitle": "Politika privatnosti",
+    "metaDescription": "Koje podatke sepic.me prikuplja (Google Analytics i Google Ads samo uz saglasnost, kontakt forma preko Resend-a) i kako menjaš izbor o kolačićima."
+  }
+}
