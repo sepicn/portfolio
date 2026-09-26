@@ -90,6 +90,15 @@ export function Hero3D({ overlay }: HeroProps) {
     return () => window.cancelAnimationFrame(id);
   }, []);
 
+  useEffect(() => {
+    if (mode === "pending") return;
+    // The chosen hero has a different height from the placeholder (the pinned room is
+    // 180vh, the tour pins its own section), and the slide deck below measured its start
+    // before the switch. Without a re-measure it pinned while the room was still on screen.
+    const id = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => window.cancelAnimationFrame(id);
+  }, [mode]);
+
   if (mode === "tour") return <HeroTour overlay={overlay} />;
 
   if (mode !== "webgl") {

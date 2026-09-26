@@ -34,8 +34,36 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /** Width over height of the tour stills in /images/tour (rendered at 1080x1920). */
 const STILL_RATIO = 9 / 16;
-/** How far the overview pushes in before the close-up still takes over. */
-const PUSH = 2.6;
+/** Frames per flight in /images/tour/fly/<spot>/00.webp to 23.webp (see build_room.py). */
+const FLY_FRAMES = 24;
+
+const frameUrl = (spot: string, frame: number) =>
+  `/images/tour/fly/${spot}/${String(frame).padStart(2, "0")}.webp`;
+
+/** Loads a flight's frames once, on demand; returns the (possibly still loading) images. */
+const flights = new Map<string, HTMLImageElement[]>();
+function loadFlight(spot: string) {
+  let frames = flights.get(spot);
+  if (!frames) {
+    frames = Array.from({ length: FLY_FRAMES }, (_, i) => {
+      const img = new window.Image();
+      img.decoding = "async";
+      img.src = frameUrl(spot, i);
+      return img;
+    });
+    flights.set(spot, frames);
+  }
+  return frames;
+}
+
+/** Draws an image like object-fit: cover, centred, so it lines up with the overview still. */
+function drawCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement) {
+  const { width: cw, height: ch } = ctx.canvas;
+  const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+  const w = img.naturalWidth * scale;
+  const h = img.naturalHeight * scale;
+  ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+}
 
 const stops = tourOrder
   .map((id) => hotspots.find((spot) => spot.id === id))
@@ -45,10 +73,10 @@ type Props = { overlay?: React.ReactNode };
 
 /**
  * Phone version of the room, as a scroll-driven fly-through. It starts on a wide shot of the
- * room; each stop pushes the camera towards one object and cross-fades into a sharp close-up
- * rendered in Blender from the same camera the desktop scene flies to, holds with a card that
- * links to the page, then pulls back out to the room before the next one. Zooming real
- * renders instead of cropping one image keeps every frame sharp on high-density screens.
+ * room with a named label on each object; each stop plays a camera flight rendered in
+ * Blender towards one object (a frame sequence drawn to a canvas, scrubbed by scroll), settles
+ * on a sharp close-up from that same camera with a card linking to the page, then flies back
+ * out to the room before the next one.
  */
 export function HeroTour({ overlay }: Props) {
   const t = useTranslations("tour");
@@ -62,11 +90,42 @@ export function HeroTour({ overlay }: Props) {
       // Pin an inner node: ScrollTrigger wraps what it pins in a spacer div, which React
       // cannot unmount cleanly if it owns that node directly (see SlideDeck).
       const el = section.current;
-      const room = el?.querySelector<HTMLElement>("[data-room]");
       const intro = el?.querySelector<HTMLElement>("[data-intro]");
-      if (!el || !room || !intro) return;
+      const canvas = el?.querySelector<HTMLCanvasElement>("canvas");
+      const ctx = canvas?.getContext("2d");
+      if (!el || !intro || !canvas || !ctx) return;
       const shots = gsap.utils.toArray<HTMLElement>("[data-shot]", el);
       const pins = el.querySelector<HTMLElement>("[data-pins]");
+
+      const size = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(el.clientWidth * dpr);
+        canvas.height = Math.round(el.clientHeight * dpr);
+      };
+      size();
+
+      // Which flight is showing and how far along it is (0 = room, FLY_FRAMES - 1 = close-up).
+      const fly = { stop: -1, frame: 0 };
+      const draw = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const spot = stops[fly.stop];
+        if (!spot) return;
+        const frames = loadFlight(spot.id);
+        // Use the nearest frame that has arrived, so a slow network shows a coarser flight.
+        for (let i = Math.round(fly.frame); i >= 0; i--) {
+          if (frames[i].complete && frames[i].naturalWidth) {
+            drawCover(ctx, frames[i]);
+            return;
+          }
+        }
+      };
+      // Warm the first flight straight away and each next one while the current plays.
+      loadFlight(stops[0].id);
+      const onResize = () => {
+        size();
+        draw();
+      };
+      window.addEventListener("resize", onResize);
 
       // Each stop takes two timeline units: push in and hold (0 to 1), pull out (1 to 2).
       const units = stops.length * 2;
@@ -89,34 +148,35 @@ export function HeroTour({ overlay }: Props) {
             const at = self.progress * units;
             const i = Math.round((at - 1) / 2);
             setActive(Math.abs(at - (i * 2 + 1)) < 0.45 ? i : -1);
+            const next = stops[Math.min(stops.length - 1, Math.floor(at / 2) + 1)];
+            if (next) loadFlight(next.id);
           },
         },
+        onUpdate: draw,
       });
 
       tl.to(intro, { autoAlpha: 0, y: -24, duration: 0.4 }, 0);
       stops.forEach((spot, i) => {
         const at = i * 2;
-        const point = tourViews[spot.id];
         const shot = shots[i];
-        // Scale is 1 at this moment, so moving the origin does not jump.
-        tl.set(room, { transformOrigin: `${point.x}% ${point.y}%` }, at);
-        tl.to(room, { scale: PUSH, duration: 0.7, ease: "power2.in" }, at);
-        if (pins) tl.to(pins, { autoAlpha: 0, duration: 0.25 }, at);
+        // Fly in over 0.8, hold on the close-up, fly back out from 1.2 to 2.
+        tl.set(fly, { stop: i, frame: 0 }, at);
+        if (pins) tl.to(pins, { autoAlpha: 0, duration: 0.15 }, at);
+        tl.to(fly, { frame: FLY_FRAMES - 1, duration: 0.8, ease: "none" }, at);
+        // The sharp still is the flight's last frame at full resolution: same camera, no cut.
         tl.fromTo(
           shot,
-          { autoAlpha: 0, scale: 1.3 },
-          { autoAlpha: 1, scale: 1, duration: 0.55, ease: "power2.out" },
-          at + 0.4,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.15, ease: "none" },
+          at + 0.8,
         );
-        // Hold until at + 1.2, then pull back out to the room.
-        tl.to(
-          shot,
-          { autoAlpha: 0, scale: 1.3, duration: 0.5, ease: "power2.in" },
-          at + 1.2,
-        );
-        tl.to(room, { scale: 1, duration: 0.7, ease: "power2.out" }, at + 1.3);
-        if (pins) tl.to(pins, { autoAlpha: 1, duration: 0.3 }, at + 1.7);
+        tl.to(shot, { autoAlpha: 0, duration: 0.1, ease: "none" }, at + 1.2);
+        tl.to(fly, { frame: 0, duration: 0.8, ease: "none" }, at + 1.2);
+        tl.set(fly, { stop: -1 }, at + 2);
+        if (pins) tl.to(pins, { autoAlpha: 1, duration: 0.2 }, at + 1.8);
       });
+
+      return () => window.removeEventListener("resize", onResize);
     },
     { scope: outer },
   );
@@ -127,10 +187,10 @@ export function HeroTour({ overlay }: Props) {
         ref={section}
         className="relative h-[calc(100svh-4rem)] w-full overflow-hidden bg-night-950"
       >
-        {/* Sized to the still's aspect ratio so transform-origin percentages match the render. */}
+        {/* Sized to the still's aspect ratio, so the label percentages match the render. */}
         <div
           data-room
-          className="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2 will-change-transform"
+          className="absolute top-1/2 left-1/2 h-full -translate-x-1/2 -translate-y-1/2"
           style={{ aspectRatio: `${STILL_RATIO}`, minWidth: "100%" }}
         >
           <Image
@@ -169,12 +229,10 @@ export function HeroTour({ overlay }: Props) {
           </ul>
         </div>
 
+        <canvas aria-hidden="true" className="absolute inset-0 size-full" />
+
         {stops.map((spot) => (
-          <div
-            key={spot.id}
-            data-shot
-            className="invisible absolute inset-0 opacity-0 will-change-transform"
-          >
+          <div key={spot.id} data-shot className="invisible absolute inset-0 opacity-0">
             <Image
               src={`/images/tour/${spot.id}.webp`}
               alt=""
