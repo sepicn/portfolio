@@ -19,7 +19,8 @@
     "switchTo": "Srpski"
   },
   "footer": {
-    "rights": "Nikola Šepić. All content is mine, except client logos.",
+    "rights": "Nikola Šepić. All content is mine, except client logos and third-party 3D models.",
+    "credit": "3D computer model:",
     "privacy": "Privacy",
     "cookies": "Cookie settings"
   },

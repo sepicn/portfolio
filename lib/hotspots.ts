@@ -27,9 +27,9 @@ export const hotspots: Hotspot[] = [
     id: "projects",
     meshes: ["monitor", "monitor_screen", "computer_case", "keyboard"],
     href: "/projects",
-    camera: [0, 1.15, -0.85],
-    look: [0, 1.12, -1.63],
-    label: [0, 1.4, -1.6],
+    camera: [-0.05, 1.02, -0.85],
+    look: [-0.05, 0.99, -1.63],
+    label: [-0.05, 1.26, -1.6],
   },
   {
     id: "services",

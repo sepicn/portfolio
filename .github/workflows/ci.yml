@@ -64,5 +64,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      # Thresholds live in lighthouserc.json: 90+ on every page.
+      # Thresholds live in lighthouserc.json: 90+ on every page, median of three runs so one
+      # slow WebGL run on a shared runner does not fail the build.
       - run: npx --yes @lhci/cli@0.15.x autorun

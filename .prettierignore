@@ -8,3 +8,5 @@ blender/out
 docs/PLAN.md
 .claude
 .lighthouseci
+# Exported by Blender, not hand edited.
+blender/assets/**/*.gltf

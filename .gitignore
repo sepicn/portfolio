@@ -53,3 +53,4 @@ next-env.d.ts
 # Local only: planning notes with client details, and Claude Code tooling
 /docs/
 /.claude/
+__pycache__/
