@@ -19,7 +19,8 @@
     "switchTo": "English"
   },
   "footer": {
-    "rights": "Nikola Šepić. Sav sadržaj je moj, osim logotipa klijenata.",
+    "rights": "Nikola Šepić. Sav sadržaj je moj, osim logotipa klijenata i preuzetih 3D modela.",
+    "credit": "3D model računara:",
     "privacy": "Privatnost",
     "cookies": "Podešavanja kolačića"
   },

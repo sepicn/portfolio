@@ -258,13 +258,15 @@ def join(objects, name):
 ASSETS = os.path.join(HERE, "assets")
 
 
-def asset(slug, name, location, rotation_z=0.0, scale=1.0):
-    """Imports a CC0 Poly Haven model from blender/assets/<slug> as one object named name.
+def asset(slug, name, location, rotation_z=0.0, scale=1.0, part=None):
+    """Imports a model from blender/assets/<slug>/<part or slug>.gltf as one object named name.
 
-    Sources and licences are listed in blender/assets/README.md.
+    Sources and licences are listed in blender/assets/README.md. The BlendSwap models come
+    from convert_blendswap.py with materials named after the room palette; those are swapped
+    for the room's own materials so the imports match the procedural props.
     """
     before = set(bpy.context.scene.objects)
-    bpy.ops.import_scene.gltf(filepath=os.path.join(ASSETS, slug, f"{slug}.gltf"))
+    bpy.ops.import_scene.gltf(filepath=os.path.join(ASSETS, slug, f"{part or slug}.gltf"))
     new = [o for o in bpy.context.scene.objects if o not in before]
     meshes = [o for o in new if o.type == "MESH"]
     for o in meshes:
@@ -277,6 +279,9 @@ def asset(slug, name, location, rotation_z=0.0, scale=1.0):
     obj = join(meshes, name) if len(meshes) > 1 else meshes[0]
     obj.name = name
     obj.data.name = name
+    for slot in obj.material_slots:
+        if slot.material and slot.material.name.split(".")[0] in MATERIALS:
+            slot.material = MATERIALS[slot.material.name.split(".")[0]]
     bpy.ops.object.select_all(action="DESELECT")
     obj.select_set(True)
     bpy.context.view_layer.objects.active = obj
@@ -423,6 +428,65 @@ def city_texture(width=1024, height=512):
     return img
 
 
+
+# --------------------------------------------------------------------------- #
+# Neon lettering
+# --------------------------------------------------------------------------- #
+
+
+def arc(cx, cy, rx, ry, start, end, steps=14):
+    """Points along an elliptical arc, angles in degrees, counter-clockwise if end > start."""
+    return [(cx + rx * math.cos(math.radians(a)), cy + ry * math.sin(math.radians(a))) for a in np.linspace(start, end, steps)]
+
+
+# Single-stroke letters in the thin geometric style of the neon sign model: (width, strokes),
+# in units of the letter height, each stroke one bent glass tube.
+NEON_GLYPHS = {
+    "N": (0.62, [[(0, 0), (0, 1), (0.62, 0), (0.62, 1)]]),
+    "I": (0.0, [[(0, 0), (0, 1)]]),
+    "K": (0.58, [[(0, 0), (0, 1)], [(0.56, 1), (0, 0.42)], [(0.17, 0.58), (0.58, 0)]]),
+    "O": (0.8, [arc(0.4, 0.5, 0.4, 0.5, 90, 450, 40)]),
+    "L": (0.5, [[(0, 1), (0, 0), (0.5, 0)]]),
+    "A": (0.66, [[(0, 0), (0.33, 1), (0.66, 0)], [(0.12, 0.36), (0.54, 0.36)]]),
+    "S": (0.56, [arc(0.28, 0.75, 0.28, 0.25, 15, 270) + arc(0.28, 0.25, 0.28, 0.25, 90, -165)[1:]]),
+    "E": (0.5, [[(0.5, 1), (0, 1), (0, 0), (0.5, 0)], [(0, 0.5), (0.42, 0.5)]]),
+    "P": (0.55, [[(0, 0), (0, 1), (0.3, 1)] + arc(0.3, 0.74, 0.25, 0.26, 90, -90)[1:] + [(0, 0.48)]]),
+    "C": (0.66, [arc(0.4, 0.5, 0.4, 0.5, 50, 310, 30)]),
+}
+NEON_GLYPHS["Š"] = (0.56, NEON_GLYPHS["S"][1] + [[(0.1, 1.28), (0.28, 1.12), (0.46, 1.28)]])
+NEON_GLYPHS["Ć"] = (0.66, NEON_GLYPHS["C"][1] + [[(0.3, 1.12), (0.46, 1.3)]])
+# The code tag: "<", "/" and ">" as three tubes.
+CODE_TAG = (1.48, [[(0.45, 1), (0, 0.5), (0.45, 0)], [(0.58, -0.05), (0.9, 1.05)], [(1.03, 1), (1.48, 0.5), (1.03, 0)]])
+
+
+def neon_tubes(name, glyphs, origin, height, y, mat, spacing=0.26, radius=0.006):
+    """Bent-glass tubes on a wall plane: glyphs are (width, strokes) laid out left to right
+    from origin (x, z of the bottom left) at the given letter height, all joined as name."""
+    x0, z0 = origin
+    tubes = []
+    for width, strokes in glyphs:
+        for stroke in strokes:
+            curve = bpy.data.curves.new(f"{name}_{len(tubes)}", "CURVE")
+            curve.dimensions = "3D"
+            curve.bevel_depth = radius
+            curve.bevel_resolution = 3
+            curve.use_fill_caps = True
+            spline = curve.splines.new("POLY")
+            spline.points.add(len(stroke) - 1)
+            for i, (u, v) in enumerate(stroke):
+                spline.points[i].co = (x0 + u * height, y, z0 + v * height, 1)
+            obj = bpy.data.objects.new(curve.name, curve)
+            bpy.context.scene.collection.objects.link(obj)
+            tubes.append(obj)
+        x0 += (width + spacing) * height
+    bpy.ops.object.select_all(action="DESELECT")
+    for obj in tubes:
+        obj.select_set(True)
+    bpy.context.view_layer.objects.active = tubes[0]
+    bpy.ops.object.convert(target="MESH")
+    return finish(join(list(bpy.context.selected_objects), name), name, mat, None, 2, True)
+
+
 # --------------------------------------------------------------------------- #
 # Build
 # --------------------------------------------------------------------------- #
@@ -470,6 +534,9 @@ def build():
         M[key] = material(key, rgb(hexv), roughness=0.9)
     M["glass"] = material("glass", rgb("a8d8ff", 0.08), roughness=0.05, alpha=0.08)
     M["dark_glass"] = material("dark_glass", rgb("101018", 0.6), roughness=0.1, alpha=0.6)
+    # Palette names the converted BlendSwap models ask for (see convert_blendswap.py).
+    M["chair_fabric"] = material("chair_fabric", rgb("2b3f8f"), roughness=0.95)
+    M["neon_glass"] = material("neon_glass", rgb("0a0712"), roughness=0.45)
 
     # ---------------- Room shell ----------------
     plane("floor", (7, 7), (0, 0.5, 0), M["floor"])
@@ -545,13 +612,18 @@ def build():
     slats.append(cylinder("blind_cord", 0.003, 0.75, (1.25, WALL_Y - 0.09, 1.95), M["paper"]))
     join(slats, "blinds")
 
-    # ---------------- Neon OPEN sign ----------------
-    box("neon_panel", (1.16, 0.03, 0.46), (0, WALL_Y - 0.02, 2.62), M["black"], bevel=0.01)
-    text("neon_sign", "OPEN", (0, WALL_Y - 0.06, 2.62), 0.3, 0.014, M["neon_pink"], rotation=(math.pi / 2, 0, 0), bevel=0.004)
-    y = WALL_Y - 0.055
-    tube("neon_border", [(-0.5, y, 2.44), (0.5, y, 2.44), (0.5, y, 2.8), (-0.5, y, 2.8)], 0.008, M["neon_cyan"], cyclic=True, resolution=5)
-    box("neon_bracket", (0.04, 0.04, 0.02), (-0.55, WALL_Y - 0.02, 2.84), M["grey"])
-    box("neon_bracket_2", (0.04, 0.04, 0.02), (0.55, WALL_Y - 0.02, 2.84), M["grey"])
+    # ---------------- Neon name sign ----------------
+    # The dark glass backing with its metal rim is the BlendSwap neon sign model; the tubes
+    # are drawn here in its style: the code tag in cyan, the name on two lines in pink.
+    # k scales the whole sign; the layout below is for a 1.14 m wide panel.
+    sign_z, k = 2.6, 0.9
+    asset("neon_sign", "neon_panel", (0, WALL_Y - 0.03, sign_z - 0.272 * k), scale=k, part="panel")
+    tube_y = WALL_Y - 0.06
+    neon_tubes("neon_border", [CODE_TAG], (-0.5025 * k, sign_z - 0.12 * k), 0.24 * k, tube_y, M["neon_cyan"])
+    name_x, letter = -0.0775 * k, 0.13 * k
+    first = neon_tubes("neon_first", [NEON_GLYPHS[c] for c in "NIKOLA"], (name_x, sign_z + 0.035 * k), letter, tube_y, M["neon_pink"])
+    last = neon_tubes("neon_last", [NEON_GLYPHS[c] for c in "ŠEPIĆ"], (name_x, sign_z - 0.035 * k - letter), letter, tube_y, M["neon_pink"])
+    join([first, last], "neon_sign")
 
     # ---------------- Desk ----------------
     box("desk_top", (2.4, 0.9, 0.05), (0, 1.6, 0.755), M["desk"], bevel=0.015, segments=3)
@@ -566,79 +638,15 @@ def build():
     box("desk_led", (2.3, 0.012, 0.012), (0, 1.16, 0.715), M["neon_pink"])
     box("desk_led_back", (2.3, 0.012, 0.012), (0, 2.04, 0.715), M["neon_violet"])
 
-    # ---------------- Computer case ----------------
-    case = [
-        box("case_body", (0.52, 0.44, 0.13), (0, 1.75, 0.845), M["beige"], bevel=0.008),
-        box("case_front_plate", (0.5, 0.01, 0.11), (0, 1.526, 0.845), M["beige_dark"]),
-        box("case_bay_1", (0.13, 0.012, 0.045), (-0.15, 1.522, 0.86), M["black"]),
-        box("case_bay_2", (0.13, 0.012, 0.045), (0.0, 1.522, 0.86), M["black"]),
-        box("case_slot_1", (0.1, 0.006, 0.006), (-0.15, 1.518, 0.868), M["black_soft"]),
-        box("case_slot_2", (0.1, 0.006, 0.006), (0.0, 1.518, 0.868), M["black_soft"]),
-        box("case_eject_1", (0.018, 0.008, 0.012), (-0.1, 1.517, 0.848), M["beige"]),
-        box("case_eject_2", (0.018, 0.008, 0.012), (0.05, 1.517, 0.848), M["beige"]),
-        box("case_power", (0.035, 0.01, 0.018), (0.16, 1.519, 0.86), M["beige_dark"], bevel=0.003),
-        cylinder("case_lock", 0.009, 0.01, (0.21, 1.521, 0.86), M["chrome"], rotation=(math.pi / 2, 0, 0)),
-        box("case_badge", (0.06, 0.004, 0.012), (-0.2, 1.519, 0.815), M["chrome"]),
-        box("case_led", (0.012, 0.006, 0.006), (0.13, 1.519, 0.832), M["led"]),
-        box("case_led_2", (0.012, 0.006, 0.006), (0.15, 1.519, 0.832), M["neon_red"]),
-    ]
-    for i in range(6):
-        case.append(box(f"case_vent_{i}", (0.006, 0.3, 0.06), (0.24, 1.75 + (i - 2.5) * 0.02, 0.845), M["beige_dark"]))
-    for x in (-0.22, 0.22):
-        for yy in (1.58, 1.92):
-            case.append(cylinder(f"case_foot_{x}_{yy}", 0.012, 0.01, (x, yy, 0.775), M["black"], vertices=12))
-    join(case, "computer_case")
-
-    # ---------------- CRT monitor ----------------
-    monitor = [
-        box("monitor_body", (0.46, 0.34, 0.40), (0, 1.82, 1.11), M["beige"], bevel=0.022, segments=3),
-        box("monitor_tube", (0.36, 0.14, 0.32), (0, 2.05, 1.13), M["beige_dark"], bevel=0.03, segments=3),
-        box("monitor_bezel", (0.44, 0.03, 0.38), (0, 1.645, 1.11), M["beige"], bevel=0.012, segments=3),
-        box("monitor_recess", (0.37, 0.02, 0.29), (0, 1.63, 1.125), M["black"], bevel=0.006),
-        box("monitor_chin", (0.4, 0.012, 0.03), (0, 1.628, 0.945), M["beige_dark"]),
-        cylinder("monitor_power", 0.012, 0.012, (0.16, 1.626, 0.945), M["beige_dark"], rotation=(math.pi / 2, 0, 0)),
-        cylinder("monitor_knob_1", 0.009, 0.014, (-0.15, 1.625, 0.945), M["black"], rotation=(math.pi / 2, 0, 0)),
-        cylinder("monitor_knob_2", 0.009, 0.014, (-0.12, 1.625, 0.945), M["black"], rotation=(math.pi / 2, 0, 0)),
-        box("monitor_led", (0.01, 0.006, 0.006), (0.12, 1.624, 0.945), M["neon_green"]),
-        box("monitor_stand", (0.3, 0.26, 0.03), (0, 1.8, 0.925), M["beige_dark"], bevel=0.008),
-        box("monitor_stand_neck", (0.2, 0.18, 0.02), (0, 1.8, 0.9), M["beige_dark"]),
-        text("monitor_brand", "SEPIC 2000", (-0.13, 1.627, 0.945), 0.014, 0.001, M["black"], rotation=(math.pi / 2, 0, 0), align="LEFT"),
-        # Sticky notes on the bezel.
-        box("note_1", (0.05, 0.003, 0.05), (0.21, 1.63, 1.26), M["note_1"], rotation=(0, math.radians(6), 0)),
-        box("note_2", (0.045, 0.003, 0.045), (-0.215, 1.63, 0.99), M["note_2"], rotation=(0, math.radians(-8), 0)),
-    ]
-    for i in range(8):
-        monitor.append(box(f"monitor_vent_{i}", (0.32, 0.012, 0.004), (0, 1.9 + i * 0.016, 1.312), M["beige_dark"]))
-    join(monitor, "monitor")
-    curved_screen("monitor_screen", 0.34, 0.255, 0.012, (0, 1.626, 1.125), M["screen"], rotation=(math.pi / 2, 0, 0))
-
-    # ---------------- Keyboard ----------------
-    kb = [box("keyboard_base", (0.47, 0.18, 0.026), (0, 1.3, 0.796), M["beige"], bevel=0.006, segments=3)]
-    kb.append(box("keyboard_lip", (0.47, 0.012, 0.03), (0, 1.392, 0.8), M["beige_dark"], bevel=0.004))
-    kb.append(box("keyboard_led_1", (0.008, 0.006, 0.003), (0.17, 1.385, 0.816), M["neon_green"]))
-    kb.append(box("keyboard_led_2", (0.008, 0.006, 0.003), (0.19, 1.385, 0.816), M["neon_green"]))
-    unit = 0.0305
-    rows = [
-        [1] * 13 + [1.6],           # number row
-        [1.5] + [1] * 12 + [1.1],   # tab row
-        [1.75] + [1] * 11 + [1.85], # home row
-        [2.25] + [1] * 10 + [2.35], # shift row
-        [1.25, 1.25, 1.25, 6.25, 1.25, 1.25, 1.25, 1.25],  # bottom row
-    ]
-    total = 14.6 * unit
-    for r, row in enumerate(rows):
-        x = -total / 2
-        yy = 1.36 - r * unit
-        for c, w in enumerate(row):
-            kw = w * unit - 0.004
-            kb.append(box(f"key_{r}_{c}", (kw, unit - 0.004, 0.011), (x + w * unit / 2, yy, 0.816), M["keycap"], bevel=0.0025, segments=2))
-            x += w * unit
-    # Function row.
-    for c in range(12):
-        kb.append(box(f"key_f_{c}", (unit - 0.006, unit - 0.008, 0.009), (-total / 2 + unit * (1.5 + c + (c // 4) * 0.5), 1.36 + unit * 1.1, 0.815), M["beige_dark"], bevel=0.002))
-    kb_all = join(kb, "keyboard")
-    kb_all.rotation_euler = (math.radians(4), 0, 0)
-    tube("keyboard_cable", [(0.2, 1.39, 0.8), (0.2, 1.45, 0.79), (0.15, 1.5, 0.785), (0.1, 1.53, 0.79)], 0.004, M["black"])
+    # ---------------- Computer (BlendSwap retro computer) ----------------
+    # CRT monitor, tower and keyboard from one model; the screen is its own part so the web
+    # app can put the animated texture on it. Monitor and screen share an origin.
+    desk_top = 0.78
+    asset("retro_computer", "monitor", (-0.05, 1.78, desk_top), part="monitor")
+    asset("retro_computer", "monitor_screen", (-0.05, 1.78, desk_top), part="screen")
+    asset("retro_computer", "computer_case", (0.3, 1.76, desk_top), part="tower")
+    asset("retro_computer", "keyboard", (-0.03, 1.3, 0.784), part="keyboard")  # on the desk mat
+    tube("keyboard_cable", [(0.12, 1.39, 0.785), (0.14, 1.46, 0.785), (0.2, 1.52, 0.785), (0.24, 1.57, 0.79)], 0.004, M["black"])
 
     # ---------------- Mouse ----------------
     mouse = [
@@ -895,47 +903,30 @@ def build():
     ]
     join(clock, "clock")
 
-    # ---------------- Chair ----------------
-    chair = [
-        box("chair_seat", (0.48, 0.46, 0.08), (0, 0, 0.5), M["black_soft"], bevel=0.03, segments=3, smooth=True),
-        box("chair_back", (0.46, 0.08, 0.5), (0, -0.21, 0.83), M["black_soft"], bevel=0.03, segments=3, smooth=True),
-        box("chair_back_stripe", (0.3, 0.004, 0.015), (0, -0.252, 0.95), M["neon_pink"]),
-        cylinder("chair_column", 0.03, 0.4, (0, 0, 0.26), M["chrome"]),
-        cylinder("chair_hub", 0.05, 0.03, (0, 0, 0.08), M["black"]),
-    ]
-    for i in range(5):
-        a = math.radians(i * 72)
-        chair.append(box(f"chair_leg_{i}", (0.3, 0.035, 0.025), (0.15 * math.cos(a), 0.15 * math.sin(a), 0.06), M["black"], rotation=(0, 0, a)))
-        chair.append(sphere(f"chair_wheel_{i}", 0.028, (0.3 * math.cos(a), 0.3 * math.sin(a), 0.03), M["black_soft"]))
-    chair_obj = join(chair, "chair")
+    # ---------------- Chair (BlendSwap office chair) ----------------
     # Pulled out at the front right corner of the desk, turned towards it, as if just left.
-    chair_obj.location = (0.95, 0.8, 0)
-    chair_obj.rotation_euler = (0, 0, math.radians(-25))
+    asset("office_chair", "chair", (0.95, 0.8, 0), rotation_z=math.radians(-25), part="chair")
 
     # ---------------- Gym corner and reading (about) ----------------
+    # Bright rubber colours with a faint glow: in black they vanished against the dark floor.
+    gym_pink = material("gym_pink", rgb(HEX["pink"]), roughness=0.7, emission=rgb(HEX["pink"]), strength=0.6)
+    gym_cyan = material("gym_cyan", rgb(HEX["cyan"]), roughness=0.7, emission=rgb(HEX["cyan"]), strength=0.5)
+    gym_yellow = material("gym_yellow", rgb(HEX["yellow"]), roughness=0.6, emission=rgb(HEX["yellow"]), strength=0.5)
+    gym_violet = material("gym_violet", rgb(HEX["violet"]), roughness=0.9, emission=rgb(HEX["violet"]), strength=0.6)
     gym = []
     for i, (gx, gy, rot) in enumerate([(1.95, 1.7, 0), (1.95, 1.85, math.radians(6))]):
         gym.append(cylinder(f"db_bar_{i}", 0.012, 0.3, (gx, gy, 0.045), M["chrome"], rotation=(0, math.pi / 2, rot), vertices=12))
         for side in (-1, 1):
-            gym.append(cylinder(f"db_plate_{i}_{side}", 0.045, 0.035, (gx + side * 0.11, gy, 0.045), M["black"], rotation=(0, math.pi / 2, rot), vertices=24))
-            gym.append(cylinder(f"db_plate2_{i}_{side}", 0.035, 0.03, (gx + side * 0.145, gy, 0.045), M["black_soft"], rotation=(0, math.pi / 2, rot), vertices=24))
-    gym.append(sphere("kettlebell_body", 0.09, (2.35, 1.6, 0.09), M["black"], scale=(1, 1, 0.9)))
-    gym.append(torus("kettlebell_handle", 0.06, 0.013, (2.35, 1.6, 0.2), M["black"], rotation=(math.pi / 2, 0, 0), major_segments=20, minor_segments=8))
-    gym.append(text("kettlebell_kg", "16", (2.35, 1.51, 0.1), 0.035, 0.002, M["neon_pink"], rotation=(math.pi / 2, 0, 0)))
-    gym.append(cylinder("yoga_mat", 0.075, 0.62, (2.4, 2.55, 0.075), M["rug"], rotation=(0, math.pi / 2, math.radians(10)), vertices=24))
-    gym.append(cylinder("yoga_mat_core", 0.03, 0.64, (2.4, 2.55, 0.075), M["black"], rotation=(0, math.pi / 2, math.radians(10)), vertices=16))
+            gym.append(cylinder(f"db_plate_{i}_{side}", 0.045, 0.035, (gx + side * 0.11, gy, 0.045), gym_pink, rotation=(0, math.pi / 2, rot), vertices=24))
+            gym.append(cylinder(f"db_plate2_{i}_{side}", 0.035, 0.03, (gx + side * 0.145, gy, 0.045), gym_cyan, rotation=(0, math.pi / 2, rot), vertices=24))
+    gym.append(sphere("kettlebell_body", 0.09, (2.35, 1.6, 0.09), gym_yellow, scale=(1, 1, 0.9)))
+    gym.append(torus("kettlebell_handle", 0.06, 0.013, (2.35, 1.6, 0.2), gym_yellow, rotation=(math.pi / 2, 0, 0), major_segments=20, minor_segments=8))
+    gym.append(text("kettlebell_kg", "16", (2.35, 1.51, 0.1), 0.035, 0.002, M["black"], rotation=(math.pi / 2, 0, 0)))
+    gym.append(cylinder("yoga_mat", 0.075, 0.62, (2.4, 2.55, 0.075), gym_violet, rotation=(0, math.pi / 2, math.radians(10)), vertices=24))
+    gym.append(cylinder("yoga_mat_core", 0.03, 0.64, (2.4, 2.55, 0.075), gym_pink, rotation=(0, math.pi / 2, math.radians(10)), vertices=16))
     join(gym, "gym")
-    book_open = [
-        box("book_cover_l", (0.16, 0.22, 0.008), (-1.0, 1.25, 0.784), M["book_2"], rotation=(0, math.radians(-6), math.radians(15))),
-        box("book_cover_r", (0.16, 0.22, 0.008), (-0.845, 1.29, 0.784), M["book_2"], rotation=(0, math.radians(6), math.radians(15))),
-        box("book_pages_l", (0.15, 0.21, 0.018), (-0.995, 1.252, 0.795), M["paper"], rotation=(0, math.radians(-6), math.radians(15))),
-        box("book_pages_r", (0.15, 0.21, 0.018), (-0.85, 1.29, 0.795), M["paper"], rotation=(0, math.radians(6), math.radians(15))),
-    ]
-    for i in range(7):
-        book_open.append(box(f"book_text_l_{i}", (0.1, 0.003, 0.001), (-1.0, 1.17 + i * 0.024, 0.806), M["grey"], rotation=(0, 0, math.radians(15))))
-        book_open.append(box(f"book_text_r_{i}", (0.1, 0.003, 0.001), (-0.85, 1.21 + i * 0.024, 0.806), M["grey"], rotation=(0, 0, math.radians(15))))
-    book_open.append(box("bookmark", (0.02, 0.09, 0.001), (-0.83, 1.4, 0.807), M["neon_pink"], rotation=(0, 0, math.radians(15))))
-    join(book_open, "book_open")
+    # Open book on the desk (BlendSwap).
+    asset("open_book", "book_open", (-0.92, 1.27, 0.78), rotation_z=math.radians(15), part="book")
     headphones = [
         torus("hp_band", 0.075, 0.008, (-0.45, 1.22, 0.86), M["black"], rotation=(0, math.pi / 2, 0), major_segments=28, minor_segments=8),
         cylinder("hp_cup_l", 0.038, 0.03, (-0.45, 1.145, 0.86), M["black"], rotation=(math.pi / 2, 0, 0), vertices=24),

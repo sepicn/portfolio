@@ -10,9 +10,32 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-white/5 py-10 text-sm text-ink-400">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <p>
-          &copy; {year} {t("rights")}
-        </p>
+        <div className="flex flex-col gap-1">
+          <p>
+            &copy; {year} {t("rights")}
+          </p>
+          {/* CC BY 4.0 requires credit; the other models in the room are CC0 (blender/assets/README.md). */}
+          <p className="text-xs">
+            {t("credit")}{" "}
+            <a
+              href="https://blendswap.com/blend/26625"
+              rel="noopener"
+              target="_blank"
+              className="hover:text-neon-cyan"
+            >
+              Retro computer
+            </a>
+            , senmurai,{" "}
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              rel="license noopener"
+              target="_blank"
+              className="hover:text-neon-cyan"
+            >
+              CC BY 4.0
+            </a>
+          </p>
+        </div>
         <div className="flex flex-wrap gap-4">
           <Link href="/privacy" className="hover:text-neon-cyan">
             {t("privacy")}
