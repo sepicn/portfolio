@@ -21,6 +21,9 @@ run(process.execPath, [
   "draco",
   "--texture-compress",
   "webp",
+  // The Poly Haven props ship 1K PBR maps; half that is plenty at their size on screen.
+  "--texture-size",
+  "512",
   // Joining, flattening or palette merging broke the hotspot names and colours.
   "--join",
   "false",
@@ -41,6 +44,15 @@ for (const file of readdirSync("blender/out").filter((name) =>
   await sharp(`blender/out/${file}`)
     .webp({ quality: 80 })
     .toFile(`public/images/tour/${name}.webp`);
+}
+for (const file of readdirSync("blender/out/fly").filter((name) =>
+  /^[a-z]+_[0-9]+[.]png$/.test(name),
+)) {
+  const [, spot, frame] = file.match(/^([a-z]+)_([0-9]+)[.]png$/);
+  mkdirSync(`public/images/tour/fly/${spot}`, { recursive: true });
+  await sharp(`blender/out/fly/${file}`)
+    .webp({ quality: 72 })
+    .toFile(`public/images/tour/fly/${spot}/${frame}.webp`);
 }
 copyFileSync("blender/out/views.json", "lib/room-views.json");
 console.log(

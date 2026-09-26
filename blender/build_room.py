@@ -10,7 +10,9 @@ Outputs (in blender/out/):
     views.json      each hotspot focus point projected onto preview.png ("landscape") and
                     onto tour_overview.png ("tour"), in percent
     tour_*.png      1080x1920 stills for the phone tour: an overview, then one per hotspot
-                    from the camera the web scene flies to (hotspot camera and look)
+                    shot straight on from the front
+    fly/*.png       540x960 frame sequences of the camera flying from the overview to each
+                    close-up, scrubbed by scroll on phones
     room.blend      the generated scene, so it can be opened and hand tuned
 
 Clickable objects carry stable names that the web app looks up (see lib/hotspots.ts):
@@ -253,6 +255,40 @@ def join(objects, name):
     return obj
 
 
+ASSETS = os.path.join(HERE, "assets")
+
+
+def asset(slug, name, location, rotation_z=0.0, scale=1.0):
+    """Imports a CC0 Poly Haven model from blender/assets/<slug> as one object named name.
+
+    Sources and licences are listed in blender/assets/README.md.
+    """
+    before = set(bpy.context.scene.objects)
+    bpy.ops.import_scene.gltf(filepath=os.path.join(ASSETS, slug, f"{slug}.gltf"))
+    new = [o for o in bpy.context.scene.objects if o not in before]
+    meshes = [o for o in new if o.type == "MESH"]
+    for o in meshes:
+        world = o.matrix_world.copy()
+        o.parent = None
+        o.matrix_world = world
+    for o in new:
+        if o.type != "MESH":
+            bpy.data.objects.remove(o, do_unlink=True)
+    obj = join(meshes, name) if len(meshes) > 1 else meshes[0]
+    obj.name = name
+    obj.data.name = name
+    bpy.ops.object.select_all(action="DESELECT")
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    obj.scale = (scale, scale, scale)
+    # The glTF importer leaves objects in quaternion mode, where rotation_euler is ignored.
+    obj.rotation_mode = "XYZ"
+    obj.rotation_euler = (0, 0, rotation_z)
+    obj.location = location
+    return obj
+
+
 def curved_screen(name, width, height, bulge, location, mat, rotation=(0, 0, 0), divisions=14):
     """A slightly domed CRT screen: a grid whose centre pushes toward the viewer."""
     mesh = bpy.data.meshes.new(name)
@@ -388,13 +424,15 @@ def build():
     M["neon_green"] = material("neon_green", rgb(HEX["green"]), emission=rgb(HEX["green"]), strength=4)
     M["neon_red"] = material("neon_red", rgb(HEX["red"]), emission=rgb(HEX["red"]), strength=4)
     M["neon_sun"] = material("neon_sun", rgb(HEX["sun"]), emission=rgb(HEX["sun"]), strength=4)
+    M["neon_white"] = material("neon_white", rgb("e8e6ee"), emission=rgb("e8e6ee"), strength=3)
+    M["neon_gold"] = material("neon_gold", rgb("d8b04a"), emission=rgb("d8b04a"), strength=4)
     M["bulb"] = material("bulb", rgb("fff1c8"), emission=rgb("ffd9a0"), strength=10)
     M["led"] = material("led", rgb(HEX["cyan"]), emission=rgb(HEX["cyan"]), strength=4)
     M["screen"] = material("screen", (0, 0, 0, 1), image=image_from_array("screen", screen_texture()), strength=2.2)
     M["city"] = material("city", (0, 0, 0, 1), image=image_from_array("city", city_texture()), strength=1.6)
-    photo_path = os.path.join(HERE, "..", "public", "image.png")
+    photo_path = os.path.join(ASSETS, "portrait.png")
     photo_img = bpy.data.images.load(photo_path)
-    photo_img.scale(240, 320)
+    photo_img.scale(480, 640)
     photo_img.pack()
     M["photo"] = material("photo", (1, 1, 1, 1), roughness=0.6)
     tex = M["photo"].node_tree.nodes.new("ShaderNodeTexImage")
@@ -452,6 +490,20 @@ def build():
     ]
     for i, (name, label, mat, x, z, w) in enumerate(billboards):
         y = WALL_Y + 0.55 + i * 0.05
+        if name == "billboard_1":
+            # Medical Time wordmark colours: "Medical" in light grey, "Time" in gold.
+            w, gap = 0.62, 0.012
+            size = w * 0.15
+            parts = [
+                box(f"{name}_panel", (w, 0.02, w * 0.36), (x, y + 0.02, z), M["black_soft"], bevel=0.004),
+                text(f"{name}_medical", "Medical", (x - 0.03 - gap, y, z), size, 0.004, M["neon_white"], rotation=(math.pi / 2, 0, 0), align="RIGHT"),
+                text(f"{name}_time", "Time", (x - 0.03 + gap, y, z), size, 0.004, M["neon_gold"], rotation=(math.pi / 2, 0, 0), align="LEFT"),
+                box(f"{name}_edge", (w + 0.02, 0.01, 0.006), (x, y, z + w * 0.18), M["neon_gold"]),
+                box(f"{name}_edge2", (w + 0.02, 0.01, 0.006), (x, y, z - w * 0.18), M["neon_gold"]),
+                box(f"{name}_pole", (0.02, 0.02, 0.5), (x, y + 0.03, z - w * 0.18 - 0.25), M["grey"]),
+            ]
+            join(parts, name)
+            continue
         parts = [
             box(f"{name}_panel", (w, 0.02, w * 0.4), (x, y + 0.02, z), M["black_soft"], bevel=0.004),
             text(f"{name}_text", label, (x, y, z), w * 0.16, 0.004, mat, rotation=(math.pi / 2, 0, 0)),
@@ -577,27 +629,36 @@ def build():
     for i in range(4):
         rot = (0, 0, math.radians(-10 + i * 6))
         z = 0.782 + i * 0.0045
-        stack.append(box(f"floppy_{i}", (0.09, 0.093, 0.0035), (-0.72 + i * 0.005, 1.42 + i * 0.004, z), M["black"] if i % 2 else M["grey"], rotation=rot, bevel=0.001))
-        stack.append(box(f"floppy_label_{i}", (0.06, 0.032, 0.001), (-0.72 + i * 0.005, 1.445 + i * 0.004, z + 0.0022), M["paper"], rotation=rot))
-        stack.append(box(f"floppy_shutter_{i}", (0.032, 0.026, 0.001), (-0.715 + i * 0.005, 1.395 + i * 0.004, z + 0.0022), M["chrome"], rotation=rot))
-    stack.append(text("floppy_text", "CV", (-0.706, 1.457, 0.8035), 0.014, 0.0005, M["black"], rotation=(0, 0, math.radians(8))))
+        stack.append(box(f"floppy_{i}", (0.09, 0.093, 0.0035), (-0.5 + i * 0.005, 1.4 + i * 0.004, z), M["black"] if i % 2 else M["grey"], rotation=rot, bevel=0.001))
+        stack.append(box(f"floppy_label_{i}", (0.06, 0.032, 0.001), (-0.5 + i * 0.005, 1.425 + i * 0.004, z + 0.0022), M["paper"], rotation=rot))
+        stack.append(box(f"floppy_shutter_{i}", (0.032, 0.026, 0.001), (-0.495 + i * 0.005, 1.375 + i * 0.004, z + 0.0022), M["chrome"], rotation=rot))
+    stack.append(text("floppy_text", "CV", (-0.486, 1.437, 0.8035), 0.014, 0.0005, M["black"], rotation=(0, 0, math.radians(8))))
     join(stack, "floppy")
 
     # ---------------- Framed photo on the desk (CV) ----------------
-    fx, fy, fz = -0.55, 1.62, 0.79
-    tilt = (math.radians(-12), 0, math.radians(18))
-    # Built upright around the origin and rotated as one piece, so the mat and the picture
-    # stay centred in the frame (offsetting each part and then rotating it drifted them).
-    upright = (math.pi / 2, 0, 0)
-    photo = [
-        box("photo_frame", (0.15, 0.012, 0.19), (0, 0, 0), M["wood"], bevel=0.004),
-        box("photo_inner", (0.128, 0.004, 0.168), (0, -0.006, 0), M["paper"]),
-        plane("photo_picture", (0.112, 0.15), (0, -0.0085, 0.004), M["photo"], rotation=upright),
-        box("photo_stand", (0.02, 0.09, 0.006), (0, 0.045, -0.04), M["wood"], rotation=(math.radians(50), 0, 0)),
-    ]
-    frame = join(photo, "photo")
-    frame.location = (fx, fy, fz + 0.095)
-    frame.rotation_euler = tilt
+    fx, fy, fz = -0.55, 1.62, 0.775
+    frame = asset("standing_picture_frame_01", "photo", (fx, fy, fz), rotation_z=math.radians(18 - 90), scale=0.85)
+    # The glass pane renders as an opaque dark sheet in Eevee and hides the photo: drop it.
+    glass = [i for i, m in enumerate(frame.data.materials) if m and m.name.endswith("_glass")]
+    bm = bmesh.new()
+    bm.from_mesh(frame.data)
+    bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.material_index in glass], context="FACES")
+    bm.to_mesh(frame.data)
+    bm.free()
+    # The model faces +X; turned -90 degrees it faces the camera, plus 18 towards the room.
+    # Swap the stock artwork for the portrait; the artwork UVs cover the picture opening.
+    for slot in frame.material_slots:
+        if slot.material and slot.material.name.endswith("_artwork"):
+            nodes = slot.material.node_tree.nodes
+            for node in nodes:
+                if node.type == "TEX_IMAGE" and "diff" in (node.image.name if node.image else ""):
+                    node.image = photo_img
+            bsdf = nodes.get("Principled BSDF")
+            if bsdf:
+                bsdf.inputs["Emission Strength"].default_value = 0.25
+                for node in nodes:
+                    if node.type == "TEX_IMAGE" and node.image is photo_img:
+                        slot.material.node_tree.links.new(node.outputs["Color"], bsdf.inputs["Emission Color"])
 
     # ---------------- Pixel-art cat asleep on the desk ----------------
     V = 0.022
@@ -697,23 +758,7 @@ def build():
     box("shelf_bracket_2", (0.03, 0.26, 0.2), (2.8, WALL_Y - 0.15, 1.44), M["grey"])
     box("shelf_led", (1.4, 0.012, 0.012), (2.15, WALL_Y - 0.31, 1.53), M["neon_cyan"])
     hx = -3.27
-    hifi = [
-        box("hifi_body", (0.28, 0.46, 0.15), (hx, 1.35, 1.645), M["black"], bevel=0.006),
-        box("hifi_face", (0.012, 0.44, 0.13), (hx + 0.14, 1.35, 1.645), M["black_soft"]),
-        box("hifi_deck_window", (0.01, 0.17, 0.08), (hx + 0.146, 1.24, 1.655), M["dark_glass"]),
-        cylinder("hifi_reel_1", 0.022, 0.006, (hx + 0.148, 1.2, 1.655), M["grey"], rotation=(0, math.pi / 2, 0), vertices=16),
-        cylinder("hifi_reel_2", 0.022, 0.006, (hx + 0.148, 1.28, 1.655), M["grey"], rotation=(0, math.pi / 2, 0), vertices=16),
-        box("hifi_display", (0.008, 0.14, 0.03), (hx + 0.148, 1.47, 1.685), M["black"]),
-        cylinder("hifi_knob_1", 0.02, 0.016, (hx + 0.152, 1.44, 1.62), M["chrome"], rotation=(0, math.pi / 2, 0), vertices=16),
-        cylinder("hifi_knob_2", 0.02, 0.016, (hx + 0.152, 1.52, 1.62), M["chrome"], rotation=(0, math.pi / 2, 0), vertices=16),
-        text("hifi_brand", "SW-9000", (hx + 0.148, 1.35, 1.6), 0.012, 0.001, M["grey"], rotation=(math.pi / 2, 0, math.pi / 2)),
-    ]
-    for i in range(12):
-        col = M["neon_green"] if i < 8 else (M["neon_yellow"] if i < 10 else M["neon_red"])
-        hifi.append(box(f"hifi_vu_{i}", (0.004, 0.007, 0.02 if i < 7 else 0.012), (hx + 0.152, 1.41 + i * 0.01, 1.685), col if i < 7 + random.randint(0, 3) else M["grey"]))
-    for i in range(6):
-        hifi.append(box(f"hifi_btn_{i}", (0.008, 0.02, 0.01), (hx + 0.152, 1.19 + i * 0.026, 1.6), M["grey"]))
-    hifi_obj = join(hifi, "hifi")
+
     cassettes = []
     for i in range(3):
         cassettes.append(box(f"cassette_{i}", (0.11, 0.07, 0.016), (hx, 1.7, 1.575 + i * 0.018), M["black"] if i != 1 else M["paper"], rotation=(0, 0, math.radians(-4 + i * 5)), bevel=0.002))
@@ -735,22 +780,17 @@ def build():
         books.append(box(f"book_{i}", (0.2, w, h), (hx, yy, 1.565 + h / 2), M[key], rotation=(lean, 0, 0), bevel=0.002))
         books.append(box(f"book_page_{i}", (0.19, w - 0.006, h - 0.012), (hx - 0.006, yy, 1.565 + h / 2), M["paper"], rotation=(lean, 0, 0)))
     books_obj = join(books, "books")
-    plant = [
-        cylinder("pot", 0.06, 0.1, (hx, 0.72, 1.615), M["neon_sun"], vertices=20, bevel=0.006),
-        cylinder("pot_soil", 0.054, 0.01, (hx, 0.72, 1.665), M["soil"], vertices=20),
-    ]
-    for i in range(7):
-        a = math.radians(i * 51)
-        plant.append(sphere(f"leaf_{i}", 0.05, (hx + 0.045 * math.cos(a), 0.72 + 0.045 * math.sin(a), 1.7 + 0.03 * (i % 3)), M["leaf"], scale=(1.3, 0.5, 0.35)))
-    plant.append(sphere("leaf_top", 0.05, (hx, 0.72, 1.76), M["leaf"], scale=(1, 1, 0.5)))
-    plant_obj = join(plant, "plant")
+
     # The set above was laid out along the left wall, facing +X, around x = hx.
     # Rotate it by -90 degrees so it faces the room from the back wall: (x, y) -> (y, -x).
     # A source point (hx, y0) lands at (y0, -hx); shift so y0 = 1.35 sits at x = 2.35 and
     # the row hugs the wall at WALL_Y - 0.17.
-    for obj in (hifi_obj, cassettes_obj, speaker_obj, books_obj, plant_obj):
+    for obj in (cassettes_obj, speaker_obj, books_obj):
         obj.rotation_euler = (0, 0, math.radians(-90))
         obj.location = (2.15 - 1.35, WALL_Y - 0.17 + hx, 0)
+    shelf_top = 1.565
+    asset("boombox", "hifi", (2.1, WALL_Y - 0.19, shelf_top), rotation_z=0.0, scale=0.55)
+    asset("potted_plant_04", "plant", (1.72, WALL_Y - 0.17, shelf_top), scale=1.25)
 
     # ---------------- Diploma and certificates (education) ----------------
     dx, dz = -2.15, 2.0
@@ -931,6 +971,16 @@ def three_to_blender(p):
 
 
 TOUR_SIZE = (1080, 1920)
+# The flight is in motion while it plays, so half resolution is enough and keeps it light.
+FLY_SIZE = (540, 960)
+FLY_FRAMES = 24
+# Hand-framed tour shots (three.js position, look-at, lens) where the automatic front view
+# misses: all three billboards in view, the whole shelf centred, the photo with the floppies.
+TOUR_FRAMING = {
+    "clients": ((-0.09, 1.78, -1.0), (-0.09, 1.45, -3.6), 16),
+    "about": ((2.08, 1.52, -0.8), (2.08, 1.45, -2.83), 20),
+    "cv": ((-0.58, 1.22, -0.98), (-0.58, 0.86, -1.55), 30),
+}
 
 
 def render_tour(scene):
@@ -948,16 +998,39 @@ def render_tour(scene):
         distance = (p - t).length * 1.3
         rise = 0.3 if t.y < 1.3 else 0.03
         shots[spot] = ((t.x, t.y + rise * distance, t.z + distance), tuple(t), 30)
-    overview_points = None
-    for name, (position, look, lens) in shots.items():
+    shots.update(TOUR_FRAMING)
+    def aim(position, look, lens):
         data.lens = lens
         cam.location = three_to_blender(position)
         target = three_to_blender(look)
         cam.rotation_euler = (target - cam.location).to_track_quat("-Z", "Y").to_euler()
+
+    overview_points = None
+    for name, (position, look, lens) in shots.items():
+        aim(position, look, lens)
         if name == "overview":
             bpy.context.view_layer.update()
             overview_points = project_hotspots(scene, cam, TOUR_SIZE)
         render_preview(scene, os.path.join(OUT, f"tour_{name}.png"), TOUR_SIZE)
+
+    # The flight from the overview to each close-up, as a short frame sequence the page
+    # scrubs with scroll. Its last frame matches the close-up still, so the sharp still can
+    # take over without a visible cut.
+    if os.environ.get("ROOM_FLY", "1") == "0":
+        return overview_points  # quick iterations on framing skip the ~4 minute sequences
+    fly = os.path.join(OUT, "fly")
+    os.makedirs(fly, exist_ok=True)
+    start_pos, start_look = Vector(shots["overview"][0]), Vector(shots["overview"][1])
+    start_lens = shots["overview"][2]
+    for name, (position, look, lens) in shots.items():
+        if name == "overview":
+            continue
+        end_pos, end_look = Vector(position), Vector(look)
+        for k in range(FLY_FRAMES):
+            t = k / (FLY_FRAMES - 1)
+            t = t * t * (3 - 2 * t)  # ease in and out
+            aim(start_pos.lerp(end_pos, t), start_look.lerp(end_look, t), start_lens + (lens - start_lens) * t)
+            render_preview(scene, os.path.join(fly, f"{name}_{k:02d}.png"), FLY_SIZE)
     return overview_points
 
 
