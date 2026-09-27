@@ -114,13 +114,13 @@ export const experience: Experience[] = [
     },
     bullets: {
       sr: [
-        "Kao jedini UI developer u timu od pet, redizajnirao svih 40 i više Add/Edit formi u TMS-u u modularne višestepene wizard-e (Truck, Equipment, Driver, Customer, Division, Load, Safety) sa doslednim sekcijama, statusima i responsive ponašanjem.",
+        "Kao jedini UI developer u timu od 7 do 10 ljudi, redizajnirao svih 40 i više Add/Edit formi u TMS-u u modularne višestepene wizard-e (Truck, Equipment, Driver, Customer, Division, Load, Safety) sa doslednim sekcijama, statusima i responsive ponašanjem.",
         "Prebacio Safety modul (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check) na grid stranice sa horizontalnim skrolom i standardizovanim akcijama.",
         "Redizajnirao Invoicing i Fuel Transactions ekrane, modale za faktoring kompanije i driver statement-e; 101 commit u Razor, CSS i JavaScript sloju.",
         "Na Delta Tracking portalu napravio interaktivnu Leaflet mapu pošiljke sa stanicama, živom lokacijom kamiona i statusima po lokaciji, i redizajnirao admin i customer stranice u brend bojama.",
       ],
       en: [
-        "As the only UI developer on a team of five, redesigned all 40+ Add/Edit forms in the TMS into modular multi-step wizards (Truck, Equipment, Driver, Customer, Division, Load, Safety) with consistent sections, status blocks and responsive behaviour.",
+        "As the only UI developer on a team of 7 to 10, redesigned all 40+ Add/Edit forms in the TMS into modular multi-step wizards (Truck, Equipment, Driver, Customer, Division, Load, Safety) with consistent sections, status blocks and responsive behaviour.",
         "Moved the Safety module (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check) to grid pages with horizontal scroll and standardized actions.",
         "Redesigned the Invoicing and Fuel Transactions screens, factoring company modals and driver statements; 101 commits across the Razor, CSS and JavaScript layer.",
         "On Delta Tracking, built the interactive Leaflet shipment map with stops, live truck location and per-location status labels, and redesigned the admin and customer pages in brand colours.",

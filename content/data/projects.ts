@@ -50,8 +50,8 @@ export const projects: Project[] = [
       "/images/projects/gallery/medical-time-m.webp",
     ],
     team: {
-      sr: "Dva developera: radim zajedno sa Đorđem Stojanovićem",
-      en: "Two developers: I work together with Đorđe Stojanović",
+      sr: "Tim od 7 do 10 ljudi sa project menadžerom; kod pišem zajedno sa Đorđem Stojanovićem",
+      en: "A team of 7 to 10 people with a project manager; I write the code together with Đorđe Stojanović",
     },
     scale: {
       sr: "~400k linija koda, 5 jezika, 779 URL-ova u sitemap-u, Semrush Site Health 90% → 98%",
@@ -144,8 +144,8 @@ export const projects: Project[] = [
       en: "Case study: redesigning the interface of a trucking logistics TMS in .NET 8 MVC. Dark mode, new navigation and 17 data entry forms turned into guided steps.",
     },
     team: {
-      sr: "Četiri developera u istoriji commit-a; ja sam radio redizajn UI-ja",
-      en: "Four developers in the commit history; I did the UI redesign",
+      sr: "Tim od 7 do 10 ljudi sa project menadžerom; ja sam radio redizajn UI-ja",
+      en: "A team of 7 to 10 people with a project manager; I did the UI redesign",
     },
     scale: {
       sr: "12 projekata u .NET solution-u, 100+ EF migracija, 101 moj commit, 17 formi u koracima",
@@ -238,8 +238,8 @@ export const projects: Project[] = [
       en: "Case study: a shipment tracking portal in Rails 7.2. A Leaflet map with road routing, a status for every stop and redesigned screens, in 20 commits of mine.",
     },
     team: {
-      sr: "Dva developera: Miloš Obradović aplikacija i McLeod integracija, ja UI",
-      en: "Two developers: Miloš Obradović on the app and McLeod integration, me on the UI",
+      sr: "Tim od 7 do 10 ljudi sa project menadžerom; Miloš Obradović aplikacija i McLeod integracija, ja UI",
+      en: "A team of 7 to 10 people with a project manager; Miloš Obradović on the app and McLeod integration, me on the UI",
     },
     scale: {
       sr: "Rails 7.2 sa McLeod LoadMaster API-jem; moj deo: 20 commit-a, mapa od ~700 linija",
