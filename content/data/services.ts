@@ -6,11 +6,14 @@ export type Service = {
   lead: Localized;
   includes: LocalizedList;
   forWhom: Localized;
+  /** Case study slugs that show this service in real work, linked from /services. */
+  examples: string[];
 };
 
 export const services: Service[] = [
   {
     id: "web",
+    examples: ["medical-time", "mango", "vuk-studio", "prostor-izmedju"],
     title: { sr: "Sajtovi i web aplikacije", en: "Websites and web apps" },
     lead: {
       sr: "Od prezentacionog sajta za lokalnu firmu do portala sa nalozima, plaćanjem i administracijom. Kod je moj, bez tema i page builder-a, pa je sajt brz i lako se menja.",
@@ -39,6 +42,7 @@ export const services: Service[] = [
   },
   {
     id: "google-ads",
+    examples: ["medical-time"],
     title: { sr: "Google Ads", en: "Google Ads" },
     lead: {
       sr: "Search i Performance Max kampanje za upite koje ljudi već kucaju: „zubar Vračar“, „moler Beograd“. Postavljam merenje konverzija pre prvog dinara budžeta, pa se zna šta radi.",
@@ -67,6 +71,7 @@ export const services: Service[] = [
   },
   {
     id: "meta-ads",
+    examples: ["medical-time"],
     title: {
       sr: "Meta Ads (Facebook i Instagram)",
       en: "Meta Ads (Facebook and Instagram)",
@@ -96,6 +101,7 @@ export const services: Service[] = [
   },
   {
     id: "seo",
+    examples: ["medical-time", "vuk-studio"],
     title: { sr: "SEO i analitika", en: "SEO and analytics" },
     lead: {
       sr: "Tehnički SEO koji Google stvarno nagrađuje: brzina, struktura, hreflang, JSON-LD, sitemap bez grešaka. Plus GA4 i GTM postavka da izveštaji pokazuju upite, ne samo posete.",

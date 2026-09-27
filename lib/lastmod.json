@@ -1,0 +1,78 @@
+{
+  "/": {
+    "hash": "9e4b71f47b7ec493",
+    "date": "2026-09-27"
+  },
+  "/projects": {
+    "hash": "7081fa6b59dbdfc7",
+    "date": "2026-09-27"
+  },
+  "/services": {
+    "hash": "30bac2b581a8e587",
+    "date": "2026-09-27"
+  },
+  "/about": {
+    "hash": "24684b76d139d4d6",
+    "date": "2026-09-27"
+  },
+  "/cv": {
+    "hash": "3289e1db6c75048e",
+    "date": "2026-09-27"
+  },
+  "/contact": {
+    "hash": "4c309f59d83485a8",
+    "date": "2026-09-27"
+  },
+  "/privacy": {
+    "hash": "f380b66e3b08894b",
+    "date": "2026-09-27"
+  },
+  "/projects/medical-time": {
+    "hash": "0b63f22f4db07720",
+    "date": "2026-09-27"
+  },
+  "/projects/meridian-tms": {
+    "hash": "57b893aa405b675d",
+    "date": "2026-09-27"
+  },
+  "/projects/delta-tracking": {
+    "hash": "686370b1a5066c63",
+    "date": "2026-09-27"
+  },
+  "/projects/itexpert": {
+    "hash": "57955a9bd8a0df95",
+    "date": "2026-09-27"
+  },
+  "/projects/prostor-izmedju": {
+    "hash": "2b3f60fd3013509e",
+    "date": "2026-09-27"
+  },
+  "/projects/mango": {
+    "hash": "ed758de66b3bc11f",
+    "date": "2026-09-27"
+  },
+  "/projects/vuk-studio": {
+    "hash": "cf9e0941ace5e7e1",
+    "date": "2026-09-27"
+  },
+  "/projects/olimp": {
+    "hash": "1f7a8d1ca4f803b4",
+    "date": "2026-09-27"
+  },
+  "/projects/job-application-tracker": {
+    "hash": "a78d03c92534a10b",
+    "date": "2026-09-27"
+  },
+  "/projects/gymai": {
+    "hash": "75f1d8282799232b",
+    "date": "2026-09-27"
+  },
+  "/projects/launchhub": {
+    "hash": "cd76338b991a7743",
+    "date": "2026-09-27"
+  },
+  "/projects/echo": {
+    "hash": "82fa146c7e93e0c5",
+    "date": "2026-09-27"
+  }
+}

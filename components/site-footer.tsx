@@ -14,6 +14,7 @@ export function SiteFooter() {
           <p>
             &copy; {year} {t("rights")}
           </p>
+          <p className="text-xs">{t("location")}</p>
           {/* CC BY 4.0 requires credit; the other models in the room are CC0 (blender/assets/README.md). */}
           <p className="text-xs">
             {t("credit")}{" "}

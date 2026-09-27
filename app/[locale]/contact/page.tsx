@@ -13,6 +13,15 @@ import { encodeContact } from "@/lib/obfuscate";
 import { FloatingProp } from "@/components/ambient/floating-prop";
 import { SignalLed } from "@/components/ambient/signal-led";
 import { Marquee } from "@/components/motion/marquee";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  graph,
+  personId,
+  serializeJsonLd,
+  websiteId,
+} from "@/lib/structured-data";
+import { siteConfig } from "@/lib/site-config";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -35,6 +44,23 @@ export default function ContactPage({ params }: Props) {
   const { locale } = use(params);
   setRequestLocale(locale);
   const t = useTranslations("contact");
+  const navT = useTranslations("nav");
+  const jsonLd = graph(
+    {
+      "@type": "ContactPage",
+      "@id": `${absoluteUrl(locale, "/contact")}#page`,
+      url: absoluteUrl(locale, "/contact"),
+      name: t("metaTitle"),
+      description: t("metaDescription"),
+      inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
+      isPartOf: { "@id": websiteId },
+      about: { "@id": personId },
+    },
+    breadcrumbJsonLd(locale, [
+      [siteConfig.name, "/"],
+      [navT("contact"), "/contact"],
+    ]),
+  );
 
   const links = [
     { label: "LinkedIn", value: "linkedin.com/in/sepicn", href: profile.linkedin },
@@ -43,6 +69,10 @@ export default function ContactPage({ params }: Props) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <PageIntro
         title={t("title")}
         intro={t("intro")}
@@ -89,6 +119,10 @@ export default function ContactPage({ params }: Props) {
           <p className="mt-6 text-ink-400">
             {t("location")} · {pick(profile.availability, locale)}
           </p>
+          <h2 className="mt-10 text-xl font-semibold text-ink-100">{t("howTitle")}</h2>
+          <p className="mt-3 leading-relaxed text-ink-300">{t("how")}</p>
+          <h2 className="mt-8 text-xl font-semibold text-ink-100">{t("areaTitle")}</h2>
+          <p className="mt-3 leading-relaxed text-ink-300">{t("area")}</p>
         </Reveal>
         <Reveal from="right" delay={0.1}>
           <ContactForm encodedEmail={encodeContact(profile.email)} />

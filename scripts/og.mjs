@@ -1,13 +1,13 @@
 // Renders the Open Graph images (1200x630 JPEG) for every page and case study, in both languages.
 // Background is the Blender render of the room; project cards use the real screenshot.
-//   public/og/{locale}-{key}.jpg   key = home | projects | services | about | cv | contact | project-{slug}
+//   public/og/{locale}-{key}.jpg   key = home | projects | services | about | cv | contact | privacy | project-{slug}
 // Run: node scripts/og.mjs   (no server needed, reads files straight from public/)
 import { mkdirSync, readFileSync } from "node:fs";
 import { chromium } from "@playwright/test";
 import { projects } from "../content/data/projects.ts";
 
 const locales = ["sr", "en"];
-const pages = ["home", "projects", "services", "about", "cv", "contact"];
+const pages = ["home", "projects", "services", "about", "cv", "contact", "privacy"];
 const out = "public/og";
 mkdirSync(out, { recursive: true });
 
@@ -80,7 +80,7 @@ for (const locale of locales) {
   for (const key of pages) {
     const isHome = key === "home";
     await render(`${locale}-${key}.jpg`, {
-      eyebrow: isHome ? m.site.tagline : m.nav[key],
+      eyebrow: isHome ? m.site.tagline : (m.nav[key] ?? m.footer[key]),
       title: isHome ? m.site.name : m[key].title,
       subtitle: cut(isHome ? m.site.description : m[key].intro, 120),
     });

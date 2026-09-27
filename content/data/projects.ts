@@ -11,6 +11,8 @@ export type Project = {
   year: string;
   role: Localized;
   tagline: Localized;
+  /** Meta description of the case study page, 140 to 160 characters. */
+  description: Localized;
   summary: Localized;
   did: LocalizedList;
   hard: Localized;
@@ -30,6 +32,10 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "medical-time",
+    description: {
+      sr: "Studija slučaja: platforma privatne bolnice Medical Time na pet jezika, Nuxt 4 i Laravel 12, plus Google Ads kampanje koje dovode pacijente.",
+      en: "Case study: the Medical Time private hospital platform in five languages, Nuxt 4 and Laravel 12, plus the Google Ads campaigns that bring in patients.",
+    },
     gallery: [
       "/images/projects/gallery/medical-time-2.webp",
       "/images/projects/gallery/medical-time-m.webp",
@@ -107,6 +113,10 @@ export const projects: Project[] = [
   },
   {
     slug: "meridian-tms",
+    description: {
+      sr: "Studija slučaja: kompletan UI za TMS sistem kamionske logistike u .NET 8 MVC. Dispečeri, flota, bezbednost i računovodstvo u Razor pogledima.",
+      en: "Case study: the entire UI of a trucking logistics TMS in .NET 8 MVC. Dispatch, fleet, safety and accounting screens built in Razor views.",
+    },
     team: {
       sr: "Tim od 5 developera, ja sam jedini na UI sloju",
       en: "Team of 5 developers, I was the only one on the UI layer",
@@ -171,6 +181,10 @@ export const projects: Project[] = [
   },
   {
     slug: "delta-tracking",
+    description: {
+      sr: "Studija slučaja: portal za praćenje pošiljki na mapi u realnom vremenu, Rails 7.2 sa Hotwire-om, Tailwind-om i Leaflet mapom. Moj deo je ceo UI.",
+      en: "Case study: a live shipment tracking portal on a map, Rails 7.2 with Hotwire, Tailwind and Leaflet. My part was the whole front end and redesign.",
+    },
     team: { sr: "Tim od 2 developera", en: "Team of 2 developers" },
     scale: {
       sr: "Rails aplikacija sa integracijom McLeod LoadMaster API-ja, CI sa RSpec-om",
@@ -220,6 +234,10 @@ export const projects: Project[] = [
   },
   {
     slug: "itexpert",
+    description: {
+      sr: "Studija slučaja: platforma web agencije IT Expert u Nuxt 4 i Laravel 12. Portal za klijente, paketi sa kalkulatorom cene, pretplate i fakture.",
+      en: "Case study: the IT Expert web agency platform in Nuxt 4 and Laravel 12. Client portal, packages with a price calculator, subscriptions and invoices.",
+    },
     gallery: [
       "/images/projects/gallery/itexpert-2.webp",
       "/images/projects/gallery/itexpert-m.webp",
@@ -270,6 +288,10 @@ export const projects: Project[] = [
   },
   {
     slug: "prostor-izmedju",
+    description: {
+      sr: "Studija slučaja: WordPress e-magazin o psihologiji napravljen od nule. Rubrike, tipografija za čitanje, newsletter i učitavanje članaka bez osvežavanja.",
+      en: "Case study: a WordPress e-magazine about psychology built from scratch. Sections, reading typography, a newsletter and articles that load without a refresh.",
+    },
     gallery: [
       "/images/projects/gallery/prostor-izmedju-2.webp",
       "/images/projects/gallery/prostor-izmedju-m.webp",
@@ -324,6 +346,10 @@ export const projects: Project[] = [
   },
   {
     slug: "mango",
+    description: {
+      sr: "Studija slučaja: sajt butik poslastičarnice Mango u Nuxt 4 sa SSR-om. Proizvodi po kategorijama, cenovnik, četiri teme i GTM tek posle pristanka.",
+      en: "Case study: the Mango boutique pastry shop site in Nuxt 4 with SSR. Products by category, a price list, four themes and GTM loaded only after consent.",
+    },
     gallery: [
       "/images/projects/gallery/mango-2.webp",
       "/images/projects/gallery/mango-m.webp",
@@ -374,6 +400,10 @@ export const projects: Project[] = [
   },
   {
     slug: "vuk-studio",
+    description: {
+      sr: "Studija slučaja: brz statičan sajt muzičkog i video studija Vuk Studio u Nuxt 4, sa LocalBusiness i FAQ podacima za lokalnu pretragu u Beogradu.",
+      en: "Case study: a fast static site for the Vuk Studio music and video studio in Nuxt 4, with LocalBusiness and FAQ structured data for local search.",
+    },
     gallery: [
       "/images/projects/gallery/vuk-studio-2.webp",
       "/images/projects/gallery/vuk-studio-m.webp",
@@ -421,6 +451,10 @@ export const projects: Project[] = [
   },
   {
     slug: "olimp",
+    description: {
+      sr: "Studija slučaja: održavanje WordPress sajta i IT sistema javnog sportskog centra Olimp. Ažuriranja, bezbednost, backup i podrška zaposlenima.",
+      en: "Case study: maintaining the WordPress site and IT systems of the Olimp public sports centre. Updates, security, backups and support for the staff.",
+    },
     gallery: [
       "/images/projects/gallery/olimp-2.webp",
       "/images/projects/gallery/olimp-m.webp",
@@ -470,6 +504,10 @@ export const projects: Project[] = [
   },
   {
     slug: "job-application-tracker",
+    description: {
+      sr: "Studija slučaja: Kanban tabla za praćenje prijava za posao u Next.js 16. Server Actions, MongoDB, Better Auth i optimistično prevlačenje kartica.",
+      en: "Case study: a Kanban board for tracking job applications in Next.js 16. Server Actions, MongoDB, Better Auth and optimistic drag and drop between columns.",
+    },
     gallery: [
       "/images/projects/gallery/job-application-tracker-1.webp",
       "/images/projects/gallery/job-application-tracker-2.webp",
@@ -538,6 +576,10 @@ export const projects: Project[] = [
   },
   {
     slug: "gymai",
+    description: {
+      sr: "Studija slučaja: GymAI pravi nedeljni plan treninga iz šest pitanja. React 19, Express 5, Prisma na Neon bazi i AI odgovor proveren Zod šemom.",
+      en: "Case study: GymAI writes a weekly training plan from six questions. React 19, Express 5, Prisma on Neon Postgres and an AI reply validated with Zod.",
+    },
     image: "/images/projects/gymai.webp",
     gallery: [
       "/images/projects/gallery/gymai-onboarding.webp",
@@ -592,6 +634,10 @@ export const projects: Project[] = [
   },
   {
     slug: "launchhub",
+    description: {
+      sr: "Studija slučaja: LaunchHub, mesto za prijavu i glasanje za nove proizvode u stilu Product Hunt-a. Next.js 16, Clerk, Neon Postgres i Drizzle.",
+      en: "Case study: LaunchHub, a Product Hunt style place to submit and vote on new products. Next.js 16, Clerk organizations, Neon Postgres and Drizzle ORM.",
+    },
     gallery: [
       "/images/projects/gallery/launchhub-2.webp",
       "/images/projects/gallery/launchhub-m.webp",
@@ -644,6 +690,10 @@ export const projects: Project[] = [
   },
   {
     slug: "echo",
+    description: {
+      sr: "Studija slučaja: Echo, anonimna soba za dvoje koja se sama briše posle deset minuta. Next.js 15, Elysia API, Upstash Redis i Realtime događaji.",
+      en: "Case study: Echo, an anonymous room for two that deletes itself after ten minutes. Next.js 15, an Elysia API, Upstash Redis and realtime events.",
+    },
     team: { sr: "Sam", en: "Solo" },
     scale: { sr: "Realtime chat, 28 fajlova", en: "Realtime chat, 28 files" },
     impact: {
