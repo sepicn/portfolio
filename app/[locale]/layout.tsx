@@ -7,8 +7,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { FooterCta } from "@/components/footer-cta";
+import { BackToTop } from "@/components/back-to-top";
 import { SkipLink } from "@/components/skip-link";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { CursorGlow } from "@/components/cursor-glow";
 import { Analytics, gtmId } from "@/components/analytics";
 import { ConsentBanner } from "@/components/consent-banner";
 import { siteConfig } from "@/lib/site-config";
@@ -51,6 +54,15 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "site" });
   const title = t("metaTitle");
+  // Every page sets its own canonical and hreflang. Here they would leak into pages that do
+  // not, such as the 404, which then pointed its canonical at home next to Next.js noindex.
+  const { alternates: _alternates, ...shared } = pageMetadata({
+    locale,
+    path: "/",
+    title,
+    description: t("description"),
+    ogKey: "home",
+  });
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -58,14 +70,7 @@ export async function generateMetadata({
       default: title,
       template: `%s | ${t("name")}`,
     },
-    ...pageMetadata({
-      locale,
-      path: "/",
-      title,
-      description: t("description"),
-      ogKey: "home",
-    }),
-    robots: { index: true, follow: true },
+    ...shared,
   };
 }
 
@@ -90,12 +95,15 @@ export default async function LocaleLayout({ children, params }: Props) {
         </Script>
         <NextIntlClientProvider>
           <SmoothScroll />
+          <CursorGlow />
           <SkipLink />
           <SiteHeader />
           <main id="content" className="flex-1">
             {children}
           </main>
+          <FooterCta />
           <SiteFooter />
+          <BackToTop />
           {gtmId ? <ConsentBanner /> : null}
         </NextIntlClientProvider>
         <Analytics />

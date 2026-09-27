@@ -1,8 +1,28 @@
 import Image from "next/image";
 import { MarqueeBand } from "./marquee-band";
 
-/** A ticker item is a word, or a small render from the room (public/images/icons). */
-export type MarqueeItem = string | { icon: string; label: string };
+/**
+ * A ticker item is a word, a word with a logo (an SVG path on a 24 unit grid, e.g. from
+ * simple-icons), a client logo linking to its site (drawn as a white silhouette, no text) or
+ * a small render from the room (public/images/icons).
+ */
+export type MarqueeItem =
+  | string
+  | { icon: string; label: string }
+  | { logo: string; label: string }
+  | { image: string; label: string; href: string };
+
+// Logos cycle through the neon palette instead of their brand colours, with a matching glow.
+const logoColours = [
+  "text-neon-pink drop-shadow-[0_0_6px_rgba(255,45,149,0.7)]",
+  "text-neon-cyan drop-shadow-[0_0_6px_rgba(0,229,255,0.7)]",
+  "text-neon-yellow drop-shadow-[0_0_6px_rgba(255,214,10,0.6)]",
+  "text-[#b026ff] drop-shadow-[0_0_6px_rgba(176,38,255,0.8)]",
+  "text-neon-sun drop-shadow-[0_0_6px_rgba(255,140,66,0.7)]",
+];
+
+// Items per copy of the row; enough to span a wide monitor even with short words.
+const MIN_ITEMS = 16;
 
 type Variant = "line" | "tape" | "caution" | "terminal" | "outline";
 
@@ -60,8 +80,9 @@ const looks: Record<
 };
 
 /**
- * An endless neon ticker. Pure CSS animation, static under reduced motion. On hover it pauses
- * and follows the mouse left and right; touch drags it (MarqueeBand).
+ * An endless neon ticker. Pure CSS animation, static under reduced motion. It pauses on
+ * hover and can be dragged left and right (MarqueeBand). A ticker with links stays in the
+ * accessibility tree; a purely decorative one is hidden from it.
  */
 export function Marquee({
   items,
@@ -69,14 +90,22 @@ export function Marquee({
   className = "",
   variant = "line",
 }: Props) {
-  const row = [...items, ...items];
+  // Short lists repeat until one copy is wider than any screen, then the copy is doubled so
+  // the band can loop it seamlessly.
+  const copy = Array.from(
+    { length: Math.ceil(MIN_ITEMS / items.length) },
+    () => items,
+  ).flat();
+  const row = [...copy, ...copy];
   const look = looks[variant];
+  const hasLinks = items.some((item) => typeof item !== "string" && "href" in item);
   return (
-    <div className={`overflow-hidden ${look.frame} ${className}`} aria-hidden="true">
-      <MarqueeBand className={look.band}>
-        <div
-          className={`relative flex w-max ${look.gap} ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
-        >
+    <div
+      className={`overflow-hidden ${look.frame} ${className}`}
+      aria-hidden={hasLinks ? undefined : true}
+    >
+      <MarqueeBand className={look.band} reverse={reverse}>
+        <div className={`relative flex w-max ${look.gap}`}>
           {row.map((item, i) =>
             typeof item === "string" ? (
               <span
@@ -84,6 +113,51 @@ export function Marquee({
                 className={`flex items-center uppercase ${look.gap} ${look.item}`}
               >
                 {item}
+                {look.sep}
+              </span>
+            ) : "image" in item ? (
+              <span
+                key={`${item.label}-${i}`}
+                className={`flex items-center ${look.gap}`}
+              >
+                <a
+                  href={item.href}
+                  aria-label={item.label}
+                  title={item.label}
+                  // The second copy only exists to make the loop seamless.
+                  tabIndex={i < items.length ? undefined : -1}
+                  aria-hidden={i < items.length ? undefined : true}
+                  {...(item.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="block rounded-sm transition-transform hover:scale-110 focus-visible:scale-110"
+                >
+                  <Image
+                    src={item.image}
+                    alt=""
+                    width={512}
+                    height={128}
+                    sizes="256px"
+                    draggable={false}
+                    className="h-9 w-auto max-w-56 object-contain brightness-0 drop-shadow-[0_0_8px_rgba(255,45,149,0.9)] invert"
+                  />
+                </a>
+                {look.sep}
+              </span>
+            ) : "logo" in item ? (
+              <span
+                key={`${item.label}-${i}`}
+                className={`flex items-center uppercase ${look.gap} ${look.item}`}
+              >
+                <span className="flex items-center gap-3">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className={`size-5 shrink-0 fill-current ${logoColours[(i % items.length) % logoColours.length]}`}
+                  >
+                    <path d={item.logo} />
+                  </svg>
+                  {item.label}
+                </span>
                 {look.sep}
               </span>
             ) : (

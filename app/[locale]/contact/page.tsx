@@ -120,7 +120,7 @@ export default function ContactPage({ params }: Props) {
             ))}
           </ul>
           <p className="mt-6 text-ink-400">
-            {t("location")} · {pick(profile.availability, locale)}
+            {t("location")} · {pick(profile.openFor, locale)}
           </p>
           <h2 className="mt-10 text-xl font-semibold text-ink-100">{t("howTitle")}</h2>
           <p className="mt-3 leading-relaxed text-ink-300">{t("how")}</p>

@@ -45,11 +45,12 @@ PROPS = {
     "icon-books": (["books"], -20, 0.35, 1.0),
     "icon-book": (["book_open"], -10, 1.2, 1.0),
     "icon-gym": (["gym"], -20, 0.8, 1.0),
-    "icon-headphones": (["headphones"], -25, 0.5, 1.0),
     "icon-hifi": (["hifi"], -20, 0.4, 1.0),
     "icon-cassettes": (["cassettes"], -20, 0.6, 1.0),
     "icon-code": (["monitor", "monitor_screen", "computer_case", "keyboard"], -20, 0.45, 1.0),
-    "icon-plant": (["plant"], -20, 0.4, 1.0),
+    # Not in the room: imported from blender/assets (convert_icons.py) just for the icons.
+    "icon-gameboy": (["gameboy"], -20, 0.35, 1.0),
+    "icon-shoes": (["running_shoes"], -80, 0.3, 0.95),
     "icon-speaker": (["speaker"], -20, 0.4, 1.0),
 }
 # PROP_ONLY=icon- renders just the props whose name starts with it, for quick reruns.
@@ -60,6 +61,15 @@ SIZE = 900
 
 bpy.ops.wm.open_mainfile(filepath=os.path.join(HERE, "out", "room.blend"))
 scene = bpy.context.scene
+
+# Icon-only models, placed well outside the room; each render hides every other mesh.
+for i, slug in enumerate(["gameboy", "running_shoes"]):
+    before = set(scene.objects)
+    bpy.ops.import_scene.gltf(filepath=os.path.join(HERE, "assets", slug, f"{slug}.glb"))
+    for obj in set(scene.objects) - before:
+        if obj.type == "MESH":
+            obj.name = slug
+            obj.location = (40 + i * 5, 0, 0)
 scene.render.film_transparent = True
 scene.render.resolution_x = scene.render.resolution_y = SIZE
 scene.render.image_settings.file_format = "PNG"

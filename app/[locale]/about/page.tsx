@@ -86,7 +86,7 @@ export default function AboutPage({ params }: Props) {
           {/* The portrait in a slowly rotating neon frame, with a soft glow behind it. */}
           <div className="relative">
             <div className="absolute -inset-6 animate-glow rounded-[2rem] bg-gradient-to-br from-neon-pink/40 via-neon-violet/25 to-neon-cyan/40 blur-2xl" />
-            <CyberFrame variant={8} tone="spin" className="bg-night-950 p-[2px]">
+            <CyberFrame variant={8} tone="spin" hollow className="p-[2px]">
               <Image
                 src={profile.photo}
                 sizes="(max-width: 640px) 256px, 320px"

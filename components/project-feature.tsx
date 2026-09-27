@@ -13,7 +13,7 @@ import type { Project } from "@/content/data/projects";
 const accentText: Record<Project["accent"], string> = {
   pink: "text-neon-pink",
   cyan: "text-neon-cyan",
-  violet: "text-neon-violet",
+  violet: "text-neon-lilac",
   sun: "text-neon-sun",
   yellow: "text-neon-yellow",
 };
@@ -30,7 +30,7 @@ export function ProjectFeature({ project, index }: Props) {
   const flip = index % 2 === 1;
 
   return (
-    <article className={`grid items-center gap-10 lg:grid-cols-12 ${flip ? "" : ""}`}>
+    <article className="grid items-center gap-6 lg:grid-cols-12 lg:gap-10">
       <Reveal
         from={flip ? "right" : "left"}
         className={`lg:col-span-7 ${flip ? "lg:order-2" : ""}`}
@@ -95,7 +95,10 @@ export function ProjectFeature({ project, index }: Props) {
           {project.title}
         </h3>
         <p className="mt-4 text-lg text-ink-200">{pick(project.tagline, locale)}</p>
-        <ul className={`mt-5 space-y-2 text-sm text-ink-300 ${flip ? "lg:ml-auto" : ""}`}>
+        <ul
+          data-cube-compact
+          className={`mt-5 space-y-2 text-sm text-ink-300 ${flip ? "lg:ml-auto" : ""}`}
+        >
           {pickList(project.did, locale)
             .slice(0, 2)
             .map((item) => (
@@ -108,7 +111,10 @@ export function ProjectFeature({ project, index }: Props) {
               </li>
             ))}
         </ul>
-        <ul className={`mt-5 flex flex-wrap gap-1.5 ${flip ? "lg:justify-end" : ""}`}>
+        <ul
+          data-cube-compact
+          className={`mt-5 flex flex-wrap gap-1.5 ${flip ? "lg:justify-end" : ""}`}
+        >
           {project.stack.slice(0, 5).map((item) => (
             <li
               key={item}

@@ -3,7 +3,7 @@
     "name": "Nikola Šepić",
     "tagline": "Web developer and digital marketing",
     "description": "Websites and web apps built with React, Next.js and Vue, plus Google Ads, Meta Ads and SEO that bring in customers. Freelance web developer in Belgrade.",
-    "metaTitle": "Nikola Šepić | Web developer, Google Ads and SEO, Belgrade"
+    "metaTitle": "Web developer and PPC specialist, Belgrade | Nikola Šepić"
   },
   "nav": {
     "home": "Home",
@@ -23,14 +23,22 @@
     "credit": "3D computer model:",
     "privacy": "Privacy",
     "cookies": "Cookie settings",
-    "location": "Belgrade, Serbia · also remote"
+    "location": "Belgrade, Serbia · also remote",
+    "ctaEyebrow": "// next step",
+    "ctaTitle": "Have a project in mind?",
+    "ctaBody": "Tell me what you need. I reply the same working day. Or look through my CV first.",
+    "ctaContact": "Contact me",
+    "ctaCv": "View CV",
+    "backToTop": "Back to top"
   },
   "home": {
-    "title": "Web developer and digital marketing, Belgrade",
-    "intro": "I build web apps and websites, then bring them customers through Google Ads, Meta Ads and SEO. I work freelance and I am open to full-time roles.",
+    "title": "Websites and Google Ads for growing businesses",
+    "heroEyebrow": "Freelance · Belgrade · remote",
+    "heroLead": "I build sites that bring in inquiries and run the campaigns that fill them. One person for both jobs, so nobody passes the blame.",
+    "intro": "I build websites and web apps, then bring them customers through Google Ads, Meta Ads and SEO.",
     "ctaProjects": "See projects",
-    "ctaContact": "Get in touch",
-    "hint": "Click around the room. The monitor opens projects, the phone opens contact, the floppy is the CV.",
+    "ctaContact": "Get a quote",
+    "hint": "Or click around the room: the monitor opens projects, the phone opens contact, the floppy is the CV.",
     "scrollHint": "Scroll",
     "introEyebrow": "Who I am",
     "introTitle": "Nikola Šepić, a Belgrade web developer who also knows how customers are won",
@@ -44,7 +52,7 @@
     "processEyebrow": "Process",
     "processTitle": "What working together looks like",
     "ctaEyebrow": "Contact",
-    "ctaTitle": "Have a project or a role?",
+    "ctaTitle": "Need a site that brings in inquiries?",
     "ctaBody": "Email or call. I reply the same day, weekdays 9 to 18."
   },
   "projects": {
@@ -54,8 +62,9 @@
     "clientEyebrow": "Clients",
     "clientTitle": "Sites and systems real businesses use",
     "clientLead": "A hospital, a US logistics company, a web agency, a magazine, a pastry shop, a music studio and a sports centre.",
+    "cubeHint": "Scroll to turn the cube",
     "personalEyebrow": "Personal projects",
-    "personalTitle": "What I build when nobody asks",
+    "personalTitle": "Apps I built for myself",
     "personalLead": "Next.js, React 19, TypeScript, real databases and real auth. Each has a live demo or a public repo.",
     "filterAll": "All",
     "filterClient": "Clients",
@@ -124,8 +133,8 @@
     "email": "Email",
     "phone": "Phone",
     "location": "Belgrade, Serbia",
-    "metaTitle": "Contact: a website, a campaign or a role",
-    "metaDescription": "Ask about a website, a Google Ads campaign, SEO or a job opening. Use the form, call or WhatsApp; you get a quote after a short conversation.",
+    "metaTitle": "Contact: a website, Google Ads or SEO",
+    "metaDescription": "Ask about a website, a Google Ads campaign or SEO. Use the form, call or WhatsApp; you get a quote after a short conversation, usually the same day.",
     "signal": "Available · same-day replies",
     "howTitle": "Call or send an email",
     "how": "Whatever suits you: a call, WhatsApp or email. I reply as soon as possible, usually the same day, and send a quote after a short talk about what you need and by when.",
@@ -135,7 +144,16 @@
   "notFound": {
     "title": "Page not found",
     "body": "There is nothing here. Head back to the start.",
-    "back": "Back to home"
+    "back": "Back to home",
+    "game": {
+      "title": "Game: Pac-Man jumps over ghosts",
+      "hint": "While you are here: jump over the ghosts. Space, arrow up or tap.",
+      "start": "Space or tap to start",
+      "over": "Game over",
+      "restart": "Space or tap to play again",
+      "score": "SCORE",
+      "best": "BEST"
+    }
   },
   "hotspots": {
     "projects": "Projects",
@@ -195,6 +213,11 @@
     "privateLabel": "private system",
     "facts": "Project facts",
     "impact": "What this says about me",
+    "impactClient": "What the client got",
+    "ctaTitle": "Need something similar?",
+    "ctaBody": "Tell me briefly what you need. I reply the same day with how I would build it and a ballpark price.",
+    "ctaButton": "Get a quote",
+    "ctaServices": "Services on this project:",
     "gallery": "More screens",
     "phone": "On a phone",
     "caseStudy": "case study"
@@ -243,7 +266,7 @@
       "about": "Who I am, how I work and what drives me off the clock.",
       "education": "A degree in information technology and certificates.",
       "cv": "Experience and skills, to read here or download as PDF and DOCX.",
-      "contact": "Get in touch about a project, a campaign or a job."
+      "contact": "Get in touch about a website, a campaign or SEO."
     }
   },
   "testimonials": {

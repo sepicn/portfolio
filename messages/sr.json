@@ -3,7 +3,7 @@
     "name": "Nikola Šepić",
     "tagline": "Web developer i digitalni marketing",
     "description": "Izrada sajtova i web aplikacija u React, Next.js i Vue, plus Google Ads, Meta Ads i SEO koji dovode klijente. Freelance web developer iz Beograda.",
-    "metaTitle": "Nikola Šepić | Web developer, Google Ads i SEO, Beograd"
+    "metaTitle": "Web developer i Google Ads stručnjak, Beograd | Nikola Šepić"
   },
   "nav": {
     "home": "Početna",
@@ -23,15 +23,23 @@
     "credit": "3D model računara:",
     "privacy": "Privatnost",
     "cookies": "Podešavanja kolačića",
-    "location": "Beograd, Srbija · radim i remote"
+    "location": "Beograd, Srbija · radim i remote",
+    "ctaEyebrow": "// sledeći korak",
+    "ctaTitle": "Imate projekat na umu?",
+    "ctaBody": "Napišite šta Vam treba, odgovaram istog radnog dana. Ili prvo pogledajte moj CV.",
+    "ctaContact": "Kontaktirajte me",
+    "ctaCv": "Pogledajte CV",
+    "backToTop": "Nazad na vrh"
   },
   "home": {
-    "title": "Web developer i digitalni marketing iz Beograda",
-    "intro": "Pravim web aplikacije i sajtove, a zatim im dovodim klijente kroz Google Ads, Meta Ads i SEO. Radim kao freelancer i otvoren sam za stalno zaposlenje.",
-    "ctaProjects": "Pogledaj projekte",
-    "ctaContact": "Javi se",
-    "hint": "Klikni na stvari u sobi. Monitor vodi na projekte, telefon na kontakt, disketa na CV.",
-    "scrollHint": "Skroluj",
+    "title": "Izrada sajtova i Google Ads kampanje u Beogradu",
+    "heroEyebrow": "Freelance · Beograd",
+    "heroLead": "Pravim sajtove koji donose upite i vodim kampanje koje ih pune. Jedan čovek za oba posla, bez prebacivanja krivice.",
+    "intro": "Pravim sajtove i web aplikacije, a zatim im dovodim klijente kroz Google Ads, Meta Ads i SEO.",
+    "ctaProjects": "Pogledajte projekte",
+    "ctaContact": "Zatražite ponudu",
+    "hint": "Ili kliknite na stvari u sobi: monitor vodi na projekte, telefon na kontakt, disketa na CV.",
+    "scrollHint": "Skrolujte",
     "introEyebrow": "Ko sam",
     "introTitle": "Nikola Šepić, web developer iz Beograda koji zna i kako se dolazi do klijenata",
     "servicesEyebrow": "Usluge",
@@ -44,8 +52,8 @@
     "processEyebrow": "Proces",
     "processTitle": "Kako izgleda saradnja",
     "ctaEyebrow": "Kontakt",
-    "ctaTitle": "Imaš projekat ili poziciju?",
-    "ctaBody": "Javi se mejlom ili pozivom. Odgovaram istog dana, radnim danima od 9 do 18."
+    "ctaTitle": "Treba vam sajt koji donosi upite?",
+    "ctaBody": "Javite se mejlom ili pozivom. Odgovaram istog dana, radnim danima od 9 do 18."
   },
   "projects": {
     "title": "Projekti",
@@ -54,8 +62,9 @@
     "clientEyebrow": "Klijenti",
     "clientTitle": "Sajtovi i sistemi koje koriste prave firme",
     "clientLead": "Bolnica, logistička firma iz SAD, web agencija, magazin, poslastičarnica, muzički studio i sportski centar.",
+    "cubeHint": "Skrolujte i okrenite kocku",
     "personalEyebrow": "Lični projekti",
-    "personalTitle": "Ono što pravim kad niko ne traži",
+    "personalTitle": "Aplikacije koje sam napravio za sebe",
     "personalLead": "Next.js, React 19, TypeScript, prave baze i prava autentikacija. Svaki ima live demo ili javan repo.",
     "filterAll": "Sve",
     "filterClient": "Klijenti",
@@ -75,7 +84,7 @@
     "processEyebrow": "Proces",
     "processTitle": "Od razgovora do lansiranja u četiri koraka",
     "faqTitle": "Pitanja koja mi svi postave",
-    "cta": "Zakaži razgovor",
+    "cta": "Zakažite razgovor",
     "metaTitle": "Izrada sajtova, Google Ads i SEO u Beogradu",
     "metaDescription": "Izrada sajtova i web aplikacija, vođenje Google Ads i Meta Ads kampanja, SEO optimizacija i GA4/GTM analitika. Fiksna ponuda posle kratkog razgovora.",
     "examples": "Primeri iz prakse"
@@ -120,22 +129,31 @@
   },
   "contact": {
     "title": "Kontakt",
-    "intro": "Najbrže je preko forme ili poziva. Mejl i telefon su sakriveni od botova, klikni da ih vidiš.",
+    "intro": "Najbrže je preko forme ili poziva. Mejl i telefon su sakriveni od botova, kliknite da ih vidite.",
     "email": "Mejl",
     "phone": "Telefon",
     "location": "Beograd, Srbija",
-    "metaTitle": "Kontakt: upit za sajt, kampanju ili posao",
-    "metaDescription": "Pošalji upit za izradu sajta, Google Ads kampanju, SEO ili ponudu za posao. Forma, poziv ili WhatsApp, a ponudu dobijaš posle kratkog razgovora.",
+    "metaTitle": "Kontakt: upit za sajt, Google Ads ili SEO",
+    "metaDescription": "Pošaljite upit za izradu sajta, Google Ads kampanju ili SEO. Forma, poziv ili WhatsApp, a ponudu dobijate posle kratkog razgovora, obično istog dana.",
     "signal": "Dostupan · odgovaram istog dana",
-    "howTitle": "Pozovi ili pošalji mejl",
-    "how": "Kako ti je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram što pre, obično istog dana, a ponudu šaljem posle kratkog razgovora o tome šta ti treba i do kada.",
+    "howTitle": "Pozovite ili pošaljite mejl",
+    "how": "Kako vam je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram što pre, obično istog dana, a ponudu šaljem posle kratkog razgovora o tome šta vam treba i do kada.",
     "areaTitle": "Beograd i remote",
     "area": "Radim iz Beograda. Sa klijentima u Beogradu mogu da se vidim uživo, a sa svima ostalima, u Srbiji i inostranstvu, radim remote preko poziva, mejla i deljenog ekrana."
   },
   "notFound": {
     "title": "Stranica ne postoji",
-    "body": "Ovde nema ničega. Vrati se na početnu.",
-    "back": "Nazad na početnu"
+    "body": "Ovde nema ničega. Vratite se na početnu.",
+    "back": "Nazad na početnu",
+    "game": {
+      "title": "Igrica: Pac-Man preskače duhove",
+      "hint": "Dok ste ovde: preskočite duhove. Razmak, strelica gore ili dodir.",
+      "start": "Razmak ili dodir za start",
+      "over": "Kraj igre",
+      "restart": "Razmak ili dodir za novu igru",
+      "score": "REZULTAT",
+      "best": "REKORD"
+    }
   },
   "hotspots": {
     "projects": "Projekti",
@@ -165,13 +183,13 @@
   },
   "contactForm": {
     "name": "Ime",
-    "email": "Tvoj mejl",
+    "email": "Vaš mejl",
     "message": "Poruka",
     "send": "Pošalji",
     "sending": "Šaljem...",
     "sent": "Poruka je stigla. Javljam se istog dana.",
-    "error": "Nije prošlo. Probaj ponovo ili mi piši direktno.",
-    "unavailable": "Slanje trenutno nije podešeno. Piši mi direktno:",
+    "error": "Nije prošlo. Probajte ponovo ili mi pišite direktno.",
+    "unavailable": "Slanje trenutno nije podešeno. Pišite mi direktno:",
     "note": "Bez newslettera, bez spama. Poruka ide samo meni."
   },
   "projectPage": {
@@ -195,6 +213,11 @@
     "privateLabel": "privatni sistem",
     "facts": "Osnovni podaci o projektu",
     "impact": "Šta ovo govori o meni",
+    "impactClient": "Rezultat za klijenta",
+    "ctaTitle": "Treba vam nešto slično?",
+    "ctaBody": "Napišite ukratko šta vam treba. Odgovaram istog dana sa predlogom kako bih to uradio i okvirnom cenom.",
+    "ctaButton": "Zatražite ponudu",
+    "ctaServices": "Usluge na ovom projektu:",
     "gallery": "Još ekrana",
     "phone": "Na telefonu",
     "caseStudy": "studija slučaja"
@@ -202,38 +225,38 @@
   "consent": {
     "label": "Saglasnost za kolačiće",
     "eyebrow": "Kolačići",
-    "text": "Uz tvoju dozvolu koristim Google Analytics i Google Ads merenje da vidim odakle posetioci dolaze. Bez dozvole ništa od toga se ne pamti.",
+    "text": "Uz vašu dozvolu koristim Google Analytics i Google Ads merenje da vidim odakle posetioci dolaze. Bez dozvole ništa od toga se ne pamti.",
     "more": "Detalji",
     "accept": "Dozvoli",
     "decline": "Odbij"
   },
   "privacy": {
     "title": "Privatnost",
-    "intro": "Šta ovaj sajt prikuplja, zašto, i kako to menjaš. Kratko, bez pravničkog jezika.",
+    "intro": "Šta ovaj sajt prikuplja, zašto, i kako to menjate. Kratko, bez pravničkog jezika.",
     "sections": [
       {
         "h": "Analitika i oglasi",
-        "p": "Google Tag Manager učitava Google Analytics 4 i Google Ads merenje konverzija. Dok ne klikneš Dozvoli, Google dobija samo anonimne signale bez kolačića (Consent Mode v2). Kada dozvoliš, kolačići beleže koje stranice otvaraš i odakle si došao, kako bih znao koje kampanje rade."
+        "p": "Google Tag Manager učitava Google Analytics 4 i Google Ads merenje konverzija. Dok ne kliknete Dozvoli, Google dobija samo anonimne signale bez kolačića (Consent Mode v2). Kada dozvolite, kolačići beleže koje stranice otvarate i odakle ste došli, kako bih znao koje kampanje rade."
       },
       {
         "h": "Kontakt forma",
-        "p": "Ime, mejl i poruka iz forme idu preko servisa Resend direktno na moj mejl. Koristim ih samo da ti odgovorim i ne delim ih ni sa kim."
+        "p": "Ime, mejl i poruka iz forme idu preko servisa Resend direktno na moj mejl. Koristim ih samo da vam odgovorim i ne delim ih ni sa kim."
       },
       {
-        "h": "Šta se čuva u tvom pregledaču",
-        "p": "Samo tvoj izbor o kolačićima (localStorage, ključ sepic-consent). Muzika se ne pamti i nikad ne kreće sama."
+        "h": "Šta se čuva u vašem pregledaču",
+        "p": "Samo vaš izbor o kolačićima (localStorage, ključ sepic-consent). Muzika se ne pamti i nikad ne kreće sama."
       },
       {
         "h": "Promena izbora",
-        "p": "Dugme Podešavanja kolačića u podnožju svake stranice ponovo otvara izbor. Za brisanje podataka koje sam dobio preko forme piši mi preko kontakt stranice."
+        "p": "Dugme Podešavanja kolačića u podnožju svake stranice ponovo otvara izbor. Za brisanje podataka koje sam dobio preko forme pišite mi preko kontakt stranice."
       }
     ],
     "updated": "Poslednja izmena: septembar 2026.",
     "metaTitle": "Politika privatnosti",
-    "metaDescription": "Koje podatke sepic.me prikuplja (Google Analytics i Google Ads samo uz saglasnost, kontakt forma preko Resend-a) i kako menjaš izbor o kolačićima."
+    "metaDescription": "Koje podatke sepic.me prikuplja (Google Analytics i Google Ads samo uz saglasnost, kontakt forma preko Resend-a) i kako menjate izbor o kolačićima."
   },
   "tour": {
-    "hint": "Skroluj kroz sobu",
+    "hint": "Skrolujte kroz sobu",
     "open": "Otvori",
     "skip": "Preskoči",
     "desc": {
@@ -243,7 +266,7 @@
       "about": "Ko sam, kako radim i šta me pokreće van koda.",
       "education": "Diploma iz informacionih tehnologija i sertifikati.",
       "cv": "Iskustvo i veštine, za čitanje ili preuzimanje u PDF i DOCX formatu.",
-      "contact": "Javi se za projekat, kampanju ili posao."
+      "contact": "Javite se za sajt, kampanju ili SEO."
     }
   },
   "testimonials": {

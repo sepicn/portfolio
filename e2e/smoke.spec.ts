@@ -20,7 +20,7 @@ for (const route of routes) {
 test("English version is served under /en", async ({ page }) => {
   await page.goto("/en");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator("h1")).toContainText("Web developer");
+  await expect(page.locator("h1")).toContainText("Websites and Google Ads");
 });
 
 test("language switcher keeps the current page", async ({ page }) => {
@@ -73,7 +73,7 @@ test("every page has its own Open Graph image", async ({ page }) => {
   );
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
     "content",
-    "Medical Time: case study, Nuxt 4 | Nikola Šepić",
+    "Medical Time: hospital website and Google Ads | Nikola Šepić",
   );
 });
 

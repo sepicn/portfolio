@@ -86,6 +86,7 @@ export function RevealContact({
               <button
                 type="button"
                 onClick={copy}
+                data-cursor="copy"
                 className="shrink-0 border border-white/10 notch-one px-2 py-1 font-mono text-[11px] text-ink-300 transition [--nc:rgba(255,255,255,0.1)] hover:border-neon-pink/60 hover:text-neon-pink hover:[--nc:rgba(255,45,149,0.6)]"
               >
                 {copied ? t("copied") : t("copy")}

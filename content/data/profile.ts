@@ -31,6 +31,11 @@ export const profile = {
     sr: "Dostupan za freelance projekte i stalno zaposlenje, Beograd ili remote.",
     en: "Available for freelance projects and full-time roles, Belgrade or remote.",
   } satisfies Localized,
+  /** Client-facing availability for the home and contact pages; job-seeking stays on /about and /cv. */
+  openFor: {
+    sr: "Primam nove projekte, uživo u Beogradu ili remote.",
+    en: "Taking on new projects, in person in Belgrade or remote.",
+  } satisfies Localized,
 };
 
 export type SkillLevel = "daily" | "solid" | "working";

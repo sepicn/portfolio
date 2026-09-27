@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { CyberEdge } from "./cyber-edge";
 
 /**
  * Hard-edged cyberpunk silhouettes shared by every panel on the site. Each is a clip-path
@@ -116,6 +117,8 @@ type Props = {
   /** Classes for the content layer: background, padding, layout. */
   className?: string;
   style?: CSSProperties;
+  /** Paint only the edge line, so the page shows through the middle (e.g. a cut-out portrait). */
+  hollow?: boolean;
   children?: ReactNode;
 };
 
@@ -132,9 +135,23 @@ export function CyberFrame({
   edgeClassName = "",
   className = "",
   style,
+  hollow = false,
   children,
 }: Props) {
   const clipPath = cyberClip(variant, scale);
+  if (hollow) {
+    return (
+      <div
+        className={`relative p-px transition-colors duration-300 ${edgeClassName}`}
+        style={{ clipPath }}
+      >
+        <CyberEdge clipPath={clipPath} className={tones[tone]} />
+        <Tag className={`relative h-full ${className}`} style={{ ...style, clipPath }}>
+          {children}
+        </Tag>
+      </div>
+    );
+  }
   return (
     <div
       className={`p-px transition-colors duration-300 ${tones[tone]} ${edgeClassName}`}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { pick } from "@/content/i18n";
+import { pick, pickList } from "@/content/i18n";
 import type { Project } from "@/content/data/projects";
 import { CyberFrame, cyberFlip } from "@/components/cyber-frame";
 
@@ -24,7 +24,7 @@ const accent: Record<
   },
   violet: {
     ring: "group-hover:bg-neon-violet/90",
-    text: "text-neon-violet",
+    text: "text-neon-lilac",
     bg: "from-neon-violet/40",
     glow: "rgba(138, 43, 226, 0.6)",
   },
@@ -46,8 +46,12 @@ type Props = {
   project: Project;
   index?: number;
   priority?: boolean;
-  /** "wide" lays the screenshot beside the text from md up, for two-column grids. */
-  layout?: "tall" | "wide";
+  /**
+   * "wide" lays the screenshot beside the text from md up, for two-column grids. "ring" is
+   * the same arrangement at feature size, with what was done and the link always shown,
+   * for the large cards of a RingCarousel.
+   */
+  layout?: "tall" | "wide" | "ring";
 };
 
 /** A project as a sharp-cut terminal panel: screenshot behind glass, details beside or below. */
@@ -60,7 +64,8 @@ export function ProjectCard({
   const locale = useLocale();
   const t = useTranslations("projects");
   const a = accent[project.accent];
-  const wide = layout === "wide";
+  const ring = layout === "ring";
+  const wide = layout === "wide" || ring;
   const flip = wide && cyberFlip(index);
 
   return (
@@ -80,7 +85,7 @@ export function ProjectCard({
         <div
           className={`relative aspect-[16/10] shrink-0 overflow-hidden border-white/10 bg-night-950 ${
             wide
-              ? `border-b md:aspect-auto md:min-h-60 md:w-[46%] md:border-b-0 ${flip ? "md:border-l" : "md:border-r"}`
+              ? `border-b md:aspect-auto md:border-b-0 ${ring ? "md:min-h-96 md:w-[52%]" : "md:min-h-60 md:w-[46%]"} ${flip ? "md:border-l" : "md:border-r"}`
               : "border-b"
           }`}
         >
@@ -92,10 +97,13 @@ export function ProjectCard({
               preload={priority}
               sizes={
                 wide
-                  ? "(max-width: 768px) 100vw, 30vw"
+                  ? ring
+                    ? "(max-width: 768px) 100vw, 520px"
+                    : "(max-width: 768px) 100vw, 30vw"
                   : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               }
-              className="object-cover object-top transition duration-700 group-hover:scale-105"
+              // The large ring cards show the whole screenshot, letterboxed, never cropped.
+              className={`transition duration-700 group-hover:scale-105 ${ring ? "object-contain p-3" : "object-cover object-top"}`}
             />
           ) : (
             <PrivateArt label={project.title} accent={project.accent} />
@@ -111,7 +119,9 @@ export function ProjectCard({
           </span>
         </div>
 
-        <div className="relative flex flex-1 flex-col p-5 sm:p-6">
+        <div
+          className={`relative flex flex-1 flex-col p-5 sm:p-6 ${ring ? "lg:p-8" : ""}`}
+        >
           <div className="flex items-center justify-between gap-3">
             <span
               className={`font-mono text-[11px] tracking-[0.25em] uppercase ${a.text}`}
@@ -124,18 +134,34 @@ export function ProjectCard({
               <i className="block h-2.5 w-1 -skew-x-[20deg] bg-current opacity-30" />
             </span>
           </div>
-          <h3 className="mt-2 font-display text-xl font-semibold text-ink-100">
+          <h3
+            className={`mt-2 font-display font-semibold text-ink-100 ${ring ? "text-2xl lg:text-3xl" : "text-xl"}`}
+          >
             {project.title}
           </h3>
           {project.client ? (
             <p className="mt-0.5 text-sm text-ink-400">{project.client}</p>
           ) : null}
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-200">
+          <p
+            className={`mt-3 leading-relaxed text-ink-200 ${ring ? "text-base" : "flex-1 text-sm"}`}
+          >
             {pick(project.tagline, locale)}
           </p>
+          {ring ? (
+            <ul className="mt-4 flex-1 space-y-2 text-sm text-ink-300">
+              {pickList(project.did, locale)
+                .slice(0, 2)
+                .map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-neon-pink shadow-neon-pink" />
+                    <span className="line-clamp-2">{item}</span>
+                  </li>
+                ))}
+            </ul>
+          ) : null}
           <div className="mt-4 flex items-end justify-between gap-3">
             <ul className="flex flex-wrap gap-1.5">
-              {project.stack.slice(0, 3).map((item) => (
+              {project.stack.slice(0, ring ? 5 : 3).map((item) => (
                 <li
                   key={item}
                   className="border border-white/10 notch-one px-2 py-0.5 font-mono text-[10px] text-ink-300 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
@@ -145,7 +171,7 @@ export function ProjectCard({
               ))}
             </ul>
             <span
-              className={`shrink-0 font-mono text-[11px] tracking-widest uppercase ${a.text} opacity-0 transition group-hover:opacity-100`}
+              className={`shrink-0 font-mono text-[11px] tracking-widest uppercase ${a.text} transition ${ring ? "" : "opacity-0 group-hover:opacity-100"}`}
             >
               {t("open")}{" "}
               <ArrowRightIcon
