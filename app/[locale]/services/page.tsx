@@ -11,10 +11,19 @@ import { SectionHeading } from "@/components/section-heading";
 import { pick, pickList } from "@/content/i18n";
 import { services, process, faq } from "@/content/data/services";
 import { siteConfig } from "@/lib/site-config";
-import { personId, serializeJsonLd } from "@/lib/structured-data";
+import { projects } from "@/content/data/projects";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  businessId,
+  graph,
+  personId,
+  serializeJsonLd,
+} from "@/lib/structured-data";
 import { FloatingProp } from "@/components/ambient/floating-prop";
 import { NeonHorizon } from "@/components/ambient/neon-horizon";
 import { Marquee } from "@/components/motion/marquee";
+import { Testimonials } from "@/components/testimonials";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -41,18 +50,24 @@ export default function ServicesPage({ params }: Props) {
   const steps = process[key];
   const questions = faq[key];
 
-  const jsonLd = [
+  const navT = useTranslations("nav");
+  const jsonLd = graph(
     {
-      "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": businessId,
       name: siteConfig.name,
-      url: `${siteConfig.url}${locale === "en" ? "/en" : ""}/services`,
-      provider: { "@id": personId },
+      url: absoluteUrl(locale, "/services"),
+      founder: { "@id": personId },
       image: `${siteConfig.url}/og/${locale}-services.jpg`,
+      description: t("metaDescription"),
+      // Belgrade in person, everywhere else remotely.
       areaServed: [
         { "@type": "City", name: "Belgrade" },
         { "@type": "Country", name: "Serbia" },
+        { "@type": "Place", name: "Worldwide (remote)" },
       ],
+      knowsLanguage: ["sr", "en"],
+      sameAs: [siteConfig.github, siteConfig.linkedin],
       address: {
         "@type": "PostalAddress",
         addressLocality: "Belgrade",
@@ -68,7 +83,6 @@ export default function ServicesPage({ params }: Props) {
       })),
     },
     {
-      "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: questions.map((q) => ({
         "@type": "Question",
@@ -76,7 +90,11 @@ export default function ServicesPage({ params }: Props) {
         acceptedAnswer: { "@type": "Answer", text: q.a },
       })),
     },
-  ];
+    breadcrumbJsonLd(locale, [
+      [siteConfig.name, "/"],
+      [navT("services"), "/services"],
+    ]),
+  );
 
   return (
     <>
@@ -136,6 +154,24 @@ export default function ServicesPage({ params }: Props) {
                   <span className="text-ink-200">{t("forWhom")}:</span>{" "}
                   {pick(service.forWhom, locale)}
                 </p>
+                <p className="mt-4 text-ink-400">
+                  <span className="text-ink-200">{t("examples")}:</span>{" "}
+                  {service.examples.map((slug, j) => {
+                    const project = projects.find((p) => p.slug === slug);
+                    if (!project) return null;
+                    return (
+                      <span key={slug}>
+                        {j > 0 ? ", " : ""}
+                        <Link
+                          href={`/projects/${slug}`}
+                          className="text-neon-cyan underline-offset-4 hover:underline"
+                        >
+                          {project.title}
+                        </Link>
+                      </span>
+                    );
+                  })}
+                </p>
               </Reveal>
               <Reveal from={i % 2 === 0 ? "right" : "left"} delay={0.1}>
                 <ul className="neon-frame rounded-2xl border border-white/5 bg-night-800/50 p-7">
@@ -158,6 +194,7 @@ export default function ServicesPage({ params }: Props) {
         ))}
       </div>
 
+      <Testimonials locale={locale} />
       <NeonHorizon />
       <section className="py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

@@ -22,7 +22,8 @@
     "rights": "Nikola Šepić. Sav sadržaj je moj, osim logotipa klijenata i preuzetih 3D modela.",
     "credit": "3D model računara:",
     "privacy": "Privatnost",
-    "cookies": "Podešavanja kolačića"
+    "cookies": "Podešavanja kolačića",
+    "location": "Beograd, Srbija · radim i remote"
   },
   "home": {
     "title": "Web developer i digitalni marketing iz Beograda",
@@ -32,7 +33,7 @@
     "hint": "Klikni na stvari u sobi. Monitor vodi na projekte, telefon na kontakt, disketa na CV.",
     "scrollHint": "Skroluj",
     "introEyebrow": "Ko sam",
-    "introTitle": "Nikola Šepić, developer koji zna i kako se dolazi do klijenata",
+    "introTitle": "Nikola Šepić, web developer iz Beograda koji zna i kako se dolazi do klijenata",
     "servicesEyebrow": "Usluge",
     "servicesTitle": "Šta radim za firme",
     "servicesLead": "Sajt koji donosi upite i kampanje koje ga pune. Oba dela radim ja, pa nema prebacivanja krivice između developera i marketara.",
@@ -76,7 +77,8 @@
     "faqTitle": "Pitanja koja mi svi postave",
     "cta": "Zakaži razgovor",
     "metaTitle": "Izrada sajtova, Google Ads i SEO u Beogradu",
-    "metaDescription": "Izrada sajtova i web aplikacija, vođenje Google Ads i Meta Ads kampanja, SEO optimizacija i GA4/GTM analitika. Fiksna ponuda posle kratkog razgovora."
+    "metaDescription": "Izrada sajtova i web aplikacija, vođenje Google Ads i Meta Ads kampanja, SEO optimizacija i GA4/GTM analitika. Fiksna ponuda posle kratkog razgovora.",
+    "examples": "Primeri iz prakse"
   },
   "about": {
     "title": "O meni",
@@ -114,7 +116,7 @@
       "certificates": "Sertifikati"
     },
     "metaTitle": "CV web developera",
-    "metaDescription": "Biografija Nikole Šepića: iskustvo, veštine, projekti i sertifikati. Verzija za čitanje na sajtu, PDF i DOCX za slanje."
+    "metaDescription": "CV Nikole Šepića, web developera iz Beograda: React, Next.js, Nuxt i .NET u produkciji, Google Ads i SEO, projekti i sertifikati. Za čitanje, PDF i DOCX."
   },
   "contact": {
     "title": "Kontakt",
@@ -124,7 +126,11 @@
     "location": "Beograd, Srbija",
     "metaTitle": "Kontakt: upit za sajt, kampanju ili posao",
     "metaDescription": "Pošalji upit za izradu sajta, Google Ads kampanju, SEO ili ponudu za posao. Forma, poziv ili WhatsApp, a ponudu dobijaš posle kratkog razgovora.",
-    "signal": "Dostupan · odgovaram istog dana"
+    "signal": "Dostupan · odgovaram istog dana",
+    "howTitle": "Pozovi ili pošalji mejl",
+    "how": "Kako ti je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram što pre, obično istog dana, a ponudu šaljem posle kratkog razgovora o tome šta ti treba i do kada.",
+    "areaTitle": "Beograd i remote",
+    "area": "Radim iz Beograda. Sa klijentima u Beogradu mogu da se vidim uživo, a sa svima ostalima, u Srbiji i inostranstvu, radim remote preko poziva, mejla i deljenog ekrana."
   },
   "notFound": {
     "title": "Stranica ne postoji",
@@ -239,5 +245,9 @@
       "cv": "Iskustvo i veštine, za čitanje ili preuzimanje u PDF i DOCX formatu.",
       "contact": "Javi se za projekat, kampanju ili posao."
     }
+  },
+  "testimonials": {
+    "eyebrow": "Preporuke",
+    "title": "Šta kažu klijenti"
   }
 }

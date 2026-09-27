@@ -15,6 +15,15 @@ import {
 import { experience } from "@/content/data/experience";
 import { projects } from "@/content/data/projects";
 import { FloatingProp } from "@/components/ambient/floating-prop";
+import lastmod from "@/lib/lastmod.json";
+import { siteConfig } from "@/lib/site-config";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  graph,
+  personJsonLd,
+  serializeJsonLd,
+} from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -23,7 +32,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "cv" });
   return {
     title: t("metaTitle"),
-    robots: { index: false, follow: true },
     ...pageMetadata({
       locale,
       path: "/cv",
@@ -54,9 +62,29 @@ export default function CvPage({ params }: Props) {
   setRequestLocale(locale);
   const t = useTranslations("cv");
   const cvProjects = projects.filter((p) => p.kind === "personal").slice(0, 3);
+  // ProfilePage: Google's type for a page about one person, eligible for profile results.
+  const jsonLd = graph(
+    {
+      "@type": "ProfilePage",
+      "@id": `${absoluteUrl(locale, "/cv")}#page`,
+      url: absoluteUrl(locale, "/cv"),
+      name: t("metaTitle"),
+      inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
+      dateModified: lastmod["/cv"].date,
+      mainEntity: personJsonLd(locale),
+    },
+    breadcrumbJsonLd(locale, [
+      [siteConfig.name, "/"],
+      ["CV", "/cv"],
+    ]),
+  );
 
   return (
     <div className="mx-auto max-w-4xl px-4 pt-12 pb-28 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <Reveal className="no-print">
         <div className="neon-frame flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/5 bg-night-800/50 p-5">
           <div className="flex items-center gap-4">

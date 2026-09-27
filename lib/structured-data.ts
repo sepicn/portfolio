@@ -8,6 +8,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export const personId = `${siteConfig.url}/#person`;
 export const websiteId = `${siteConfig.url}/#website`;
+export const businessId = `${siteConfig.url}/#business`;
 
 export const absoluteUrl = (locale: string, path: string) =>
   `${siteConfig.url}${localePath(locale, path) === "/" ? "" : localePath(locale, path)}`;
@@ -26,7 +27,13 @@ export function personJsonLd(locale: string) {
       addressCountry: "RS",
     },
     sameAs: [profile.github, profile.linkedin],
-    alumniOf: { "@type": "CollegeOrUniversity", name: "Singidunum University" },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Singidunum University",
+      url: "https://singidunum.ac.rs",
+    },
+    worksFor: { "@id": businessId },
+    knowsLanguage: ["sr", "en"],
     knowsAbout: skillGroups.flatMap((g) => g.skills.map((s) => s.name)),
   };
 }

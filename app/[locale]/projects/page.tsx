@@ -9,7 +9,17 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { Marquee } from "@/components/motion/marquee";
-import { clientProjects, personalProjects } from "@/content/data/projects";
+import { clientProjects, personalProjects, projects } from "@/content/data/projects";
+import { pick } from "@/content/i18n";
+import { siteConfig } from "@/lib/site-config";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  graph,
+  personId,
+  serializeJsonLd,
+  websiteId,
+} from "@/lib/structured-data";
 import { FloatingProp } from "@/components/ambient/floating-prop";
 import { CrtScreen, type Quad } from "@/components/ambient/crt-screen";
 import screens from "@/lib/prop-screens.json";
@@ -37,9 +47,41 @@ export default function ProjectsPage({ params }: Props) {
   const t = useTranslations("projects");
   const featured = clientProjects.slice(0, 4);
   const rest = clientProjects.slice(4);
+  const navT = useTranslations("nav");
+  const jsonLd = graph(
+    {
+      "@type": "CollectionPage",
+      "@id": `${absoluteUrl(locale, "/projects")}#page`,
+      url: absoluteUrl(locale, "/projects"),
+      name: t("metaTitle"),
+      description: t("metaDescription"),
+      inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
+      isPartOf: { "@id": websiteId },
+      author: { "@id": personId },
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: projects.length,
+        itemListElement: projects.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          url: absoluteUrl(locale, `/projects/${p.slug}`),
+          name: p.title,
+          description: pick(p.description, locale),
+        })),
+      },
+    },
+    breadcrumbJsonLd(locale, [
+      [siteConfig.name, "/"],
+      [navT("projects"), "/projects"],
+    ]),
+  );
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 animate-grid grid-floor" />
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-20 pb-24 sm:px-6 lg:grid-cols-[3fr_2fr]">

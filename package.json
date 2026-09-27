@@ -5,6 +5,7 @@
   "description": "Portfolio of Nikola Sepic, web developer and digital marketing specialist from Belgrade.",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/lastmod.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -17,10 +18,11 @@
     "cv": "node scripts/build-cv.mjs",
     "shots": "node scripts/screenshots.mjs",
     "room": "node scripts/room.mjs",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run format:check",
+    "check": "node scripts/lastmod.mjs --check && npm run lint && npm run typecheck && npm run test && npm run format:check",
     "og": "node scripts/og.mjs",
     "logo": "node scripts/logo.mjs",
-    "poster": "node scripts/poster.mjs"
+    "poster": "node scripts/poster.mjs",
+    "lastmod": "node scripts/lastmod.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

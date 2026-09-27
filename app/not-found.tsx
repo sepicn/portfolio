@@ -6,6 +6,10 @@ import "./globals.css";
 export default function RootNotFound() {
   return (
     <html lang="sr">
+      <head>
+        <title>404 | Nikola Šepić</title>
+        <meta name="robots" content="noindex" />
+      </head>
       <body className="flex min-h-full flex-col items-center justify-center p-8 text-center">
         <h1 className="text-3xl font-semibold">404</h1>
         <p className="mt-2">Stranica ne postoji. / Page not found.</p>

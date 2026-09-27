@@ -11,6 +11,7 @@ import { Reveal } from "@/components/reveal";
 import { Parallax } from "@/components/motion/parallax";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { PrivateArt } from "@/components/project-card";
+import { Testimonials } from "@/components/testimonials";
 import { pick, pickList } from "@/content/i18n";
 import { projects } from "@/content/data/projects";
 import { siteConfig } from "@/lib/site-config";
@@ -37,18 +38,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return {};
   const t = await getTranslations({ locale, namespace: "projectPage" });
   const title = `${project.title}: ${t("caseStudy")}, ${project.stack[0]}`;
-  const description = [
-    pick(project.tagline, locale),
-    `${t("role")}: ${pick(project.role, locale)}.`,
-    `${t("stack")}: ${project.stack.slice(0, 4).join(", ")}.`,
-  ].join(" ");
   return {
     title,
     ...pageMetadata({
       locale,
       path: `/projects/${slug}`,
       title,
-      description: description.length > 160 ? pick(project.tagline, locale) : description,
+      description: pick(project.description, locale),
       ogKey: `project-${slug}`,
     }),
   };
@@ -75,12 +71,19 @@ export default function ProjectPage({ params }: Props) {
     ]),
     {
       "@type": "CreativeWork",
+      "@id": `${absoluteUrl(locale, `/projects/${slug}`)}#work`,
       name: project.title,
-      description: pick(project.tagline, locale),
+      description: pick(project.description, locale),
       author: { "@id": personId },
+      dateCreated: project.year.slice(0, 4),
       mainEntityOfPage: absoluteUrl(locale, `/projects/${slug}`),
       inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
-      url: project.links.live,
+      // The case study is the canonical page for this work; the live site is related to it.
+      url: absoluteUrl(locale, `/projects/${slug}`),
+      sameAs: project.links.live,
+      ...(project.client
+        ? { funder: { "@type": "Organization", name: project.client } }
+        : {}),
       image: project.image ? `${siteConfig.url}${project.image}` : undefined,
       keywords: project.stack.join(", "),
     },
@@ -330,6 +333,8 @@ export default function ProjectPage({ params }: Props) {
           </div>
         </section>
       ) : null}
+
+      <Testimonials locale={locale} project={slug} />
 
       <nav
         aria-label={t("moreNav")}

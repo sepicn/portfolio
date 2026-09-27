@@ -22,7 +22,8 @@
     "rights": "Nikola Šepić. All content is mine, except client logos and third-party 3D models.",
     "credit": "3D computer model:",
     "privacy": "Privacy",
-    "cookies": "Cookie settings"
+    "cookies": "Cookie settings",
+    "location": "Belgrade, Serbia · also remote"
   },
   "home": {
     "title": "Web developer and digital marketing, Belgrade",
@@ -32,7 +33,7 @@
     "hint": "Click around the room. The monitor opens projects, the phone opens contact, the floppy is the CV.",
     "scrollHint": "Scroll",
     "introEyebrow": "Who I am",
-    "introTitle": "Nikola Šepić, a developer who also knows how customers are won",
+    "introTitle": "Nikola Šepić, a Belgrade web developer who also knows how customers are won",
     "servicesEyebrow": "Services",
     "servicesTitle": "What I do for businesses",
     "servicesLead": "A site that brings inquiries and the campaigns that fill it. I do both parts, so there is no blame passing between the developer and the marketer.",
@@ -76,7 +77,8 @@
     "faqTitle": "Questions everyone asks",
     "cta": "Book a call",
     "metaTitle": "Web development, Google Ads and SEO in Belgrade",
-    "metaDescription": "Websites and web apps, Google Ads and Meta Ads campaign management, SEO and GA4/GTM analytics. A fixed quote after a short conversation."
+    "metaDescription": "Websites and web apps, Google Ads and Meta Ads campaign management, SEO and GA4/GTM analytics. A fixed quote after a short conversation.",
+    "examples": "Examples from real work"
   },
   "about": {
     "title": "About",
@@ -114,7 +116,7 @@
       "certificates": "Certificates"
     },
     "metaTitle": "Web developer CV",
-    "metaDescription": "Nikola Šepić's CV: experience, skills, projects and certificates. A version to read on the site, plus PDF and DOCX to send."
+    "metaDescription": "CV of Nikola Šepić, a Belgrade web developer: React, Next.js, Nuxt and .NET in production, Google Ads and SEO, projects and certificates. Read, PDF or DOCX."
   },
   "contact": {
     "title": "Contact",
@@ -124,7 +126,11 @@
     "location": "Belgrade, Serbia",
     "metaTitle": "Contact: a website, a campaign or a role",
     "metaDescription": "Ask about a website, a Google Ads campaign, SEO or a job opening. Use the form, call or WhatsApp; you get a quote after a short conversation.",
-    "signal": "Available · same-day replies"
+    "signal": "Available · same-day replies",
+    "howTitle": "Call or send an email",
+    "how": "Whatever suits you: a call, WhatsApp or email. I reply as soon as possible, usually the same day, and send a quote after a short talk about what you need and by when.",
+    "areaTitle": "Belgrade and remote",
+    "area": "I work from Belgrade. I can meet clients in Belgrade in person, and I work remotely with everyone else, in Serbia and abroad, over calls, email and screen sharing."
   },
   "notFound": {
     "title": "Page not found",
@@ -239,5 +245,9 @@
       "cv": "Experience and skills, to read here or download as PDF and DOCX.",
       "contact": "Get in touch about a project, a campaign or a job."
     }
+  },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "What clients say"
   }
 }

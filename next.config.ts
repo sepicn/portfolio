@@ -63,7 +63,25 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      // Preview deployments share the production content under another host; keep them
+      // out of the index so they never compete with the canonical site.
+      ...(process.env.VERCEL_ENV === "preview"
+        ? [{ source: "/(.*)", headers: [{ key: "X-Robots-Tag", value: "noindex" }] }]
+        : []),
+    ];
+  },
+  async redirects() {
+    return [
+      // Serbian is the default locale without a prefix. next-intl answers /sr with a
+      // temporary 307; a permanent redirect tells search engines which URL to keep.
+      { source: "/sr", destination: "/", permanent: true },
+      { source: "/sr/:path*", destination: "/:path*", permanent: true },
+      // The old CV file was replaced by the /cv page and its generated PDFs.
+      { source: "/CV.pdf", destination: "/cv", permanent: true },
+      { source: "/cv.pdf", destination: "/cv", permanent: true },
+    ];
   },
 };
 
