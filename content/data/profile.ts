@@ -24,8 +24,8 @@ export const profile = {
     en: "I build web apps and websites, then bring them customers through Google Ads, Meta Ads and SEO. For the past year and a half I have worked on production systems: a private hospital platform in Nuxt and Laravel, a logistics TMS in .NET, and a shipment tracking portal in Rails. My personal projects are Next.js with TypeScript. I graduated in Information Technology from Singidunum University in 2024.",
   } satisfies Localized,
   cvSummary: {
-    sr: "Web developer sa godinu i po dana rada na produkcionim sistemima (Nuxt 4 i Laravel 12, .NET 8 MVC, Rails 7) i sa praksom u digitalnom marketingu za stvarnog klijenta (Google Ads, Meta Ads, GA4, GTM, SEO). Najjači u front-end sloju: TypeScript, React i Next.js, Vue i Nuxt, Tailwind. Tražim medior front-end ili full-stack poziciju, uz otvorenost za freelance.",
-    en: "Web developer with a year and a half on production systems (Nuxt 4 and Laravel 12, .NET 8 MVC, Rails 7) and hands-on digital marketing for a real client (Google Ads, Meta Ads, GA4, GTM, SEO). Strongest on the front end: TypeScript, React and Next.js, Vue and Nuxt, Tailwind. Looking for a mid-level front-end or full-stack role, open to freelance work.",
+    sr: "Web developer sa godinu i po dana rada na produkcionim sistemima (Nuxt 4 i Laravel 12, .NET 8 MVC, Rails 7) i sa praksom u digitalnom marketingu za privatnu bolnicu: osam Google Ads kampanja, Meta Ads, GA4, GTM i tehnički SEO koji je Semrush Site Health podigao sa 90% na 98%. Najjači u front-end sloju: TypeScript, React i Next.js, Vue i Nuxt, Tailwind. Tražim medior front-end ili full-stack poziciju, uz otvorenost za freelance.",
+    en: "Web developer with a year and a half on production systems (Nuxt 4 and Laravel 12, .NET 8 MVC, Rails 7) and hands-on digital marketing for a private hospital: eight Google Ads campaigns, Meta Ads, GA4, GTM, and technical SEO that raised Semrush Site Health from 90% to 98%. Strongest on the front end: TypeScript, React and Next.js, Vue and Nuxt, Tailwind. Looking for a mid-level front-end or full-stack role, open to freelance work.",
   } satisfies Localized,
   availability: {
     sr: "Dostupan za freelance projekte i stalno zaposlenje, Beograd ili remote.",
@@ -100,7 +100,8 @@ export const skillGroups: SkillGroup[] = [
     id: "tools",
     label: { sr: "Alati i praksa", en: "Tools and practice" },
     skills: [
-      { name: "Git, GitHub, pull requests", level: "daily" },
+      { name: "Git, GitHub, pull requests, code review", level: "daily" },
+      { name: "Jira", level: "solid" },
       { name: "Vercel, GitHub Actions CI", level: "solid" },
       { name: "Vitest, Playwright", level: "solid" },
       { name: "Zod validation", level: "solid" },

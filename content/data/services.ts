@@ -45,20 +45,22 @@ export const services: Service[] = [
     examples: ["medical-time"],
     title: { sr: "Google Ads", en: "Google Ads" },
     lead: {
-      sr: "Search i Performance Max kampanje za upite koje ljudi već kucaju: „zubar Vračar“, „moler Beograd“. Postavljam merenje konverzija pre prvog dinara budžeta, pa se zna šta radi.",
-      en: 'Search and Performance Max campaigns for what people already type: "dentist Vračar", "painter Belgrade". Conversion tracking is set up before the first dinar of budget, so we know what works.',
+      sr: "Search i Performance Max kampanje za upite koje ljudi već kucaju: „zubar Vračar“, „moler Beograd“. Postavljam merenje konverzija pre prvog dinara budžeta, pa se zna šta radi. Za privatnu bolnicu vodim osam Search kampanja i iz izveštaja o pretragama sam izbacio 370+ nerelevantnih upita.",
+      en: 'Search and Performance Max campaigns for what people already type: "dentist Vračar", "painter Belgrade". Conversion tracking is set up before the first dinar of budget, so we know what works. For a private hospital I run eight Search campaigns and cut 370+ irrelevant queries from the search term reports.',
     },
     includes: {
       sr: [
-        "Istraživanje ključnih reči i negativne reči",
+        "Istraživanje ključnih reči i negativne reči iz stvarnih izveštaja o pretragama",
         "Struktura kampanja, oglasi, ekstenzije, landing stranice",
+        "Limit cene po kliku i preraspodela budžeta po udelu izgubljenih prikaza",
         "Konverzije kroz GA4 i GTM (poziv, forma, WhatsApp)",
         "Zaštita od lažnih klikova (ClickCease)",
         "Mesečni izveštaj na jednoj strani, bez žargona",
       ],
       en: [
-        "Keyword research and negative keywords",
+        "Keyword research and negative keywords from real search term reports",
         "Campaign structure, ads, extensions, landing pages",
+        "CPC caps and budget reallocation based on lost impression share",
         "Conversions through GA4 and GTM (call, form, WhatsApp)",
         "Click fraud protection (ClickCease)",
         "A one-page monthly report, no jargon",
@@ -104,8 +106,8 @@ export const services: Service[] = [
     examples: ["medical-time", "vuk-studio"],
     title: { sr: "SEO i analitika", en: "SEO and analytics" },
     lead: {
-      sr: "Tehnički SEO koji Google stvarno nagrađuje: brzina, struktura, hreflang, JSON-LD, sitemap bez grešaka. Plus GA4 i GTM postavka da izveštaji pokazuju upite, ne samo posete.",
-      en: "Technical SEO that Google actually rewards: speed, structure, hreflang, JSON-LD, an error-free sitemap. Plus GA4 and GTM set up so reports show inquiries, not just visits.",
+      sr: "Tehnički SEO koji Google stvarno nagrađuje: brzina, struktura, hreflang, JSON-LD, sitemap bez grešaka. Na medicaltime.rs: Site Health 90% → 98% za nedelju dana, greške 6 → 0. Plus GA4 i GTM postavka da izveštaji pokazuju upite, ne samo posete.",
+      en: "Technical SEO that Google actually rewards: speed, structure, hreflang, JSON-LD, an error-free sitemap. On medicaltime.rs: Site Health 90% → 98% in one week, errors 6 → 0. Plus GA4 and GTM set up so reports show inquiries, not just visits.",
     },
     includes: {
       sr: [
