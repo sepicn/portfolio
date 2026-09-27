@@ -290,8 +290,12 @@ export const projects: Project[] = [
       en: "Nuxt 4 + Laravel 12, 5 languages, payments and subscriptions",
     },
     impact: {
-      sr: ["Klijenti sami biraju paket, vide cenu u kalkulatoru i plaćaju online, bez razmene mejlova oko ponude."],
-      en: ["Clients pick a package, see the price in the calculator and pay online, without emails back and forth about a quote."],
+      sr: [
+        "Klijenti sami biraju paket, vide cenu u kalkulatoru i plaćaju online, bez razmene mejlova oko ponude.",
+      ],
+      en: [
+        "Clients pick a package, see the price in the calculator and pay online, without emails back and forth about a quote.",
+      ],
     },
     image: "/images/projects/itexpert.webp",
     title: "IT Expert",
@@ -474,8 +478,12 @@ export const projects: Project[] = [
     team: { sr: "Dva developera", en: "Two developers" },
     scale: { sr: "Statičan Nuxt sajt, 6 stranica", en: "Static Nuxt site, 6 pages" },
     impact: {
-      sr: ["Studio je od prvog dana spreman za lokalnu pretragu: brze statične stranice i strukturirani podaci."],
-      en: ["The studio was ready for local search from day one: fast static pages and structured data."],
+      sr: [
+        "Studio je od prvog dana spreman za lokalnu pretragu: brze statične stranice i strukturirani podaci.",
+      ],
+      en: [
+        "The studio was ready for local search from day one: fast static pages and structured data.",
+      ],
     },
     image: "/images/projects/vuk-studio.webp",
     title: "Vuk Studio",
@@ -533,8 +541,12 @@ export const projects: Project[] = [
       en: "Public sports centre, Cyrillic and Latin script",
     },
     impact: {
-      sr: ["Sajt i sistem javne ustanove ostaju ažurni, bezbedni i sa backup-om, a zaposleni imaju koga da pozovu."],
-      en: ["The public institution's site and systems stay updated, secure and backed up, and the staff have someone to call."],
+      sr: [
+        "Sajt i sistem javne ustanove ostaju ažurni, bezbedni i sa backup-om, a zaposleni imaju koga da pozovu.",
+      ],
+      en: [
+        "The public institution's site and systems stay updated, secure and backed up, and the staff have someone to call.",
+      ],
     },
     image: "/images/projects/olimp.webp",
     title: "Sportski centar Olimp",
