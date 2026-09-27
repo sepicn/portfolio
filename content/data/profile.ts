@@ -4,7 +4,7 @@ export const profile = {
   name: "Nikola Šepić",
   firstName: "Nikola",
   title: {
-    sr: "Web developer i digitalni marketing",
+    sr: "Full-stack web developer i digitalni marketing",
     en: "Full-stack web developer and digital marketing",
   } satisfies Localized,
   cvTitle: {
@@ -20,12 +20,12 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/sepicn/",
   photo: "/images/nikola.webp",
   summary: {
-    sr: "Pravim web aplikacije i sajtove, pa im dovodim klijente kroz Google Ads, Meta Ads i SEO. Više od godinu i po dana radim na produkcionim sistemima: platformi privatne bolnice u Nuxt-u i Laravelu, TMS sistemu za logistiku u .NET-u i portalu za praćenje pošiljki u Rails-u. Lične projekte gradim u Next.js-u sa TypeScript-om. Diplomirao sam informacione tehnologije na Singidunumu 2024.",
-    en: "I build web apps and websites, then bring them customers through Google Ads, Meta Ads and SEO. For more than a year and a half I have worked on production systems: a private hospital platform in Nuxt and Laravel, a logistics TMS in .NET, and a shipment tracking portal in Rails. My personal projects are Next.js with TypeScript. I graduated in Information Technology from Singidunum University in 2024.",
+    sr: "Gradim web aplikacije i sajtove, a zatim im dovodim klijente kroz Google Ads, Meta Ads i SEO. Više od godinu i po dana isporučujem na produkcionim sistemima: platformi privatne bolnice od oko 400 hiljada linija koda u Nuxt-u i Laravelu, redizajnu interfejsa TMS sistema američke logističke firme u .NET-u i portalu za praćenje pošiljki u Rails-u. Za istu bolnicu vodim osam Google Ads kampanja, a tehnički SEO je Semrush Site Health podigao sa 90% na 98% za nedelju dana. Lične projekte gradim u Next.js-u sa TypeScript-om. Diplomirao sam informacione tehnologije na Singidunumu 2024.",
+    en: "I build web apps and websites, then bring them customers through Google Ads, Meta Ads and SEO. For more than a year and a half I have shipped on production systems: a ~400k-line private hospital platform in Nuxt and Laravel, the UI redesign of a US logistics company's TMS in .NET, and a shipment tracking portal in Rails. For the same hospital I run eight Google Ads campaigns, and my technical SEO took Semrush Site Health from 90% to 98% in one week. My personal projects are Next.js with TypeScript. I graduated in Information Technology from Singidunum University in 2024.",
   } satisfies Localized,
   cvSummary: {
-    sr: "Web developer sa više od godinu i po dana rada na produkcionim sistemima (Nuxt 4 i Laravel 12, .NET 8 MVC, Rails 7) i sa praksom u digitalnom marketingu za privatnu bolnicu: osam Google Ads kampanja, Meta Ads, GA4, GTM i tehnički SEO koji je Semrush Site Health podigao sa 90% na 98%. Najjači u front-end sloju: TypeScript, React i Next.js, Vue i Nuxt, Tailwind. Tražim medior front-end ili full-stack poziciju, uz otvorenost za freelance.",
-    en: "Web developer with more than a year and a half on production systems (Nuxt 4 and Laravel 12, .NET 8 MVC, Rails 7) and hands-on digital marketing for a private hospital: eight Google Ads campaigns, Meta Ads, GA4, GTM, and technical SEO that raised Semrush Site Health from 90% to 98%. Strongest on the front end: TypeScript, React and Next.js, Vue and Nuxt, Tailwind. Looking for a mid-level front-end or full-stack role, open to freelance work.",
+    sr: "Web developer sa više od godinu i po dana rada na produkcionim sistemima (Nuxt 4 i Laravel 12, .NET 8 MVC, Rails 7) koji za privatnu bolnicu vodi i digitalni marketing: osam Google Ads kampanja, Meta Ads, GA4, GTM i tehnički SEO koji je Semrush Site Health podigao sa 90% na 98%. Najjači u front-end sloju: TypeScript, React i Next.js, Vue i Nuxt, Tailwind. Tražim medior front-end ili full-stack poziciju, uz otvorenost za freelance.",
+    en: "Web developer with more than a year and a half on production systems (Nuxt 4 and Laravel 12, .NET 8 MVC, Rails 7) who also runs digital marketing for a private hospital: eight Google Ads campaigns, Meta Ads, GA4, GTM, and technical SEO that raised Semrush Site Health from 90% to 98%. Strongest on the front end: TypeScript, React and Next.js, Vue and Nuxt, Tailwind. Looking for a mid-level front-end or full-stack role, open to freelance work.",
   } satisfies Localized,
   availability: {
     sr: "Dostupan za freelance projekte i stalno zaposlenje, Beograd ili remote.",

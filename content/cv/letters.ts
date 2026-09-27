@@ -19,7 +19,7 @@ Poštovani/a [ime osobe ili „tim [Firma]"],
 
 prijavljujem se za poziciju [naziv pozicije] u [Firma]. Poslednjih godinu i po radim kao full-stack developer na produkcionim sistemima: bolničkoj platformi od oko 400 hiljada linija koda u Nuxt-u 4 i Laravelu 12, TMS sistemu za logistiku iz SAD u ASP.NET Core 8 MVC i portalu za praćenje pošiljki u Rails-u 7.
 
-Na bolničkoj platformi sam napravio chatbot koji zakazuje termine i daljinsko potpisivanje saglasnosti sa šaltera na tablet, a vodim i i18n na pet jezika. U logistici sam kao UI developer u timu od dva developera redizajnirao 40+ formi u modularne wizard-e, radeći kroz Jira tikete i code review sa timom u SAD.
+Na bolničkoj platformi sam isporučio chatbot koji zakazuje termine i daljinsko potpisivanje saglasnosti sa šaltera na tablet, a vodim i i18n na pet jezika. U logistici sam kao UI developer u timu od dva developera redizajnirao 40+ formi u modularne wizard-e, radeći kroz Jira tikete i code review sa timom u SAD.
 
 [Jedna rečenica zašto baš ova firma: njihov proizvod, stack ili problem koji rešavaju, i kako se to vezuje za moj rad.]
 
@@ -58,7 +58,7 @@ Poštovani/a [ime osobe ili „tim [Firma]"],
 
 prijavljujem se za poziciju [naziv pozicije] u [Firma]. Diplomirao sam informacione tehnologije na Singidunumu 2024. i od tada godinu i po radim na pravim produkcionim projektima: bolničkoj platformi u Nuxt-u i Laravelu, TMS sistemu za logistiku u .NET-u i portalu za praćenje pošiljki u Rails-u.
 
-Rails i .NET nisam znao kada sam počeo, naučio sam ih na poslu i u oba isporučio interfejs koji se koristi svaki dan. Pored toga sam sam napravio nekoliko full-stack aplikacija, na primer Job Application Tracker u Next.js 16 sa MongoDB-om, Better Auth-om i Zod validacijom na svakoj serverskoj akciji, i GymAI sa Express 5 API-jem, Prisma-om i 44 testa.
+Rails i .NET sam savladao na poslu i u oba isporučio interfejs koji se koristi svaki dan. Pored toga sam samostalno napravio nekoliko full-stack aplikacija, na primer Job Application Tracker u Next.js 16 sa MongoDB-om, Better Auth-om i Zod validacijom na svakoj serverskoj akciji, i GymAI sa Express 5 API-jem, Prisma-om i 44 testa.
 
 [Jedna rečenica zašto baš ova firma i šta želiš da naučiš kod njih.]
 
@@ -76,7 +76,7 @@ Dear [Name / "[Company] team"],
 
 I am applying for the [Job title] role at [Company]. I graduated in Information Technology from Singidunum University in 2024 and have since spent a year and a half on real production projects: a hospital platform in Nuxt and Laravel, a logistics TMS in .NET, and a shipment tracking portal in Rails.
 
-I did not know Rails or .NET when I started; I learned both on the job and shipped UI in each that people use every day. I have also built several full-stack apps on my own, such as a Job Application Tracker in Next.js 16 with MongoDB, Better Auth and Zod validation on every server action, and GymAI with an Express 5 API, Prisma and 44 tests.
+I picked up Rails and .NET on the job and shipped UI in each that people use every day. I have also built several full-stack apps on my own, such as a Job Application Tracker in Next.js 16 with MongoDB, Better Auth and Zod validation on every server action, and GymAI with an Express 5 API, Prisma and 44 tests.
 
 [One sentence on why this company and what you want to learn there.]
 
@@ -97,7 +97,7 @@ Poštovani/a [ime osobe ili „tim [Firma]"],
 
 prijavljujem se za poziciju [naziv pozicije] u [Firma]. Godinu i po radim na produkcionom interfejsu. Za logističku firmu iz SAD bio sam UI developer u timu od dva developera i redizajnirao sam ceo TMS sistem, uključujući 40+ Add/Edit formi pretvorenih u modularne wizard-e koji rade i u modalu i na celoj stranici. Na njihovom portalu za praćenje pošiljki napravio sam interaktivnu Leaflet mapu sa živom lokacijom kamiona.
 
-Danas radim na javnom delu bolničke platforme na pet jezika u Nuxt-u 4, a lične projekte pravim u React-u i Next.js-u. Vodim računa o pristupačnosti (WCAG AA), performansama i SEO-u. Tehnički SEO koji sam uradio podigao je Semrush Site Health sa 90% na 98% za nedelju dana.
+Danas radim na javnom delu bolničke platforme na pet jezika u Nuxt-u 4, a lične projekte pravim u React-u i Next.js-u. Pristupačnost (WCAG AA), performanse i SEO su deo svakog zadatka: moj tehnički SEO podigao je Semrush Site Health sa 90% na 98% za nedelju dana.
 
 [Jedna rečenica o njihovom proizvodu ili interfejsu i šta bi konkretno doneo.]
 
@@ -115,7 +115,7 @@ Dear [Name / "[Company] team"],
 
 I am applying for the [Job title] role at [Company]. I have spent a year and a half on production UI. At a US logistics company I was the UI developer on a two-developer team and redesigned the whole TMS, including 40+ Add/Edit forms turned into modular wizards that work both in a modal and on a full page. On their shipment tracking portal I built an interactive Leaflet map with live truck locations.
 
-Today I work on the public site of a five-language hospital platform in Nuxt 4, and I build personal projects in React and Next.js. I care about accessibility (WCAG AA), performance and SEO. My technical SEO work raised Semrush Site Health from 90% to 98% in one week.
+Today I work on the public site of a five-language hospital platform in Nuxt 4, and I build personal projects in React and Next.js. Accessibility (WCAG AA), performance and SEO are part of every task: my technical SEO work raised Semrush Site Health from 90% to 98% in one week.
 
 [One sentence about their product or interface and what you would bring to it.]
 
@@ -134,7 +134,7 @@ Hi [Name], I saw the front-end opening at [Company]. I have a year and a half on
 
 Poštovani/a [ime osobe ili „tim [Firma]"],
 
-prijavljujem se za praksu [naziv prakse] u [Firma]. Diplomirao sam informacione tehnologije na Singidunumu 2024. Tokom poslednjih godinu i po radio sam ugovorno i kao freelancer na produkcionim projektima: bolničkoj platformi u Nuxt-u i Laravelu, TMS sistemu za logistiku u .NET-u i nekoliko sajtova za male firme.
+prijavljujem se za praksu [naziv prakse] u [Firma]. Diplomirao sam informacione tehnologije na Singidunumu 2024. Tokom poslednjih godinu i po radio sam ugovorno i kao freelancer na produkcionim projektima: bolničkoj platformi u Nuxt-u i Laravelu, TMS sistemu za logistiku u .NET-u i sajtovima za lokalne firme.
 
 Praksu tražim jer želim da radim u timu sa jasnim procesom, mentorstvom i code review-om, i da produbim [oblast iz oglasa, npr. back-end, testiranje, arhitekturu]. Pošto već radim na pravim sistemima, od prve nedelje mogu da preuzmem konkretne zadatke.
 
@@ -152,7 +152,7 @@ Zdravo [ime], zanima me praksa u [Firma]. Diplomirani sam IT inženjer sa godinu
 
 Dear [Name / "[Company] team"],
 
-I am applying for the [Internship title] at [Company]. I graduated in Information Technology from Singidunum University in 2024. Over the past year and a half I have worked on contract and freelance production projects: a hospital platform in Nuxt and Laravel, a logistics TMS in .NET, and several websites for small businesses.
+I am applying for the [Internship title] at [Company]. I graduated in Information Technology from Singidunum University in 2024. Over the past year and a half I have worked on contract and freelance production projects: a hospital platform in Nuxt and Laravel, a logistics TMS in .NET, and websites for local businesses.
 
 I am looking for an internship because I want to work in a team with a clear process, mentoring and code review, and to go deeper into [area from the listing, e.g. back-end, testing, architecture]. Since I already work on real systems, I can take on concrete tasks from the first week.
 

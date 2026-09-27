@@ -19,8 +19,8 @@ export const services: Service[] = [
     examples: ["medical-time", "mango", "vuk-studio", "prostor-izmedju"],
     title: { sr: "Sajtovi i web aplikacije", en: "Websites and web apps" },
     lead: {
-      sr: "Od prezentacionog sajta za lokalnu firmu do portala sa nalozima, plaćanjem i administracijom. Kod je moj, bez tema i page builder-a, pa je sajt brz i lako se menja.",
-      en: "From a business website to a portal with accounts, payments and an admin panel. The code is mine, no themes or page builders, so the site stays fast and easy to change.",
+      sr: "Od prezentacionog sajta za lokalnu firmu do platforme sa nalozima, plaćanjem i administracijom, kakvu gradim za privatnu bolnicu. Kod pišem sam, bez tema i page builder-a, pa je sajt brz i lako se menja.",
+      en: "From a business website to a platform with accounts, payments and an admin panel, like the one I build for a private hospital. I write the code myself, no themes or page builders, so the site stays fast and easy to change.",
     },
     includes: {
       sr: [
@@ -48,8 +48,8 @@ export const services: Service[] = [
     examples: ["medical-time"],
     title: { sr: "Google Ads", en: "Google Ads" },
     lead: {
-      sr: "Search i Performance Max kampanje za upite koje ljudi već kucaju: „zubar Vračar“, „moler Beograd“. Postavljam merenje konverzija pre prvog dinara budžeta, pa se zna šta radi. Za privatnu bolnicu vodim osam Search kampanja i iz izveštaja o pretragama sam izbacio 370+ nerelevantnih upita.",
-      en: 'Search and Performance Max campaigns for what people already type: "dentist Vračar", "painter Belgrade". Conversion tracking is set up before the first dinar of budget, so we know what works. For a private hospital I run eight Search campaigns and cut 370+ irrelevant queries from the search term reports.',
+      sr: "Search i Performance Max kampanje za upite koje ljudi već kucaju: „zubar Vračar“, „moler Beograd“. Postavljam merenje konverzija pre prvog dinara budžeta, pa se zna šta radi. Za privatnu bolnicu vodim osam Search kampanja: iz izveštaja o pretragama izbacio sam 370+ nerelevantnih upita, a najbolje kampanje imaju i do 54% nižu cenu konverzije od proseka naloga.",
+      en: 'Search and Performance Max campaigns for what people already type: "dentist Vračar", "painter Belgrade". Conversion tracking is set up before the first dinar of budget, so we know what works. For a private hospital I run eight Search campaigns: I cut 370+ irrelevant queries from the search term reports, and the best campaigns run up to 54% below the account-average cost per conversion.',
     },
     includes: {
       sr: [
@@ -82,8 +82,8 @@ export const services: Service[] = [
       en: "Meta Ads (Facebook and Instagram)",
     },
     lead: {
-      sr: "Kampanje za ponude koje treba pokazati ljudima pre nego što ih traže: estetski tretmani, torte, snimanje u studiju. Kreative, publike i testiranje, pa skaliranje onoga što donosi upite.",
-      en: "Campaigns for offers people need to see before they search: aesthetic treatments, cakes, studio recording. Creatives, audiences and testing, then scaling what brings inquiries.",
+      sr: "Kampanje za ponude koje treba pokazati ljudima pre nego što ih traže: estetski tretmani, torte, snimanje u studiju. Kreative, publike i testiranje, pa skaliranje onoga što donosi upite. Meta nalog privatne bolnice vodim uz njen Google Ads.",
+      en: "Campaigns for offers people need to see before they search: aesthetic treatments, cakes, studio recording. Creatives, audiences and testing, then scaling what brings inquiries. I run a private hospital's Meta account alongside its Google Ads.",
     },
     includes: {
       sr: [
@@ -468,8 +468,8 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       {
         slug: "prostor-izmedju",
         text: {
-          sr: "WordPress e-magazin od nule, sa četiri rubrike i newsletter-om, koji ostaje brz iako ima puno slika.",
-          en: "A WordPress magazine built from scratch, with four sections and a newsletter, that stays fast despite heavy imagery.",
+          sr: "WordPress e-magazin koji sam dizajnirao i napravio od nule: četiri rubrike, newsletter i CLS 0 na telefonu, iako živi od velikih fotografija.",
+          en: "A WordPress magazine I designed and built from scratch: four sections, a newsletter and a CLS of 0 on mobile, despite living on big photos.",
         },
       },
     ],
