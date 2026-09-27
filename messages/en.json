@@ -35,7 +35,7 @@
     "title": "Websites and Google Ads for growing businesses",
     "heroEyebrow": "Freelance · Belgrade · remote",
     "heroLead": "I build sites that bring in inquiries and run the campaigns that fill them. One person for both jobs, so nobody passes the blame.",
-    "intro": "I build websites and web apps, then bring them customers through Google Ads, Meta Ads and SEO.",
+    "intro": "I build websites and web apps, from a local business site to a hospital platform in five languages, then bring them customers through Google Ads, Meta Ads and SEO.",
     "ctaProjects": "See projects",
     "ctaContact": "Get a quote",
     "hint": "Or click around the room: the monitor opens projects, the phone opens contact, the floppy is the CV.",
@@ -47,13 +47,13 @@
     "servicesLead": "A site that brings inquiries and the campaigns that fill it. I do both parts, so there is no blame passing between the developer and the marketer. For a private hospital that meant Site Health from 90% to 98% in a week and 370+ wasted search queries cut from the ads.",
     "projectsEyebrow": "Projects",
     "projectsTitle": "Selected work",
-    "projectsLead": "Production systems I work on and personal projects I built from scratch.",
+    "projectsLead": "A ~400k-line private hospital platform, a TMS redesign for a US logistics company, sites for local businesses and personal projects I built from scratch.",
     "allProjects": "All projects",
     "processEyebrow": "Process",
     "processTitle": "What working together looks like",
     "ctaEyebrow": "Contact",
     "ctaTitle": "Need a site that brings in inquiries?",
-    "ctaBody": "Email or call. I reply the same day, weekdays 9 to 18."
+    "ctaBody": "Email or call. I reply the same day, weekdays 9 to 18, and you get a fixed quote within two days."
   },
   "projects": {
     "title": "Projects",
@@ -78,7 +78,7 @@
   "services": {
     "title": "Services",
     "headline": "Web development, Google Ads and SEO",
-    "intro": "Websites and web apps, Google Ads, Meta Ads, SEO and analytics. Pricing on request, a fixed quote after a conversation.",
+    "intro": "Websites and web apps, Google Ads, Meta Ads, SEO and analytics, all from one person. You get a fixed quote within two days of a short call.",
     "forWhom": "For whom",
     "includes": "What is included",
     "processEyebrow": "Process",
@@ -91,7 +91,7 @@
   },
   "about": {
     "title": "About",
-    "intro": "Nikola Šepić, Belgrade. BSc in Information Technology, Singidunum University.",
+    "intro": "Nikola Šepić, full-stack web developer in Belgrade. BSc in Information Technology, Singidunum University.",
     "experienceEyebrow": "Experience",
     "experienceTitle": "Where I worked and what I built there",
     "skillsEyebrow": "Skills",
@@ -137,7 +137,7 @@
     "metaDescription": "Ask about a website, a Google Ads campaign or SEO. Use the form, call or WhatsApp; you get a quote after a short conversation, usually the same day.",
     "signal": "Available · same-day replies",
     "howTitle": "Call or send an email",
-    "how": "Whatever suits you: a call, WhatsApp or email. I reply as soon as possible, usually the same day, and send a quote after a short talk about what you need and by when.",
+    "how": "Whatever suits you: a call, WhatsApp or email. I reply the same working day and send a quote after a short talk about what you need and by when.",
     "areaTitle": "Belgrade and remote",
     "area": "I work from Belgrade. I can meet clients in Belgrade in person, and I work remotely with everyone else, in Serbia and abroad, over calls, email and screen sharing."
   },

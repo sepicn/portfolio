@@ -1,42 +1,42 @@
 {
   "/": {
-    "hash": "67f839ab9d4ab8f2",
+    "hash": "7da8f3de3e236709",
     "date": "2026-09-27"
   },
   "/projects": {
-    "hash": "cfcf9d24123af9d6",
+    "hash": "29cb2f3240c26699",
     "date": "2026-09-27"
   },
   "/services": {
-    "hash": "0e862db843bace18",
+    "hash": "379bfc90816e9b93",
     "date": "2026-09-27"
   },
   "/services/web": {
-    "hash": "317c7e03d99c6ca5",
+    "hash": "9dcd4f9d974f6d61",
     "date": "2026-09-27"
   },
   "/services/google-ads": {
-    "hash": "317c7e03d99c6ca5",
+    "hash": "9dcd4f9d974f6d61",
     "date": "2026-09-27"
   },
   "/services/meta-ads": {
-    "hash": "317c7e03d99c6ca5",
+    "hash": "9dcd4f9d974f6d61",
     "date": "2026-09-27"
   },
   "/services/seo": {
-    "hash": "317c7e03d99c6ca5",
+    "hash": "9dcd4f9d974f6d61",
     "date": "2026-09-27"
   },
   "/about": {
-    "hash": "f9ef5bd1a636cfa3",
+    "hash": "c58a75c722555b62",
     "date": "2026-09-27"
   },
   "/cv": {
-    "hash": "7edd8464e6f03a66",
+    "hash": "28435a1ba06cefa6",
     "date": "2026-09-27"
   },
   "/contact": {
-    "hash": "38126c4dbc9a1e0f",
+    "hash": "98a7e476d51258ac",
     "date": "2026-09-27"
   },
   "/privacy": {
@@ -44,35 +44,35 @@
     "date": "2026-09-27"
   },
   "/projects/medical-time": {
-    "hash": "b9c654e0d2fae733",
+    "hash": "117f3a49295917e7",
     "date": "2026-09-27"
   },
   "/projects/meridian-tms": {
-    "hash": "3e32a2aa6418f014",
+    "hash": "cb3c957025387f37",
     "date": "2026-09-27"
   },
   "/projects/delta-tracking": {
-    "hash": "2d0b6151e3e290f1",
+    "hash": "cf1eed1a721f6925",
     "date": "2026-09-27"
   },
   "/projects/itexpert": {
-    "hash": "2c827e172c24cfb5",
+    "hash": "37ee02e764b9d27e",
     "date": "2026-09-27"
   },
   "/projects/prostor-izmedju": {
-    "hash": "25199f0d3db8bede",
+    "hash": "d66bf0bc241c22b5",
     "date": "2026-09-27"
   },
   "/projects/mango": {
-    "hash": "5b4de244df9690f6",
+    "hash": "5babba797a3675bb",
     "date": "2026-09-27"
   },
   "/projects/vuk-studio": {
-    "hash": "3a9b81a305a9b4d6",
+    "hash": "756a4ae094081d94",
     "date": "2026-09-27"
   },
   "/projects/stanke-enterijer": {
-    "hash": "edae1008a210c455",
+    "hash": "04ca63eb73d32925",
     "date": "2026-09-27"
   },
   "/projects/nst-print-mill": {
@@ -80,7 +80,7 @@
     "date": "2026-09-27"
   },
   "/projects/olimp": {
-    "hash": "9ee4af601f79878a",
+    "hash": "0cf761cbed7464ce",
     "date": "2026-09-27"
   },
   "/projects/job-application-tracker": {
@@ -88,11 +88,11 @@
     "date": "2026-09-27"
   },
   "/projects/gymai": {
-    "hash": "27f4ce5b2b31efae",
+    "hash": "e601a1119411c65e",
     "date": "2026-09-27"
   },
   "/projects/launchhub": {
-    "hash": "27938743fd392c7f",
+    "hash": "d29ce13907634636",
     "date": "2026-09-27"
   },
   "/projects/echo": {

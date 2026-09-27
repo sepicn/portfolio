@@ -35,7 +35,7 @@
     "title": "Izrada sajtova i Google Ads kampanje u Beogradu",
     "heroEyebrow": "Freelance · Beograd",
     "heroLead": "Pravim sajtove koji donose upite i vodim kampanje koje ih pune. Jedan čovek za oba posla, bez prebacivanja krivice.",
-    "intro": "Pravim sajtove i web aplikacije, a zatim im dovodim klijente kroz Google Ads, Meta Ads i SEO.",
+    "intro": "Pravim sajtove i web aplikacije, od sajta za lokalnu firmu do bolničke platforme na pet jezika, a zatim im dovodim klijente kroz Google Ads, Meta Ads i SEO.",
     "ctaProjects": "Pogledajte projekte",
     "ctaContact": "Zatražite ponudu",
     "hint": "Ili kliknite na stvari u sobi: monitor vodi na projekte, telefon na kontakt, disketa na CV.",
@@ -44,16 +44,16 @@
     "introTitle": "Nikola Šepić, web developer iz Beograda koji zna i kako se dolazi do klijenata",
     "servicesEyebrow": "Usluge",
     "servicesTitle": "Šta radim za firme",
-    "servicesLead": "Sajt koji donosi upite i kampanje koje ga pune. Oba dela radim ja, pa nema prebacivanja krivice između developera i marketara. Za privatnu bolnicu to je značilo Site Health sa 90% na 98% za nedelju dana i 370+ bačenih upita izbačenih iz oglasa.",
+    "servicesLead": "Sajt koji donosi upite i kampanje koje ga pune. Oba dela radim ja, pa nema prebacivanja krivice između developera i marketara. Za privatnu bolnicu to je značilo Site Health sa 90% na 98% za nedelju dana i 370+ nerelevantnih upita izbačenih iz oglasa.",
     "projectsEyebrow": "Projekti",
     "projectsTitle": "Izabrani radovi",
-    "projectsLead": "Produkcioni sistemi na kojima radim i lični projekti koje sam napravio od nule.",
+    "projectsLead": "Platforma privatne bolnice od oko 400 hiljada linija koda, redizajn TMS-a za logističku firmu iz SAD, sajtovi za lokalne firme i lični projekti koje sam napravio od nule.",
     "allProjects": "Svi projekti",
     "processEyebrow": "Proces",
     "processTitle": "Kako izgleda saradnja",
     "ctaEyebrow": "Kontakt",
     "ctaTitle": "Treba vam sajt koji donosi upite?",
-    "ctaBody": "Javite se mejlom ili pozivom. Odgovaram istog dana, radnim danima od 9 do 18."
+    "ctaBody": "Javite se mejlom ili pozivom. Odgovaram istog dana, radnim danima od 9 do 18, a fiksnu ponudu dobijate za dva dana."
   },
   "projects": {
     "title": "Projekti",
@@ -78,7 +78,7 @@
   "services": {
     "title": "Usluge",
     "headline": "Izrada sajtova, Google Ads i SEO",
-    "intro": "Izrada sajtova i aplikacija, Google Ads, Meta Ads, SEO i analitika. Cene na upit, fiksna ponuda posle razgovora.",
+    "intro": "Sajtovi i web aplikacije, Google Ads, Meta Ads, SEO i analitika, sve kod jedne osobe. Fiksnu ponudu dobijate za dva dana posle kratkog razgovora.",
     "forWhom": "Za koga",
     "includes": "Šta ulazi",
     "processEyebrow": "Proces",
@@ -91,7 +91,7 @@
   },
   "about": {
     "title": "O meni",
-    "intro": "Nikola Šepić, Beograd. Diplomirani inženjer informacionih tehnologija, Univerzitet Singidunum.",
+    "intro": "Nikola Šepić, full-stack web developer iz Beograda. Diplomirani inženjer informacionih tehnologija, Univerzitet Singidunum.",
     "experienceEyebrow": "Iskustvo",
     "experienceTitle": "Gde sam radio i šta sam tamo napravio",
     "skillsEyebrow": "Veštine",
@@ -137,7 +137,7 @@
     "metaDescription": "Pošaljite upit za izradu sajta, Google Ads kampanju ili SEO. Forma, poziv ili WhatsApp, a ponudu dobijate posle kratkog razgovora, obično istog dana.",
     "signal": "Dostupan · odgovaram istog dana",
     "howTitle": "Pozovite ili pošaljite mejl",
-    "how": "Kako vam je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram što pre, obično istog dana, a ponudu šaljem posle kratkog razgovora o tome šta vam treba i do kada.",
+    "how": "Kako vam je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram istog radnog dana, a ponudu šaljem posle kratkog razgovora o tome šta vam treba i do kada.",
     "areaTitle": "Beograd i remote",
     "area": "Radim iz Beograda. Sa klijentima u Beogradu mogu da se vidim uživo, a sa svima ostalima, u Srbiji i inostranstvu, radim remote preko poziva, mejla i deljenog ekrana."
   },

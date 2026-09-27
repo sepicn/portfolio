@@ -42,8 +42,8 @@ export const projects: Project[] = [
     },
     logo: "/images/clients/medical-time.webp",
     description: {
-      sr: "Studija slučaja: platforma privatne bolnice Medical Time na pet jezika, Nuxt 4 i Laravel 12, plus Google Ads kampanje koje donose upite i pozive.",
-      en: "Case study: the Medical Time private hospital platform in five languages, Nuxt 4 and Laravel 12, plus Google Ads campaigns that bring in inquiries and calls.",
+      sr: "Studija slučaja: Medical Time, platforma privatne bolnice od ~400k linija koda na pet jezika, Site Health 90% → 98% za nedelju i osam Google Ads kampanja.",
+      en: "Case study: Medical Time, a ~400k-line private hospital platform in five languages, Site Health from 90% to 98% in a week and eight Google Ads campaigns.",
     },
     gallery: [
       "/images/projects/gallery/medical-time-2.webp",
@@ -59,14 +59,14 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Bolnica ima jednog čoveka za sajt, merenje i oglase, pa nema čekanja između developera i agencije.",
+        "Sajt, merenje i oglase vodi jedna osoba, pa bolnica nema čekanja ni prebacivanja odgovornosti između developera i agencije.",
         "Tehnički SEO: Site Health sa 90% na 98% za nedelju dana, bez ijedne greške u auditu.",
-        "370+ negativnih ključnih reči: budžet više ne odlazi na pretrage koje ne donose upite.",
+        "370+ negativnih ključnih reči: budžet više ne odlazi na pretrage koje ne donose upite, a najbolje kampanje imaju i do 54% nižu cenu konverzije od proseka naloga.",
       ],
       en: [
-        "The hospital has one person for the site, tracking and ads, so there is no waiting between a developer and an agency.",
+        "One person owns the site, tracking and ads, so the hospital never waits on a hand-off between a developer and an agency.",
         "Technical SEO: Site Health from 90% to 98% in one week, with zero audit errors.",
-        "370+ negative keywords: the budget no longer goes to searches that bring no inquiries.",
+        "370+ negative keywords: the budget no longer goes to searches that bring no inquiries, and the best campaigns run up to 54% below the account-average cost per conversion.",
       ],
     },
     title: "Medical Time",
@@ -79,17 +79,17 @@ export const projects: Project[] = [
       en: "Developer and digital marketing",
     },
     tagline: {
-      sr: "Platforma privatne bolnice na pet jezika, plus kampanje koje donose upite i pozive.",
-      en: "A private hospital platform in five languages, plus the campaigns that bring in inquiries and calls.",
+      sr: "Platforma privatne bolnice od ~400 hiljada linija koda na pet jezika, plus Google Ads kampanje koje donose upite i pozive.",
+      en: "A ~400k-line private hospital platform in five languages, plus the Google Ads campaigns that bring in inquiries and calls.",
     },
     summary: {
-      sr: "Na Medical Time-u radim od februara 2025. Prvih pet meseci radio sam na starom sajtu bolnice: prebacio sam ga na noviji Nuxt 3, napravio stranice usluga za hirurgiju, plastičnu hirurgiju, dijagnostiku, infuzije i preglede, sa fotografijama, alt tekstovima i prevodima na sedam stranih jezika. Od jula 2025. gradim novu platformu: Nuxt 4 na frontu, Laravel 12 pozadi i Flutter za telefon. Ima javni sajt na pet jezika, online zakazivanje, portale za deset uloga zaposlenih, prodavnicu, chat i video konsultacije, predračune i plaćanje karticom. Najviše radim na javnom sajtu, prevodima i SEO-u, a paralelno vodim Google Ads i Meta Ads naloge bolnice.",
-      en: "I have worked on Medical Time since February 2025. For the first five months I worked on the hospital's old site: I moved it to a newer Nuxt 3, built service pages for surgery, plastic surgery, diagnostics, infusions and check-ups, with photos, alt text and translations into seven foreign languages. Since July 2025 I have been building a new platform: Nuxt 4 on the front, Laravel 12 behind it and Flutter for the phone. It has a public site in five languages, online booking, portals for ten staff roles, a shop, chat and video consultations, pro-forma invoices and card payments. Most of my time goes to the public site, translations and SEO, and alongside that I run the hospital's Google Ads and Meta Ads accounts.",
+      sr: "Na Medical Time-u radim od februara 2025, danas i na razvoju i na oglašavanju. Prvih pet meseci posvetio sam starom sajtu bolnice: prebacio sam ga na noviji Nuxt 3, napravio stranice usluga za hirurgiju, plastičnu hirurgiju, dijagnostiku, infuzije i preglede, sa fotografijama, alt tekstovima i prevodima na sedam stranih jezika. Od jula 2025. gradim novu platformu, danas oko 400 hiljada linija koda: Nuxt 4 na frontu, Laravel 12 pozadi i Flutter za telefon. Ima javni sajt na pet jezika, online zakazivanje, portale za deset uloga zaposlenih, prodavnicu, chat i video konsultacije, predračune i plaćanje karticom. Moj teren su javni sajt, prevodi i SEO, a paralelno vodim Google Ads i Meta Ads naloge bolnice.",
+      en: "I have worked on Medical Time since February 2025, and today I handle both its development and its advertising. The first five months went to the hospital's old site: I moved it to a newer Nuxt 3, built service pages for surgery, plastic surgery, diagnostics, infusions and check-ups, with photos, alt text and translations into seven foreign languages. Since July 2025 I have been building a new platform, now about 400 thousand lines of code: Nuxt 4 on the front, Laravel 12 behind it and Flutter for the phone. It has a public site in five languages, online booking, portals for ten staff roles, a shop, chat and video consultations, pro-forma invoices and card payments. My focus is the public site, translations and SEO, and alongside that I run the hospital's Google Ads and Meta Ads accounts.",
     },
     did: {
       sr: [
-        "Stari sajt (februar do jul 2025): prelazak na Nuxt 3, stranice usluga sa fotografijama i dinamičkim alt tekstovima, cenovnik i prevodi na engleski, nemački, ruski, turski, italijanski, španski i francuski.",
         "Semrush Site Health sa 90% na 98% za nedelju dana: greške 6 → 0, upozorenja 1.012 → 129 (−87%).",
+        "Osam Google Ads Search kampanja: 370+ negativnih ključnih reči iz izveštaja o pretragama i analiza udela prikaza koja je pokazala da kampanje sa i do 54% nižom cenom konverzije od proseka naloga imaju najviše prostora za rast.",
         "Prevodi i lokalizovani URL slugovi za sr, en, ru, de i tr, sa hreflang i canonical pravilima; blog i prodavnica prebačeni na SSR da ih Google vidi.",
         "Chatbot na javnom sajtu koji odgovara na pitanja i zakazuje termin.",
         "Daljinsko potpisivanje saglasnosti sa šaltera na tablet, uključujući slučaj kada korisnički nalog još ne postoji.",
@@ -97,11 +97,11 @@ export const projects: Project[] = [
         "Plaćanje karticom preko Raiffeisen banke: sačuvane kartice, obnova pretplata i predračuni koji se plaćaju iz profila, na sajtu i u aplikaciji.",
         "JSON-LD za Hospital, Physician, MedicalProcedure, FAQ, Article i Product; llms.txt; HSTS i noindex za SPA rute.",
         "GTM kontejner, GA4 konverzije, consent mode i ClickCease zaštita.",
-        "Osam Google Ads Search kampanja: 370+ negativnih ključnih reči iz izveštaja o pretragama i analiza udela prikaza koja je pokazala gde budžet ima prostora da raste.",
+        "Stari sajt (februar do jul 2025): prelazak na Nuxt 3, stranice usluga sa fotografijama i dinamičkim alt tekstovima, cenovnik i prevodi na sedam jezika: engleski, nemački, ruski, turski, italijanski, španski i francuski.",
       ],
       en: [
-        "The old site (February to July 2025): a move to Nuxt 3, service pages with photos and dynamic alt text, a price list and translations into English, German, Russian, Turkish, Italian, Spanish and French.",
         "Semrush Site Health from 90% to 98% in one week: errors 6 → 0, warnings 1,012 → 129 (−87%).",
+        "Eight Google Ads Search campaigns: 370+ negative keywords from search term reports and an impression share analysis showing that the campaigns with up to 54% lower cost per conversion than the account average had the most room to grow.",
         "Translations and localized URL slugs for sr, en, ru, de and tr, with hreflang and canonical rules; the blog and shop moved to server-side rendering so Google sees them.",
         "A public-site chatbot that answers questions and books an appointment.",
         "Remote consent signing from the front desk to a tablet, including the case where the user account does not exist yet.",
@@ -109,7 +109,7 @@ export const projects: Project[] = [
         "Card payments through Raiffeisen bank: saved cards, subscription renewal and pro-forma invoices paid from the user's profile, on the site and in the app.",
         "JSON-LD for Hospital, Physician, MedicalProcedure, FAQ, Article and Product; llms.txt; HSTS and noindex for SPA routes.",
         "GTM container, GA4 conversions, consent mode and ClickCease protection.",
-        "Eight Google Ads Search campaigns: 370+ negative keywords from search term reports and an impression share analysis that showed where budget has room to grow.",
+        "The old site (February to July 2025): a move to Nuxt 3, service pages with photos and dynamic alt text, a price list and translations into seven languages: English, German, Russian, Turkish, Italian, Spanish and French.",
       ],
     },
     hard: {
@@ -153,12 +153,12 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Dispečeri i bezbednosni tim unose podatke kroz 17 formi sa istim koracima i istim redosledom polja, umesto kroz duge ekrane koji se skroluju.",
+        "Dispečeri i bezbednosni tim unose podatke kroz 17 vođenih formi sa istim koracima i istim redosledom polja, umesto kroz duge ekrane koji se skroluju.",
         "Iste forme rade i u modalu i na punoj strani, pa tim ne održava dve verzije istog ekrana.",
         "Tamni režim i nova navigacija pokrivaju ceo sistem, ne samo nove ekrane.",
       ],
       en: [
-        "Dispatch and the safety team enter data through 17 forms with the same steps and the same field order, instead of long scrolling screens.",
+        "Dispatch and the safety team enter data through 17 guided forms with the same steps and the same field order, instead of long scrolling screens.",
         "The same forms work in a modal and on a full page, so the team does not maintain two versions of one screen.",
         "Dark mode and the new navigation cover the whole system, not just the new screens.",
       ],
@@ -179,32 +179,32 @@ export const projects: Project[] = [
       en: "Front-end developer (UI redesign)",
     },
     tagline: {
-      sr: "Back-office sistem za kamionsku logistiku: dispečeri, flota, bezbednost, računovodstvo.",
-      en: "Back-office system for trucking logistics: dispatch, fleet, safety, accounting.",
+      sr: "Redizajn interfejsa TMS-a američke logističke firme: dispečeri, flota, bezbednost i računovodstvo, sa 17 formi u vođenim koracima.",
+      en: "A UI redesign of a US trucking company's TMS: dispatch, fleet, safety and accounting, with 17 forms turned into guided steps.",
     },
     summary: {
-      sr: "Meridian TMS je sistem za upravljanje transportom američke logističke firme Delta Group Logistics. Na jednom mestu su dispečeri, flota, vozači, bezbednost i računovodstvo. Pozadina je .NET 8 MVC sa SQL Server bazom, Azure servisima, mobilnim API-jem za vozače i posebnim servisima za ELD uređaje i gorivo; to su radile kolege iz tima. Ja sam od oktobra 2025. do jula 2026. radio redizajn interfejsa, u 101 commit-u na glavnoj grani: Razor pogledi, CSS i JavaScript. Posao je išao modul po modul. Prvo prijava, navigacija i kontrolna tabla, zatim flota, korisnici, vozači i divizije, pa tamni režim za ceo sistem. U 2026. su forme prvo složene da stanu na ekran bez skrolovanja, a onda je 17 formi za unos pretvoreno u vođene korake. Repo je privatan i vlasništvo klijenta, pa ovde nema koda; screenshotovi su sa lokalne instance sa izmišljenim podacima.",
-      en: "Meridian TMS is the transport management system of Delta Group Logistics, a US trucking company. Dispatch, fleet, drivers, safety and accounting live in one place. The back end is .NET 8 MVC with SQL Server, Azure services, a mobile API for drivers and separate services for ELD devices and fuel; my teammates built that. From October 2025 to July 2026 I redesigned the interface, in 101 commits on the main branch: Razor views, CSS and JavaScript. The work went module by module. First sign-in, navigation and the dashboard, then fleet, users, drivers and divisions, then dark mode for the whole system. In 2026 the forms were first reworked to fit on one screen without scrolling, and then 17 data entry forms became guided steps. The repo is private and client-owned, so there is no code here; the screenshots come from a local instance with made-up data.",
+      sr: "Od oktobra 2025. do jula 2026. redizajnirao sam interfejs Meridian TMS-a, sistema za upravljanje transportom američke logističke firme Delta Group Logistics: 101 commit na glavnoj grani, u Razor pogledima, CSS-u i JavaScript-u. U sistemu su na jednom mestu dispečeri, flota, vozači, bezbednost i računovodstvo. Pozadina je .NET 8 MVC sa SQL Server bazom, Azure servisima, mobilnim API-jem za vozače i posebnim servisima za ELD uređaje i gorivo; to su radile kolege iz tima. Posao je išao modul po modul. Prvo prijava, navigacija i kontrolna tabla, zatim flota, korisnici, vozači i divizije, pa tamni režim za ceo sistem. U 2026. su forme prvo složene da stanu na ekran bez skrolovanja, a onda je 17 formi za unos pretvoreno u vođene korake. Repo je privatan i vlasništvo klijenta, pa ovde nema koda; screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "From October 2025 to July 2026 I redesigned the interface of Meridian TMS, the transport management system of Delta Group Logistics, a US trucking company: 101 commits on the main branch across Razor views, CSS and JavaScript. Dispatch, fleet, drivers, safety and accounting live in one place. The back end is .NET 8 MVC with SQL Server, Azure services, a mobile API for drivers and separate services for ELD devices and fuel; my teammates built that. The work went module by module. First sign-in, navigation and the dashboard, then fleet, users, drivers and divisions, then dark mode for the whole system. In 2026 the forms were first reworked to fit on one screen without scrolling, and then 17 data entry forms became guided steps. The repo is private and client-owned, so there is no code here; the screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
+        "17 formi pretvoreno u vođene korake: Truck, Equipment, User, Driver, Division, ruta i stanice tereta, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review i šest bezbednosnih formi (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
+        "Zajednička logika koraka izdvojena u jedan form-wizard-core.js, pa svaka forma opisuje samo svoje korake.",
         "Nova prijava, navigacija i kontrolna tabla. Stranice za prijavu dobile su poseban layout, pa se isti kod više ne ponavlja na svakoj stranici.",
         "Tamni režim na svim ekranima, uključujući MVC grid tabele i ekran za prijavu.",
         "Bočni meni koji se skrolovao zamenjen je trakom sa ikonama i podmenijima koji se otvaraju sa strane.",
         "Redizajn modula Truck, Equipment, Programs, Repairs, Users, Drivers i Divisions, a zatim Load, Owner Operator, Customer, fakture, faktoring kompanije, Fuel Transactions i Yard.",
-        "17 formi pretvoreno u vođene korake: Truck, Equipment, User, Driver, Division, ruta i stanice tereta, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review i šest bezbednosnih formi (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
-        "Zajednička logika koraka izdvojena u jedan form-wizard-core.js, pa svaka forma opisuje samo svoje korake.",
         "Maske za SSN, EIN i broj telefona sa proverom, da nepotpun broj ne može da se sačuva.",
         "Isti raspored u svim formama: posebna sekcija za status, isti redosled polja, ikone i podnaslovi, i modal koji se ne zatvara slučajnim klikom pored njega.",
         "Bezbednosni moduli i faktoring kompanije prebačeni na grid stranice sa horizontalnim skrolom.",
       ],
       en: [
+        "17 forms turned into guided steps: Truck, Equipment, User, Driver, Division, load route and stops, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review and six safety forms (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
+        "The shared step logic lives in one form-wizard-core.js, so each form only describes its own steps.",
         "New sign-in, navigation and dashboard. The auth pages got their own layout, so the same markup is no longer repeated on every page.",
         "Dark mode on every screen, including the MVC grid tables and the sign-in screen.",
         "The scrolling side menu was replaced with an icon rail and flyout submenus.",
         "Redesign of the Truck, Equipment, Programs, Repairs, Users, Drivers and Divisions modules, then Load, Owner Operator, Customer, invoicing, factoring companies, Fuel Transactions and Yard.",
-        "17 forms turned into guided steps: Truck, Equipment, User, Driver, Division, load route and stops, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review and six safety forms (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
-        "The shared step logic lives in one form-wizard-core.js, so each form only describes its own steps.",
         "Input masks with validation for SSN, EIN and phone numbers, so an incomplete number cannot be saved.",
         "One layout for every form: a dedicated status section, the same field order, icons and subtitles, and a modal that does not close on a stray click outside it.",
         "Safety modules and factoring companies moved to grid pages with horizontal scroll.",
@@ -270,12 +270,12 @@ export const projects: Project[] = [
     year: "2025",
     role: { sr: "Front-end developer", en: "Front-end developer" },
     tagline: {
-      sr: "Portal na kome kupci prate pošiljke na mapi, u realnom vremenu.",
-      en: "A portal where customers follow their shipments on a live map.",
+      sr: "Živa mapa pošiljki za kupce američke logističke firme, sa rutom po putevima i statusom svake stanice.",
+      en: "A live shipment map for a US logistics company's customers, with road routing and a status for every stop.",
     },
     summary: {
-      sr: "Delta Group Logistics je kamionska logistika iz SAD-a, a ovaj portal je mesto gde njeni kupci prate svoje pošiljke. Aplikaciju od oktobra 2024. pravi Miloš Obradović: Rails 7.2 sa Hotwire-om i Tailwind-om, povezana sa McLeod LoadMaster sistemom iz kog dolaze pošiljke, stanice, javljanja kamiona i dokaz o isporuci. Ja sam se priključio u maju 2025. i do oktobra napravio 20 commit-a, skoro sve na izgledu i ponašanju ekrana. U julu sam uradio listu i detalje pošiljke, a zatim mapu, koja je najveći pojedinačni deo mog posla. Na jesen su došli statusi po stanicama, kartice za upravljanje kupcima i korisnicima i jedan manji backend zadatak: pozivnica za nove korisnike. Screenshotovi su sa lokalne instance sa izmišljenim podacima.",
-      en: "Delta Group Logistics is a US trucking company, and this portal is where its customers follow their shipments. Miloš Obradović has been building the app since October 2024: Rails 7.2 with Hotwire and Tailwind, connected to the McLeod LoadMaster system that supplies shipments, stops, truck check-ins and proof of delivery. I joined in May 2025 and made 20 commits by October, almost all on how the screens look and behave. In July I did the shipment list and detail pages, and then the map, which is the biggest single piece of my work. In the autumn came per-stop statuses, card layouts for managing customers and users, and one small back-end task: invitations for new users. The screenshots come from a local instance with made-up data.",
+      sr: "Delta Group Logistics je kamionska logistika iz SAD-a, a ovaj portal je mesto gde njeni kupci prate svoje pošiljke. Aplikaciju od oktobra 2024. pravi Miloš Obradović: Rails 7.2 sa Hotwire-om i Tailwind-om, povezana sa McLeod LoadMaster sistemom iz kog dolaze pošiljke, stanice, javljanja kamiona i dokaz o isporuci. Ja sam se priključio u maju 2025. i do oktobra, u 20 commit-a, preuzeo izgled i ponašanje ekrana. U julu sam uradio listu i detalje pošiljke, a zatim mapu od oko 700 linija, najveći pojedinačni deo mog posla. Na jesen su došli statusi po stanicama, kartice za upravljanje kupcima i korisnicima i jedan backend zadatak: pozivnica za nove korisnike. Screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "Delta Group Logistics is a US trucking company, and this portal is where its customers follow their shipments. Miloš Obradović has been building the app since October 2024: Rails 7.2 with Hotwire and Tailwind, connected to the McLeod LoadMaster system that supplies shipments, stops, truck check-ins and proof of delivery. I joined in May 2025 and by October, in 20 commits, had taken over how the screens look and behave. In July I did the shipment list and detail pages, and then the ~700-line map, the biggest single piece of my work. In the autumn came per-stop statuses, card layouts for managing customers and users, and one back-end task: invitations for new users. The screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
@@ -356,8 +356,8 @@ export const projects: Project[] = [
     year: "2026",
     role: { sr: "Developer (zajednički brend)", en: "Developer (shared brand)" },
     tagline: {
-      sr: "Sajt i platforma web agencije: portali, prodavnica, tiketi, pretplate, plaćanje karticom.",
-      en: "A web agency site and platform: portals, a shop, tickets, subscriptions, card payments.",
+      sr: "Platforma web agencije na pet jezika: portali, prodavnica, tiketi i naplata karticom pokrivena sa 133 testa.",
+      en: "A web agency platform in five languages: portals, a shop, tickets and card billing covered by 133 tests.",
     },
     summary: {
       sr: "IT Expert je brend preko kog me klijenti takođe mogu naći i angažovati. Ima dva dela. Javni sajt itexpert.rs nastao je u martu 2026: statičan Nuxt 4 sa sedam stranica, alatom koji preko Google PageSpeed Insights API-ja ocenjuje bilo koji sajt, kontakt formom, sistemom kolačića i četiri teme. Od njega je napravljen zajednički šablon, na kome su posle nastali sajtovi za Mango i Stanke Enterijer. Drugi deo je platforma, od aprila 2026: Nuxt 4 i Laravel 12 na pet jezika, sa portalima za klijente, korisnike i četiri uloge zaposlenih, prodavnicom, tiketima, chatom, editorom dokumenata, magacinom i pretplatama. U avgustu su na posebnoj grani u deset faza preneti moduli iz platforme Medical Time, bez medicinskih pojmova. U septembru je stigao ceo tok naplate: sačuvane kartice, automatska obnova pretplata i predračuni, u jednom commit-u od 91 fajla sa 133 automatska testa.",
@@ -444,8 +444,8 @@ export const projects: Project[] = [
     year: "2026",
     role: { sr: "Dizajn i izrada", en: "Design and build" },
     tagline: {
-      sr: "E-magazin o psihologiji i svakodnevnom životu, sa rubrikama i newsletter-om.",
-      en: "An e-magazine about psychology and everyday life, with sections and a newsletter.",
+      sr: "E-magazin o psihologiji koji sam dizajnirao i napravio od nule, danas sa više od 70 tekstova.",
+      en: "A psychology e-magazine I designed and built from scratch, now with more than 70 articles.",
     },
     summary: {
       sr: "Prostor između je e-magazin o psihologiji, odnosima i svakodnevnom životu. Sajt sam dizajnirao i napravio u maju 2026, na WordPress-u sa Elementor-om i Hello temom, bez kupljenog šablona. Tekstovi su podeljeni u četiri rubrike: Psihologija, Lifestyle, Prostor za sebe i Intervju nedelje. Početna počinje karuselom istaknutih tekstova, a ispod su sekcija „Tu negde između“, poslednje objave i mreža članaka sa dugmetom „Učitaj još“. Svaka kartica ima rubriku, procenu vremena čitanja, naslov i uvod. Stranica članka ima datum, rubriku i vreme čitanja na vrhu i blok „Možda će Vas zanimati“ na kraju. Paleta je krem pozadina sa tamnobordo i roze akcentom, a ceo sajt je u fontu Be Vietnam Pro. Magazin od tada redovno izlazi i danas ima više od 70 tekstova.",
@@ -519,8 +519,8 @@ export const projects: Project[] = [
     year: "2024 – 2026",
     role: { sr: "Ceo sajt (sa IT Expert)", en: "Whole site (with IT Expert)" },
     tagline: {
-      sr: "Sajt butik poslastičarnice: proizvodi po kategorijama, cenovnik, galerija.",
-      en: "A boutique pastry shop site: products by category, price list, gallery.",
+      sr: "Sajt butik poslastičarnice kroz dve verzije od 2024: cenovnik od 32 kolača sa filterima i poziv jednim dodirom.",
+      en: "A boutique pastry shop site across two versions since 2024: a filterable price list of 32 cakes and one-tap calling.",
     },
     summary: {
       sr: "Mango je butik poslastičarnica u Zemunu, a sajt joj pravim od 2024, kroz dve verzije. Prva je bila na Nuxt-u 3 sa SSR-om: pet jezika (srpski, engleski, nemački, ruski i turski), dve teme boja koje prate tamni režim telefona, mega meni, sopstveni slajder, galerija preko celog ekrana i cenovnik sa korpom u Pinia store-u. U februaru 2025. usledili su SEO prolaz, merenje preko GTM-a i prelazak slika na WebP. U martu 2026. sajt je napravljen iznova, na Nuxt-u 4 i zajedničkom šablonu IT Expert-a: devet stranica (početna, O nama, butik, tradicionalni, vegan i sitni kolači, cenovnik, galerija i kontakt), 17 komponenti, cenovnik od 32 kolača, sistem kolačića u kome se ništa ne meri pre pristanka i kontakt zaštićen od botova. Nova verzija je objavljena samo na srpskom, a stare adrese na drugim jezicima vode preusmerenjem 301 na srpske stranice, da se ne izgube postojeći linkovi.",
@@ -605,8 +605,8 @@ export const projects: Project[] = [
     year: "2026",
     role: { sr: "Ceo sajt (sa IT Expert)", en: "Whole site (with IT Expert)" },
     tagline: {
-      sr: "Statičan sajt muzičkog i video studija, sa LocalBusiness i FAQ podacima.",
-      en: "A static site for a music and video studio, with LocalBusiness and FAQ data.",
+      sr: "Sajt muzičkog i video studija, spreman za lokalnu pretragu od prvog dana i rebrendiran za jedan dan.",
+      en: "A music and video studio site, ready for local search from day one and rebranded in a single day.",
     },
     summary: {
       sr: "Vuk je muzički i video studio iz Beograda, za ljude koji žele da snime pesmu ili spot. Sajt je nastao u junu 2026. na osnovi našeg Nuxt 4 sajta za molersku firmu Stanke Enterijer, sa istom arhitekturom i istim načinom učitavanja CSS-a. Prvo sam napisao brief u sedam delova: brend i podaci o firmi, arhitektura, dizajn, SEO i ključne reči, izgled svake stranice, build i provera pre objave. Ceo rebrending je zatim urađen u jednom danu, 25. juna: šest stranica (početna, Muzički studio, Video produkcija, Galerija, O nama i Kontakt), nov izgled, fontovi, logo i automatska objava. Četiri dana kasnije u galeriju su stigle fotografije studija i Instagram reel, a u avgustu sekcija Saradnici na stranici O nama. Sajt se generiše u statične stranice i stoji na GitHub Pages, a kontakt ide preko poziva, WhatsApp-a i Viber-a, bez forme.",
@@ -677,8 +677,8 @@ export const projects: Project[] = [
     year: "2026",
     role: { sr: "Ceo sajt (sa IT Expert)", en: "Whole site (with IT Expert)" },
     tagline: {
-      sr: "Sajt molerske firme iz Beograda: krečenje, gletovanje i poziv jednim dodirom.",
-      en: "A site for a Belgrade house painter: painting, skim coating and one-tap calling.",
+      sr: "Sajt molerske firme iz Beograda: poziv jednim dodirom i Lighthouse 90+ na telefonu.",
+      en: "A site for a Belgrade house painter: one-tap calling and Lighthouse 90+ on mobile.",
     },
     summary: {
       sr: "Stanke Enterijer je molerska firma iz Beograda: krečenje, gletovanje, priprema zidova i farbanje stanova, kuća i manjih poslovnih prostora. Ljudi takav posao najčešće traže na telefonu i žele odmah da pozovu, pa je cilj bio kratak sajt koji se brzo otvara i na svakom ekranu nudi poziv. Prvu verziju sam napravio u martu 2026. na Nuxt-u, iz šablona IT Expert-a. U junu sam je prebacio na nov šablon sa komponentama i za nedelju dana očistio: izbacio stranice koje firma ne koristi (usluge, portfolio i paketi) i kontakt formu, prebacio slike u WebP, dodao sitemap, robots.txt i logo. Na kraju sam ceo sajt prepisao u ravne statične stranice, a verziju sa komponentama sačuvao na posebnoj grani. Sajt ima tri stranice (početna, O nama i Kontakt), generiše se u gotov HTML i stoji na GitHub Pages. Kasnije je poslužio kao osnova za sajt Vuk Studija.",
@@ -830,8 +830,8 @@ export const projects: Project[] = [
       en: "Website maintenance (external associate)",
     },
     tagline: {
-      sr: "Održavanje WordPress sajta javnog sportskog centra, na ćirilici i latinici.",
-      en: "Maintaining the WordPress site of a public sports centre, in Cyrillic and Latin.",
+      sr: "Oko dve godine održavam sajt javnog sportskog centra na Zvezdari, na ćirilici i latinici.",
+      en: "For about two years I have kept a public sports centre's site current, in Cyrillic and Latin.",
     },
     summary: {
       sr: "Sportski centar Olimp je javno preduzeće na Zvezdari, sa bazenima, teniskim terenima, teretanom, sportskom dvoranom, dečijim igralištem i letnjom pozornicom. Sajt nisam dizajnirao ni pravio: postoji od 2018. i radi na WordPress-u sa WPBakery page builder-om i LayerSlider-om. Održavam sajt oko dve godine, kao spoljni saradnik. Posao je da sajt bude tačan i da radi. Nove cene, vesti, dokumenti i objave o nabavkama idu na sajt kada ih centar pošalje, a WordPress, tema i dodaci se ažuriraju tako da se izgled stranica ne promeni. Sajt je primarno na ćirilici, sa prekidačem za latinicu u meniju, pa svaka izmena mora da izgleda dobro u oba pisma. Meni ima osam rubrika: O nama (sa istorijom, putem do centra i upravom), Objekti, Programi, Klub/škola, Cenovnik bazena, Vesti, Javne nabavke i Kontakt.",
@@ -843,14 +843,14 @@ export const projects: Project[] = [
         "Objave u rubrici Javne nabavke i dokumenti u podnožju sajta, onako kako ih centar pripremi.",
         "Provera da svaka izmena radi i na ćirilici i na latinici, u meniju, naslovima i podnožju.",
         "Ažuriranja WordPress-a, teme i dodataka (WPBakery, LayerSlider), uz pregled glavnih stranica posle svakog ažuriranja.",
-        "Pomoć zaposlenima kada treba nešto da se objavi ili promeni.",
+        "Podrška zaposlenima: sve što treba objaviti ili promeniti ide preko mene.",
       ],
       en: [
         "Content updates: the 2026 pool price list, news and the facility, programme and club pages.",
         "Posts in the Public tenders section and documents in the site footer, exactly as the centre prepares them.",
         "Checking that every change works in both Cyrillic and Latin, in the menu, headings and footer.",
         "Updates to WordPress, the theme and plugins (WPBakery, LayerSlider), with a pass over the main pages after each update.",
-        "Helping the staff when something needs to be published or changed.",
+        "Support for the staff: anything that needs publishing or changing goes through me.",
       ],
     },
     hard: {
@@ -989,8 +989,8 @@ export const projects: Project[] = [
     year: "2026",
     role: { sr: "Sve", en: "Everything" },
     tagline: {
-      sr: "Nedeljni plan treninga koji AI napravi iz šest pitanja.",
-      en: "A weekly training plan an AI writes from six questions.",
+      sr: "Nedeljni plan treninga koji AI napravi iz šest pitanja, sa svakim odgovorom modela proverenim pre baze.",
+      en: "A weekly training plan an AI writes from six questions, with every model reply validated before it reaches the database.",
     },
     summary: {
       sr: "Aplikaciju sam napravio sam, od praznog repoa do dokumentacije, u 21 commit-u od avgusta do septembra 2026. Korisnik odgovori na šest pitanja (cilj, iskustvo, broj dana, dužina treninga, oprema, podela treninga) i po želji opiše povredu. Server od toga sastavi prompt, a model preko OpenRouter-a vrati ceo nedeljni program: vežbe, serije, ponavljanja, pauze, RPE, savete za tehniku, zamenske vežbe i pravila progresije. Front je React 19 sa Vite-om i Tailwind-om, API je Express 5, podaci su u Neon Postgres bazi kroz Prisma-u, a prijava ide preko Neon Auth-a. Svako novo generisanje čuva se kao nova verzija, pa se korisnik uvek može vratiti na stari plan.",
@@ -1076,8 +1076,8 @@ export const projects: Project[] = [
       en: "A place to submit new products, vote and approve, Product Hunt style.",
     },
     summary: {
-      sr: "Hteo sam da probam novi model keširanja u Next.js 16 na aplikaciji koja ima i javni i zaštićeni deo. LaunchHub je napravljen za sedam dana, u 22 commit-a od 22. do 28. decembra 2025, uz jednu dopunu u septembru 2026. Autor prijavi proizvod sa opisom, linkom i tagovima; proizvod čeka admina, a posle odobrenja se pojavljuje na početnoj i na /explore, gde posetioci glasaju. Stack je Next.js 16 sa Server Components i Server Actions, Clerk za prijavu i organizacije, Neon Postgres kroz Drizzle ORM i shadcn/ui komponente. Uključen je cacheComponents, pa su liste i stranice proizvoda keširane, a dinamični delovi stižu kroz Suspense sa skeletonima.",
-      en: "I wanted to try the new caching model in Next.js 16 on an app with both a public and a protected side. LaunchHub was built in seven days, 22 commits from 22 to 28 December 2025, plus one update in September 2026. An author submits a product with a description, link and tags; it waits for an admin, and once approved it shows up on the home page and /explore, where visitors vote. The stack is Next.js 16 with Server Components and Server Actions, Clerk for sign-in and organizations, Neon Postgres through Drizzle ORM, and shadcn/ui. cacheComponents is on, so product lists and pages are cached, and the dynamic parts stream in through Suspense with skeletons.",
+      sr: "LaunchHub stavlja novi model keširanja iz Next.js 16 na pravu aplikaciju sa javnim i zaštićenim delom. Napravio sam ga za sedam dana, u 22 commit-a od 22. do 28. decembra 2025, uz jednu dopunu u septembru 2026. Autor prijavi proizvod sa opisom, linkom i tagovima; proizvod čeka admina, a posle odobrenja se pojavljuje na početnoj i na /explore, gde posetioci glasaju. Stack je Next.js 16 sa Server Components i Server Actions, Clerk za prijavu i organizacije, Neon Postgres kroz Drizzle ORM i shadcn/ui komponente. Uključen je cacheComponents, pa su liste i stranice proizvoda keširane, a dinamični delovi stižu kroz Suspense sa skeletonima.",
+      en: "LaunchHub puts the new Next.js 16 caching model to work in a real app with both a public and a protected side. I built it in seven days, 22 commits from 22 to 28 December 2025, plus one update in September 2026. An author submits a product with a description, link and tags; it waits for an admin, and once approved it shows up on the home page and /explore, where visitors vote. The stack is Next.js 16 with Server Components and Server Actions, Clerk for sign-in and organizations, Neon Postgres through Drizzle ORM, and shadcn/ui. cacheComponents is on, so product lists and pages are cached, and the dynamic parts stream in through Suspense with skeletons.",
     },
     did: {
       sr: [

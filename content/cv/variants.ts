@@ -79,8 +79,8 @@ const b = {
     en: "Rebuilt the Safety, Invoicing and Fuel screens as standard grids and modals; 101 commits via Jira and code review.",
   },
   fPlatform: {
-    sr: "Razvijam klijentsku platformu IT Expert (Nuxt 4, Laravel 12): portal, kalkulator cene, pretplate, Raiffeisen plaćanja.",
-    en: "Develop the IT Expert client platform (Nuxt 4, Laravel 12): portal, price calculator, subscriptions, Raiffeisen payments.",
+    sr: "Gradim klijentsku platformu IT Expert (Nuxt 4, Laravel 12): portal, pretplate i Raiffeisen naplata pokrivena sa 133 testa.",
+    en: "Build the IT Expert client platform (Nuxt 4, Laravel 12): portal, subscriptions and Raiffeisen billing covered by 133 tests.",
   },
   fSites: {
     sr: "Isporučio 3 sajta za firme u Nuxt-u 4 sa GTM-om tek posle pristanka; slike smanjio sa ~8 MB na ispod 120 KB.",
@@ -131,8 +131,8 @@ const p = {
     title: "LaunchHub",
     stack: "Next.js 16, Clerk, Drizzle",
     line: {
-      sr: "Glasanje za nove proizvode u stilu Product Hunt-a, sa admin odobravanjem.",
-      en: "Product Hunt-style voting with an admin approval flow.",
+      sr: "Glasanje za proizvode u stilu Product Hunt-a za 7 dana: keširane komponente i admin odobravanje.",
+      en: "Product Hunt-style voting built in 7 days: cached components and an admin approval flow.",
     },
     link: "github.com/sepicn/launchhub",
   },
@@ -185,8 +185,8 @@ const p = {
     title: "Prostor Između",
     stack: "WordPress",
     line: {
-      sr: "E-magazin o psihologiji: rubrike, newsletter, ceo sajt sam.",
-      en: "Psychology e-magazine: sections and newsletter, whole site built solo.",
+      sr: "E-magazin o psihologiji, dizajn i izrada od nule, sam; danas 70+ tekstova.",
+      en: "Psychology e-magazine designed and built solo from scratch; 70+ articles today.",
     },
     link: "prostorizmedju.rs",
   },
@@ -272,8 +272,8 @@ export const variants: CvVariant[] = [
       en: "Junior Full-Stack Developer | React · Next.js · Node.js · TypeScript",
     },
     summary: {
-      sr: "Diplomirani inženjer IT-a (Singidunum, 2024) sa 1,5 godinom rada na produkcionim sistemima u Nuxt-u, Laravelu, .NET-u i Rails-u. Rails i .NET naučio na poslu i u oba isporučio UI koji se koristi svaki dan. Full-stack aplikacije pravim u Next.js-u, Express-u i Prisma-i, sa autentifikacijom i testovima.",
-      en: "IT graduate (Singidunum University, 2024) with 1.5 years on production systems in Nuxt, Laravel, .NET and Rails. Learned Rails and .NET on the job and shipped UI in both that people use daily. I build full-stack apps in Next.js, Express and Prisma, with auth and tests.",
+      sr: "Diplomirani inženjer IT-a (Singidunum, 2024) sa 1,5 godinom rada na produkcionim sistemima u Nuxt-u, Laravelu, .NET-u i Rails-u. Rails i .NET savladao na poslu i u oba isporučio UI koji se koristi svaki dan. Full-stack aplikacije pravim u Next.js-u, Express-u i Prisma-i, sa autentifikacijom i testovima.",
+      en: "IT graduate (Singidunum University, 2024) with 1.5 years on production systems in Nuxt, Laravel, .NET and Rails. Picked up Rails and .NET on the job and shipped UI in both that people use daily. I build full-stack apps in Next.js, Express and Prisma, with auth and tests.",
     },
     skills: [
       {
@@ -489,8 +489,8 @@ export const siteVariant: CvVariant = {
     en: "Full-Stack Web Developer | Next.js · Nuxt · Laravel · Google Ads · SEO",
   },
   summary: {
-    sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima (Nuxt 4 i Laravel 12, ASP.NET Core 8, Rails 7) i praksom u digitalnom marketingu: 8 Google Ads kampanja za privatnu bolnicu i tehnički SEO koji je Site Health podigao sa 90% na 98%. Najjači u front-endu: TypeScript, React, Next.js, Vue.",
-    en: "Full-stack developer with 1.5 years on production systems (Nuxt 4 and Laravel 12, ASP.NET Core 8, Rails 7) and hands-on digital marketing: 8 Google Ads campaigns for a private hospital and technical SEO that raised Site Health from 90% to 98%. Strongest on the front end: TypeScript, React, Next.js, Vue.",
+    sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima (Nuxt 4 i Laravel 12, ASP.NET Core 8, Rails 7) i rezultatima u digitalnom marketingu: 8 Google Ads kampanja za privatnu bolnicu i tehnički SEO koji je Site Health podigao sa 90% na 98%. Najjači u front-endu: TypeScript, React, Next.js, Vue.",
+    en: "Full-stack developer with 1.5 years on production systems (Nuxt 4 and Laravel 12, ASP.NET Core 8, Rails 7) and measurable digital marketing results: 8 Google Ads campaigns for a private hospital and technical SEO that raised Site Health from 90% to 98%. Strongest on the front end: TypeScript, React, Next.js, Vue.",
   },
   skills: [
     ...midSkills,
