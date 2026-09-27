@@ -19,7 +19,7 @@ const RoomCanvas = dynamic(
   { ssr: false },
 );
 
-type Mode = "pending" | "webgl" | "tour" | "static";
+type Mode = "pending" | "webgl" | "poster" | "tour" | "static";
 
 function detectMode(): Mode {
   if (typeof window === "undefined") return "pending";
@@ -31,7 +31,16 @@ function detectMode(): Mode {
   if (phone) return "tour";
   const canvas = document.createElement("canvas");
   const gl = canvas.getContext("webgl2");
-  return gl ? "webgl" : "static";
+  if (!gl) return "static";
+  // A software rasteriser (no GPU: headless Chrome in CI, some VMs and old office PCs)
+  // renders the room at a few frames per second and starves the main thread; there the
+  // pinned poster stays and the scene never mounts.
+  const info = gl.getExtension("WEBGL_debug_renderer_info");
+  const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
+  gl.getExtension("WEBGL_lose_context")?.loseContext();
+  return /swiftshader|llvmpipe|software|basic render/i.test(renderer)
+    ? "poster"
+    : "webgl";
 }
 
 type HeroProps = { overlay?: React.ReactNode };
@@ -109,7 +118,7 @@ export function Hero3D({ overlay }: HeroProps) {
 
   return (
     <SceneProvider>
-      <PinnedRoom overlay={overlay} />
+      <PinnedRoom overlay={overlay} scene={mode === "webgl"} />
     </SceneProvider>
   );
 }
@@ -152,7 +161,7 @@ function HeroPlaceholder({ overlay }: HeroProps) {
   );
 }
 
-function PinnedRoom({ overlay }: HeroProps) {
+function PinnedRoom({ overlay, scene = true }: HeroProps & { scene?: boolean }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scroll } = useScene();
   const t = useTranslations("hotspots");
@@ -220,7 +229,7 @@ function PinnedRoom({ overlay }: HeroProps) {
           aria-hidden="true"
           className="pointer-events-none invisible absolute inset-x-0 top-1/2 z-30 h-[3px] -translate-y-1/2 bg-white shadow-[0_0_24px_8px_rgba(0,229,255,0.65)]"
         />
-        {mountScene ? <RoomCanvas onReady={onReady} /> : null}
+        {scene && mountScene ? <RoomCanvas onReady={onReady} /> : null}
         {/* A capture of this very scene (scripts/poster.mjs), so the fade into WebGL is seamless.
             Wrapped because next/image fill needs a positioned parent, and this one is sticky. */}
         <div className="pointer-events-none absolute inset-0">

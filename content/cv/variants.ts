@@ -192,21 +192,29 @@ const p = {
   },
 } satisfies Record<string, CvProject>;
 
-const freelanceDev: Localized = { sr: "Freelance web developer", en: "Freelance Web Developer" };
+const freelanceDev: Localized = {
+  sr: "Freelance web developer",
+  en: "Freelance Web Developer",
+};
 
 const midSkills: CvVariant["skills"] = [
-  { label: { sr: "Jezici", en: "Languages" }, items: "TypeScript, JavaScript, PHP, C#, SQL" },
+  {
+    label: { sr: "Jezici", en: "Languages" },
+    items: "TypeScript, JavaScript, PHP, C#, SQL",
+  },
   {
     label: { sr: "Front-end", en: "Front-end" },
     items: "React 19, Next.js 16, Vue 3, Nuxt 4, Tailwind CSS, HTML, CSS",
   },
   {
     label: { sr: "Back-end", en: "Back-end" },
-    items: "Node.js, Express, Laravel 12, ASP.NET Core 8, Rails 7, REST APIs, Auth (Better Auth, Clerk, Sanctum)",
+    items:
+      "Node.js, Express, Laravel 12, ASP.NET Core 8, Rails 7, REST APIs, Auth (Better Auth, Clerk, Sanctum)",
   },
   {
     label: { sr: "Baze i alati", en: "Data and tools" },
-    items: "PostgreSQL, MySQL, MongoDB, Redis, Prisma, Drizzle, Git, Jira, Vitest, Playwright, GitHub Actions, Docker",
+    items:
+      "PostgreSQL, MySQL, MongoDB, Redis, Prisma, Drizzle, Git, Jira, Vitest, Playwright, GitHub Actions, Docker",
   },
 ];
 
@@ -227,7 +235,10 @@ export const variants: CvVariant[] = [
   {
     id: "fullstack-mid",
     file: "FullStack_Mid",
-    label: { sr: "Full-stack developer (medior)", en: "Full-stack developer (mid-level)" },
+    label: {
+      sr: "Full-stack developer (medior)",
+      en: "Full-stack developer (mid-level)",
+    },
     headline: {
       sr: "Full-Stack Developer | TypeScript · Next.js · Nuxt · Laravel · Node.js",
       en: "Full-Stack Developer | TypeScript · Next.js · Nuxt · Laravel · Node.js",
@@ -242,7 +253,10 @@ export const variants: CvVariant[] = [
       ...midJobs,
       {
         id: "freelance",
-        role: { sr: "Freelance full-stack developer", en: "Freelance Full-Stack Developer" },
+        role: {
+          sr: "Freelance full-stack developer",
+          en: "Freelance Full-Stack Developer",
+        },
         stack: "Nuxt 4, Laravel 12, MySQL",
         bullets: both(b.fPlatform, b.fSites),
       },
@@ -264,23 +278,42 @@ export const variants: CvVariant[] = [
     skills: [
       {
         label: { sr: "Front-end", en: "Front-end" },
-        items: "TypeScript, JavaScript, React 19, Next.js 16, Vue 3, Nuxt 4, Tailwind CSS, HTML, CSS",
+        items:
+          "TypeScript, JavaScript, React 19, Next.js 16, Vue 3, Nuxt 4, Tailwind CSS, HTML, CSS",
       },
       {
         label: { sr: "Back-end", en: "Back-end" },
-        items: "Node.js, Express, REST APIs, Server Actions, Laravel 12, Auth (Better Auth, Clerk)",
+        items:
+          "Node.js, Express, REST APIs, Server Actions, Laravel 12, Auth (Better Auth, Clerk)",
       },
       {
         label: { sr: "Baze i alati", en: "Data and tools" },
-        items: "PostgreSQL, MySQL, MongoDB, Prisma, Drizzle, Git, Jira, Vitest, Playwright, Vercel",
+        items:
+          "PostgreSQL, MySQL, MongoDB, Prisma, Drizzle, Git, Jira, Vitest, Playwright, Vercel",
       },
-      { label: { sr: "Upoznat sa", en: "Familiar with" }, items: "ASP.NET Core 8 (C#), Ruby on Rails 7, Redis, Docker" },
+      {
+        label: { sr: "Upoznat sa", en: "Familiar with" },
+        items: "ASP.NET Core 8 (C#), Ruby on Rails 7, Redis, Docker",
+      },
     ],
     order: ["summary", "skills", "projects", "experience", "education"],
     jobs: [
-      { id: "medicaltime", stack: "Nuxt 4, Vue 3, Laravel 12", bullets: both(b.mtChatbot, b.mtI18n) },
-      { id: "delta", stack: "ASP.NET Core 8 MVC, Rails 7, Leaflet", bullets: both(b.dForms, b.dMap) },
-      { id: "freelance", role: freelanceDev, stack: "Nuxt 4, Laravel 12", bullets: both(b.fPlatform) },
+      {
+        id: "medicaltime",
+        stack: "Nuxt 4, Vue 3, Laravel 12",
+        bullets: both(b.mtChatbot, b.mtI18n),
+      },
+      {
+        id: "delta",
+        stack: "ASP.NET Core 8 MVC, Rails 7, Leaflet",
+        bullets: both(b.dForms, b.dMap),
+      },
+      {
+        id: "freelance",
+        role: freelanceDev,
+        stack: "Nuxt 4, Laravel 12",
+        bullets: both(b.fPlatform),
+      },
     ],
     projects: [p.tracker, p.gymai, p.launchhub, p.echo],
   },
@@ -299,17 +332,23 @@ export const variants: CvVariant[] = [
     skills: [
       {
         label: { sr: "Front-end", en: "Front-end" },
-        items: "TypeScript, JavaScript, React 19, Next.js 16, Vue 3, Nuxt 4, HTML, CSS, Tailwind CSS",
+        items:
+          "TypeScript, JavaScript, React 19, Next.js 16, Vue 3, Nuxt 4, HTML, CSS, Tailwind CSS",
       },
       {
         label: { sr: "UI i podaci", en: "UI and data" },
-        items: "Responsive design, shadcn/ui, GSAP, Three.js, React Three Fiber, TanStack Query, react-hook-form, Zod",
+        items:
+          "Responsive design, shadcn/ui, GSAP, Three.js, React Three Fiber, TanStack Query, react-hook-form, Zod",
       },
       {
         label: { sr: "Kvalitet", en: "Quality" },
-        items: "Accessibility (WCAG AA), Lighthouse, technical SEO, i18n, Vitest, Playwright, code review",
+        items:
+          "Accessibility (WCAG AA), Lighthouse, technical SEO, i18n, Vitest, Playwright, code review",
       },
-      { label: { sr: "Alati", en: "Tools" }, items: "Git, Jira, Vercel, GitHub Actions, Node.js, REST APIs" },
+      {
+        label: { sr: "Alati", en: "Tools" },
+        items: "Git, Jira, Vercel, GitHub Actions, Node.js, REST APIs",
+      },
     ],
     order: ["summary", "skills", "experience", "projects", "education"],
     jobs: [
@@ -325,7 +364,10 @@ export const variants: CvVariant[] = [
       },
       {
         id: "freelance",
-        role: { sr: "Freelance front-end developer", en: "Freelance Front-End Developer" },
+        role: {
+          sr: "Freelance front-end developer",
+          en: "Freelance Front-End Developer",
+        },
         stack: "Nuxt 4, Vue 3, Tailwind",
         bullets: both(b.fSites),
       },
@@ -351,18 +393,30 @@ export const variants: CvVariant[] = [
     skills: [
       {
         label: { sr: "Front-end", en: "Front-end" },
-        items: "TypeScript, JavaScript, React, Next.js, Vue, Nuxt, Tailwind CSS, HTML, CSS",
+        items:
+          "TypeScript, JavaScript, React, Next.js, Vue, Nuxt, Tailwind CSS, HTML, CSS",
       },
       {
         label: { sr: "Back-end i baze", en: "Back-end and data" },
         items: "Node.js, Express, REST APIs, Laravel, PostgreSQL, MySQL, MongoDB, Prisma",
       },
-      { label: { sr: "Alati", en: "Tools" }, items: "Git, GitHub, Jira, Vitest, Playwright, Vercel" },
+      {
+        label: { sr: "Alati", en: "Tools" },
+        items: "Git, GitHub, Jira, Vitest, Playwright, Vercel",
+      },
     ],
     order: ["summary", "education", "skills", "projects", "experience"],
     jobs: [
-      { id: "medicaltime", stack: "Nuxt 4, Laravel 12", bullets: both(b.mtChatbot, b.mtI18n) },
-      { id: "delta", stack: "ASP.NET Core 8 MVC, Rails 7", bullets: both(b.dForms, b.dMap) },
+      {
+        id: "medicaltime",
+        stack: "Nuxt 4, Laravel 12",
+        bullets: both(b.mtChatbot, b.mtI18n),
+      },
+      {
+        id: "delta",
+        stack: "ASP.NET Core 8 MVC, Rails 7",
+        bullets: both(b.dForms, b.dMap),
+      },
       { id: "freelance", role: freelanceDev, stack: "Nuxt 4", bullets: both(b.fSites) },
     ],
     projects: [p.tracker, p.gymai, p.launchhub],
@@ -370,7 +424,10 @@ export const variants: CvVariant[] = [
   {
     id: "web-marketing",
     file: "WebDev_Marketing",
-    label: { sr: "Web developer i digitalni marketing", en: "Web developer and digital marketing" },
+    label: {
+      sr: "Web developer i digitalni marketing",
+      en: "Web developer and digital marketing",
+    },
     headline: {
       sr: "Web Developer & Digital Marketing | Google Ads · Meta Ads · SEO · GA4",
       en: "Web Developer & Digital Marketing | Google Ads · Meta Ads · SEO · GA4",
@@ -382,27 +439,41 @@ export const variants: CvVariant[] = [
     skills: [
       {
         label: { sr: "Oglašavanje", en: "Paid media" },
-        items: "Google Ads (Search, Performance Max), Meta Ads, negative keywords, CPC bidding, impression share, ClickCease",
+        items:
+          "Google Ads (Search, Performance Max), Meta Ads, negative keywords, CPC bidding, impression share, ClickCease",
       },
       {
         label: { sr: "Analitika i SEO", en: "Analytics and SEO" },
-        items: "GA4, Google Tag Manager, Consent Mode v2, Semrush, Search Console, hreflang, JSON-LD, Lighthouse",
+        items:
+          "GA4, Google Tag Manager, Consent Mode v2, Semrush, Search Console, hreflang, JSON-LD, Lighthouse",
       },
       {
         label: { sr: "Web razvoj", en: "Web development" },
-        items: "TypeScript, Vue 3, Nuxt 4, React, Next.js, Laravel 12, Tailwind CSS, WordPress",
+        items:
+          "TypeScript, Vue 3, Nuxt 4, React, Next.js, Laravel 12, Tailwind CSS, WordPress",
       },
     ],
     order: ["summary", "skills", "experience", "projects", "education"],
     jobs: [
       {
         id: "freelance",
-        role: { sr: "Web developer i digitalni marketing", en: "Web Developer & Digital Marketing Specialist" },
+        role: {
+          sr: "Web developer i digitalni marketing",
+          en: "Web Developer & Digital Marketing Specialist",
+        },
         stack: "Google Ads, Meta Ads, GA4, GTM, Semrush, Nuxt 4, Laravel 12",
         bullets: both(b.fAds, b.fNegatives, b.fShare, b.seo, b.seoHow, b.fSites),
       },
-      { id: "medicaltime", stack: "Nuxt 4, Vue 3, Laravel 12", bullets: both(b.mtI18n, b.mtChatbot) },
-      { id: "delta", stack: "ASP.NET Core 8 MVC, Rails 7, Leaflet", bullets: both(b.dForms, b.dMap) },
+      {
+        id: "medicaltime",
+        stack: "Nuxt 4, Vue 3, Laravel 12",
+        bullets: both(b.mtI18n, b.mtChatbot),
+      },
+      {
+        id: "delta",
+        stack: "ASP.NET Core 8 MVC, Rails 7, Leaflet",
+        bullets: both(b.dForms, b.dMap),
+      },
     ],
     projects: [p.medicaltime, p.mango, p.vuk, p.prostor],
   },

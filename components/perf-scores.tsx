@@ -21,8 +21,26 @@ type Entry = {
 
 const all = scores as Record<string, Entry>;
 
-/** Shown only from this mobile performance score up; weaker sites get fixed first. */
-const SHOW_FROM = 85;
+/** Shown only when every category is at least this on both devices, so "90+" holds. */
+const SHOW_FROM = 90;
+
+const passes = (run: Run) =>
+  Math.min(run.performance, run.accessibility, run.bestPractices, run.seo) >= SHOW_FROM;
+
+// The web at large, for comparison. Lighthouse maps the 8th percentile of HTTP Archive
+// sites to a 90 on each metric; the Core Web Vitals and LCP pass rates are mobile, from
+// the Web Almanac 2024 performance chapter.
+const WEB = {
+  cwvMobile: 43,
+  lcpMobile: 59,
+  sources: [
+    [
+      "Lighthouse scoring",
+      "https://developer.chrome.com/docs/lighthouse/performance/performance-scoring",
+    ],
+    ["Web Almanac 2024", "https://almanac.httparchive.org/en/2024/performance"],
+  ],
+} as const;
 
 // Lighthouse's own bands: 90-100 good, 50-89 needs work, below 50 poor.
 const band = (score: number) =>
@@ -71,12 +89,12 @@ function Gauge({ score, label }: { score: number; label: string }) {
 /**
  * Google PageSpeed Insights results for a project's live site, measured by
  * scripts/perf-scores.mjs and stored with the date, plus a link to run it again.
- * Renders nothing for projects without a measurement or below SHOW_FROM on mobile.
+ * Renders nothing unless every score is SHOW_FROM or more on both devices.
  */
 export function PerfScores({ slug, locale }: { slug: string; locale: string }) {
   const t = useTranslations("perf");
   const entry = all[slug];
-  if (!entry || entry.mobile.performance < SHOW_FROM) return null;
+  if (!entry || !passes(entry.mobile) || !passes(entry.desktop)) return null;
   const date = new Date(entry.date).toLocaleDateString(
     locale === "en" ? "en-GB" : "sr-Latn-RS",
     {
@@ -85,6 +103,11 @@ export function PerfScores({ slug, locale }: { slug: string; locale: string }) {
       year: "numeric",
     },
   );
+  const seconds = (ms: number) =>
+    (ms / 1000).toLocaleString(locale === "en" ? "en-GB" : "sr-Latn-RS", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    });
   const runs = [
     { key: "mobile", run: entry.mobile },
     { key: "desktop", run: entry.desktop },
@@ -123,11 +146,56 @@ export function PerfScores({ slug, locale }: { slug: string; locale: string }) {
               <Gauge score={run.seo} label="SEO" />
             </div>
             <p className="mt-5 font-mono text-xs text-ink-300">
-              LCP {(run.lcp / 1000).toFixed(1)} s · CLS {run.cls} · TBT {run.tbt} ms
+              LCP {seconds(run.lcp)} s · CLS {run.cls} · TBT {run.tbt} ms
             </p>
           </Reveal>
         ))}
       </div>
+      {/* The average site, deliberately after and quieter than the scores above. */}
+      <Reveal className="mt-6 rounded-2xl border border-white/5 bg-night-950/60 p-6">
+        <h3 className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+          {t("compareTitle")}
+        </h3>
+        <dl className="mt-4 grid gap-5 sm:grid-cols-3">
+          <div>
+            <dt className="font-display text-3xl font-semibold text-neon-sun">~8%</dt>
+            <dd className="mt-1 text-sm text-ink-300">{t("compareScore")}</dd>
+          </div>
+          <div>
+            <dt className="font-display text-3xl font-semibold text-neon-sun">
+              {WEB.cwvMobile}%
+            </dt>
+            <dd className="mt-1 text-sm text-ink-300">{t("compareCwv")}</dd>
+          </div>
+          <div>
+            <dt className="font-display text-3xl font-semibold text-neon-sun">
+              {WEB.lcpMobile}%
+            </dt>
+            <dd className="mt-1 text-sm text-ink-300">
+              {t("compareLcp")}{" "}
+              <span className="text-neon-green">
+                {t("thisSite", { lcp: seconds(entry.mobile.lcp) })}
+              </span>
+            </dd>
+          </div>
+        </dl>
+        <p className="mt-4 text-xs text-ink-400">
+          {t("sources")}:{" "}
+          {WEB.sources.map(([label, href], i) => (
+            <span key={href}>
+              {i > 0 ? ", " : ""}
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener"
+                className="underline-offset-4 hover:text-neon-cyan hover:underline"
+              >
+                {label}
+              </a>
+            </span>
+          ))}
+        </p>
+      </Reveal>
       <p className="mt-4 text-sm text-ink-400">
         {t("measured", {
           date,
