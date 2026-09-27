@@ -5,7 +5,15 @@ import { Bloom, EffectComposer, Outline, Vignette } from "@react-three/postproce
 export function Effects() {
   return (
     <EffectComposer multisampling={0} autoClear={false}>
-      <Bloom mipmapBlur luminanceThreshold={1} luminanceSmoothing={0.2} intensity={0.7} />
+      {/* Wide and strong enough that the tubes throw coloured light into the air around
+          them instead of reading as thin pale lines. */}
+      <Bloom
+        mipmapBlur
+        luminanceThreshold={1}
+        luminanceSmoothing={0.2}
+        intensity={1.3}
+        radius={0.8}
+      />
       <Outline
         blur
         edgeStrength={6}

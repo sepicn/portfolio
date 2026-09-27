@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Reveal } from "@/components/reveal";
+import { CyberFrame } from "@/components/cyber-frame";
 import scores from "@/content/data/perf-scores.json";
 
 type Run = {
@@ -131,70 +132,76 @@ export function PerfScores({ slug, locale }: { slug: string; locale: string }) {
         <p className="mt-3 max-w-2xl text-ink-300">{t("lead")}</p>
       </Reveal>
       <div className="mt-8 grid gap-6 md:grid-cols-2">
-        {runs.map(({ key, run }) => (
-          <Reveal
-            key={key}
-            className="rounded-2xl border border-white/10 bg-night-900/60 p-6"
-          >
-            <h3 className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-              {t(key)}
-            </h3>
-            <div className="mt-5 grid grid-cols-4 gap-2">
-              <Gauge score={run.performance} label={t("performance")} />
-              <Gauge score={run.accessibility} label={t("accessibility")} />
-              <Gauge score={run.bestPractices} label={t("bestPractices")} />
-              <Gauge score={run.seo} label="SEO" />
-            </div>
-            <p className="mt-5 font-mono text-xs text-ink-300">
-              LCP {seconds(run.lcp)} s · CLS {run.cls} · TBT {run.tbt} ms
-            </p>
+        {runs.map(({ key, run }, i) => (
+          <Reveal key={key}>
+            <CyberFrame
+              variant={i === 0 ? 7 : 0}
+              scale={0.7}
+              edgeClassName="h-full"
+              className="bg-night-900 p-6"
+            >
+              <h3 className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+                {t(key)}
+              </h3>
+              <div className="mt-5 grid grid-cols-4 gap-2">
+                <Gauge score={run.performance} label={t("performance")} />
+                <Gauge score={run.accessibility} label={t("accessibility")} />
+                <Gauge score={run.bestPractices} label={t("bestPractices")} />
+                <Gauge score={run.seo} label="SEO" />
+              </div>
+              <p className="mt-5 font-mono text-xs text-ink-300">
+                LCP {seconds(run.lcp)} s · CLS {run.cls} · TBT {run.tbt} ms
+              </p>
+            </CyberFrame>
           </Reveal>
         ))}
       </div>
       {/* The average site, deliberately after and quieter than the scores above. */}
-      <Reveal className="mt-6 rounded-2xl border border-white/5 bg-night-950/60 p-6">
-        <h3 className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-          {t("compareTitle")}
-        </h3>
-        <dl className="mt-4 grid gap-5 sm:grid-cols-3">
-          <div>
-            <dt className="font-display text-3xl font-semibold text-neon-sun">~8%</dt>
-            <dd className="mt-1 text-sm text-ink-300">{t("compareScore")}</dd>
-          </div>
-          <div>
-            <dt className="font-display text-3xl font-semibold text-neon-sun">
-              {WEB.cwvMobile}%
-            </dt>
-            <dd className="mt-1 text-sm text-ink-300">{t("compareCwv")}</dd>
-          </div>
-          <div>
-            <dt className="font-display text-3xl font-semibold text-neon-sun">
-              {WEB.lcpMobile}%
-            </dt>
-            <dd className="mt-1 text-sm text-ink-300">
-              {t("compareLcp")}{" "}
-              <span className="text-neon-green">
-                {t("thisSite", { lcp: seconds(entry.mobile.lcp) })}
+      <Reveal className="mt-6">
+        <CyberFrame variant={10} scale={0.6} tone="faint" className="bg-night-950 p-6">
+          <h3 className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+            {t("compareTitle")}
+          </h3>
+          <dl className="mt-4 grid gap-5 sm:grid-cols-3">
+            <div>
+              <dt className="font-display text-3xl font-semibold text-neon-sun">~8%</dt>
+              <dd className="mt-1 text-sm text-ink-300">{t("compareScore")}</dd>
+            </div>
+            <div>
+              <dt className="font-display text-3xl font-semibold text-neon-sun">
+                {WEB.cwvMobile}%
+              </dt>
+              <dd className="mt-1 text-sm text-ink-300">{t("compareCwv")}</dd>
+            </div>
+            <div>
+              <dt className="font-display text-3xl font-semibold text-neon-sun">
+                {WEB.lcpMobile}%
+              </dt>
+              <dd className="mt-1 text-sm text-ink-300">
+                {t("compareLcp")}{" "}
+                <span className="text-neon-green">
+                  {t("thisSite", { lcp: seconds(entry.mobile.lcp) })}
+                </span>
+              </dd>
+            </div>
+          </dl>
+          <p className="mt-4 text-xs text-ink-400">
+            {t("sources")}:{" "}
+            {WEB.sources.map(([label, href], i) => (
+              <span key={href}>
+                {i > 0 ? ", " : ""}
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener"
+                  className="underline-offset-4 hover:text-neon-cyan hover:underline"
+                >
+                  {label}
+                </a>
               </span>
-            </dd>
-          </div>
-        </dl>
-        <p className="mt-4 text-xs text-ink-400">
-          {t("sources")}:{" "}
-          {WEB.sources.map(([label, href], i) => (
-            <span key={href}>
-              {i > 0 ? ", " : ""}
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener"
-                className="underline-offset-4 hover:text-neon-cyan hover:underline"
-              >
-                {label}
-              </a>
-            </span>
-          ))}
-        </p>
+            ))}
+          </p>
+        </CyberFrame>
       </Reveal>
       <p className="mt-4 text-sm text-ink-400">
         {t("measured", {

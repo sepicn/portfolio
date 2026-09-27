@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { RevealContact } from "./reveal-contact";
+import { CyberFrame } from "./cyber-frame";
 
 type Status = "idle" | "sending" | "sent" | "error" | "unavailable";
 
@@ -35,59 +36,66 @@ export function ContactForm({ encodedEmail }: Props) {
   }
 
   const field =
-    "mt-2 w-full rounded-md border border-white/10 bg-night-950 px-3 py-2 text-ink-100 focus:border-neon-cyan focus:outline-none";
+    "notch mt-2 w-full border border-white/10 bg-night-950 px-3 py-2 text-ink-100 [--n:6px] [--nc:rgba(255,255,255,0.1)] focus:border-neon-cyan focus:outline-none focus:[--nc:var(--color-neon-cyan)]";
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="rounded-2xl border border-white/10 bg-night-800/40 p-7"
-    >
-      <label className="block">
-        <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-          {t("name")}
-        </span>
-        <input name="name" required minLength={2} autoComplete="name" className={field} />
-      </label>
-      <label className="mt-5 block">
-        <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-          {t("email")}
-        </span>
-        <input
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          className={field}
-        />
-      </label>
-      <label className="mt-5 block">
-        <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-          {t("message")}
-        </span>
-        <textarea name="message" required minLength={10} rows={6} className={field} />
-      </label>
-      {/* Honeypot, hidden from people, tempting for bots. */}
-      <label className="absolute -left-[9999px] opacity-0" aria-hidden="true">
-        Company
-        <input name="company" tabIndex={-1} autoComplete="off" />
-      </label>
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="mt-6 rounded-md bg-neon-pink px-6 py-3 font-medium text-night-950 shadow-neon-pink transition hover:brightness-110 disabled:opacity-60"
-      >
-        {status === "sending" ? t("sending") : t("send")}
-      </button>
-      <p className="mt-4 min-h-6 text-sm" role="status" aria-live="polite">
-        {status === "sent" ? <span className="text-neon-cyan">{t("sent")}</span> : null}
-        {status === "error" ? <span className="text-neon-red">{t("error")}</span> : null}
-        {status === "unavailable" ? (
-          <span className="flex flex-wrap items-center gap-3 text-ink-200">
-            {t("unavailable")} <RevealContact kind="email" encoded={encodedEmail} />
+    <CyberFrame variant={4} tone="spin" className="bg-night-900">
+      <form onSubmit={onSubmit} className="p-7 pb-9">
+        <label className="block">
+          <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+            {t("name")}
           </span>
-        ) : null}
-      </p>
-      <p className="mt-2 text-xs text-ink-400">{t("note")}</p>
-    </form>
+          <input
+            name="name"
+            required
+            minLength={2}
+            autoComplete="name"
+            className={field}
+          />
+        </label>
+        <label className="mt-5 block">
+          <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+            {t("email")}
+          </span>
+          <input
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            className={field}
+          />
+        </label>
+        <label className="mt-5 block">
+          <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+            {t("message")}
+          </span>
+          <textarea name="message" required minLength={10} rows={6} className={field} />
+        </label>
+        {/* Honeypot, hidden from people, tempting for bots. */}
+        <label className="absolute -left-[9999px] opacity-0" aria-hidden="true">
+          Company
+          <input name="company" tabIndex={-1} autoComplete="off" />
+        </label>
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="mt-6 bg-neon-pink notch-alt px-6 py-3 font-medium text-night-950 transition [--n:10px] hover:brightness-110 disabled:opacity-60"
+        >
+          {status === "sending" ? t("sending") : t("send")}
+        </button>
+        <p className="mt-4 min-h-6 text-sm" role="status" aria-live="polite">
+          {status === "sent" ? <span className="text-neon-cyan">{t("sent")}</span> : null}
+          {status === "error" ? (
+            <span className="text-neon-red">{t("error")}</span>
+          ) : null}
+          {status === "unavailable" ? (
+            <span className="flex flex-wrap items-center gap-3 text-ink-200">
+              {t("unavailable")} <RevealContact kind="email" encoded={encodedEmail} />
+            </span>
+          ) : null}
+        </p>
+        <p className="mt-2 text-xs text-ink-400">{t("note")}</p>
+      </form>
+    </CyberFrame>
   );
 }

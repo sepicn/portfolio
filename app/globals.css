@@ -44,33 +44,69 @@
   --animate-grid: grid-run 2.4s linear infinite;
   --animate-blink: blink 1.1s steps(1) infinite;
   --animate-neon: neon 7s steps(1) infinite;
+  --animate-tube-on: tube-on 0.9s linear both, tube-hum 2.6s ease-in-out 0.9s infinite;
 
-  /* A real sign: mostly lit, a stutter now and then, one longer drop-out per cycle. */
+  /* A tube striking: a couple of stutters, then it catches and settles into a slow hum. */
+  @keyframes tube-on {
+    0% {
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.9;
+    }
+    18% {
+      opacity: 0.1;
+    }
+    30% {
+      opacity: 1;
+    }
+    36% {
+      opacity: 0.35;
+    }
+    50%,
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes tube-hum {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  /* A real sign: mostly lit, a stutter now and then, one longer dip per cycle. The lit layer
+     never drops below ~40%, so the tubes keep their neon colour instead of showing the pale
+     unlit render underneath. */
   @keyframes neon {
     0%,
     100% {
       opacity: 1;
     }
     31% {
-      opacity: 0;
+      opacity: 0.4;
     }
     32% {
       opacity: 1;
     }
     33% {
-      opacity: 0.2;
+      opacity: 0.55;
     }
     35% {
       opacity: 1;
     }
     72% {
-      opacity: 0;
+      opacity: 0.42;
     }
     79% {
       opacity: 1;
     }
     80% {
-      opacity: 0.3;
+      opacity: 0.6;
     }
     81% {
       opacity: 1;
@@ -230,7 +266,8 @@ body {
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 80%);
 }
 
-.marquee:hover > div {
+.marquee:hover .animate-marquee,
+.marquee:hover .animate-marquee-reverse {
   animation-play-state: paused;
 }
 
@@ -240,7 +277,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee > div {
+  .marquee .animate-marquee,
+  .marquee .animate-marquee-reverse {
     animation: none;
   }
   .tilt {
@@ -362,8 +400,95 @@ select {
   }
 }
 
+/* The same rotating neon, as the edge layer of a clipped CyberFrame: the light runs along
+   the cut silhouette instead of a rounded box. A faint base keeps the whole edge visible. */
+@utility cyber-spin {
+  background:
+    conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      rgba(255, 45, 149, 0.9) 60deg,
+      transparent 120deg,
+      transparent 180deg,
+      rgba(0, 229, 255, 0.9) 240deg,
+      transparent 300deg
+    ),
+    rgba(255, 255, 255, 0.07);
+  animation: border-spin 8s linear infinite;
+}
+
+/* Small corner cuts for chips, buttons and inputs. --n is the cut size; on bordered elements
+   the gradients redraw the border across the cut in --nc, so the edge stays unbroken. */
+@utility notch {
+  --n: 7px;
+  clip-path: polygon(
+    var(--n) 0,
+    100% 0,
+    100% calc(100% - var(--n)),
+    calc(100% - var(--n)) 100%,
+    0 100%,
+    0 var(--n)
+  );
+  background-image:
+    linear-gradient(
+      135deg,
+      transparent calc(var(--n) * 0.7071),
+      var(--nc, transparent) 0 calc(var(--n) * 0.7071 + 1.2px),
+      transparent 0
+    ),
+    linear-gradient(
+      315deg,
+      transparent calc(var(--n) * 0.7071),
+      var(--nc, transparent) 0 calc(var(--n) * 0.7071 + 1.2px),
+      transparent 0
+    );
+}
+
+@utility notch-alt {
+  --n: 7px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--n)) 0,
+    100% var(--n),
+    100% 100%,
+    var(--n) 100%,
+    0 calc(100% - var(--n))
+  );
+  background-image:
+    linear-gradient(
+      225deg,
+      transparent calc(var(--n) * 0.7071),
+      var(--nc, transparent) 0 calc(var(--n) * 0.7071 + 1.2px),
+      transparent 0
+    ),
+    linear-gradient(
+      45deg,
+      transparent calc(var(--n) * 0.7071),
+      var(--nc, transparent) 0 calc(var(--n) * 0.7071 + 1.2px),
+      transparent 0
+    );
+}
+
+@utility notch-one {
+  --n: 6px;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--n)),
+    calc(100% - var(--n)) 100%,
+    0 100%
+  );
+  background-image: linear-gradient(
+    315deg,
+    transparent calc(var(--n) * 0.7071),
+    var(--nc, transparent) 0 calc(var(--n) * 0.7071 + 1.2px),
+    transparent 0
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .neon-frame::before {
+  .neon-frame::before,
+  .cyber-spin {
     animation: none;
   }
 }

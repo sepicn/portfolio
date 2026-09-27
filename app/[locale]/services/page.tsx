@@ -7,6 +7,8 @@ import { use } from "react";
 import { Link } from "@/i18n/navigation";
 import { PageIntro } from "@/components/page-intro";
 import { Reveal } from "@/components/reveal";
+import { CyberFrame } from "@/components/cyber-frame";
+import { CyberDivider } from "@/components/cyber-divider";
 import { SectionHeading } from "@/components/section-heading";
 import { pick, pickList } from "@/content/i18n";
 import { services, process, faq } from "@/content/data/services";
@@ -121,6 +123,7 @@ export default function ServicesPage({ params }: Props) {
       />
       <Marquee
         reverse
+        variant="terminal"
         className="mb-20"
         items={[
           "Next.js",
@@ -174,20 +177,28 @@ export default function ServicesPage({ params }: Props) {
                 </p>
               </Reveal>
               <Reveal from={i % 2 === 0 ? "right" : "left"} delay={0.1}>
-                <ul className="neon-frame rounded-2xl border border-white/5 bg-night-800/50 p-7">
+                <CyberFrame
+                  as="ul"
+                  variant={[3, 8, 5, 9][i % 4]}
+                  tone="spin"
+                  className="bg-night-800 p-7"
+                >
                   <li className="mb-3 font-mono text-xs tracking-widest text-ink-400 uppercase">
                     {t("includes")}
                   </li>
-                  {pickList(service.includes, locale).map((item) => (
-                    <li
-                      key={item}
-                      className="flex gap-3 border-t border-white/5 py-3 text-ink-200"
-                    >
-                      <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-neon-pink" />
-                      {item}
+                  {pickList(service.includes, locale).map((item, j) => (
+                    <li key={item} className="text-ink-200">
+                      <CyberDivider variant={i * 3 + j} className="text-white/10" />
+                      <span className="flex gap-3 py-3">
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 size-1.5 shrink-0 rotate-45 bg-neon-pink"
+                        />
+                        {item}
+                      </span>
                     </li>
                   ))}
-                </ul>
+                </CyberFrame>
               </Reveal>
             </div>
           </section>
@@ -203,17 +214,19 @@ export default function ServicesPage({ params }: Props) {
           </Reveal>
           <ol className="mt-12 grid gap-6 md:grid-cols-4">
             {steps.map((step, i) => (
-              <Reveal
-                key={step.title}
-                as="li"
-                delay={i * 0.1}
-                className="rounded-2xl border border-white/10 p-6"
-              >
-                <span className="font-mono text-2xl text-neon-pink">0{i + 1}</span>
-                <h3 className="mt-3 font-display text-lg font-semibold text-ink-100">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm text-ink-200">{step.body}</p>
+              <Reveal key={step.title} as="li" delay={i * 0.1}>
+                <CyberFrame
+                  variant={[6, 1, 10, 4][i % 4]}
+                  scale={0.7}
+                  edgeClassName="h-full"
+                  className="bg-night-900 p-6"
+                >
+                  <span className="font-mono text-2xl text-neon-pink">0{i + 1}</span>
+                  <h3 className="mt-3 font-display text-lg font-semibold text-ink-100">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-ink-200">{step.body}</p>
+                </CyberFrame>
               </Reveal>
             ))}
           </ol>
@@ -225,15 +238,18 @@ export default function ServicesPage({ params }: Props) {
           <Reveal>
             <SectionHeading eyebrow="FAQ" title={t("faqTitle")} />
           </Reveal>
-          <dl className="mt-10 divide-y divide-white/5">
+          <dl className="mt-10">
             {questions.map((item, i) => (
               <Reveal
                 key={item.q}
                 as="div"
                 from={i % 2 === 0 ? "left" : "right"}
-                className="py-6"
+                className={i > 0 ? "pb-6" : "py-6"}
               >
                 <dt className="font-display text-lg font-semibold text-ink-100">
+                  {i > 0 ? (
+                    <CyberDivider variant={i + 2} className="mb-6 text-white/10" />
+                  ) : null}
                   {item.q}
                 </dt>
                 <dd className="mt-2 text-ink-200">{item.a}</dd>
@@ -243,7 +259,7 @@ export default function ServicesPage({ params }: Props) {
           <Reveal className="mt-12">
             <Link
               href="/contact"
-              className="inline-block rounded-md bg-neon-pink px-6 py-3 font-medium text-night-950 shadow-neon-pink transition hover:brightness-110"
+              className="inline-block bg-neon-pink notch-alt px-6 py-3 font-medium text-night-950 transition [--n:10px] hover:brightness-110"
             >
               {t("cta")}
             </Link>

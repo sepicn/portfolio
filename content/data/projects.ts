@@ -141,6 +141,12 @@ export const projects: Project[] = [
         "I worked through Jira tickets (TMS-138 to TMS-283), pull requests and code review with a US team.",
       ],
     },
+    image: "/images/projects/meridian-tms.webp",
+    gallery: [
+      "/images/projects/gallery/meridian-tms-2.webp",
+      "/images/projects/gallery/meridian-tms-3.webp",
+      "/images/projects/gallery/meridian-tms-m.webp",
+    ],
     title: "Meridian TMS",
     client: "Delta Group Logistics, SAD",
     kind: "client",
@@ -152,8 +158,8 @@ export const projects: Project[] = [
       en: "Back-office system for trucking logistics: dispatch, fleet, safety, accounting.",
     },
     summary: {
-      sr: "Transport Management System u .NET 8 MVC sa SQL Server bazom, Azure servisima i mobilnim API-jem za vozače. Ja sam radio kompletan UI sloj: Razor pogledi, CSS i JavaScript, u 101 commit-u od oktobra 2025 do jula 2026. Repo je privatan i vlasništvo klijenta, pa ovde nema koda i screenshotova.",
-      en: "A Transport Management System in .NET 8 MVC with SQL Server, Azure services and a mobile API for drivers. I owned the entire UI layer: Razor views, CSS and JavaScript, across 101 commits from October 2025 to July 2026. The repo is private and client-owned, so no code or screenshots here.",
+      sr: "Transport Management System u .NET 8 MVC sa SQL Server bazom, Azure servisima i mobilnim API-jem za vozače. Ja sam radio kompletan UI sloj: Razor pogledi, CSS i JavaScript, u 101 commit-u od oktobra 2025 do jula 2026. Repo je privatan i vlasništvo klijenta, pa ovde nema koda; screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "A Transport Management System in .NET 8 MVC with SQL Server, Azure services and a mobile API for drivers. I owned the entire UI layer: Razor views, CSS and JavaScript, across 101 commits from October 2025 to July 2026. The repo is private and client-owned, so no code here; the screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
@@ -204,6 +210,12 @@ export const projects: Project[] = [
         "I picked up a new stack (Rails, Hotwire) quickly and shipped UI used by the logistics company's customers.",
       ],
     },
+    image: "/images/projects/delta-tracking.webp",
+    gallery: [
+      "/images/projects/gallery/delta-tracking-2.webp",
+      "/images/projects/gallery/delta-tracking-3.webp",
+      "/images/projects/gallery/delta-tracking-m.webp",
+    ],
     title: "Delta Tracking",
     client: "Delta Group Logistics, SAD",
     kind: "client",
@@ -215,8 +227,8 @@ export const projects: Project[] = [
       en: "A portal where customers follow their shipments on a live map.",
     },
     summary: {
-      sr: "Rails 7.2 aplikacija sa Hotwire-om i Tailwind-om koja vuče podatke iz McLeod LoadMaster sistema. Kupac vidi listu pošiljki, detalje sa stanicama, poslednje lokacije kamiona i dokaz o isporuci. Moj deo je bio UI: mapa, redizajn stranica, brend boje.",
-      en: "A Rails 7.2 app with Hotwire and Tailwind that pulls data from the McLeod LoadMaster system. A customer sees their shipments, stop details, the truck's latest locations and proof of delivery. My part was the UI: the map, page redesigns, brand colours.",
+      sr: "Rails 7.2 aplikacija sa Hotwire-om i Tailwind-om koja vuče podatke iz McLeod LoadMaster sistema. Kupac vidi listu pošiljki, detalje sa stanicama, poslednje lokacije kamiona i dokaz o isporuci. Moj deo je bio UI: mapa, redizajn stranica, brend boje. Screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "A Rails 7.2 app with Hotwire and Tailwind that pulls data from the McLeod LoadMaster system. A customer sees their shipments, stop details, the truck's latest locations and proof of delivery. My part was the UI: the map, page redesigns, brand colours. The screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
@@ -706,6 +718,11 @@ export const projects: Project[] = [
       sr: ["Realtime događaji i TTL podaci bez sopstvenog servera."],
       en: ["Realtime events and TTL data without running my own server."],
     },
+    image: "/images/projects/echo.webp",
+    gallery: [
+      "/images/projects/gallery/echo-home.webp",
+      "/images/projects/gallery/echo-m.webp",
+    ],
     title: "Echo",
     kind: "personal",
     featured: false,

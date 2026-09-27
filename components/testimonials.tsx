@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Reveal } from "@/components/reveal";
+import { CyberFrame } from "@/components/cyber-frame";
 import { SectionHeading } from "@/components/section-heading";
 import { pick } from "@/content/i18n";
 import { testimonials } from "@/content/data/testimonials";
@@ -19,8 +20,14 @@ export function Testimonials({ locale, project }: { locale: string; project?: st
       </Reveal>
       <div className="mt-12 grid gap-6 md:grid-cols-2">
         {items.map((item, i) => (
-          <Reveal key={item.name} delay={i * 0.1}>
-            <figure className="neon-frame h-full rounded-2xl border border-white/5 bg-night-800/50 p-7">
+          <Reveal key={item.name} delay={i * 0.1} className="h-full">
+            <CyberFrame
+              as="figure"
+              variant={[1, 6, 9, 4][i % 4]}
+              tone="spin"
+              edgeClassName="h-full"
+              className="bg-night-800 p-7"
+            >
               <blockquote className="text-lg leading-relaxed text-ink-100">
                 „{pick(item.quote, locale)}“
               </blockquote>
@@ -28,7 +35,7 @@ export function Testimonials({ locale, project }: { locale: string; project?: st
                 <span className="text-ink-200">{item.name}</span>,{" "}
                 {pick(item.role, locale)}
               </figcaption>
-            </figure>
+            </CyberFrame>
           </Reveal>
         ))}
       </div>

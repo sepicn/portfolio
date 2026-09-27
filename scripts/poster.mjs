@@ -39,7 +39,34 @@ const box = await page.evaluate(() => {
   const r = canvas.getBoundingClientRect();
   return { x: r.x, y: r.y, width: r.width, height: r.height };
 });
-const shot = await page.screenshot({ clip: box });
+// The ERROR sign blinks; keep shooting until a frame catches it lit, judged by how red the
+// patch where it hangs is (top right of the frame).
+const redness = async (png) => {
+  const { data, info } = await sharp(png)
+    .extract({
+      left: Math.round(info0.width * 0.64),
+      top: Math.round(info0.height * 0.08),
+      width: Math.round(info0.width * 0.12),
+      height: Math.round(info0.height * 0.1),
+    })
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  let sum = 0;
+  for (let i = 0; i < data.length; i += info.channels) sum += data[i] - data[i + 2];
+  return sum / (data.length / info.channels);
+};
+const info0 = { width: Math.round(box.width), height: Math.round(box.height) };
+let shot;
+let best = -Infinity;
+for (let attempt = 0; attempt < 12; attempt++) {
+  const png = await page.screenshot({ clip: box });
+  const red = await redness(png);
+  if (red > best) {
+    best = red;
+    shot = png;
+  }
+  await page.waitForTimeout(170);
+}
 await browser.close();
 await sharp(shot).webp({ quality: 80 }).toFile("public/images/room-poster.webp");
 console.log(

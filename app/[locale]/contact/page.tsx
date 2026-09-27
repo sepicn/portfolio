@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { PageIntro } from "@/components/page-intro";
 import { Reveal } from "@/components/reveal";
+import { CyberFrame } from "@/components/cyber-frame";
 import { ContactForm } from "@/components/contact-form";
 import { profile } from "@/content/data/profile";
 import { pick } from "@/content/i18n";
@@ -100,18 +101,20 @@ export default function ContactPage({ params }: Props) {
             />
           </div>
           <ul className="mt-3 space-y-3">
-            {links.map((c) => (
+            {links.map((c, i) => (
               <li key={c.label}>
-                <a
-                  href={c.href}
-                  target="_blank"
-                  rel="noopener"
-                  className="flex min-h-[3.75rem] items-center justify-between rounded-xl border border-white/10 px-4 py-3 transition hover:border-neon-cyan/50"
-                >
-                  <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-                    {c.label}
-                  </span>
-                  <span className="text-ink-100">{c.value}</span>
+                <a href={c.href} target="_blank" rel="noopener" className="group block">
+                  <CyberFrame
+                    variant={[0, 8, 4, 1][i % 4]}
+                    scale={0.45}
+                    edgeClassName="group-hover:bg-neon-cyan/50"
+                    className="flex min-h-[3.625rem] items-center justify-between bg-night-900 px-4 py-3"
+                  >
+                    <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+                      {c.label}
+                    </span>
+                    <span className="text-ink-100">{c.value}</span>
+                  </CyberFrame>
                 </a>
               </li>
             ))}
@@ -130,6 +133,7 @@ export default function ContactPage({ params }: Props) {
       </div>
       <Marquee
         reverse
+        variant="caution"
         className="mb-16"
         items={
           locale === "en"
