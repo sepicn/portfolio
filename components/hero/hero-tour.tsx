@@ -351,8 +351,7 @@ export function HeroTour({ overlay }: Props) {
             <Link
               key={spot.id}
               href={spot.href!}
-              className={`absolute inset-x-0 bottom-0 block rounded-2xl border border-neon-cyan/30 bg-night-950/90 p-4 shadow-neon-cyan transition duration-300 ${i === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"}`}
-              inert={i !== active}
+              className={`absolute inset-x-0 bottom-0 block rounded-2xl border border-neon-cyan/30 bg-night-950/90 p-4 shadow-neon-cyan transition duration-300 ${i === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0 focus-visible:pointer-events-auto focus-visible:translate-y-0 focus-visible:opacity-100"}`}
             >
               <p className="font-mono text-[10px] tracking-[0.3em] text-neon-pink uppercase">
                 {String(i + 1).padStart(2, "0")} / {String(stops.length).padStart(2, "0")}

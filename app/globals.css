@@ -14,6 +14,8 @@
 
   --color-neon-pink: #ff2d95;
   --color-neon-violet: #8a2be2;
+  /* Violet light enough for small text on night-800 (5.5:1). */
+  --color-neon-lilac: #a66bff;
   --color-neon-cyan: #00e5ff;
   --color-neon-sun: #ff8c42;
   --color-neon-yellow: #ffd60a;
@@ -36,8 +38,6 @@
 
   --animate-flicker: flicker 4s infinite;
   --animate-eq: eq 0.8s ease-in-out infinite;
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-marquee-reverse: marquee 40s linear infinite reverse;
   --animate-float: float 7s ease-in-out infinite;
   --animate-glow: glow 5s ease-in-out infinite;
   --animate-terminal: terminal 28s linear infinite;
@@ -165,15 +165,6 @@
     }
   }
 
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
   @keyframes eq {
     0%,
     100% {
@@ -221,6 +212,143 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Neon cursors: an angular arrow everywhere, a targeting reticle on anything clickable.
+   Touch devices never show them; text fields keep the system caret. */
+@media (pointer: fine) {
+  html {
+    cursor:
+      url("/cursors/arrow.svg") 4 3,
+      auto;
+  }
+  a,
+  button,
+  label,
+  summary,
+  select,
+  [role="button"],
+  [role="tab"],
+  [role="link"] {
+    cursor:
+      url("/cursors/pointer.svg") 16 16,
+      pointer;
+  }
+  /* Selectable text and text fields: a neon I-beam. The custom arrow on html overrides the
+     browser's automatic I-beam over text, so it is set back here per element. */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  blockquote,
+  dd,
+  dt,
+  td,
+  th,
+  figcaption,
+  pre,
+  code,
+  input:not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="submit"],
+    [type="button"]
+  ),
+  textarea,
+  [contenteditable="true"] {
+    cursor:
+      url("/cursors/text.svg") 16 16,
+      text;
+  }
+  /* Links inside text, and text inside links (whole-card links), keep the reticle. */
+  :is(p, h1, h2, h3, h4, h5, h6, li, blockquote, dd, dt, td, th, figcaption)
+    :is(a, button),
+  :is(a, button, label, summary, [role="button"], [role="link"])
+    :is(p, h1, h2, h3, h4, h5, h6, li, blockquote, dd, dt, td, th, figcaption, code) {
+    cursor:
+      url("/cursors/pointer.svg") 16 16,
+      pointer;
+  }
+  [data-cursor="copy"] {
+    cursor:
+      url("/cursors/copy.svg") 4 3,
+      copy;
+  }
+}
+
+/* Trailing neon ring drawn by CursorGlow. */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.cursor-glow::before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1px solid rgba(0, 229, 255, 0.7);
+  border-radius: 9999px;
+  box-shadow:
+    0 0 12px rgba(0, 229, 255, 0.45),
+    inset 0 0 8px rgba(0, 229, 255, 0.25);
+  transition:
+    width 0.25s,
+    height 0.25s,
+    margin 0.25s,
+    border-color 0.25s,
+    transform 0.15s;
+}
+.cursor-glow[data-visible] {
+  opacity: 1;
+}
+.cursor-glow[data-hover]::before {
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-color: rgba(255, 45, 149, 0.8);
+  box-shadow:
+    0 0 16px rgba(255, 45, 149, 0.45),
+    inset 0 0 10px rgba(255, 45, 149, 0.25);
+}
+.cursor-glow[data-down]::before {
+  transform: scale(0.7);
+}
+
+/* Neon scrollbar. Chromium and Safari use the pseudo-elements; Firefox, which has none,
+   gets the plain colours. Setting scrollbar-color in Chromium would switch the
+   pseudo-elements off, hence the @supports split. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-night-950);
+  border-left: 1px solid rgba(0, 229, 255, 0.12);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-neon-cyan), var(--color-neon-violet));
+  border: 2px solid var(--color-night-950);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-cyan);
+}
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: var(--color-neon-cyan) var(--color-night-950);
+    scrollbar-width: thin;
+  }
+}
+
 ::selection {
   background: var(--color-neon-pink);
   color: var(--color-night-950);
@@ -266,21 +394,12 @@ body {
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 80%);
 }
 
-.marquee:hover .animate-marquee,
-.marquee:hover .animate-marquee-reverse {
-  animation-play-state: paused;
-}
-
 .tilt {
   transition: transform 0.25s ease;
   transform-style: preserve-3d;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee .animate-marquee,
-  .marquee .animate-marquee-reverse {
-    animation: none;
-  }
   .tilt {
     transform: none !important;
   }
@@ -489,6 +608,350 @@ select {
 @media (prefers-reduced-motion: reduce) {
   .neon-frame::before,
   .cyber-spin {
+    animation: none;
+  }
+}
+
+@media (pointer: fine) and (min-width: 1024px) {
+  [data-ring-stage],
+  [data-ring-stage] :is(p, h3, li) {
+    cursor: grab;
+  }
+  [data-ring-stage][data-dragging],
+  [data-ring-stage][data-dragging] * {
+    cursor: grabbing;
+  }
+}
+
+/* CubeDeck faces: a neon HUD panel, so the edges and corners of the cube show while it
+   turns. Only with motion allowed; otherwise the faces are plain stacked blocks. */
+@media (prefers-reduced-motion: no-preference) {
+  .cube-face {
+    background:
+      radial-gradient(900px 500px at 85% 10%, rgba(138, 43, 226, 0.18), transparent 60%),
+      radial-gradient(700px 400px at 10% 95%, rgba(0, 229, 255, 0.1), transparent 60%),
+      linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px) 0 0 / 56px 56px,
+      var(--color-night-950);
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 229, 255, 0.45),
+      inset 0 0 40px rgba(0, 229, 255, 0.12),
+      inset 0 0 160px rgba(0, 0, 0, 0.7);
+  }
+  .cube-hud {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .cube-corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: var(--color-neon-pink);
+    filter: drop-shadow(0 0 6px rgba(255, 45, 149, 0.8));
+  }
+  .cube-scan {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 120px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(0, 229, 255, 0.07) 80%,
+      rgba(0, 229, 255, 0.35)
+    );
+    border-bottom: 1px solid rgba(0, 229, 255, 0.35);
+    animation: cube-scan 6s linear infinite;
+  }
+  .cube-next {
+    display: inline-block;
+    animation: cube-blink 1.2s steps(2) infinite;
+  }
+  @keyframes cube-scan {
+    from {
+      transform: translateY(-120px);
+    }
+    to {
+      transform: translateY(calc(100svh));
+    }
+  }
+  @keyframes cube-blink {
+    50% {
+      opacity: 0.2;
+    }
+  }
+}
+
+/* Phones: faces are a screen tall, so the longer details step aside. */
+@media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+  [data-cube-face] [data-cube-compact] {
+    display: none;
+  }
+}
+
+/* Spinning wireframe cube on the first face of the projects cube. */
+.mini-cube {
+  --s: 150px;
+  width: var(--s);
+  height: var(--s);
+  perspective: 700px;
+}
+.mini-cube > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: mini-cube-spin 14s linear infinite;
+}
+.mini-cube span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0, 229, 255, 0.8);
+  background: rgba(0, 229, 255, 0.05);
+  box-shadow:
+    0 0 14px rgba(0, 229, 255, 0.35),
+    inset 0 0 20px rgba(0, 229, 255, 0.2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--color-neon-cyan);
+}
+.mini-cube span:nth-child(1) {
+  transform: translateZ(calc(var(--s) / 2));
+}
+.mini-cube span:nth-child(2) {
+  transform: rotateY(90deg) translateZ(calc(var(--s) / 2));
+}
+.mini-cube span:nth-child(3) {
+  transform: rotateY(180deg) translateZ(calc(var(--s) / 2));
+}
+.mini-cube span:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(calc(var(--s) / 2));
+}
+.mini-cube span:nth-child(5) {
+  transform: rotateX(90deg) translateZ(calc(var(--s) / 2));
+  border-color: rgba(255, 45, 149, 0.8);
+  color: var(--color-neon-pink);
+}
+.mini-cube span:nth-child(6) {
+  transform: rotateX(-90deg) translateZ(calc(var(--s) / 2));
+}
+@keyframes mini-cube-spin {
+  from {
+    transform: rotateX(-24deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-24deg) rotateY(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mini-cube > div {
+    animation: none;
+    transform: rotateX(-24deg) rotateY(35deg);
+  }
+}
+
+/* Short phones: the intro face needs the room more than the decoration. */
+@media (max-width: 1023px) and (max-height: 740px) {
+  .mini-cube {
+    display: none;
+  }
+}
+
+/* Active nav item: the marker strikes like a tube, then hums with a cyan glow. */
+.nav-marker {
+  filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.95)) drop-shadow(0 0 8px rgba(0, 229, 255, 0.5));
+  animation: var(--animate-tube-on);
+}
+
+/* Closing call to action above the footer: a chamfered neon panel over a running grid. */
+.footer-cta {
+  clip-path: polygon(
+    28px 0,
+    100% 0,
+    100% calc(100% - 28px),
+    calc(100% - 28px) 100%,
+    0 100%,
+    0 28px
+  );
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(255, 45, 149, 0.22), transparent 60%),
+    radial-gradient(ellipse at 50% -20%, rgba(0, 229, 255, 0.14), transparent 55%),
+    var(--color-night-800);
+}
+.footer-cta::before {
+  /* the rotating neon edge, drawn along the cut silhouette */
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  clip-path: inherit;
+  background:
+    conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      rgba(255, 45, 149, 0.95) 60deg,
+      transparent 120deg,
+      transparent 180deg,
+      rgba(0, 229, 255, 0.95) 240deg,
+      transparent 300deg
+    ),
+    rgba(255, 255, 255, 0.08);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: border-spin 8s linear infinite;
+  pointer-events: none;
+}
+.footer-cta-grid {
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 75%);
+  animation: grid-run 2.4s linear infinite;
+}
+
+/* CTA buttons: a light sweep runs across them, hover glitches the label in RGB. */
+.cta-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cta-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 48%,
+    transparent 66%
+  );
+  transform: translateX(-120%);
+  animation: cta-sweep 3.6s ease-in-out infinite;
+}
+.cta-btn-primary {
+  background-color: var(--color-neon-cyan);
+}
+/* The buttons are clipped, which would cut a box-shadow; the glow lives on a wrapper. */
+.cta-glow {
+  display: inline-flex;
+  transition: filter 0.2s ease;
+}
+.cta-glow-cyan {
+  filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.55));
+}
+.cta-glow-cyan:hover {
+  filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.85));
+}
+.cta-glow-pink:hover {
+  filter: drop-shadow(0 0 14px rgba(255, 45, 149, 0.75));
+}
+.cta-btn-ghost {
+  background-color: rgba(255, 45, 149, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 45, 149, 0.7);
+}
+.cta-btn-ghost::after {
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 45, 149, 0.35) 48%, transparent 66%);
+  animation-delay: 1.8s;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+}
+.cta-btn-ghost:hover {
+  background-color: var(--color-neon-pink);
+  color: var(--color-night-950);
+}
+.cta-btn:hover .cta-label {
+  animation: cta-glitch 0.45s steps(2) 1;
+}
+.cta-arrow {
+  transition: transform 0.2s ease;
+}
+.cta-btn:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+@keyframes cta-sweep {
+  0%,
+  55% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+@keyframes cta-glitch {
+  0% {
+    text-shadow:
+      2px 0 rgba(255, 45, 149, 0.9),
+      -2px 0 rgba(0, 229, 255, 0.9);
+    transform: translateX(1px);
+  }
+  50% {
+    text-shadow:
+      -2px 0 rgba(255, 45, 149, 0.9),
+      2px 0 rgba(0, 229, 255, 0.9);
+    transform: translateX(-1px);
+    clip-path: inset(10% 0 35% 0);
+  }
+  100% {
+    text-shadow: none;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+/* Hexagonal back-to-top: rises in once the reader is well down the page. */
+.back-to-top {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px) scale(0.85);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+.back-to-top[data-visible] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+.back-to-top:hover .back-to-top-arrow {
+  animation: btt-lift 0.6s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.9));
+}
+.back-to-top:hover svg:first-child path:first-child {
+  fill: rgba(0, 229, 255, 0.12);
+}
+.back-to-top:focus-visible {
+  outline-offset: 4px;
+}
+@keyframes btt-lift {
+  to {
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-marker,
+  .footer-cta::before,
+  .footer-cta-grid,
+  .cta-btn::after {
+    animation: none;
+  }
+  .cta-btn:hover .cta-label,
+  .back-to-top:hover .back-to-top-arrow {
     animation: none;
   }
 }

@@ -1,78 +1,78 @@
 {
   "/": {
-    "hash": "dfc6478662a4b41f",
+    "hash": "0fe1fc5c5bf170c4",
     "date": "2026-09-27"
   },
   "/projects": {
-    "hash": "5cf293897e8b2001",
+    "hash": "042b330805e68b2d",
     "date": "2026-09-27"
   },
   "/services": {
-    "hash": "dec1fe6c5aed7c41",
+    "hash": "881287ff117d36a6",
     "date": "2026-09-27"
   },
   "/about": {
-    "hash": "dedc3bb1191c9369",
+    "hash": "c325b33d262d5cc6",
     "date": "2026-09-27"
   },
   "/cv": {
-    "hash": "3324e0bd935b7a78",
+    "hash": "9546716da5429122",
     "date": "2026-09-27"
   },
   "/contact": {
-    "hash": "7d1d13d82b2cdfc1",
+    "hash": "386ba8d0b9a96934",
     "date": "2026-09-27"
   },
   "/privacy": {
-    "hash": "f380b66e3b08894b",
+    "hash": "41758888ca642cd8",
     "date": "2026-09-27"
   },
   "/projects/medical-time": {
-    "hash": "83782f9ca56149a2",
+    "hash": "1227be06a83ca77a",
     "date": "2026-09-27"
   },
   "/projects/meridian-tms": {
-    "hash": "d0c107ea167f77d1",
+    "hash": "bd6fe1018dee8309",
     "date": "2026-09-27"
   },
   "/projects/delta-tracking": {
-    "hash": "d631ad8806bb777f",
+    "hash": "e5655d9baebb3a66",
     "date": "2026-09-27"
   },
   "/projects/itexpert": {
-    "hash": "44e35827a0045169",
+    "hash": "3b924733a98a3980",
     "date": "2026-09-27"
   },
   "/projects/prostor-izmedju": {
-    "hash": "d6396cc1233f0427",
+    "hash": "35267bd81d500a6b",
     "date": "2026-09-27"
   },
   "/projects/mango": {
-    "hash": "ab5159c74a3ce8c8",
+    "hash": "ab5a0304b1feb928",
     "date": "2026-09-27"
   },
   "/projects/vuk-studio": {
-    "hash": "1298ceab27339325",
+    "hash": "f693fa1660f50d62",
     "date": "2026-09-27"
   },
   "/projects/olimp": {
-    "hash": "0476091fb87a9261",
+    "hash": "160a2a571939683d",
     "date": "2026-09-27"
   },
   "/projects/job-application-tracker": {
-    "hash": "56384431d8e1d159",
+    "hash": "c233be7578905ee8",
     "date": "2026-09-27"
   },
   "/projects/gymai": {
-    "hash": "3241840c83c02519",
+    "hash": "93a04ded96234f37",
     "date": "2026-09-27"
   },
   "/projects/launchhub": {
-    "hash": "b6bbb7926f1d747e",
+    "hash": "963fc4107b4e5deb",
     "date": "2026-09-27"
   },
   "/projects/echo": {
-    "hash": "cb2a804c381f1af2",
+    "hash": "57c32938b2079e3b",
     "date": "2026-09-27"
   }
 }

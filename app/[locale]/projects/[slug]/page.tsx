@@ -17,6 +17,7 @@ import { Testimonials } from "@/components/testimonials";
 import { PerfScores } from "@/components/perf-scores";
 import { pick, pickList } from "@/content/i18n";
 import { projects } from "@/content/data/projects";
+import { services } from "@/content/data/services";
 import { siteConfig } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/seo";
 import {
@@ -40,7 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
   const t = await getTranslations({ locale, namespace: "projectPage" });
-  const title = `${project.title}: ${t("caseStudy")}, ${project.stack[0]}`;
+  const title = project.seoTitle
+    ? pick(project.seoTitle, locale)
+    : `${project.title}: ${t("caseStudy")}, ${project.stack[0]}`;
   return {
     title,
     ...pageMetadata({
@@ -65,6 +68,11 @@ export default function ProjectPage({ params }: Props) {
   const next = projects[(index + 1) % projects.length];
   const desktopShots = (project.gallery ?? []).filter((g) => !g.endsWith("-m.webp"));
   const phoneShot = (project.gallery ?? []).find((g) => g.endsWith("-m.webp"));
+  const isClient = project.kind !== "personal";
+  const usedServices = services.filter((s) => s.examples.includes(slug));
+  const ctaServices = usedServices.length
+    ? usedServices
+    : services.filter((s) => s.id === "web");
 
   const jsonLd = graph(
     breadcrumbJsonLd(locale, [
@@ -279,7 +287,7 @@ export default function ProjectPage({ params }: Props) {
           <Reveal from="right" delay={0.1}>
             <CyberFrame variant={10} tone="pink" className="bg-night-800 p-7">
               <h2 className="font-mono text-xs tracking-[0.3em] text-neon-pink uppercase">
-                {t("impact")}
+                {isClient ? t("impactClient") : t("impact")}
               </h2>
               <ul className="mt-4 space-y-3">
                 {pickList(project.impact, locale).map((item) => (
@@ -356,6 +364,45 @@ export default function ProjectPage({ params }: Props) {
       ) : null}
 
       <Testimonials locale={locale} project={slug} />
+
+      <section
+        aria-labelledby="case-cta"
+        className="mx-auto mt-24 max-w-6xl px-4 sm:px-6"
+      >
+        <Reveal>
+          <CyberFrame variant={2} tone="cyan" className="bg-night-800 p-8 sm:p-10">
+            <h2
+              id="case-cta"
+              className="font-display text-2xl font-semibold text-ink-100 sm:text-3xl"
+            >
+              {t("ctaTitle")}
+            </h2>
+            <p className="mt-3 max-w-2xl text-ink-200">{t("ctaBody")}</p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+              <Link
+                href="/contact"
+                className="bg-neon-cyan notch px-6 py-3 font-medium text-night-950 transition [--n:10px] hover:brightness-110"
+              >
+                {t("ctaButton")}
+              </Link>
+              <p className="text-sm text-ink-300">
+                {t("ctaServices")}{" "}
+                {ctaServices.map((s, i) => (
+                  <span key={s.id}>
+                    {i > 0 ? ", " : null}
+                    <Link
+                      href={`/services#${s.id}`}
+                      className="text-neon-cyan underline-offset-4 hover:underline"
+                    >
+                      {pick(s.title, locale)}
+                    </Link>
+                  </span>
+                ))}
+              </p>
+            </div>
+          </CyberFrame>
+        </Reveal>
+      </section>
 
       <div className="mx-auto mt-24 max-w-6xl px-4 sm:px-6">
         <CyberDivider variant={4} />

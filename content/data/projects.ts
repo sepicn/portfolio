@@ -11,6 +11,8 @@ export type Project = {
   year: string;
   role: Localized;
   tagline: Localized;
+  /** Search title of the case study, what was built for whom; the layout appends " | Nikola Šepić", so keep it under ~45 characters. */
+  seoTitle?: Localized;
   /** Meta description of the case study page, 140 to 160 characters. */
   description: Localized;
   summary: Localized;
@@ -19,12 +21,14 @@ export type Project = {
   stack: string[];
   links: { live?: string; repo?: string };
   image?: string;
+  /** Client logo (public/images/clients), shown as a white silhouette on the tickers. */
+  logo?: string;
   /** Extra screenshots for the case study page. "-m" files are phone views. */
   gallery?: string[];
   /** Team shape and how big the thing is, for the facts bar recruiters scan first. */
   team: Localized;
   scale: Localized;
-  /** What this project shows about me as a hire, in one or two lines. */
+  /** Client projects: what the client got. Personal projects: what it shows about me. One to three lines. */
   impact: LocalizedList;
   accent: "pink" | "cyan" | "violet" | "sun" | "yellow";
 };
@@ -32,9 +36,14 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "medical-time",
+    seoTitle: {
+      sr: "Medical Time: sajt i Google Ads za bolnicu",
+      en: "Medical Time: hospital website and Google Ads",
+    },
+    logo: "/images/clients/medical-time.webp",
     description: {
-      sr: "Studija slučaja: platforma privatne bolnice Medical Time na pet jezika, Nuxt 4 i Laravel 12, plus Google Ads kampanje koje dovode pacijente.",
-      en: "Case study: the Medical Time private hospital platform in five languages, Nuxt 4 and Laravel 12, plus the Google Ads campaigns that bring in patients.",
+      sr: "Studija slučaja: platforma privatne bolnice Medical Time na pet jezika, Nuxt 4 i Laravel 12, plus Google Ads kampanje koje donose upite i pozive.",
+      en: "Case study: the Medical Time private hospital platform in five languages, Nuxt 4 and Laravel 12, plus the Google Ads campaigns that bring in inquiries and calls.",
     },
     gallery: [
       "/images/projects/gallery/medical-time-2.webp",
@@ -50,14 +59,14 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Radim u velikom produkcionom kodu koji koriste pacijenti i osoblje bolnice svaki dan.",
-        "Spajam razvoj i marketing: isti čovek pravi stranicu, meri je u GA4 i puni je kroz Google Ads.",
-        "Merljiv rezultat: Site Health 90% → 98% za nedelju dana, bez ijedne greške u auditu.",
+        "Bolnica ima jednog čoveka za sajt, merenje i oglase, pa nema čekanja između developera i agencije.",
+        "Tehnički SEO: Site Health sa 90% na 98% za nedelju dana, bez ijedne greške u auditu.",
+        "370+ negativnih ključnih reči: budžet više ne odlazi na pretrage koje ne donose upite.",
       ],
       en: [
-        "I work in a large production codebase that patients and hospital staff use every day.",
-        "I connect development and marketing: the same person builds the page, measures it in GA4 and fills it through Google Ads.",
-        "A measurable result: Site Health 90% → 98% in one week, with zero audit errors.",
+        "The hospital has one person for the site, tracking and ads, so there is no waiting between a developer and an agency.",
+        "Technical SEO: Site Health from 90% to 98% in one week, with zero audit errors.",
+        "370+ negative keywords: the budget no longer goes to searches that bring no inquiries.",
       ],
     },
     title: "Medical Time",
@@ -70,8 +79,8 @@ export const projects: Project[] = [
       en: "Developer and digital marketing",
     },
     tagline: {
-      sr: "Platforma privatne bolnice na pet jezika, plus kampanje koje dovode pacijente.",
-      en: "A private hospital platform in five languages, plus the campaigns that bring in patients.",
+      sr: "Platforma privatne bolnice na pet jezika, plus kampanje koje donose upite i pozive.",
+      en: "A private hospital platform in five languages, plus the campaigns that bring in inquiries and calls.",
     },
     summary: {
       sr: "Javni sajt, online zakazivanje, portali za deset uloga zaposlenih, prodavnica, video konsultacije i mobilna aplikacija. Nuxt 4 na frontu, Laravel 12 pozadi, Flutter za telefon. Platformu je napravio Đorđe Stojanović; ja sam u timu od avgusta 2025 sa 165 commit-a, uglavnom u javnom delu, prevodima i SEO-u, a paralelno vodim Google Ads i Meta Ads naloge bolnice.",
@@ -119,6 +128,11 @@ export const projects: Project[] = [
   },
   {
     slug: "meridian-tms",
+    seoTitle: {
+      sr: "Meridian TMS: UI za softver kamionske logistike",
+      en: "Meridian TMS: UI for a trucking logistics TMS",
+    },
+    logo: "/images/clients/delta.webp",
     description: {
       sr: "Studija slučaja: kompletan UI za TMS sistem kamionske logistike u .NET 8 MVC. Dispečeri, flota, bezbednost i računovodstvo u Razor pogledima.",
       en: "Case study: the entire UI of a trucking logistics TMS in .NET 8 MVC. Dispatch, fleet, safety and accounting screens built in Razor views.",
@@ -133,12 +147,12 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Samostalno sam vodio redizajn celog interfejsa sistema koji dispečeri koriste ceo radni dan.",
-        "Radio sam kroz Jira tikete (TMS-138 do TMS-283), pull request-ove i code review sa timom u SAD.",
+        "Dispečeri rade u jednom doslednom interfejsu: svih 40+ formi su vođeni koraci umesto dugačkih ekrana.",
+        "Iste forme rade i u modalu i na punoj strani, pa tim ne održava dve verzije istog ekrana.",
       ],
       en: [
-        "I independently led the redesign of the whole interface of a system dispatchers use all day.",
-        "I worked through Jira tickets (TMS-138 to TMS-283), pull requests and code review with a US team.",
+        "Dispatchers work in one consistent interface: all 40+ forms are guided steps instead of long screens.",
+        "The same forms work in a modal and on a full page, so the team does not maintain two versions of one screen.",
       ],
     },
     image: "/images/projects/meridian-tms.webp",
@@ -193,6 +207,11 @@ export const projects: Project[] = [
   },
   {
     slug: "delta-tracking",
+    seoTitle: {
+      sr: "Delta Tracking: praćenje pošiljki na mapi",
+      en: "Delta Tracking: live shipment tracking portal",
+    },
+    logo: "/images/clients/delta.webp",
     description: {
       sr: "Studija slučaja: portal za praćenje pošiljki na mapi u realnom vremenu, Rails 7.2 sa Hotwire-om, Tailwind-om i Leaflet mapom. Moj deo je ceo UI.",
       en: "Case study: a live shipment tracking portal on a map, Rails 7.2 with Hotwire, Tailwind and Leaflet. My part was the whole front end and redesign.",
@@ -204,10 +223,10 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Brzo sam ušao u novi stack (Rails, Hotwire) i isporučio UI koji koriste kupci logističke firme.",
+        "Kupci logističke firme sami vide gde je pošiljka i kada stiže, sa procenom dolaska za svaku stanicu.",
       ],
       en: [
-        "I picked up a new stack (Rails, Hotwire) quickly and shipped UI used by the logistics company's customers.",
+        "The logistics company's customers see for themselves where a shipment is and when it arrives, with an ETA for every stop.",
       ],
     },
     image: "/images/projects/delta-tracking.webp",
@@ -252,6 +271,11 @@ export const projects: Project[] = [
   },
   {
     slug: "itexpert",
+    seoTitle: {
+      sr: "IT Expert: portal za klijente web agencije",
+      en: "IT Expert: client portal for a web agency",
+    },
+    logo: "/images/clients/itexpert.webp",
     description: {
       sr: "Studija slučaja: platforma web agencije IT Expert u Nuxt 4 i Laravel 12. Portal za klijente, paketi sa kalkulatorom cene, pretplate i fakture.",
       en: "Case study: the IT Expert web agency platform in Nuxt 4 and Laravel 12. Client portal, packages with a price calculator, subscriptions and invoices.",
@@ -266,8 +290,8 @@ export const projects: Project[] = [
       en: "Nuxt 4 + Laravel 12, 5 languages, payments and subscriptions",
     },
     impact: {
-      sr: ["Vodim klijente od prvog razgovora do plaćanja i održavanja."],
-      en: ["I take clients from the first call to payment and maintenance."],
+      sr: ["Klijenti sami biraju paket, vide cenu u kalkulatoru i plaćaju online, bez razmene mejlova oko ponude."],
+      en: ["Clients pick a package, see the price in the calculator and pay online, without emails back and forth about a quote."],
     },
     image: "/images/projects/itexpert.webp",
     title: "IT Expert",
@@ -306,6 +330,11 @@ export const projects: Project[] = [
   },
   {
     slug: "prostor-izmedju",
+    seoTitle: {
+      sr: "Prostor Između: WordPress e-magazin od nule",
+      en: "Prostor Između: WordPress magazine from scratch",
+    },
+    logo: "/images/clients/prostor-izmedju.webp",
     description: {
       sr: "Studija slučaja: WordPress e-magazin o psihologiji napravljen od nule. Rubrike, tipografija za čitanje, newsletter i učitavanje članaka bez osvežavanja.",
       en: "Case study: a WordPress e-magazine about psychology built from scratch. Sections, reading typography, a newsletter and articles that load without a refresh.",
@@ -321,10 +350,10 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Pokazuje da mogu da isporučim ceo sajt sam, uključujući dizajn i sadržajnu strukturu.",
+        "Magazin sa puno slika ostaje brz na telefonu, a rubrike i newsletter su tu od prvog dana.",
       ],
       en: [
-        "Shows I can deliver a whole site alone, including design and content structure.",
+        "An image-heavy magazine stays fast on a phone, with sections and a newsletter from day one.",
       ],
     },
     image: "/images/projects/prostor-izmedju.webp",
@@ -364,6 +393,11 @@ export const projects: Project[] = [
   },
   {
     slug: "mango",
+    seoTitle: {
+      sr: "Mango: izrada sajta za poslastičarnicu",
+      en: "Mango: website for a Belgrade pastry shop",
+    },
+    logo: "/images/clients/mango.webp",
     description: {
       sr: "Studija slučaja: sajt butik poslastičarnice Mango u Nuxt 4 sa SSR-om. Proizvodi po kategorijama, cenovnik, četiri teme i GTM tek posle pristanka.",
       en: "Case study: the Mango boutique pastry shop site in Nuxt 4 with SSR. Products by category, a price list, four themes and GTM loaded only after consent.",
@@ -378,8 +412,14 @@ export const projects: Project[] = [
       en: "SSR site, 4 themes, GDPR consent",
     },
     impact: {
-      sr: ["Mala firma dobila sajt koji se učitava brzo i na slabom mobilnom signalu."],
-      en: ["A small business got a site that loads fast even on a weak mobile signal."],
+      sr: [
+        "Sajt se učitava brzo i na slabom mobilnom signalu.",
+        "Vlasnica ubacuje originalne fotografije, a sajt ih sam smanji sa 8 MB na 60 do 120 KB.",
+      ],
+      en: [
+        "The site loads fast even on a weak mobile signal.",
+        "The owner uploads original photos and the site shrinks them from 8 MB to 60 to 120 KB on its own.",
+      ],
     },
     image: "/images/projects/mango.webp",
     title: "Mango poslastičarnica",
@@ -418,6 +458,11 @@ export const projects: Project[] = [
   },
   {
     slug: "vuk-studio",
+    seoTitle: {
+      sr: "Vuk Studio: sajt muzičkog studija u Beogradu",
+      en: "Vuk Studio: website for a Belgrade music studio",
+    },
+    logo: "/images/clients/vuk-studio.webp",
     description: {
       sr: "Studija slučaja: brz statičan sajt muzičkog i video studija Vuk Studio u Nuxt 4, sa LocalBusiness i FAQ podacima za lokalnu pretragu u Beogradu.",
       en: "Case study: a fast static site for the Vuk Studio music and video studio in Nuxt 4, with LocalBusiness and FAQ structured data for local search.",
@@ -429,8 +474,8 @@ export const projects: Project[] = [
     team: { sr: "Dva developera", en: "Two developers" },
     scale: { sr: "Statičan Nuxt sajt, 6 stranica", en: "Static Nuxt site, 6 pages" },
     impact: {
-      sr: ["Struktuirani podaci za lokalnu pretragu od prvog dana."],
-      en: ["Structured data for local search from day one."],
+      sr: ["Studio je od prvog dana spreman za lokalnu pretragu: brze statične stranice i strukturirani podaci."],
+      en: ["The studio was ready for local search from day one: fast static pages and structured data."],
     },
     image: "/images/projects/vuk-studio.webp",
     title: "Vuk Studio",
@@ -444,7 +489,7 @@ export const projects: Project[] = [
       en: "A static site for a music and video studio, with LocalBusiness and FAQ data.",
     },
     summary: {
-      sr: "Nuxt 4 generisan u statične stranice, self-hosted subsetovani fontovi, skrol animacije, struktuirani podaci za lokalnu pretragu. Kontakt preko poziva, WhatsApp-a i Viber-a, bez forme.",
+      sr: "Nuxt 4 generisan u statične stranice, self-hosted subsetovani fontovi, skrol animacije, strukturirani podaci za lokalnu pretragu. Kontakt preko poziva, WhatsApp-a i Viber-a, bez forme.",
       en: "Nuxt 4 generated to static pages, self-hosted subset fonts, scroll animations, structured data for local search. Contact by call, WhatsApp and Viber, no form.",
     },
     did: {
@@ -469,6 +514,11 @@ export const projects: Project[] = [
   },
   {
     slug: "olimp",
+    seoTitle: {
+      sr: "SC Olimp: održavanje sajta sportskog centra",
+      en: "SC Olimp: sports centre website maintenance",
+    },
+    logo: "/images/clients/olimp.webp",
     description: {
       sr: "Studija slučaja: održavanje WordPress sajta i IT sistema javnog sportskog centra Olimp. Ažuriranja, bezbednost, backup i podrška zaposlenima.",
       en: "Case study: maintaining the WordPress site and IT systems of the Olimp public sports centre. Updates, security, backups and support for the staff.",
@@ -483,8 +533,8 @@ export const projects: Project[] = [
       en: "Public sports centre, Cyrillic and Latin script",
     },
     impact: {
-      sr: ["Pouzdanost i odgovornost na sistemu javne ustanove."],
-      en: ["Reliability and responsibility on a public institution's system."],
+      sr: ["Sajt i sistem javne ustanove ostaju ažurni, bezbedni i sa backup-om, a zaposleni imaju koga da pozovu."],
+      en: ["The public institution's site and systems stay updated, secure and backed up, and the staff have someone to call."],
     },
     image: "/images/projects/olimp.webp",
     title: "Sportski centar Olimp",

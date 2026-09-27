@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { scrollPageTo } from "@/components/smooth-scroll";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -38,11 +39,15 @@ export function SlideDeck({ panels, perPanel = 1 }: Props) {
         const layers = (panel: HTMLElement) =>
           panel.querySelectorAll<HTMLElement>("[data-layer]");
         const steps = items.length - 1;
-        gsap.set(items.slice(1), { xPercent: 0, autoAlpha: 0 });
-        gsap.set(items[0], { autoAlpha: 1 });
-        // Keyboard and screen readers only reach the panel that is on screen.
+        // Panels off screen are faded with opacity, not autoAlpha or inert: those drop them
+        // from the accessibility tree, so screen readers and AI agents only read the first
+        // panel. Keyboard focus on a faded panel scrolls the deck to it (focusIn below).
+        gsap.set(items.slice(1), { xPercent: 0, opacity: 0 });
+        gsap.set(items[0], { opacity: 1 });
         const setActive = (index: number) =>
-          items.forEach((panel, i) => panel.toggleAttribute("inert", i !== index));
+          items.forEach((panel, i) => {
+            panel.style.pointerEvents = i === index ? "" : "none";
+          });
         setActive(0);
 
         const tl = gsap.timeline({
@@ -68,11 +73,11 @@ export function SlideDeck({ panels, perPanel = 1 }: Props) {
           if (i === 0) return;
           const dir = i % 2 === 1 ? 1 : -1; // odd panels arrive from the right, even from the left
           const prev = items[i - 1];
-          tl.to(prev, { xPercent: -dir * 35, autoAlpha: 0, scale: 0.94 }, i - 1)
+          tl.to(prev, { xPercent: -dir * 35, opacity: 0, scale: 0.94 }, i - 1)
             .to(layers(prev), { xPercent: -dir * 25, stagger: 0.03 }, i - 1)
             .fromTo(
               panel,
-              { xPercent: dir * 100, autoAlpha: 1, scale: 1 },
+              { xPercent: dir * 100, opacity: 1, scale: 1 },
               { xPercent: 0 },
               i - 1,
             )
@@ -84,7 +89,18 @@ export function SlideDeck({ panels, perPanel = 1 }: Props) {
             );
         });
 
-        return () => items.forEach((panel) => panel.removeAttribute("inert"));
+        const trigger = tl.scrollTrigger!;
+        const focusIn = (e: FocusEvent) => {
+          const i = items.findIndex((panel) => panel.contains(e.target as Node));
+          if (i < 0) return;
+          scrollPageTo(trigger.start + (i / steps) * (trigger.end - trigger.start));
+        };
+        el.addEventListener("focusin", focusIn);
+
+        return () => {
+          el.removeEventListener("focusin", focusIn);
+          items.forEach((panel) => (panel.style.pointerEvents = ""));
+        };
       });
       return () => mm.revert();
     },

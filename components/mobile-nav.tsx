@@ -2,14 +2,16 @@
 
 import { useEffect, useId, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { navItems } from "@/lib/site-config";
 import { LocaleSwitcher } from "./locale-switcher";
+import { ActiveMarker, isActivePath } from "./nav-links";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const t = useTranslations("nav");
   const panelId = useId();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
@@ -38,16 +40,25 @@ export function MobileNav() {
         className="absolute inset-x-0 top-16 border-b border-white/5 bg-night-900/95 backdrop-blur-md"
       >
         <nav aria-label="Main" className="flex flex-col gap-1 px-4 py-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.key}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="rounded-md px-3 py-3 text-base text-ink-100 hover:bg-white/5"
-            >
-              {t(item.key)}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const active = isActivePath(pathname, item.href);
+            return (
+              <Link
+                key={item.key}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? "page" : undefined}
+                className={`relative flex items-center gap-3 rounded-md px-3 py-3 text-base ${
+                  active
+                    ? "bg-neon-cyan/5 text-neon-cyan text-glow-cyan"
+                    : "text-ink-100 hover:bg-white/5"
+                }`}
+              >
+                {t(item.key)}
+                {active ? <ActiveMarker className="h-2 w-16" /> : null}
+              </Link>
+            );
+          })}
           <div className="px-1 pt-2">
             <LocaleSwitcher />
           </div>

@@ -13,7 +13,7 @@ const logo = "blender/out/logo.png";
 await sharp(logo)
   .resize(192, 192)
   .webp({ quality: 90, alphaQuality: 95 })
-  .toFile("public/images/logo.webp");
+  .toFile("public/images/logo-palm.webp");
 
 /** The mark on a dark rounded tile, so it reads on light and dark browser tabs alike. */
 async function tile(size, file) {
@@ -60,5 +60,5 @@ sizes.forEach((size, i) => {
 });
 writeFileSync("app/favicon.ico", Buffer.concat([header, ...pngs]));
 console.log(
-  "logo updated: public/images/logo.webp, app/icon.png, app/apple-icon.png, app/favicon.ico",
+  "logo updated: public/images/logo-palm.webp, app/icon.png, app/apple-icon.png, app/favicon.ico",
 );

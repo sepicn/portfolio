@@ -3,6 +3,25 @@
 import { useEffect } from "react";
 import { loadGsap } from "@/lib/gsap";
 
+let active: {
+  scrollTo: (y: number, options?: { immediate?: boolean; duration?: number }) => void;
+} | null = null;
+
+/** Glides back to the top through Lenis when it runs, otherwise jumps (reduced motion). */
+export function scrollPageToTop() {
+  if (active) active.scrollTo(0, { duration: 1.4 });
+  else window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+/**
+ * Scrolls the page to y, through Lenis when it runs so its own animated position does not
+ * pull the page back. Used by drag gestures that move scroll-driven scenes.
+ */
+export function scrollPageTo(y: number) {
+  if (active) active.scrollTo(y, { immediate: true });
+  else window.scrollTo(0, y);
+}
+
 /**
  * Smooth scrolling with Lenis, driven by GSAP's ticker so ScrollTrigger stays in sync.
  * Both are fetched after hydration: native scrolling works until then, and the first paint
@@ -18,6 +37,7 @@ export function SmoothScroll() {
       ([{ default: Lenis }, { gsap, ScrollTrigger }]) => {
         if (cancelled) return;
         const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+        active = lenis;
         lenis.on("scroll", ScrollTrigger.update);
         const tick = (time: number) => lenis.raf(time * 1000);
         gsap.ticker.add(tick);
@@ -36,6 +56,7 @@ export function SmoothScroll() {
           ScrollTrigger.removeEventListener("refresh", resize);
           observer.disconnect();
           gsap.ticker.remove(tick);
+          if (active === lenis) active = null;
           lenis.destroy();
         };
       },

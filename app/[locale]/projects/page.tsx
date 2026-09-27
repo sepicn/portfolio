@@ -10,9 +10,13 @@ import { CyberDivider } from "@/components/cyber-divider";
 import { SectionHeading } from "@/components/section-heading";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { Marquee } from "@/components/motion/marquee";
+import { CubeDeck } from "@/components/motion/cube-deck";
+import { CubeIntro } from "@/components/cube-intro";
+import { RingCarousel } from "@/components/motion/ring-carousel";
 import { clientProjects, personalProjects, projects } from "@/content/data/projects";
 import { pick } from "@/content/i18n";
 import { siteConfig } from "@/lib/site-config";
+import { getPathname } from "@/i18n/navigation";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -83,93 +87,129 @@ export default function ProjectsPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 animate-grid grid-floor" />
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-20 pb-24 sm:px-6 lg:grid-cols-[3fr_2fr]">
-          <div>
-            <p className="font-mono text-xs tracking-[0.3em] text-neon-cyan uppercase">
-              {t("title")}
-            </p>
-            <SplitHeading
-              as="h1"
-              text={t("headline")}
-              className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink-100 sm:text-6xl"
-              accentLast
-            />
-            <Reveal delay={0.3}>
-              <p className="mt-6 max-w-2xl text-xl text-ink-200">{t("intro")}</p>
-            </Reveal>
+      {/* Intro and the client tape fill the first screen, so the cube starts below the fold. */}
+      <div className="flex min-h-[calc(100svh-4rem)] flex-col pb-10">
+        <section className="relative flex flex-1 items-center overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-64 animate-grid grid-floor" />
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 pt-20 pb-24 sm:px-6 lg:grid-cols-[3fr_2fr]">
+            <div>
+              <p className="font-mono text-xs tracking-[0.3em] text-neon-cyan uppercase">
+                {t("title")}
+              </p>
+              <SplitHeading
+                as="h1"
+                text={t("headline")}
+                className="mt-4 font-display text-5xl font-semibold tracking-tight text-ink-100 sm:text-6xl"
+                accentLast
+              />
+              <Reveal delay={0.3}>
+                <p className="mt-6 max-w-2xl text-xl text-ink-200">{t("intro")}</p>
+              </Reveal>
+            </div>
+            <FloatingProp
+              src="/images/props/computer.webp"
+              glow="cyan"
+              priority
+              className="mx-auto w-60 sm:w-80"
+            >
+              <CrtScreen quad={screens.computer as Quad} />
+            </FloatingProp>
           </div>
-          <FloatingProp
-            src="/images/props/computer.webp"
-            glow="cyan"
-            priority
-            className="mx-auto w-60 sm:w-80"
-          >
-            <CrtScreen quad={screens.computer as Quad} />
-          </FloatingProp>
-        </div>
-      </section>
+        </section>
 
-      <Marquee variant="tape" items={clientProjects.map((p) => p.title)} />
+        <Marquee
+          variant="tape"
+          // Each logo opens the live site; private systems without one open their case study.
+          // One logo per client: Delta's two systems share it, the first one wins.
+          items={clientProjects
+            .filter(
+              (p, i, all) => !p.logo || all.findIndex((q) => q.logo === p.logo) === i,
+            )
+            .map((p) =>
+              p.logo
+                ? {
+                    label: p.title,
+                    image: p.logo,
+                    href:
+                      p.links.live ??
+                      getPathname({ locale, href: `/projects/${p.slug}` }),
+                  }
+                : p.title,
+            )}
+        />
+      </div>
 
       <section id="clients" className="scroll-mt-24 py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <Reveal from="left">
-            <SectionHeading
+        {/* On desktop the heading and the featured projects are the faces of one
+            full-screen cube that turns up, right, down and left as the page scrolls. */}
+        <CubeDeck
+          perFace={0.6}
+          faces={[
+            <CubeIntro
+              key="intro"
               eyebrow={t("clientEyebrow")}
               title={t("clientTitle")}
               lead={t("clientLead")}
-            />
-          </Reveal>
-          <div className="mt-16 space-y-28">
-            {featured.map((project, i) => (
+              hint={t("cubeHint")}
+              // Where each face comes from with the default turns: up, right, down, left.
+              items={featured.map((project, i) => ({
+                title: project.title,
+                client: project.client,
+                arrow: ["↓", "←", "↑", "→"][i % 4],
+              }))}
+            />,
+            ...featured.map((project, i) => (
               <ProjectFeature key={project.slug} project={project} index={i} />
-            ))}
-          </div>
-          <ul className="mt-28 grid gap-6 md:grid-cols-2">
-            {rest.map((project, i) => (
+            )),
+          ]}
+        />
+        {/* The remaining client work and the personal projects stand on neon rings that
+            turn right to left with the scroll and can be dragged. */}
+        <div className="mt-28 lg:mt-0">
+          <RingCarousel
+            items={rest.map((project, i) => (
               <Reveal
                 key={project.slug}
-                as="li"
                 from={i % 2 === 0 ? "left" : "right"}
                 delay={i * 0.06}
               >
                 <ProjectCard
                   project={project}
                   index={featured.length + i}
-                  layout="wide"
+                  layout="ring"
                 />
               </Reveal>
             ))}
-          </ul>
+          />
         </div>
       </section>
 
       <section id="personal" className="scroll-mt-24 pb-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <CyberDivider variant={7} className="mb-20 text-white/10" />
-          <Reveal from="right">
-            <SectionHeading
-              eyebrow={t("personalEyebrow")}
-              title={t("personalTitle")}
-              lead={t("personalLead")}
-              align="right"
-            />
-          </Reveal>
-          <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {personalProjects.map((project, i) => (
-              <Reveal
-                key={project.slug}
-                as="li"
-                from={i % 2 === 0 ? "left" : "right"}
-                delay={i * 0.06}
-              >
-                <ProjectCard project={project} index={i} layout="wide" />
-              </Reveal>
-            ))}
-          </ul>
         </div>
+        <RingCarousel
+          reverse
+          header={
+            <Reveal from="right">
+              <SectionHeading
+                eyebrow={t("personalEyebrow")}
+                title={t("personalTitle")}
+                lead={t("personalLead")}
+                align="right"
+              />
+            </Reveal>
+          }
+          items={personalProjects.map((project, i) => (
+            <Reveal
+              key={project.slug}
+              from={i % 2 === 0 ? "left" : "right"}
+              delay={i * 0.06}
+            >
+              <ProjectCard project={project} index={i} layout="ring" />
+            </Reveal>
+          ))}
+        />
       </section>
     </>
   );

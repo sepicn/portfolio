@@ -27,6 +27,12 @@ export function Parallax({
   useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // CubeDeck faces are turned by the deck, RingCarousel cards (on desktop) by the ring.
+    if (
+      el.closest("[data-cube-face]") ||
+      (el.closest("[data-ring-item]") && window.matchMedia("(min-width: 1024px)").matches)
+    )
+      return;
     let cancelled = false;
     let cleanup: (() => void) | undefined;
     loadGsap().then(({ gsap }) => {

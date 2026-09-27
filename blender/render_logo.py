@@ -1,6 +1,6 @@
 """
-Renders the sepic.me logo mark: a neon-outlined "</>" code tag in front of a striped
-synthwave sun, the same motif as the room's posters and the monitor screen.
+Renders the sepic.me logo mark: a neon-outlined palm in front of a striped synthwave
+sun, the same motif as the room's posters and the monitor screen.
 
 Run headless:
     blender -b -P blender/render_logo.py
@@ -80,31 +80,86 @@ for cut in cutters:
     cut.hide_render = True
     cut.hide_viewport = True
 
-# The code tag: dark glossy glyphs with a cyan neon tube running around their outline.
-def letter(body, fill, extrude, bevel, mat, offset=0.0, y=0.0):
-    bpy.ops.object.text_add(location=(0, y, 0.06), rotation=(math.pi / 2, 0, 0))
-    obj = bpy.context.active_object
-    obj.data.body = body
-    obj.data.size = 1.22
-    obj.data.align_x = "CENTER"
-    obj.data.align_y = "CENTER"
-    obj.data.extrude = extrude
-    obj.data.bevel_depth = bevel
-    obj.data.offset = offset
-    obj.data.fill_mode = fill
-    obj.data.materials.append(mat)
-    return obj
+# The palm: a dark glossy silhouette with a cyan neon tube running around each outline,
+# like the palms on synthwave posters. Shapes are 2D outlines in the XZ plane (x right, z up).
+def bezier(p0, p1, p2, n):
+    return [
+        ((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t**2 * p2[0],
+         (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t**2 * p2[1])
+        for t in (i / n for i in range(n + 1))
+    ]
 
 
-glossy = bpy.data.materials.new("logo_letter")
+def ribbon(center, widths):
+    """Closed outline around a centerline, with a half width per point."""
+    left, right = [], []
+    for i, (x, z) in enumerate(center):
+        a = center[max(i - 1, 0)]
+        b = center[min(i + 1, len(center) - 1)]
+        dx, dz = b[0] - a[0], b[1] - a[1]
+        length = math.hypot(dx, dz) or 1.0
+        nx, nz = -dz / length, dx / length
+        w = widths[i]
+        left.append((x + nx * w, z + nz * w))
+        right.append((x - nx * w, z - nz * w))
+    return left + right[::-1]
+
+
+def frond(origin, angle, length, droop, width, n=14):
+    """A leaf that leaves the crown at `angle` and bends towards the ground."""
+    side = 1 if math.cos(angle) >= 0 else -1
+    points, x, z, a = [origin], origin[0], origin[1], angle
+    step = length / n
+    for _ in range(n):
+        a -= side * droop / n
+        x += math.cos(a) * step
+        z += math.sin(a) * step
+        points.append((x, z))
+    widths = [width * math.sin(math.pi * min(0.98, i / n)) ** 0.8 for i in range(n + 1)]
+    widths[0] = 0.02
+    return ribbon(points, widths)
+
+
+glossy = bpy.data.materials.new("logo_palm")
 glossy.use_nodes = True
 g = glossy.node_tree.nodes["Principled BSDF"]
 g.inputs["Base Color"].default_value = rgb("120826")
 g.inputs["Roughness"].default_value = 0.18
 g.inputs["Metallic"].default_value = 0.4
-letter("</>", "BOTH", 0.12, 0.012, glossy, y=-0.1)
-neon = letter("</>", "NONE", 0.0, 0.022, emissive("logo_neon", rgb("00e5ff"), 6.0), offset=0.03, y=-0.24)
-neon.data.bevel_resolution = 4
+neon_mat = emissive("logo_neon", rgb("00e5ff"), 6.0)
+
+
+def palm_part(name, outline):
+    mesh = bpy.data.meshes.new(name)
+    mesh.from_pydata([(x, 0.0, z) for x, z in outline], [], [list(range(len(outline)))])
+    obj = bpy.data.objects.new(name, mesh)
+    scene.collection.objects.link(obj)
+    obj.location = (0, -0.1, 0.0)
+    obj.data.materials.append(glossy)
+    solid = obj.modifiers.new("depth", "SOLIDIFY")
+    solid.thickness = 0.1
+    curve = bpy.data.curves.new(name + "_neon", "CURVE")
+    curve.dimensions = "3D"
+    curve.bevel_depth = 0.02
+    curve.bevel_resolution = 4
+    spline = curve.splines.new("POLY")
+    spline.points.add(len(outline) - 1)
+    for p, (x, z) in zip(spline.points, outline):
+        p.co = (x, 0.0, z, 1.0)
+    spline.use_cyclic_u = True
+    tube = bpy.data.objects.new(name + "_neon", curve)
+    scene.collection.objects.link(tube)
+    tube.location = (0, -0.24, 0.0)
+    curve.materials.append(neon_mat)
+
+
+crown = (-0.06, 0.34)
+trunk_line = bezier((0.2, -0.98), (0.26, -0.3), crown, 16)
+palm_part("palm_trunk", ribbon(trunk_line, [0.075 - 0.04 * i / 16 for i in range(17)]))
+for i, (deg, length, droop) in enumerate(
+    [(8, 0.78, 1.5), (38, 0.7, 1.3), (72, 0.5, 1.0), (112, 0.52, 1.0), (145, 0.72, 1.3), (174, 0.8, 1.5)]
+):
+    palm_part(f"palm_frond_{i}", frond(crown, math.radians(deg), length, droop, 0.085))
 
 # Soft pink rim behind everything so the mark reads on dark pages.
 bpy.ops.mesh.primitive_circle_add(vertices=96, radius=1.12, location=(0, 0.35, 0.05), rotation=(math.pi / 2, 0, 0), fill_type="NOTHING")

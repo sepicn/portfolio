@@ -470,6 +470,27 @@ NEON_GLYPHS["Ć"] = (0.66, NEON_GLYPHS["C"][1] + [[(0.3, 1.12), (0.46, 1.3)]])
 CODE_TAG = (1.48, [[(0.45, 1), (0, 0.5), (0.45, 0)], [(0.58, -0.05), (0.9, 1.05)], [(1.03, 1), (1.48, 0.5), (1.03, 0)]])
 
 
+def quad(p0, p1, p2, steps=12):
+    """Points along a quadratic bezier from p0 to p2 bent towards p1."""
+    return [
+        ((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t**2 * p2[0],
+         (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t**2 * p2[1])
+        for t in np.linspace(0, 1, steps)
+    ]
+
+
+# The palm from the logo: a bent trunk and five drooping fronds, each one tube.
+PALM_CROWN = (0.6, 0.8)
+PALM = (1.2, [
+    quad((0.74, -0.05), (0.82, 0.35), PALM_CROWN),
+    quad(PALM_CROWN, (0.2, 1.02), (0.0, 0.42)),
+    quad(PALM_CROWN, (0.34, 1.14), (0.18, 0.92)),
+    quad(PALM_CROWN, (0.64, 1.12), (0.78, 1.08)),
+    quad(PALM_CROWN, (0.88, 1.14), (1.02, 0.92)),
+    quad(PALM_CROWN, (1.0, 1.02), (1.2, 0.42)),
+])
+
+
 def neon_tubes(name, glyphs, origin, height, y, mat, spacing=0.26, radius=0.008):
     """Bent-glass tubes on a wall plane: glyphs are (width, strokes) laid out left to right
     from origin (x, z of the bottom left) at the given letter height, all joined as name."""
@@ -641,12 +662,12 @@ def build():
 
     # ---------------- Neon name sign ----------------
     # The dark glass backing with its metal rim is the BlendSwap neon sign model; the tubes
-    # are drawn here in its style: the code tag in cyan, the name on two lines in pink.
+    # are drawn here in its style: the logo palm in cyan, the name on two lines in pink.
     # k scales the whole sign; the layout below is for a 1.14 m wide panel.
     sign_z, k = 2.6, 0.9
     asset("neon_sign", "neon_panel", (0, WALL_Y - 0.03, sign_z - 0.272 * k), scale=k, part="panel")
     tube_y = WALL_Y - 0.06
-    neon_tubes("neon_border", [CODE_TAG], (-0.5025 * k, sign_z - 0.12 * k), 0.24 * k, tube_y, M["neon_cyan"])
+    neon_tubes("neon_border", [PALM], (-0.481 * k, sign_z - 0.13 * k), 0.26 * k, tube_y, M["neon_cyan"])
     name_x, letter = -0.0775 * k, 0.13 * k
     first = neon_tubes("neon_first", [NEON_GLYPHS[c] for c in "NIKOLA"], (name_x, sign_z + 0.035 * k), letter, tube_y, M["neon_pink"])
     last = neon_tubes("neon_last", [NEON_GLYPHS[c] for c in "ŠEPIĆ"], (name_x, sign_z - 0.035 * k - letter), letter, tube_y, M["neon_pink"])

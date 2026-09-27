@@ -38,13 +38,13 @@ export function HomeDeck() {
         <p className="mt-6 max-w-xl text-lg text-ink-200">
           {pick(profile.summary, locale)}
         </p>
-        <p className="mt-4 max-w-xl text-ink-400">{pick(profile.availability, locale)}</p>
+        <p className="mt-4 max-w-xl text-ink-400">{pick(profile.openFor, locale)}</p>
       </div>
       <div data-layer className="justify-self-center">
         <Tilt max={10}>
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-neon-pink/50 via-neon-violet/30 to-neon-cyan/50 blur-2xl" />
-            <CyberFrame variant={9} tone="spin" className="bg-night-950">
+            <CyberFrame variant={9} tone="spin" hollow>
               <Image
                 src={profile.photo}
                 sizes="(max-width: 640px) 240px, 320px"
@@ -97,7 +97,10 @@ export function HomeDeck() {
                   edgeClassName="h-full group-hover:bg-neon-pink/70"
                   className="flex flex-col bg-night-800 p-6 pt-7"
                 >
-                  <span className="font-mono text-4xl font-semibold text-white/10 transition group-hover:text-neon-pink/60">
+                  <span
+                    aria-hidden="true"
+                    className="font-mono text-4xl font-semibold text-ink-600 transition group-hover:text-neon-pink/60"
+                  >
                     0{i + 1}
                   </span>
                   <h3 className="mt-4 font-display text-xl font-semibold text-ink-100">
