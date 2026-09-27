@@ -45,17 +45,19 @@ export const projects: Project[] = [
       en: "Two developers, platform led by Đorđe Stojanović",
     },
     scale: {
-      sr: "~400k linija koda, 5 jezika, 779 URL-ova u sitemap-u, web + Flutter app",
-      en: "~400k lines of code, 5 languages, 779 URLs in the sitemap, web + Flutter app",
+      sr: "~400k linija koda, 5 jezika, 779 URL-ova u sitemap-u, Semrush Site Health 90% → 98%",
+      en: "~400k lines of code, 5 languages, 779 URLs in the sitemap, Semrush Site Health 90% → 98%",
     },
     impact: {
       sr: [
         "Radim u velikom produkcionom kodu koji koriste pacijenti i osoblje bolnice svaki dan.",
         "Spajam razvoj i marketing: isti čovek pravi stranicu, meri je u GA4 i puni je kroz Google Ads.",
+        "Merljiv rezultat: Site Health 90% → 98% za nedelju dana, bez ijedne greške u auditu.",
       ],
       en: [
         "I work in a large production codebase that patients and hospital staff use every day.",
         "I connect development and marketing: the same person builds the page, measures it in GA4 and fills it through Google Ads.",
+        "A measurable result: Site Health 90% → 98% in one week, with zero audit errors.",
       ],
     },
     title: "Medical Time",
@@ -77,18 +79,22 @@ export const projects: Project[] = [
     },
     did: {
       sr: [
-        "Prevodi i lokalizovani URL slugovi za sr, en, ru, de i tr, sa hreflang i canonical pravilima koja prolaze Semrush audit bez grešaka.",
+        "Semrush Site Health sa 90% na 98% za nedelju dana: greške 6 → 0, upozorenja 1.012 → 129 (−87%).",
+        "Prevodi i lokalizovani URL slugovi za sr, en, ru, de i tr, sa hreflang i canonical pravilima; blog i prodavnica prebačeni na SSR da ih Google vidi.",
         "Chatbot na javnom sajtu koji odgovara na pitanja pacijenata i zakazuje termin.",
         "Daljinsko potpisivanje saglasnosti sa šaltera na tablet, uključujući slučaj kada nalog pacijenta još ne postoji.",
         "JSON-LD za Hospital, Physician, MedicalProcedure, FAQ, Article i Product; llms.txt; HSTS i noindex za SPA rute.",
-        "GTM kontejner, GA4 konverzije, ClickCease zaštita i vođenje Google Ads i Meta Ads kampanja.",
+        "GTM kontejner, GA4 konverzije, consent mode i ClickCease zaštita.",
+        "Osam Google Ads Search kampanja: 370+ negativnih ključnih reči iz izveštaja o pretragama i analiza udela prikaza koja je pokazala gde budžet ima prostora da raste.",
       ],
       en: [
-        "Translations and localized URL slugs for sr, en, ru, de and tr, with hreflang and canonical rules that pass a Semrush audit without errors.",
+        "Semrush Site Health from 90% to 98% in one week: errors 6 → 0, warnings 1,012 → 129 (−87%).",
+        "Translations and localized URL slugs for sr, en, ru, de and tr, with hreflang and canonical rules; the blog and shop moved to server-side rendering so Google sees them.",
         "A public-site chatbot that answers patient questions and books an appointment.",
         "Remote consent signing from the front desk to a tablet, including the case where the patient account does not exist yet.",
         "JSON-LD for Hospital, Physician, MedicalProcedure, FAQ, Article and Product; llms.txt; HSTS and noindex for SPA routes.",
-        "GTM container, GA4 conversions, ClickCease protection and running the Google Ads and Meta Ads campaigns.",
+        "GTM container, GA4 conversions, consent mode and ClickCease protection.",
+        "Eight Google Ads Search campaigns: 370+ negative keywords from search term reports and an impression share analysis that showed where budget has room to grow.",
       ],
     },
     hard: {

@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "playwright test",
-    "cv": "node scripts/build-cv.mjs",
+    "cv": "node scripts/build-cv-variants.mjs",
     "shots": "node scripts/screenshots.mjs",
     "room": "node scripts/room.mjs",
     "check": "node scripts/lastmod.mjs --check && npm run lint && npm run typecheck && npm run test && npm run format:check",
