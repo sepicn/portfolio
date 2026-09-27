@@ -16,6 +16,9 @@ import { projects } from "../content/data/projects.ts";
 
 const OUT = "content/data/perf-scores.json";
 const only = new Set(process.argv.slice(2));
+// Sites whose speed is not Nikola's to fix (the client declined a performance job), so
+// their scores are never published. Remove a slug here if that changes.
+const SKIP = new Set(["olimp"]);
 const categories = ["performance", "accessibility", "best-practices", "seo"];
 
 function summarise(lh) {
@@ -78,7 +81,7 @@ function lighthouse(url, strategy) {
 const scores = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : {};
 for (const project of projects) {
   const url = project.links.live;
-  if (!url || (only.size && !only.has(project.slug))) continue;
+  if (!url || SKIP.has(project.slug) || (only.size && !only.has(project.slug))) continue;
   console.log(`${project.slug}: ${url}`);
   let source = "pagespeed";
   let mobile = await pagespeed(url, "mobile");

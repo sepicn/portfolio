@@ -19,7 +19,7 @@ Poštovani/a [ime osobe ili „tim [Firma]"],
 
 prijavljujem se za poziciju [naziv pozicije] u [Firma]. Poslednjih godinu i po radim kao full-stack developer na produkcionim sistemima: bolničkoj platformi od oko 400 hiljada linija koda u Nuxt-u 4 i Laravelu 12, TMS sistemu za logistiku iz SAD u ASP.NET Core 8 MVC i portalu za praćenje pošiljki u Rails-u 7.
 
-Na bolničkoj platformi sam napravio chatbot koji zakazuje termine i daljinsko potpisivanje saglasnosti sa šaltera na tablet, a vodim i i18n na pet jezika. U logistici sam kao jedini UI developer u timu od pet redizajnirao 40+ formi u modularne wizard-e, radeći kroz Jira tikete i code review sa timom u SAD.
+Na bolničkoj platformi sam napravio chatbot koji zakazuje termine i daljinsko potpisivanje saglasnosti sa šaltera na tablet, a vodim i i18n na pet jezika. U logistici sam kao jedini UI developer u timu od 7 do 10 ljudi redizajnirao 40+ formi u modularne wizard-e, radeći kroz Jira tikete i code review sa timom u SAD.
 
 [Jedna rečenica zašto baš ova firma: njihov proizvod, stack ili problem koji rešavaju, i kako se to vezuje za moj rad.]
 
@@ -37,7 +37,7 @@ Dear [Name / "[Company] team"],
 
 I am applying for the [Job title] role at [Company]. For the past year and a half I have worked as a full-stack developer on production systems: a ~400k-line private hospital platform in Nuxt 4 and Laravel 12, a US logistics TMS in ASP.NET Core 8 MVC, and a shipment tracking portal in Rails 7.
 
-On the hospital platform I built a chatbot that books appointments and remote consent signing from the front desk to a tablet, and I own i18n across five languages. At the logistics company, as the only UI developer on a team of five, I redesigned 40+ forms into modular multi-step wizards, working through Jira tickets and code review with a US team.
+On the hospital platform I built a chatbot that books appointments and remote consent signing from the front desk to a tablet, and I own i18n across five languages. At the logistics company, as the only UI developer on a team of 7 to 10, I redesigned 40+ forms into modular multi-step wizards, working through Jira tickets and code review with a US team.
 
 [One sentence on why this company: their product, stack or the problem they solve, and how it connects to my work.]
 
@@ -95,7 +95,7 @@ Hi [Name], I would like to apply for the junior full-stack role at [Company]. I 
 
 Poštovani/a [ime osobe ili „tim [Firma]"],
 
-prijavljujem se za poziciju [naziv pozicije] u [Firma]. Godinu i po radim na produkcionom interfejsu. Za logističku firmu iz SAD bio sam jedini UI developer u timu od pet i redizajnirao sam ceo TMS sistem, uključujući 40+ Add/Edit formi pretvorenih u modularne wizard-e koji rade i u modalu i na celoj stranici. Na njihovom portalu za praćenje pošiljki napravio sam interaktivnu Leaflet mapu sa živom lokacijom kamiona.
+prijavljujem se za poziciju [naziv pozicije] u [Firma]. Godinu i po radim na produkcionom interfejsu. Za logističku firmu iz SAD bio sam jedini UI developer u timu od 7 do 10 ljudi i redizajnirao sam ceo TMS sistem, uključujući 40+ Add/Edit formi pretvorenih u modularne wizard-e koji rade i u modalu i na celoj stranici. Na njihovom portalu za praćenje pošiljki napravio sam interaktivnu Leaflet mapu sa živom lokacijom kamiona.
 
 Danas radim na javnom delu bolničke platforme na pet jezika u Nuxt-u 4, a lične projekte pravim u React-u i Next.js-u. Vodim računa o pristupačnosti (WCAG AA), performansama i SEO-u. Tehnički SEO koji sam uradio podigao je Semrush Site Health sa 90% na 98% za nedelju dana.
 
@@ -113,7 +113,7 @@ Zdravo [ime], video sam oglas za front-end poziciju u [Firma]. Godinu i po radim
 
 Dear [Name / "[Company] team"],
 
-I am applying for the [Job title] role at [Company]. I have spent a year and a half on production UI. At a US logistics company I was the only UI developer on a team of five and redesigned the whole TMS, including 40+ Add/Edit forms turned into modular wizards that work both in a modal and on a full page. On their shipment tracking portal I built an interactive Leaflet map with live truck locations.
+I am applying for the [Job title] role at [Company]. I have spent a year and a half on production UI. At a US logistics company I was the only UI developer on a team of 7 to 10 and redesigned the whole TMS, including 40+ Add/Edit forms turned into modular wizards that work both in a modal and on a full page. On their shipment tracking portal I built an interactive Leaflet map with live truck locations.
 
 Today I work on the public site of a five-language hospital platform in Nuxt 4, and I build personal projects in React and Next.js. I care about accessibility (WCAG AA), performance and SEO. My technical SEO work raised Semrush Site Health from 90% to 98% in one week.
 

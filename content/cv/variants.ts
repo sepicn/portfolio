@@ -67,8 +67,8 @@ const b = {
     en: "Moved the blog and shop to SSR and added hreflang, canonical, JSON-LD, HSTS and llms.txt across 5 languages.",
   },
   dForms: {
-    sr: "Kao jedini UI developer u timu od 5, redizajnirao 40+ formi u TMS-u u modularne višestepene wizard-e.",
-    en: "As the only UI developer on a team of 5, redesigned 40+ TMS forms into modular multi-step wizards.",
+    sr: "Kao jedini UI developer u timu od 7 do 10 ljudi, redizajnirao 40+ formi u TMS-u u modularne višestepene wizard-e.",
+    en: "As the only UI developer on a team of 7 to 10, redesigned 40+ TMS forms into modular multi-step wizards.",
   },
   dMap: {
     sr: "Napravio živu Leaflet mapu pošiljke sa stanicama, lokacijom kamiona i ETA po stanici (Rails 7, Hotwire).",
