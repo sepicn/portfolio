@@ -29,7 +29,13 @@ function splitPoint(point: string): [string, string] {
  * The neon edge of a hollow CyberFrame: the edge paint (`className`) masked down to a line
  * that traces the clip polygon, so whatever is behind the frame shows through its middle.
  */
-export function CyberEdge({ clipPath, className }: { clipPath: string; className: string }) {
+export function CyberEdge({
+  clipPath,
+  className,
+}: {
+  clipPath: string;
+  className: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

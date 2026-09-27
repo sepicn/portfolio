@@ -11,7 +11,14 @@ type Labels = {
   best: string;
 };
 
-type Ghost = { x: number; y: number; w: number; h: number; color: string; flying: boolean };
+type Ghost = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  color: string;
+  flying: boolean;
+};
 
 const C = {
   bg: "#07030f",
@@ -81,7 +88,8 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
     // Canvas fonts cannot use CSS variables, so resolve the site fonts once.
     const rootStyle = getComputedStyle(document.documentElement);
     const monoFont = rootStyle.getPropertyValue("--font-mono").trim() || "monospace";
-    const displayFont = rootStyle.getPropertyValue("--font-display").trim() || "sans-serif";
+    const displayFont =
+      rootStyle.getPropertyValue("--font-display").trim() || "sans-serif";
     const pacX = 70;
 
     let state: "idle" | "running" | "over" = "idle";
@@ -319,7 +327,11 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
       ctx.textBaseline = "top";
       const scoreText = `${labels.score} ${pad(score)}`;
       ctx.fillStyle = C.dim;
-      ctx.fillText(`${labels.best} ${pad(best)}`, width - 16 - ctx.measureText(scoreText).width - 24, 14);
+      ctx.fillText(
+        `${labels.best} ${pad(best)}`,
+        width - 16 - ctx.measureText(scoreText).width - 24,
+        14,
+      );
       const blink = flash > 0 && Math.floor(flash * 8) % 2 === 0;
       ctx.fillStyle = blink ? C.cyan : C.text;
       ctx.fillText(scoreText, width - 16, 14);
@@ -338,7 +350,11 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
         }
         ctx.font = `500 14px ${monoFont}`;
         ctx.fillStyle = C.text;
-        ctx.fillText(state === "over" ? labels.restart : labels.start, cx, state === "over" ? 104 : 80);
+        ctx.fillText(
+          state === "over" ? labels.restart : labels.start,
+          cx,
+          state === "over" ? 104 : 80,
+        );
       }
     };
 
@@ -412,7 +428,7 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
         ref={canvasRef}
         role="img"
         aria-label={labels.title}
-        className="block h-[240px] w-full touch-none select-none border border-neon-violet/40 bg-night-950 shadow-[0_0_30px_rgba(138,43,226,0.25)]"
+        className="block h-[240px] w-full touch-none border border-neon-violet/40 bg-night-950 shadow-[0_0_30px_rgba(138,43,226,0.25)] select-none"
       />
     </div>
   );

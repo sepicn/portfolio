@@ -101,7 +101,7 @@ export default function HomePage({ params }: Props) {
                   </Link>
                   <Link
                     href="/projects"
-                    className="notch border border-neon-cyan/60 bg-night-950/60 px-5 py-2.5 font-medium text-neon-cyan transition [--n:10px] hover:bg-night-950/80"
+                    className="border border-neon-cyan/60 bg-night-950/60 notch px-5 py-2.5 font-medium text-neon-cyan transition [--n:10px] hover:bg-night-950/80"
                   >
                     {t("ctaProjects")}
                   </Link>
