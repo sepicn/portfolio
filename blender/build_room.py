@@ -1058,7 +1058,8 @@ def three_to_blender(p):
 TOUR_SIZE = (1080, 1920)
 # The flight is in motion while it plays, so half resolution is enough and keeps it light.
 FLY_SIZE = (540, 960)
-FLY_FRAMES = 24
+# 48 frames: at 24 a finger flick skipped visibly large steps between renders on phones.
+FLY_FRAMES = 48
 # Hand-framed tour shots (three.js position, look-at, lens) where the automatic front view
 # misses: all three billboards in view, the whole shelf centred, the photo with the floppies.
 TOUR_FRAMING = {

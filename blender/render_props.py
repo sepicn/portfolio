@@ -50,7 +50,7 @@ PROPS = {
     "icon-code": (["monitor", "monitor_screen", "computer_case", "keyboard"], -20, 0.45, 1.0),
     # Not in the room: imported from blender/assets (convert_icons.py) just for the icons.
     "icon-gameboy": (["gameboy"], -20, 0.35, 1.0),
-    "icon-shoes": (["running_shoes"], -80, 0.3, 0.95),
+    "icon-shoes": (["running_shoes"], -15, 0.3, 0.78),
     "icon-speaker": (["speaker"], -20, 0.4, 1.0),
 }
 # PROP_ONLY=icon- renders just the props whose name starts with it, for quick reruns.
@@ -70,6 +70,13 @@ for i, slug in enumerate(["gameboy", "running_shoes"]):
         if obj.type == "MESH":
             obj.name = slug
             obj.location = (40 + i * 5, 0, 0)
+            # The shoe points its toe at the camera; turn it side on. glTF imports use
+            # quaternions, so switch the rotation mode first.
+            if slug == "running_shoes":
+                obj.rotation_mode = "XYZ"
+                obj.rotation_euler = (0, 0, math.radians(90))
+# Framing reads matrix_world, which only updates after a depsgraph refresh.
+bpy.context.view_layer.update()
 scene.render.film_transparent = True
 scene.render.resolution_x = scene.render.resolution_y = SIZE
 scene.render.image_settings.file_format = "PNG"
