@@ -182,5 +182,51 @@
       "cls": 0.001,
       "tbt": 0
     }
+  },
+  "stanke-enterijer": {
+    "url": "https://stanke-enterijer.rs",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 97,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcp": 1947,
+      "cls": 0,
+      "tbt": 0
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 96,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcp": 564,
+      "cls": 0.012,
+      "tbt": 0
+    }
+  },
+  "nst-print-mill": {
+    "url": "https://itimers.github.io/newsolutionsteam/",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 91,
+      "accessibility": 100,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcp": 3444,
+      "cls": 0,
+      "tbt": 13
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcp": 773,
+      "cls": 0,
+      "tbt": 0
+    }
   }
 }
