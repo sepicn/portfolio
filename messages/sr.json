@@ -249,5 +249,18 @@
   "testimonials": {
     "eyebrow": "Preporuke",
     "title": "Šta kažu klijenti"
+  },
+  "perf": {
+    "title": "Brzina i kvalitet sajta",
+    "lead": "Živi sajt izmeren Lighthouse-om, alatom koji stoji iza Google PageSpeed Insights, na telefonu i računaru. Zeleno je 90 ili više od 100.",
+    "mobile": "Telefon",
+    "desktop": "Računar",
+    "performance": "Performanse",
+    "accessibility": "Pristupačnost",
+    "bestPractices": "Dobre prakse",
+    "measured": "Izmereno {date}, {source}.",
+    "sourcePagespeed": "Google PageSpeed Insights",
+    "sourceLighthouse": "Lighthouse sa PageSpeed podešavanjima (spor 4G, sporiji procesor)",
+    "rerun": "Izmeri ponovo na PageSpeed-u"
   }
 }

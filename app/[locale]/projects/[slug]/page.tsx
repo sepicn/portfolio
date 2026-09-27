@@ -12,6 +12,7 @@ import { Parallax } from "@/components/motion/parallax";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { PrivateArt } from "@/components/project-card";
 import { Testimonials } from "@/components/testimonials";
+import { PerfScores } from "@/components/perf-scores";
 import { pick, pickList } from "@/content/i18n";
 import { projects } from "@/content/data/projects";
 import { siteConfig } from "@/lib/site-config";
@@ -219,6 +220,8 @@ export default function ProjectPage({ params }: Props) {
           </ul>
         </Reveal>
       </section>
+
+      <PerfScores slug={slug} locale={locale} />
 
       {/* Story */}
       <div className="mx-auto mt-20 grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-[3fr_2fr]">

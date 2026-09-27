@@ -1,0 +1,186 @@
+{
+  "medical-time": {
+    "url": "https://www.medicaltime.rs",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 95,
+      "accessibility": 92,
+      "bestPractices": 93,
+      "seo": 100,
+      "lcp": 2376,
+      "cls": 0,
+      "tbt": 194
+    },
+    "desktop": {
+      "performance": 98,
+      "accessibility": 92,
+      "bestPractices": 93,
+      "seo": 100,
+      "lcp": 1009,
+      "cls": 0,
+      "tbt": 3
+    }
+  },
+  "itexpert": {
+    "url": "https://itexpert.rs",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 74,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 63,
+      "lcp": 4451,
+      "cls": 0.028,
+      "tbt": 0
+    },
+    "desktop": {
+      "performance": 96,
+      "accessibility": 95,
+      "bestPractices": 100,
+      "seo": 63,
+      "lcp": 1120,
+      "cls": 0.008,
+      "tbt": 0
+    }
+  },
+  "prostor-izmedju": {
+    "url": "https://prostorizmedju.rs",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 69,
+      "accessibility": 89,
+      "bestPractices": 100,
+      "seo": 92,
+      "lcp": 4851,
+      "cls": 0,
+      "tbt": 53
+    },
+    "desktop": {
+      "performance": 88,
+      "accessibility": 89,
+      "bestPractices": 100,
+      "seo": 92,
+      "lcp": 1533,
+      "cls": 0.001,
+      "tbt": 0
+    }
+  },
+  "mango": {
+    "url": "https://mangoposlasticarnica.rs",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 90,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcp": 3146,
+      "cls": 0,
+      "tbt": 57
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcp": 438,
+      "cls": 0.006,
+      "tbt": 0
+    }
+  },
+  "vuk-studio": {
+    "url": "https://vuk-studio.rs",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 98,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcp": 2243,
+      "cls": 0,
+      "tbt": 11
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcp": 632,
+      "cls": 0.002,
+      "tbt": 0
+    }
+  },
+  "olimp": {
+    "url": "https://www.scolimp.rs",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 59,
+      "accessibility": 84,
+      "bestPractices": 93,
+      "seo": 85,
+      "lcp": 11025,
+      "cls": 0,
+      "tbt": 24
+    },
+    "desktop": {
+      "performance": 72,
+      "accessibility": 90,
+      "bestPractices": 100,
+      "seo": 85,
+      "lcp": 2939,
+      "cls": 0.153,
+      "tbt": 0
+    }
+  },
+  "job-application-tracker": {
+    "url": "https://job-application-tracker-two-rust.vercel.app",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 96,
+      "accessibility": 100,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcp": 2668,
+      "cls": 0,
+      "tbt": 59
+    },
+    "desktop": {
+      "performance": 100,
+      "accessibility": 100,
+      "bestPractices": 96,
+      "seo": 100,
+      "lcp": 586,
+      "cls": 0,
+      "tbt": 0
+    }
+  },
+  "launchhub": {
+    "url": "https://launchhub-five.vercel.app",
+    "date": "2026-09-27",
+    "source": "lighthouse",
+    "mobile": {
+      "performance": 87,
+      "accessibility": 88,
+      "bestPractices": 79,
+      "seo": 100,
+      "lcp": 3353,
+      "cls": 0.001,
+      "tbt": 216
+    },
+    "desktop": {
+      "performance": 99,
+      "accessibility": 88,
+      "bestPractices": 78,
+      "seo": 100,
+      "lcp": 903,
+      "cls": 0.001,
+      "tbt": 0
+    }
+  }
+}
