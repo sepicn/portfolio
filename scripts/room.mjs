@@ -66,6 +66,13 @@ for (const file of readdirSync("blender/out/props").filter((name) =>
 }
 copyFileSync("blender/out/props/screens.json", "lib/prop-screens.json");
 copyFileSync("blender/out/views.json", "lib/room-views.json");
+// Blender writes compact JSON; format it so npm run check (prettier) passes in CI.
+run(process.execPath, [
+  "node_modules/prettier/bin/prettier.cjs",
+  "--write",
+  "lib/prop-screens.json",
+  "lib/room-views.json",
+]);
 console.log(
   "room updated: public/models/room.glb, public/images (preview and tour), lib/room-views.json",
 );
