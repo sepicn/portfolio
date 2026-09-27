@@ -55,8 +55,8 @@ const b = {
     en: "Shipped remote consent signing: the front desk sends a document to a tablet and the signature attaches to the order.",
   },
   mtI18n: {
-    sr: "Vodim i18n platforme od ~400 hiljada linija koda na 5 jezika, sa lokalizovanim URL-ovima (165 commit-a).",
-    en: "Own i18n for a ~400k-line platform in 5 languages with localized URLs (165 commits).",
+    sr: "Vodim i18n platforme od ~400 hiljada linija koda na 5 jezika, sa lokalizovanim URL-ovima.",
+    en: "Own i18n for a ~400k-line platform in 5 languages with localized URLs.",
   },
   seo: {
     sr: "Podigao Semrush Site Health sa 90% na 98% za nedelju dana: greške 6 → 0, upozorenja −87%.",

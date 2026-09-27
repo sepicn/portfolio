@@ -1,10 +1,10 @@
 {
   "/": {
-    "hash": "2d5ba33b660e53e7",
+    "hash": "28f5ecd00a7e3de7",
     "date": "2026-09-27"
   },
   "/projects": {
-    "hash": "643933fb23016a1c",
+    "hash": "690b148227d79e94",
     "date": "2026-09-27"
   },
   "/services": {
@@ -28,11 +28,11 @@
     "date": "2026-09-27"
   },
   "/about": {
-    "hash": "4885293458c0fbc7",
+    "hash": "ea0c127d75944485",
     "date": "2026-09-27"
   },
   "/cv": {
-    "hash": "0fb79c1adcf9f563",
+    "hash": "994955b974e812a5",
     "date": "2026-09-27"
   },
   "/contact": {
@@ -44,39 +44,47 @@
     "date": "2026-09-27"
   },
   "/projects/medical-time": {
-    "hash": "08c9162ddaf04378",
+    "hash": "9aadcde4bfafed1c",
     "date": "2026-09-27"
   },
   "/projects/meridian-tms": {
-    "hash": "ba05b82f3c6bf967",
+    "hash": "b735b332e984ff3c",
     "date": "2026-09-27"
   },
   "/projects/delta-tracking": {
-    "hash": "953466cec92f5e5c",
+    "hash": "1e74f8bfc37ab10e",
     "date": "2026-09-27"
   },
   "/projects/itexpert": {
-    "hash": "e23bf2b9fe7fb88e",
+    "hash": "df3fa47e3c2c0540",
     "date": "2026-09-27"
   },
   "/projects/prostor-izmedju": {
-    "hash": "186c9205285ab8fd",
+    "hash": "25199f0d3db8bede",
     "date": "2026-09-27"
   },
   "/projects/mango": {
-    "hash": "cada841b917274a6",
+    "hash": "5b4de244df9690f6",
     "date": "2026-09-27"
   },
   "/projects/vuk-studio": {
-    "hash": "9fd0e67dc2525acf",
+    "hash": "3a9b81a305a9b4d6",
+    "date": "2026-09-27"
+  },
+  "/projects/stanke-enterijer": {
+    "hash": "edae1008a210c455",
+    "date": "2026-09-27"
+  },
+  "/projects/nst-print-mill": {
+    "hash": "61129403b085880c",
     "date": "2026-09-27"
   },
   "/projects/olimp": {
-    "hash": "e14b93fa2d0afbb4",
+    "hash": "9ee4af601f79878a",
     "date": "2026-09-27"
   },
   "/projects/job-application-tracker": {
-    "hash": "09c8ef1998482a77",
+    "hash": "d565f97103bf2a1e",
     "date": "2026-09-27"
   },
   "/projects/gymai": {
