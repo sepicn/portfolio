@@ -50,8 +50,8 @@ export const projects: Project[] = [
       "/images/projects/gallery/medical-time-m.webp",
     ],
     team: {
-      sr: "Tim od 7 do 10 ljudi sa project menadžerom; kod pišem zajedno sa Đorđem Stojanovićem",
-      en: "A team of 7 to 10 people with a project manager; I write the code together with Đorđe Stojanović",
+      sr: "Razvoj, SEO i oglašavanje na jednom mestu",
+      en: "Development, SEO and advertising in one place",
     },
     scale: {
       sr: "~400k linija koda, 5 jezika, 779 URL-ova u sitemap-u, Semrush Site Health 90% → 98%",
@@ -83,8 +83,8 @@ export const projects: Project[] = [
       en: "A private hospital platform in five languages, plus the campaigns that bring in inquiries and calls.",
     },
     summary: {
-      sr: "Na Medical Time-u radim od februara 2025, zajedno sa Đorđem Stojanovićem. Prvih pet meseci radili smo na starom sajtu bolnice: prebacili smo ga na noviji Nuxt 3, napravili stranice usluga za hirurgiju, plastičnu hirurgiju, dijagnostiku, infuzije i preglede, sa fotografijama, alt tekstovima i prevodima na sedam stranih jezika. Od jula 2025. gradimo novu platformu: Nuxt 4 na frontu, Laravel 12 pozadi i Flutter za telefon. Ima javni sajt na pet jezika, online zakazivanje, portale za deset uloga zaposlenih, prodavnicu, chat i video konsultacije, predračune i plaćanje karticom. Moj najveći deo je javni sajt, prevodi i SEO, a paralelno vodim Google Ads i Meta Ads naloge bolnice.",
-      en: "I have worked on Medical Time since February 2025, together with Đorđe Stojanović. For the first five months we worked on the hospital's old site: we moved it to a newer Nuxt 3, built service pages for surgery, plastic surgery, diagnostics, infusions and check-ups, with photos, alt text and translations into seven foreign languages. Since July 2025 we have been building a new platform: Nuxt 4 on the front, Laravel 12 behind it and Flutter for the phone. It has a public site in five languages, online booking, portals for ten staff roles, a shop, chat and video consultations, pro-forma invoices and card payments. My biggest share is the public site, translations and SEO, and alongside that I run the hospital's Google Ads and Meta Ads accounts.",
+      sr: "Na Medical Time-u radim od februara 2025. Prvih pet meseci radio sam na starom sajtu bolnice: prebacio sam ga na noviji Nuxt 3, napravio stranice usluga za hirurgiju, plastičnu hirurgiju, dijagnostiku, infuzije i preglede, sa fotografijama, alt tekstovima i prevodima na sedam stranih jezika. Od jula 2025. gradim novu platformu: Nuxt 4 na frontu, Laravel 12 pozadi i Flutter za telefon. Ima javni sajt na pet jezika, online zakazivanje, portale za deset uloga zaposlenih, prodavnicu, chat i video konsultacije, predračune i plaćanje karticom. Najviše radim na javnom sajtu, prevodima i SEO-u, a paralelno vodim Google Ads i Meta Ads naloge bolnice.",
+      en: "I have worked on Medical Time since February 2025. For the first five months I worked on the hospital's old site: I moved it to a newer Nuxt 3, built service pages for surgery, plastic surgery, diagnostics, infusions and check-ups, with photos, alt text and translations into seven foreign languages. Since July 2025 I have been building a new platform: Nuxt 4 on the front, Laravel 12 behind it and Flutter for the phone. It has a public site in five languages, online booking, portals for ten staff roles, a shop, chat and video consultations, pro-forma invoices and card payments. Most of my time goes to the public site, translations and SEO, and alongside that I run the hospital's Google Ads and Meta Ads accounts.",
     },
     did: {
       sr: [
@@ -144,8 +144,8 @@ export const projects: Project[] = [
       en: "Case study: redesigning the interface of a trucking logistics TMS in .NET 8 MVC. Dark mode, new navigation and 17 data entry forms turned into guided steps.",
     },
     team: {
-      sr: "Tim od 7 do 10 ljudi sa project menadžerom; ja sam radio redizajn UI-ja",
-      en: "A team of 7 to 10 people with a project manager; I did the UI redesign",
+      sr: "Tim od dva developera; ja sam radio redizajn UI-ja",
+      en: "A team of two developers; I did the UI redesign",
     },
     scale: {
       sr: "12 projekata u .NET solution-u, 100+ EF migracija, 101 moj commit, 17 formi u koracima",
@@ -238,8 +238,8 @@ export const projects: Project[] = [
       en: "Case study: a shipment tracking portal in Rails 7.2. A Leaflet map with road routing, a status for every stop and redesigned screens, in 20 commits of mine.",
     },
     team: {
-      sr: "Tim od 7 do 10 ljudi sa project menadžerom; Miloš Obradović aplikacija i McLeod integracija, ja UI",
-      en: "A team of 7 to 10 people with a project manager; Miloš Obradović on the app and McLeod integration, me on the UI",
+      sr: "Rad po timovima: Miloš Obradović aplikacija i McLeod integracija, ja UI",
+      en: "Work split across teams: Miloš Obradović on the app and McLeod integration, me on the UI",
     },
     scale: {
       sr: "Rails 7.2 sa McLeod LoadMaster API-jem; moj deo: 20 commit-a, mapa od ~700 linija",
@@ -329,8 +329,8 @@ export const projects: Project[] = [
       "/images/projects/gallery/itexpert-m.webp",
     ],
     team: {
-      sr: "Dva developera pod zajedničkim brendom, sa Đorđem Stojanovićem",
-      en: "Two developers under a shared brand, with Đorđe Stojanović",
+      sr: "Pod brendom IT Expert",
+      en: "Under the IT Expert brand",
     },
     scale: {
       sr: "Nuxt 4 + Laravel 12, 5 jezika, 165 komponenti, 50 kontrolera; naplata: 91 fajl, 133 testa",
@@ -360,8 +360,8 @@ export const projects: Project[] = [
       en: "A web agency site and platform: portals, a shop, tickets, subscriptions, card payments.",
     },
     summary: {
-      sr: "IT Expert je brend pod kojim Đorđe Stojanović i ja radimo freelance projekte. Ima dva dela. Javni sajt itexpert.rs nastao je u martu 2026: statičan Nuxt 4 sa sedam stranica, alatom koji preko Google PageSpeed Insights API-ja ocenjuje bilo koji sajt, kontakt formom, sistemom kolačića i četiri teme. Od njega je napravljen zajednički šablon, na kome su posle nastali sajtovi za Mango i Stanke Enterijer. Drugi deo je platforma, od aprila 2026: Nuxt 4 i Laravel 12 na pet jezika, sa portalima za klijente, korisnike i četiri uloge zaposlenih, prodavnicom, tiketima, chatom, editorom dokumenata, magacinom i pretplatama. U avgustu su na posebnoj grani u deset faza preneti moduli iz platforme Medical Time, bez medicinskih pojmova. U septembru je stigao ceo tok naplate: sačuvane kartice, automatska obnova pretplata i predračuni, u jednom commit-u od 91 fajla sa 133 automatska testa.",
-      en: "IT Expert is the brand Đorđe Stojanović and I use for freelance projects. It has two parts. The public site itexpert.rs was built in March 2026: a static Nuxt 4 site with seven pages, a tool that scores any website through the Google PageSpeed Insights API, a contact form, a cookie system and four themes. It became a shared template, which later carried the Mango and Stanke Enterijer sites. The second part is the platform, started in April 2026: Nuxt 4 and Laravel 12 in five languages, with portals for clients, users and four staff roles, a shop, tickets, chat, a document editor, a warehouse and subscriptions. In August, modules from the Medical Time platform were ported over on a separate branch in ten phases, with the medical terms taken out. September brought the whole billing flow: saved cards, automatic subscription renewal and pro-forma invoices, in one commit of 91 files with 133 automated tests.",
+      sr: "IT Expert je brend preko kog me klijenti takođe mogu naći i angažovati. Ima dva dela. Javni sajt itexpert.rs nastao je u martu 2026: statičan Nuxt 4 sa sedam stranica, alatom koji preko Google PageSpeed Insights API-ja ocenjuje bilo koji sajt, kontakt formom, sistemom kolačića i četiri teme. Od njega je napravljen zajednički šablon, na kome su posle nastali sajtovi za Mango i Stanke Enterijer. Drugi deo je platforma, od aprila 2026: Nuxt 4 i Laravel 12 na pet jezika, sa portalima za klijente, korisnike i četiri uloge zaposlenih, prodavnicom, tiketima, chatom, editorom dokumenata, magacinom i pretplatama. U avgustu su na posebnoj grani u deset faza preneti moduli iz platforme Medical Time, bez medicinskih pojmova. U septembru je stigao ceo tok naplate: sačuvane kartice, automatska obnova pretplata i predračuni, u jednom commit-u od 91 fajla sa 133 automatska testa.",
+      en: "IT Expert is another place where clients can find and hire me. It has two parts. The public site itexpert.rs was built in March 2026: a static Nuxt 4 site with seven pages, a tool that scores any website through the Google PageSpeed Insights API, a contact form, a cookie system and four themes. It became a shared template, which later carried the Mango and Stanke Enterijer sites. The second part is the platform, started in April 2026: Nuxt 4 and Laravel 12 in five languages, with portals for clients, users and four staff roles, a shop, tickets, chat, a document editor, a warehouse and subscriptions. In August, modules from the Medical Time platform were ported over on a separate branch in ten phases, with the medical terms taken out. September brought the whole billing flow: saved cards, automatic subscription renewal and pro-forma invoices, in one commit of 91 files with 133 automated tests.",
     },
     did: {
       sr: [

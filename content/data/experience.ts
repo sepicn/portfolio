@@ -28,8 +28,8 @@ export const experience: Experience[] = [
     end: null,
     kind: "freelance",
     summary: {
-      sr: "Sajtovi i web aplikacije za male firme u Beogradu, plus kampanje koje im dovode klijente. Deo poslova radim pod zajedničkim brendom IT Expert sa kolegom Đorđem Stojanovićem.",
-      en: "Websites and web apps for small businesses in Belgrade, plus the campaigns that bring them customers. Part of the work runs under the shared IT Expert brand with my colleague Đorđe Stojanović.",
+      sr: "Sajtovi i web aplikacije za male firme u Beogradu, plus kampanje koje im dovode klijente. Deo poslova ide preko brenda IT Expert, gde me klijenti takođe mogu naći.",
+      en: "Websites and web apps for small businesses in Belgrade, plus the campaigns that bring them customers. Part of the work comes through the IT Expert brand, another place where clients can find me.",
     },
     bullets: {
       sr: [
@@ -71,8 +71,8 @@ export const experience: Experience[] = [
     end: null,
     kind: "contract",
     summary: {
-      sr: "Platforma privatne bolnice: javni sajt na pet jezika, portali za deset uloga zaposlenih, online zakazivanje, prodavnica, video konsultacije i mobilna aplikacija. Nuxt 4 i Laravel 12, oko 400 hiljada linija koda. Radim zajedno sa Đorđem Stojanovićem.",
-      en: "A private hospital platform: public site in five languages, portals for ten staff roles, online booking, a shop, video consultations and a mobile app. Nuxt 4 and Laravel 12, about 400 thousand lines of code. I work on it together with Đorđe Stojanović.",
+      sr: "Platforma privatne bolnice: javni sajt na pet jezika, portali za deset uloga zaposlenih, online zakazivanje, prodavnica, video konsultacije i mobilna aplikacija. Nuxt 4 i Laravel 12, oko 400 hiljada linija koda.",
+      en: "A private hospital platform: public site in five languages, portals for ten staff roles, online booking, a shop, video consultations and a mobile app. Nuxt 4 and Laravel 12, about 400 thousand lines of code.",
     },
     bullets: {
       sr: [
@@ -114,13 +114,13 @@ export const experience: Experience[] = [
     },
     bullets: {
       sr: [
-        "Kao jedini UI developer u timu od 7 do 10 ljudi, redizajnirao svih 40 i više Add/Edit formi u TMS-u u modularne višestepene wizard-e (Truck, Equipment, Driver, Customer, Division, Load, Safety) sa doslednim sekcijama, statusima i responsive ponašanjem.",
+        "Kao UI developer u timu od dva developera, redizajnirao svih 40 i više Add/Edit formi u TMS-u u modularne višestepene wizard-e (Truck, Equipment, Driver, Customer, Division, Load, Safety) sa doslednim sekcijama, statusima i responsive ponašanjem.",
         "Prebacio Safety modul (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check) na grid stranice sa horizontalnim skrolom i standardizovanim akcijama.",
         "Redizajnirao Invoicing i Fuel Transactions ekrane, modale za faktoring kompanije i driver statement-e; 101 commit u Razor, CSS i JavaScript sloju.",
         "Na Delta Tracking portalu napravio interaktivnu Leaflet mapu pošiljke sa stanicama, živom lokacijom kamiona i statusima po lokaciji, i redizajnirao admin i customer stranice u brend bojama.",
       ],
       en: [
-        "As the only UI developer on a team of 7 to 10, redesigned all 40+ Add/Edit forms in the TMS into modular multi-step wizards (Truck, Equipment, Driver, Customer, Division, Load, Safety) with consistent sections, status blocks and responsive behaviour.",
+        "As the UI developer on a two-developer team, redesigned all 40+ Add/Edit forms in the TMS into modular multi-step wizards (Truck, Equipment, Driver, Customer, Division, Load, Safety) with consistent sections, status blocks and responsive behaviour.",
         "Moved the Safety module (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check) to grid pages with horizontal scroll and standardized actions.",
         "Redesigned the Invoicing and Fuel Transactions screens, factoring company modals and driver statements; 101 commits across the Razor, CSS and JavaScript layer.",
         "On Delta Tracking, built the interactive Leaflet shipment map with stops, live truck location and per-location status labels, and redesigned the admin and customer pages in brand colours.",
