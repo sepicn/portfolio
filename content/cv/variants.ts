@@ -167,8 +167,8 @@ const p = {
     title: "Mango poslastičarnica",
     stack: "Nuxt 4, SSR",
     line: {
-      sr: "Sajt sa 4 teme, GTM tek posle pristanka i brzim slikama na mobilnom.",
-      en: "Site with 4 themes, consent-gated GTM and fast images on mobile.",
+      sr: "Sajt sa 2 teme, GTM tek posle pristanka i brzim slikama na mobilnom.",
+      en: "Site with 2 themes, consent-gated GTM and fast images on mobile.",
     },
     link: "mangoposlasticarnica.rs",
   },
@@ -383,7 +383,7 @@ export const variants: CvVariant[] = [
       en: "Web Developer Intern | React · Next.js · Node.js · TypeScript",
     },
     summary: {
-      sr: "Diplomirani inženjer IT-a (Singidunum, 2024) koji traži praksu u web razvoju. Iza mene je 1,5 godina ugovornog i freelance rada na produkcionim projektima, pa od prve nedelje mogu da preuzmem prave zadatke dok učim vaš stack i način rada tima.",
+      sr: "Diplomirani inženjer IT-a (Singidunum, 2024) koji traži praksu u web razvoju. Iza mene je 1,5 godina ugovornog i freelance rada na produkcionim projektima, pa od prve nedelje mogu da preuzmem prave zadatke dok učim Vaš stack i način rada tima.",
       en: "IT graduate (Singidunum University, 2024) looking for a web development internship. I bring 1.5 years of contract and freelance work on production projects, so I can take real tasks from week one while learning your stack and team practices.",
     },
     educationNote: {

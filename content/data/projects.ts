@@ -60,12 +60,12 @@ export const projects: Project[] = [
     impact: {
       sr: [
         "Sajt, merenje i oglase vodi jedna osoba, pa bolnica nema čekanja ni prebacivanja odgovornosti između developera i agencije.",
-        "Tehnički SEO: Site Health sa 90% na 98% za nedelju dana, bez ijedne greške u auditu.",
+        "Tehnički SEO: Site Health sa 90% na 98% za nedelju dana, bez ijedne greške u auditu, a posle toga su porasli i organski saobraćaj i broj upita.",
         "370+ negativnih ključnih reči: budžet više ne odlazi na pretrage koje ne donose upite, a najbolje kampanje imaju i do 54% nižu cenu konverzije od proseka naloga.",
       ],
       en: [
         "One person owns the site, tracking and ads, so the hospital never waits on a hand-off between a developer and an agency.",
-        "Technical SEO: Site Health from 90% to 98% in one week, with zero audit errors.",
+        "Technical SEO: Site Health from 90% to 98% in one week, with zero audit errors, followed by growth in organic traffic and inquiries.",
         "370+ negative keywords: the budget no longer goes to searches that bring no inquiries, and the best campaigns run up to 54% below the account-average cost per conversion.",
       ],
     },
@@ -140,25 +140,25 @@ export const projects: Project[] = [
     },
     logo: "/images/clients/delta.webp",
     description: {
-      sr: "Studija slučaja: redizajn interfejsa TMS sistema za kamionsku logistiku u .NET 8 MVC. Tamni režim, nova navigacija i 17 formi pretvorenih u vođene korake.",
-      en: "Case study: redesigning the interface of a trucking logistics TMS in .NET 8 MVC. Dark mode, new navigation and 17 data entry forms turned into guided steps.",
+      sr: "Studija slučaja: redizajn interfejsa TMS sistema za kamionsku logistiku u .NET 8 MVC. Tamni režim, nova navigacija i 40+ formi pretvorenih u vođene korake.",
+      en: "Case study: redesigning the interface of a trucking logistics TMS in .NET 8 MVC. Dark mode, new navigation and 40+ data entry forms turned into guided steps.",
     },
     team: {
       sr: "Tim od dva developera; ja sam radio redizajn UI-ja",
       en: "A team of two developers; I did the UI redesign",
     },
     scale: {
-      sr: "12 projekata u .NET solution-u, 100+ EF migracija, 101 moj commit, 17 formi u koracima",
-      en: "12 projects in the .NET solution, 100+ EF migrations, 101 commits of mine, 17 step forms",
+      sr: "12 projekata u .NET solution-u, 100+ EF migracija, 101 moj commit, 40+ formi u koracima",
+      en: "12 projects in the .NET solution, 100+ EF migrations, 101 commits of mine, 40+ step forms",
     },
     impact: {
       sr: [
-        "Dispečeri i bezbednosni tim unose podatke kroz 17 vođenih formi sa istim koracima i istim redosledom polja, umesto kroz duge ekrane koji se skroluju.",
+        "Dispečeri i bezbednosni tim unose podatke kroz 40+ vođenih formi sa istim koracima i istim redosledom polja, umesto kroz duge ekrane koji se skroluju.",
         "Iste forme rade i u modalu i na punoj strani, pa tim ne održava dve verzije istog ekrana.",
         "Tamni režim i nova navigacija pokrivaju ceo sistem, ne samo nove ekrane.",
       ],
       en: [
-        "Dispatch and the safety team enter data through 17 guided forms with the same steps and the same field order, instead of long scrolling screens.",
+        "Dispatch and the safety team enter data through 40+ guided forms with the same steps and the same field order, instead of long scrolling screens.",
         "The same forms work in a modal and on a full page, so the team does not maintain two versions of one screen.",
         "Dark mode and the new navigation cover the whole system, not just the new screens.",
       ],
@@ -179,16 +179,16 @@ export const projects: Project[] = [
       en: "Front-end developer (UI redesign)",
     },
     tagline: {
-      sr: "Redizajn interfejsa TMS-a američke logističke firme: dispečeri, flota, bezbednost i računovodstvo, sa 17 formi u vođenim koracima.",
-      en: "A UI redesign of a US trucking company's TMS: dispatch, fleet, safety and accounting, with 17 forms turned into guided steps.",
+      sr: "Redizajn interfejsa TMS-a američke logističke firme: dispečeri, flota, bezbednost i računovodstvo, sa 40+ formi u vođenim koracima.",
+      en: "A UI redesign of a US trucking company's TMS: dispatch, fleet, safety and accounting, with 40+ forms turned into guided steps.",
     },
     summary: {
-      sr: "Od oktobra 2025. do jula 2026. redizajnirao sam interfejs Meridian TMS-a, sistema za upravljanje transportom američke logističke firme Delta Group Logistics: 101 commit na glavnoj grani, u Razor pogledima, CSS-u i JavaScript-u. U sistemu su na jednom mestu dispečeri, flota, vozači, bezbednost i računovodstvo. Pozadina je .NET 8 MVC sa SQL Server bazom, Azure servisima, mobilnim API-jem za vozače i posebnim servisima za ELD uređaje i gorivo; to su radile kolege iz tima. Posao je išao modul po modul. Prvo prijava, navigacija i kontrolna tabla, zatim flota, korisnici, vozači i divizije, pa tamni režim za ceo sistem. U 2026. su forme prvo složene da stanu na ekran bez skrolovanja, a onda je 17 formi za unos pretvoreno u vođene korake. Repo je privatan i vlasništvo klijenta, pa ovde nema koda; screenshotovi su sa lokalne instance sa izmišljenim podacima.",
-      en: "From October 2025 to July 2026 I redesigned the interface of Meridian TMS, the transport management system of Delta Group Logistics, a US trucking company: 101 commits on the main branch across Razor views, CSS and JavaScript. Dispatch, fleet, drivers, safety and accounting live in one place. The back end is .NET 8 MVC with SQL Server, Azure services, a mobile API for drivers and separate services for ELD devices and fuel; my teammates built that. The work went module by module. First sign-in, navigation and the dashboard, then fleet, users, drivers and divisions, then dark mode for the whole system. In 2026 the forms were first reworked to fit on one screen without scrolling, and then 17 data entry forms became guided steps. The repo is private and client-owned, so there is no code here; the screenshots come from a local instance with made-up data.",
+      sr: "Od oktobra 2025. do jula 2026. redizajnirao sam interfejs Meridian TMS-a, sistema za upravljanje transportom američke logističke firme Delta Group Logistics: 101 commit na glavnoj grani, u Razor pogledima, CSS-u i JavaScript-u. U sistemu su na jednom mestu dispečeri, flota, vozači, bezbednost i računovodstvo. Pozadina je .NET 8 MVC sa SQL Server bazom, Azure servisima, mobilnim API-jem za vozače i posebnim servisima za ELD uređaje i gorivo; to su radile kolege iz tima. Posao je išao modul po modul. Prvo prijava, navigacija i kontrolna tabla, zatim flota, korisnici, vozači i divizije, pa tamni režim za ceo sistem. U 2026. su forme prvo složene da stanu na ekran bez skrolovanja, a onda je 40+ formi za unos pretvoreno u vođene korake. Repo je privatan i vlasništvo klijenta, pa ovde nema koda; screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "From October 2025 to July 2026 I redesigned the interface of Meridian TMS, the transport management system of Delta Group Logistics, a US trucking company: 101 commits on the main branch across Razor views, CSS and JavaScript. Dispatch, fleet, drivers, safety and accounting live in one place. The back end is .NET 8 MVC with SQL Server, Azure services, a mobile API for drivers and separate services for ELD devices and fuel; my teammates built that. The work went module by module. First sign-in, navigation and the dashboard, then fleet, users, drivers and divisions, then dark mode for the whole system. In 2026 the forms were first reworked to fit on one screen without scrolling, and then 40+ data entry forms became guided steps. The repo is private and client-owned, so there is no code here; the screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
-        "17 formi pretvoreno u vođene korake: Truck, Equipment, User, Driver, Division, ruta i stanice tereta, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review i šest bezbednosnih formi (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
+        "40+ formi pretvoreno u vođene korake, među njima: Truck, Equipment, User, Driver, Division, ruta i stanice tereta, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review i šest bezbednosnih formi (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
         "Zajednička logika koraka izdvojena u jedan form-wizard-core.js, pa svaka forma opisuje samo svoje korake.",
         "Nova prijava, navigacija i kontrolna tabla. Stranice za prijavu dobile su poseban layout, pa se isti kod više ne ponavlja na svakoj stranici.",
         "Tamni režim na svim ekranima, uključujući MVC grid tabele i ekran za prijavu.",
@@ -199,7 +199,7 @@ export const projects: Project[] = [
         "Bezbednosni moduli i faktoring kompanije prebačeni na grid stranice sa horizontalnim skrolom.",
       ],
       en: [
-        "17 forms turned into guided steps: Truck, Equipment, User, Driver, Division, load route and stops, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review and six safety forms (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
+        "40+ forms turned into guided steps, including: Truck, Equipment, User, Driver, Division, load route and stops, Owner Operator, Lease/Rent, Customer, Driver Qualification, Annual Review and six safety forms (DVIR, Clearinghouse, Roadside, Annual Inspection, Background Check, Employment Verification).",
         "The shared step logic lives in one form-wizard-core.js, so each form only describes its own steps.",
         "New sign-in, navigation and dashboard. The auth pages got their own layout, so the same markup is no longer repeated on every page.",
         "Dark mode on every screen, including the MVC grid tables and the sign-in screen.",
