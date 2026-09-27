@@ -61,42 +61,84 @@ const pinAt = (id: string) => ({
   x: tourViews[id].x + (PIN_NUDGE[id]?.x ?? 0),
   y: tourViews[id].y + (PIN_NUDGE[id]?.y ?? 0),
 });
-/** Frames per flight in /images/tour/fly/<spot>/00.webp to 23.webp (see build_room.py). */
-const FLY_FRAMES = 24;
+/** Frames per flight in /images/tour/fly/<spot>/00.webp to 47.webp (see build_room.py). */
+const FLY_FRAMES = 48;
+/**
+ * Size the 540x960 frames are decoded to. Each decoded frame lives in memory while its
+ * flight is near, so this keeps two flights of 48 frames around 130 MB on a phone.
+ */
+const DECODE_SIZE = {
+  resizeWidth: 432,
+  resizeHeight: 768,
+  resizeQuality: "medium",
+} as const;
+/** Flights held decoded at once: the one playing and the next. */
+const DECODED_FLIGHTS = 2;
 
 const frameUrl = (spot: string, frame: number) =>
   `/images/tour/fly/${spot}/${String(frame).padStart(2, "0")}.webp`;
 
-/** Frames whose pixels are decoded, so drawing them never stalls a scroll frame. */
-const decoded = new WeakSet<HTMLImageElement>();
-
-/** Loads a flight's frames once, on demand; returns the (possibly still loading) images. */
-const flights = new Map<string, HTMLImageElement[]>();
-function loadFlight(spot: string) {
-  let frames = flights.get(spot);
-  if (!frames) {
-    frames = Array.from({ length: FLY_FRAMES }, (_, i) => {
-      const img = new window.Image();
-      img.src = frameUrl(spot, i);
-      // Decode off the main thread up front: drawing an undecoded image to a canvas decodes
-      // it synchronously, which made the flight hitch the first time through.
-      img.decode().then(
-        () => decoded.add(img),
-        () => undefined,
-      );
-      return img;
-    });
-    flights.set(spot, frames);
+/** Each flight's compressed frames, fetched once (about 20 KB each). */
+const fetched = new Map<string, Promise<Blob | null>[]>();
+function fetchFlight(spot: string) {
+  let blobs = fetched.get(spot);
+  if (!blobs) {
+    blobs = Array.from({ length: FLY_FRAMES }, (_, i) =>
+      fetch(frameUrl(spot, i)).then(
+        (res) => (res.ok ? res.blob() : null),
+        () => null,
+      ),
+    );
+    fetched.set(spot, blobs);
   }
+  return blobs;
+}
+
+/**
+ * Decoded frames of the nearest flights, filled in as they decode (null until then).
+ * ImageBitmaps decode off the main thread and stay decoded: an <img> kept only in memory
+ * could be evicted by the browser and decoded again mid-scroll, which read as stutter.
+ */
+const decodedFlights = new Map<string, (ImageBitmap | null)[]>();
+function decodeFlight(spot: string) {
+  const held = decodedFlights.get(spot);
+  if (held) {
+    // Most recently used goes last, so the eviction below drops the one furthest behind.
+    decodedFlights.delete(spot);
+    decodedFlights.set(spot, held);
+    return held;
+  }
+  const frames: (ImageBitmap | null)[] = Array(FLY_FRAMES).fill(null);
+  decodedFlights.set(spot, frames);
+  while (decodedFlights.size > DECODED_FLIGHTS) {
+    const [oldest, list] = decodedFlights.entries().next().value!;
+    list.forEach((bitmap) => bitmap?.close());
+    decodedFlights.delete(oldest);
+  }
+  fetchFlight(spot).forEach((blob, i) =>
+    blob
+      .then((b) =>
+        b && decodedFlights.get(spot) === frames
+          ? // Older Safari has no resize options; the full size frame works there too.
+            createImageBitmap(b, DECODE_SIZE).catch(() => createImageBitmap(b))
+          : null,
+      )
+      .then((bitmap) => {
+        if (!bitmap) return;
+        if (decodedFlights.get(spot) === frames) frames[i] = bitmap;
+        else bitmap.close(); // evicted while decoding
+      })
+      .catch(() => undefined),
+  );
   return frames;
 }
 
-/** Draws an image like object-fit: cover, centred, so it lines up with the overview still. */
-function drawCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement) {
+/** Draws a frame like object-fit: cover, centred, so it lines up with the overview still. */
+function drawCover(ctx: CanvasRenderingContext2D, img: ImageBitmap) {
   const { width: cw, height: ch } = ctx.canvas;
-  const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-  const w = img.naturalWidth * scale;
-  const h = img.naturalHeight * scale;
+  const scale = Math.max(cw / img.width, ch / img.height);
+  const w = img.width * scale;
+  const h = img.height * scale;
   ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
 }
 
@@ -137,7 +179,7 @@ export function HeroTour({ overlay, enabled = true }: Props) {
   } | null>(null);
   const [active, setActive] = useState(-1);
   // The close-up stills and the first flight wait for the visitor to start moving: someone
-  // who only reads the first screen never downloads ~600 KB of frames they would not see.
+  // who only reads the first screen never downloads ~1 MB of frames they would not see.
   const [warm, setWarm] = useState(false);
   useEffect(() => {
     if (!enabled) return;
@@ -149,7 +191,7 @@ export function HeroTour({ overlay, enabled = true }: Props) {
     return () => events.forEach((e) => window.removeEventListener(e, go));
   }, [enabled]);
   useEffect(() => {
-    if (warm) loadFlight(stops[0].id);
+    if (warm) decodeFlight(stops[0].id);
   }, [warm]);
 
   /** Jumps to the wide shot just before stop i, then glides through its flight to the close-up. */
@@ -158,7 +200,7 @@ export function HeroTour({ overlay, enabled = true }: Props) {
     if (!at) return; // not set up yet: the link simply navigates
     event.preventDefault();
     setWarm(true);
-    loadFlight(stops[i].id);
+    decodeFlight(stops[i].id);
     const y = (unit: number) => at.start + (unit / at.units) * (at.end - at.start);
     // Settle on the wide shot before stop i at once (it looks the same as the room now),
     // then move the scroll to the close-up and let the scrub play the flight. A smooth
@@ -194,8 +236,8 @@ export function HeroTour({ overlay, enabled = true }: Props) {
       };
       size();
 
-      const nearest = (frames: HTMLImageElement[], from: number) => {
-        for (let i = from; i >= 0; i--) if (decoded.has(frames[i])) return frames[i];
+      const nearest = (frames: (ImageBitmap | null)[], from: number) => {
+        for (let i = from; i >= 0; i--) if (frames[i]) return frames[i];
         return null;
       };
 
@@ -213,17 +255,21 @@ export function HeroTour({ overlay, enabled = true }: Props) {
         drawn = key;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (!on) return;
-        const frames = loadFlight(spot.id);
-        // Blend the two frames either side of the scroll position, so 24 renders read as
+        const frames = decodeFlight(spot.id);
+        // Blend the two frames either side of the scroll position, so 48 renders read as
         // continuous motion instead of steps. Until a frame is decoded, the nearest earlier
         // one stands in, so a slow network shows a coarser flight rather than a stall.
         const lo = Math.floor(fly.frame);
         const base = nearest(frames, lo);
-        if (!base) return;
+        // Nothing decoded yet: forget the key so the next tick tries again.
+        if (!base) {
+          drawn = "";
+          return;
+        }
         drawCover(ctx, base);
         const next = frames[Math.min(lo + 1, FLY_FRAMES - 1)];
         const mix = fly.frame - lo;
-        if (mix > 0.03 && next !== base && decoded.has(next)) {
+        if (mix > 0.03 && next && next !== base) {
           ctx.globalAlpha = mix;
           drawCover(ctx, next);
           ctx.globalAlpha = 1;
@@ -273,8 +319,14 @@ export function HeroTour({ overlay, enabled = true }: Props) {
               shown = now;
               setActive(now);
             }
-            const next = stops[Math.min(stops.length - 1, Math.floor(at / 2) + 1)];
-            if (next) loadFlight(next.id);
+            // Fetch the next flight while this one plays, and decode it once this one is
+            // on its close-up, so only two flights are ever held decoded.
+            const current = Math.min(stops.length - 1, Math.floor(at / 2));
+            const next = stops[current + 1];
+            if (next) {
+              fetchFlight(next.id);
+              if (at - current * 2 > 1) decodeFlight(next.id);
+            }
           },
         },
         onUpdate: draw,

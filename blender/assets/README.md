@@ -23,6 +23,18 @@ geometry and swaps in the room's materials (the source files are not in the repo
 | `open_book`      | open book on the desk          | [book](https://blendswap.com/blend/12893)                | gabriel       | CC0       |
 | `neon_sign`      | backing panel of the name sign | [Realistic Neon sign](https://blendswap.com/blend/22748) | kexsz         | CC0       |
 
+### Icon-only models
+
+Not in the room; `render_props.py` renders them for the ticker on the about page.
+
+| Folder          | Used as               | Source                                            | Author      | Licence |
+| --------------- | --------------------- | ------------------------------------------------- | ----------- | ------- |
+| `running_shoes` | running shoes icon    | [Nike Air Max](https://blendswap.com/blend/29610) | cyanogenmod | CC0     |
+| `gameboy`       | handheld console icon | modelled by `build_gameboy.py`                    | -           | own     |
+
+`running_shoes` comes from `convert_icons.py`, which drops the brand logo and maps the
+procedural materials to the site palette.
+
 Attribution for the CC BY model: "Retro computer" by senmurai
 (https://blendswap.com/profile/1185268), licensed under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), converted to glTF and recoloured.
