@@ -52,7 +52,7 @@
     "processEyebrow": "Proces",
     "processTitle": "Kako izgleda saradnja",
     "ctaEyebrow": "Kontakt",
-    "ctaTitle": "Treba vam sajt koji donosi upite?",
+    "ctaTitle": "Treba Vam sajt koji donosi upite?",
     "ctaBody": "Javite se mejlom ili pozivom. Odgovaram istog dana, radnim danima od 9 do 18, a fiksnu ponudu dobijate za dva dana."
   },
   "projects": {
@@ -137,7 +137,7 @@
     "metaDescription": "Pošaljite upit za izradu sajta, Google Ads kampanju ili SEO. Forma, poziv ili WhatsApp, a ponudu dobijate posle kratkog razgovora, obično istog dana.",
     "signal": "Dostupan · odgovaram istog dana",
     "howTitle": "Pozovite ili pošaljite mejl",
-    "how": "Kako vam je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram istog radnog dana, a ponudu šaljem posle kratkog razgovora o tome šta vam treba i do kada.",
+    "how": "Kako Vam je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram istog radnog dana, a ponudu šaljem posle kratkog razgovora o tome šta Vam treba i do kada.",
     "areaTitle": "Beograd i remote",
     "area": "Radim iz Beograda. Sa klijentima u Beogradu mogu da se vidim uživo, a sa svima ostalima, u Srbiji i inostranstvu, radim remote preko poziva, mejla i deljenog ekrana."
   },
@@ -214,8 +214,8 @@
     "facts": "Osnovni podaci o projektu",
     "impact": "Šta ovo govori o meni",
     "impactClient": "Rezultat za klijenta",
-    "ctaTitle": "Treba vam nešto slično?",
-    "ctaBody": "Napišite ukratko šta vam treba. Odgovaram istog dana sa predlogom kako bih to uradio i okvirnom cenom.",
+    "ctaTitle": "Treba Vam nešto slično?",
+    "ctaBody": "Napišite ukratko šta Vam treba. Odgovaram istog dana sa predlogom kako bih to uradio i okvirnom cenom.",
     "ctaButton": "Zatražite ponudu",
     "ctaServices": "Usluge na ovom projektu:",
     "gallery": "Još ekrana",
@@ -225,7 +225,7 @@
   "consent": {
     "label": "Saglasnost za kolačiće",
     "eyebrow": "Kolačići",
-    "text": "Uz vašu dozvolu koristim Google Analytics i Google Ads merenje da vidim odakle posetioci dolaze. Bez dozvole ništa od toga se ne pamti.",
+    "text": "Uz Vašu dozvolu koristim Google Analytics i Google Ads merenje da vidim odakle posetioci dolaze. Bez dozvole ništa od toga se ne pamti.",
     "more": "Detalji",
     "accept": "Dozvoli",
     "decline": "Odbij"
@@ -240,11 +240,11 @@
       },
       {
         "h": "Kontakt forma",
-        "p": "Ime, mejl i poruka iz forme idu preko servisa Resend direktno na moj mejl. Koristim ih samo da vam odgovorim i ne delim ih ni sa kim."
+        "p": "Ime, mejl i poruka iz forme idu preko servisa Resend direktno na moj mejl. Koristim ih samo da Vam odgovorim i ne delim ih ni sa kim."
       },
       {
-        "h": "Šta se čuva u vašem pregledaču",
-        "p": "Samo vaš izbor o kolačićima (localStorage, ključ sepic-consent). Muzika se ne pamti i nikad ne kreće sama."
+        "h": "Šta se čuva u Vašem pregledaču",
+        "p": "Samo Vaš izbor o kolačićima (localStorage, ključ sepic-consent). Muzika se ne pamti i nikad ne kreće sama."
       },
       {
         "h": "Promena izbora",

@@ -188,7 +188,7 @@ export const faq = {
     },
     {
       q: "Ko je vlasnik koda i naloga?",
-      a: "Vi. Sajt je u vašem repozitorijumu i na vašem hostingu, Google Ads i Meta nalozi su na vaše ime, ja imam pristup dok sarađujemo.",
+      a: "Vi. Sajt je u Vašem repozitorijumu i na Vašem hostingu, Google Ads i Meta nalozi su na Vaše ime, ja imam pristup dok sarađujemo.",
     },
   ],
   en: [
@@ -259,7 +259,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
     },
     intro: {
       sr: [
-        "Pravim brze sajtove i web aplikacije za firme iz Beograda i regiona, u Next.js-u ili Nuxt-u, bez gotovih tema i page builder-a. Razgovarate direktno sa osobom koja piše kod, podešava merenje i odgovara na vaše poruke. Prezentacioni sajt je obično gotov za dve do četiri nedelje, a fiksnu cenu dobijate u predlogu posle kratkog razgovora.",
+        "Pravim brze sajtove i web aplikacije za firme iz Beograda i regiona, u Next.js-u ili Nuxt-u, bez gotovih tema i page builder-a. Razgovarate direktno sa osobom koja piše kod, podešava merenje i odgovara na Vaše poruke. Prezentacioni sajt je obično gotov za dve do četiri nedelje, a fiksnu cenu dobijate u predlogu posle kratkog razgovora.",
         "Sajt predajem tek kada na mobilnom Lighthouse testu ima 90+ za performanse. To se vidi na sajtovima koji već rade: Vuk Studio ima 98 na mobilnom, Mango poslastičarnica 90, a javni sajt bolnice Medical Time, na kome radim od 2025, ima 95.",
       ],
       en: [
@@ -282,7 +282,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       ],
     },
     notFor: {
-      sr: "Ne pravim webshopove sa hiljadama proizvoda i složenim lagerom. Za to su bolji Shopify ili specijalizovana agencija, i reći ću vam to na prvom razgovoru.",
+      sr: "Ne pravim webshopove sa hiljadama proizvoda i složenim lagerom. Za to su bolji Shopify ili specijalizovana agencija, i reći ću Vam to na prvom razgovoru.",
       en: "I do not build shops with thousands of products and complex inventory. Shopify or a specialised agency is a better fit there, and I will tell you so on the first call.",
     },
     includedTitle: {
@@ -297,7 +297,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         },
         {
           title: "Dizajn i kod",
-          body: "Next.js ili Nuxt sa renderovanjem na serveru, TypeScript i Tailwind. Kod pripada vama, bez licenci za teme i dodatke koje treba plaćati svake godine.",
+          body: "Next.js ili Nuxt sa renderovanjem na serveru, TypeScript i Tailwind. Kod pripada Vama, bez licenci za teme i dodatke koje treba plaćati svake godine.",
         },
         {
           title: "Brzina na telefonu",
@@ -317,7 +317,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         },
         {
           title: "Posle lansiranja",
-          body: "Prvih mesec dana sitne izmene su uključene. Posle toga dogovaramo održavanje, ili vam predajem sve pristupe i dokumentaciju.",
+          body: "Prvih mesec dana sitne izmene su uključene. Posle toga dogovaramo održavanje, ili Vam predajem sve pristupe i dokumentaciju.",
         },
       ],
       en: [
@@ -360,7 +360,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         {
           title: "Razgovor",
           time: "30 minuta",
-          body: "Šta prodajete, kome i kako vas klijenti danas nalaze. Pogledam postojeći sajt i konkurenciju, ako ih ima.",
+          body: "Šta prodajete, kome i kako Vas klijenti danas nalaze. Pogledam postojeći sajt i konkurenciju, ako ih ima.",
         },
         {
           title: "Predlog",
@@ -497,7 +497,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         },
         {
           q: "Ko je vlasnik sajta i domena?",
-          a: "Vi. Domen, hosting i repozitorijum su na vaše ime, a ja imam pristup dok radimo zajedno.",
+          a: "Vi. Domen, hosting i repozitorijum su na Vaše ime, a ja imam pristup dok radimo zajedno.",
         },
       ],
       en: [
@@ -565,7 +565,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       ],
     },
     notFor: {
-      sr: "Ako vaš proizvod niko ne traži na Google-u, Search kampanja ga neće prodati. Tada predlažem Meta Ads ili prvo rad na sajtu, pa tek onda oglase.",
+      sr: "Ako Vaš proizvod niko ne traži na Google-u, Search kampanja ga neće prodati. Tada predlažem Meta Ads ili prvo rad na sajtu, pa tek onda oglase.",
       en: "If nobody searches Google for what you sell, a Search campaign will not sell it. In that case I suggest Meta Ads, or work on the site first and ads after.",
     },
     includedTitle: {
@@ -584,7 +584,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         },
         {
           title: "Struktura kampanja",
-          body: "Jedna kampanja po usluzi ili grupi usluga, da budžet ide tamo gde vi hoćete, a ne tamo gde Google najlakše troši.",
+          body: "Jedna kampanja po usluzi ili grupi usluga, da budžet ide tamo gde Vi hoćete, a ne tamo gde Google najlakše troši.",
         },
         {
           title: "Oglasi i ekstenzije",
@@ -643,7 +643,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         {
           title: "Razgovor i pristup",
           time: "prvi dan",
-          body: "Koje usluge su najvažnije, koje područje pokrivate i ko su konkurenti. Dobijam pristup kao korisnik, a nalog ostaje vaš.",
+          body: "Koje usluge su najvažnije, koje područje pokrivate i ko su konkurenti. Dobijam pristup kao korisnik, a nalog ostaje Vaš.",
         },
         {
           title: "Merenje",
@@ -733,7 +733,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       sr: [
         {
           q: "Koliki budžet treba za Google Ads?",
-          a: "Zavisi od cene klika u vašoj oblasti i od toga koliko područja pokrivate. Pre početka proveravam ključne reči u Keyword Planner-u i dajem procenu budžeta sa kojim kampanja ima smisla.",
+          a: "Zavisi od cene klika u Vašoj oblasti i od toga koliko područja pokrivate. Pre početka proveravam ključne reči u Keyword Planner-u i dajem procenu budžeta sa kojim kampanja ima smisla.",
         },
         {
           q: "Kada se vide prvi rezultati?",
@@ -749,7 +749,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         },
         {
           q: "Ko je vlasnik Google Ads naloga?",
-          a: "Vi. Nalog i način plaćanja su na vaše ime, a ja imam pristup kao korisnik dok radimo zajedno.",
+          a: "Vi. Nalog i način plaćanja su na Vaše ime, a ja imam pristup kao korisnik dok radimo zajedno.",
         },
         {
           q: "Po čemu se razlikujete od agencije?",
@@ -801,7 +801,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
     intro: {
       sr: [
         "Vodim Meta Ads kampanje na Facebooku i Instagramu za ponude koje treba pokazati ljudima pre nego što ih potraže: estetske tretmane, torte po porudžbini, snimanje u studiju, događaje. Počinjem od merenja (Pixel i Conversions API), pa tek onda prelazim na kreative i publike.",
-        "Za bolnicu Medical Time pored Google Ads-a vodim i Meta nalog. Ista osoba podešava merenje na sajtu i kampanje, pa se događaji iz oglasa i sa sajta poklapaju, a vi ne slušate dve verzije iste priče.",
+        "Za bolnicu Medical Time pored Google Ads-a vodim i Meta nalog. Ista osoba podešava merenje na sajtu i kampanje, pa se događaji iz oglasa i sa sajta poklapaju, a Vi ne slušate dve verzije iste priče.",
       ],
       en: [
         "I run Meta Ads campaigns on Facebook and Instagram for offers people need to see before they go looking: aesthetic treatments, custom cakes, studio recording, events. The work starts with tracking (Pixel and Conversions API), and only then moves to creatives and audiences.",
@@ -821,7 +821,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       ],
     },
     notFor: {
-      sr: "Ako ljudi vašu uslugu traže tek kada im zatreba (vodoinstalater, servis), Google Ads je bolji prvi korak. Meta je jača kada ponudu treba pokazati, a ne samo pronaći.",
+      sr: "Ako ljudi Vašu uslugu traže tek kada im zatreba (vodoinstalater, servis), Google Ads je bolji prvi korak. Meta je jača kada ponudu treba pokazati, a ne samo pronaći.",
       en: "If people only look for your service when they need it (plumber, repairs), Google Ads is the better first step. Meta is stronger when an offer needs to be shown, not just found.",
     },
     includedTitle: {
@@ -836,7 +836,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         },
         {
           title: "Struktura kampanja",
-          body: "Odvojene kampanje za novu publiku i za retargeting, sa ciljem koji odgovara onome što vam treba: upit, poruka ili poseta.",
+          body: "Odvojene kampanje za novu publiku i za retargeting, sa ciljem koji odgovara onome što Vam treba: upit, poruka ili poseta.",
         },
         {
           title: "Kreative",
@@ -956,8 +956,8 @@ export const servicePages: Record<ServiceId, ServicePage> = {
     },
     measure: {
       sr: [
-        "Brojim ono što vam donosi posao: upite, poruke i pozive, a ne lajkove i doseg. Glavna cifra je cena po upitu, po kampanji i po kreativi.",
-        "Brojke iz Meta-e poredim sa GA4 i sa onim što vi vidite u inbox-u i na telefonu. Kada se razlikuju, verujem vašem inbox-u i tražim gde merenje curi.",
+        "Brojim ono što Vam donosi posao: upite, poruke i pozive, a ne lajkove i doseg. Glavna cifra je cena po upitu, po kampanji i po kreativi.",
+        "Brojke iz Meta-e poredim sa GA4 i sa onim što Vi vidite u inbox-u i na telefonu. Kada se razlikuju, verujem Vašem inbox-u i tražim gde merenje curi.",
       ],
       en: [
         "I count what brings you business: inquiries, messages and calls, not likes and reach. The main number is cost per inquiry, by campaign and by creative.",
@@ -988,15 +988,15 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       sr: [
         {
           q: "Koliki budžet treba za Meta Ads?",
-          a: "Za test je dovoljan manji dnevni budžet po kampanji, koliko da svaka kreativa dobije dovoljno prikaza. Tačan iznos predlažem posle razgovora, prema veličini publike i vrednosti vašeg proizvoda.",
+          a: "Za test je dovoljan manji dnevni budžet po kampanji, koliko da svaka kreativa dobije dovoljno prikaza. Tačan iznos predlažem posle razgovora, prema veličini publike i vrednosti Vašeg proizvoda.",
         },
         {
           q: "Ko pravi fotografije i video?",
-          a: "Najbolje rade autentični snimci iz vašeg prostora, i telefon je sasvim dovoljan. Pošaljem vam listu kadrova, a ja ih pretvaram u oglase i tekst.",
+          a: "Najbolje rade autentični snimci iz Vašeg prostora, i telefon je sasvim dovoljan. Pošaljem Vam listu kadrova, a ja ih pretvaram u oglase i tekst.",
         },
         {
           q: "Da li vodite i profile na društvenim mrežama?",
-          a: "Ne. Vodim plaćene kampanje i merenje, a objave i odgovori na komentare ostaju vama ili vašem social media menadžeru.",
+          a: "Ne. Vodim plaćene kampanje i merenje, a objave i odgovori na komentare ostaju Vama ili Vašem social media menadžeru.",
         },
         {
           q: "Zašto se broj konverzija u Meta-i razlikuje od GA4?",
@@ -1161,7 +1161,7 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         {
           title: "Plan popravki",
           time: "1 dan",
-          body: "Lista po uticaju i uloženom trudu. Zajedno biramo redosled, a vi znate šta dobijate i kada.",
+          body: "Lista po uticaju i uloženom trudu. Zajedno biramo redosled, a Vi znate šta dobijate i kada.",
         },
         {
           title: "Popravke",
@@ -1238,8 +1238,8 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       {
         slug: "medical-time",
         text: {
-          sr: "Site Health sa 90% na 98% za nedelju dana, greške 6 → 0, upozorenja 1.012 → 129. Lokalizovani slugovi na pet jezika, SSR za blog i prodavnicu i canonical popravka sa 301 redirekcijama.",
-          en: "Site Health from 90% to 98% in one week, errors 6 → 0, warnings 1,012 → 129. Localized slugs in five languages, server rendering for the blog and shop, and a canonical fix with 301 redirects.",
+          sr: "Site Health sa 90% na 98% za nedelju dana, greške 6 → 0, upozorenja 1.012 → 129. Lokalizovani slugovi na pet jezika, SSR za blog i prodavnicu i canonical popravka sa 301 redirekcijama. Posle popravki su porasli organski saobraćaj i broj upita.",
+          en: "Site Health from 90% to 98% in one week, errors 6 → 0, warnings 1,012 → 129. Localized slugs in five languages, server rendering for the blog and shop, and a canonical fix with 301 redirects. Organic traffic and inquiries grew after the fixes.",
         },
       },
       {
@@ -1266,11 +1266,11 @@ export const servicePages: Record<ServiceId, ServicePage> = {
         },
         {
           q: "Šta je tehnički SEO?",
-          a: "Sve što Google-u olakšava da pronađe, razume i brzo prikaže vaše stranice: brzina, ispravni URL-ovi i redirekcije, sitemap, hreflang i strukturirani podaci.",
+          a: "Sve što Google-u olakšava da pronađe, razume i brzo prikaže Vaše stranice: brzina, ispravni URL-ovi i redirekcije, sitemap, hreflang i strukturirani podaci.",
         },
         {
           q: "Da li pišete tekstove za blog?",
-          a: "Pišem naslove, opise i tekstove za stranice usluga. Za redovan blog je bolje da piše neko iz vaše struke, a ja se brinem da ga Google pronađe.",
+          a: "Pišem naslove, opise i tekstove za stranice usluga. Za redovan blog je bolje da piše neko iz Vaše struke, a ja se brinem da ga Google pronađe.",
         },
       ],
       en: [
@@ -1314,11 +1314,11 @@ export const servicePageLabels = {
   proofLink: { sr: "Pročitajte studiju slučaja", en: "Read the case study" },
   faqTitle: { sr: "Česta pitanja", en: "Frequently asked questions" },
   ctaTitle: {
-    sr: "Razgovarajmo o vašem projektu",
+    sr: "Razgovarajmo o Vašem projektu",
     en: "Let's talk about your project",
   },
   ctaBody: {
-    sr: "Napišite ukratko šta vam treba. Odgovaram istog dana, a fiksnu ponudu dobijate za dva dana.",
+    sr: "Napišite ukratko šta Vam treba. Odgovaram istog dana, a fiksnu ponudu dobijate za dva dana.",
     en: "Tell me briefly what you need. I reply the same day, and you get a fixed quote within two days.",
   },
   ctaButton: { sr: "Zakažite razgovor", en: "Book a call" },
