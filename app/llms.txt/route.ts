@@ -1,6 +1,6 @@
 import { profile } from "@/content/data/profile";
 import { projects } from "@/content/data/projects";
-import { services } from "@/content/data/services";
+import { servicePages, services } from "@/content/data/services";
 import { absoluteUrl } from "@/lib/structured-data";
 
 // llms.txt (llmstxt.org): a short Markdown map of the site for language models. Google
@@ -17,11 +17,14 @@ export function GET() {
     `> ${profile.summary.en}`,
     "",
     "Freelance web developer and digital marketer based in Belgrade, Serbia, working with clients in Belgrade and remotely. " +
-      "The site is bilingual: Serbian (default, no prefix) and English (/en). Contact is by phone or email through the contact page; replies come as soon as possible, usually the same day.",
+      "The site is bilingual: Serbian (default, no prefix, Serbian URLs such as /projekti and /usluge) and English (/en). Contact is by phone or email through the contact page; replies come as soon as possible, usually the same day.",
     "",
     "## Services",
     "",
-    ...services.map((s) => `- [${s.title.en}](${url("/services")}): ${s.lead.en}`),
+    ...services.map(
+      (s) =>
+        `- [${servicePages[s.id].h1.en}](${url(`/services/${s.id}`)}) / [${servicePages[s.id].h1.sr}](${sr(`/services/${s.id}`)}): ${s.lead.en}`,
+    ),
     "",
     "## Case studies",
     "",
@@ -33,7 +36,7 @@ export function GET() {
     "",
     `- [Home](${url("/")}) / [Početna](${sr("/")})`,
     `- [Projects](${url("/projects")}) / [Projekti](${sr("/projects")})`,
-    `- [Services](${url("/services")}) / [Usluge](${sr("/services")})`,
+    `- [Services overview](${url("/services")}) / [Usluge](${sr("/services")})`,
     `- [About](${url("/about")}) / [O meni](${sr("/about")})`,
     `- [CV](${url("/cv")}) / [CV](${sr("/cv")})`,
     `- [Contact](${url("/contact")}) / [Kontakt](${sr("/contact")})`,

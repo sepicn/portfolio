@@ -109,8 +109,8 @@ export default function AboutPage({ params }: Props) {
           "books",
           "gym",
           "code",
-          "headphones",
-          "plant",
+          "shoes",
+          "gameboy",
           "hifi",
           "book",
           "cassettes",
@@ -160,7 +160,7 @@ export default function AboutPage({ params }: Props) {
                       {job.stack.map((s) => (
                         <li
                           key={s}
-                          className="border border-white/10 notch-one px-2 py-0.5 font-mono text-[11px] text-ink-200 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
+                          className="border border-white/10 notch-one px-2 py-0.5 font-mono text-xs text-ink-200 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
                         >
                           {s}
                         </li>
@@ -216,7 +216,7 @@ export default function AboutPage({ params }: Props) {
               />
             </Reveal>
           </div>
-          <ul className="mt-6 flex flex-wrap justify-end gap-5 font-mono text-[11px] tracking-widest text-ink-400 uppercase">
+          <ul className="mt-6 flex flex-wrap justify-end gap-5 font-mono text-xs tracking-widest text-ink-400 uppercase">
             {(["daily", "solid", "working"] as const).map((level) => (
               <li key={level} className="flex items-center gap-2">
                 <span className={`size-2 rounded-full ${levelDot[level]}`} />

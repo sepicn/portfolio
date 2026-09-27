@@ -56,13 +56,14 @@ export async function generateMetadata({
   const title = t("metaTitle");
   // Every page sets its own canonical and hreflang. Here they would leak into pages that do
   // not, such as the 404, which then pointed its canonical at home next to Next.js noindex.
-  const { alternates: _alternates, ...shared } = pageMetadata({
+  const shared = pageMetadata({
     locale,
     path: "/",
     title,
     description: t("description"),
     ogKey: "home",
   });
+  delete shared.alternates;
 
   return {
     metadataBase: new URL(siteConfig.url),

@@ -42,7 +42,7 @@ export function ConsentBanner() {
       className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl text-sm text-ink-200 [filter:drop-shadow(0_0_14px_rgba(255,45,149,0.45))] sm:bottom-5"
     >
       <CyberFrame variant={1} scale={0.7} tone="pink" className="bg-night-900 p-5">
-        <p className="font-mono text-[11px] tracking-widest text-neon-cyan uppercase">
+        <p className="font-mono text-xs tracking-widest text-neon-cyan uppercase">
           {t("eyebrow")}
         </p>
         <p className="mt-2">

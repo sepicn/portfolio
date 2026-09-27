@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
+import { publicPath } from "@/i18n/paths";
 import { siteConfig } from "@/lib/site-config";
 
-/** Public URL path of a page in one locale, given its locale-less path. */
+/**
+ * Public URL path of a page in one locale, given its internal path (the app/[locale]
+ * folder path, e.g. "/projects/mango" or "/services/web"). Serbian URLs are translated
+ * through routing.pathnames: ("sr", "/about") -> "/o-meni", ("en", "/about") -> "/en/about".
+ */
 export function localePath(locale: string, path: string): string {
-  const clean = path === "/" ? "" : path;
-  return locale === routing.defaultLocale ? clean || "/" : `/${locale}${clean}`;
+  return publicPath(locale, path);
 }
 
 /** Canonical and hreflang entries for one page, given its locale-less path. */

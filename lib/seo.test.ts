@@ -7,9 +7,18 @@ import { alternatesFor, localePath, pageMetadata } from "./seo";
 describe("localePath", () => {
   it("keeps the default locale at the root and prefixes the others", () => {
     expect(localePath("sr", "/")).toBe("/");
-    expect(localePath("sr", "/about")).toBe("/about");
+    expect(localePath("sr", "/about")).toBe("/o-meni");
     expect(localePath("en", "/")).toBe("/en");
     expect(localePath("en", "/about")).toBe("/en/about");
+  });
+
+  it("translates Serbian paths and service slugs", () => {
+    expect(localePath("sr", "/projects/mango")).toBe("/projekti/mango");
+    expect(localePath("en", "/projects/mango")).toBe("/en/projects/mango");
+    expect(localePath("sr", "/services/web")).toBe("/usluge/izrada-sajtova");
+    expect(localePath("en", "/services/web")).toBe("/en/services/web-development");
+    expect(localePath("sr", "/about#education")).toBe("/o-meni#education");
+    expect(localePath("sr", "/cv")).toBe("/cv");
   });
 });
 
@@ -18,9 +27,9 @@ describe("alternatesFor", () => {
     const alt = alternatesFor("en", "/projects");
     expect(alt.canonical).toBe("/en/projects");
     expect(alt.languages).toEqual({
-      sr: "/projects",
+      sr: "/projekti",
       en: "/en/projects",
-      "x-default": "/projects",
+      "x-default": "/projekti",
     });
   });
 });

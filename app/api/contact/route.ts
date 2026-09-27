@@ -60,45 +60,82 @@ function sameOrigin(request: Request) {
 
 const oneLine = (value: string) => value.replace(/[\r\n\t]+/g, " ");
 
+const NO_JS_TEXT = {
+  sr: {
+    ok: "Poruka je poslata. Odgovaram istog radnog dana.",
+    fail: "Poruka nije poslata. Pišite mi direktno na mejl:",
+    back: "Nazad na sajt",
+  },
+  en: {
+    ok: "Message sent. I reply the same working day.",
+    fail: "The message was not sent. Please email me directly:",
+    back: "Back to the site",
+  },
+};
+
+/**
+ * Without JavaScript the form posts urlencoded fields straight here. Answer with a small
+ * page instead of JSON, so the visitor sees what happened.
+ */
+function noJsPage(locale: "sr" | "en", ok: boolean, status: number) {
+  const t = NO_JS_TEXT[locale];
+  const link = (href: string, text: string) =>
+    `<a style="color:#00e5ff" href="${href}">${text}</a>`;
+  const mail = ok
+    ? ""
+    : `${link(`mailto:${siteConfig.email}`, siteConfig.email)}<br><br>`;
+  const html = `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${siteConfig.name}</title></head><body style="background:#0b0416;color:#f3ecff;font:18px/1.5 system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;padding:1rem;text-align:center"><div><p>${ok ? t.ok : t.fail}</p><p>${mail}${link(locale === "en" ? "/en" : "/", t.back)}</p></div></body></html>`;
+  return new NextResponse(html, {
+    status,
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
+}
+
 export async function POST(request: Request) {
   if (!sameOrigin(request)) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
-  if (!request.headers.get("content-type")?.includes("application/json")) {
+  const type = request.headers.get("content-type") ?? "";
+  const isForm = type.includes("application/x-www-form-urlencoded");
+  if (!isForm && !type.includes("application/json")) {
     return NextResponse.json({ error: "invalid" }, { status: 415 });
   }
+  let pageLocale: "sr" | "en" = "sr";
+  const fail = (error: string, status: number) =>
+    isForm
+      ? noJsPage(pageLocale, false, status)
+      : NextResponse.json({ error }, { status });
+
   const declared = Number(request.headers.get("content-length") ?? 0);
-  if (declared > MAX_BODY_BYTES) {
-    return NextResponse.json({ error: "too_large" }, { status: 413 });
-  }
+  if (declared > MAX_BODY_BYTES) return fail("too_large", 413);
 
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json({ error: "mail_not_configured" }, { status: 503 });
-  }
+  if (!apiKey) return fail("mail_not_configured", 503);
   // Unknown IPs share one bucket instead of skipping the limiter.
   const ip = clientIp(request);
-  if (limited(ip)) {
-    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
-  }
+  if (limited(ip)) return fail("rate_limited", 429);
 
   const raw = await request.text().catch(() => "");
-  if (raw.length > MAX_BODY_BYTES) {
-    return NextResponse.json({ error: "too_large" }, { status: 413 });
-  }
+  if (raw.length > MAX_BODY_BYTES) return fail("too_large", 413);
   let body: unknown = null;
-  try {
-    body = JSON.parse(raw);
-  } catch {
-    body = null;
+  if (isForm) {
+    const fields = Object.fromEntries(new URLSearchParams(raw));
+    if (fields.locale === "en") pageLocale = "en";
+    body = fields;
+  } else {
+    try {
+      body = JSON.parse(raw);
+    } catch {
+      body = null;
+    }
   }
   const parsed = schema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json({ error: "invalid" }, { status: 400 });
-  }
+  if (!parsed.success) return fail("invalid", 400);
   const { name, email, message, locale, company } = parsed.data;
+  const done = () =>
+    isForm ? noJsPage(locale, true, 200) : NextResponse.json({ ok: true });
   // Pretend success for bots so they do not learn to skip the honeypot.
-  if (company) return NextResponse.json({ ok: true });
+  if (company) return done();
 
   const resend = new Resend(apiKey);
   const from = process.env.CONTACT_FROM ?? "sepic.me <onboarding@resend.dev>";
@@ -110,7 +147,7 @@ export async function POST(request: Request) {
     text: `${message}\n\n---\n${oneLine(name)} <${email}>\nlocale: ${locale}\nip: ${ip}`,
   });
   if (error) {
-    return NextResponse.json({ error: "send_failed" }, { status: 502 });
+    return fail("send_failed", 502);
   }
-  return NextResponse.json({ ok: true });
+  return done();
 }

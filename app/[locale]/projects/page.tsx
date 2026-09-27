@@ -132,7 +132,10 @@ export default function ProjectsPage({ params }: Props) {
                     image: p.logo,
                     href:
                       p.links.live ??
-                      getPathname({ locale, href: `/projects/${p.slug}` }),
+                      getPathname({
+                        locale,
+                        href: { pathname: "/projects/[slug]", params: { slug: p.slug } },
+                      }),
                   }
                 : p.title,
             )}

@@ -12,7 +12,8 @@ const LOOP_SECONDS = 40;
 /**
  * The band of a Marquee. Its child is the row, rendered twice over; the band moves it with a
  * single offset that always wraps inside one copy, so the strip is never empty. It runs on
- * its own, pauses under the mouse and while off screen, and can be dragged left or right
+ * its own, pauses under the mouse, while keyboard focus is inside it, after a tap on the
+ * band (a second tap resumes; WCAG 2.2.2) and while off screen, and can be dragged left or right
  * with mouse, touch or pen. A press that barely moves is still a click, so links inside the
  * strip keep working. Under reduced motion it only moves when dragged.
  */
@@ -30,6 +31,8 @@ export function MarqueeBand({ className, reverse = false, children }: Props) {
     let last = 0;
     let frame = 0;
     let hovered = false;
+    let focused = false;
+    let tapped = false;
     let visible = false;
     let pointer: number | null = null;
     let startX = 0;
@@ -53,7 +56,7 @@ export function MarqueeBand({ className, reverse = false, children }: Props) {
     const tick = (now: number) => {
       const dt = last ? Math.min(now - last, 64) / 1000 : 0;
       last = now;
-      const auto = !still && !hovered && pointer === null;
+      const auto = !still && !hovered && !focused && !tapped && pointer === null;
       if (auto) target += ((reverse ? 1 : -1) * half() * dt) / LOOP_SECONDS;
       offset += (target - offset) * (pointer === null && auto ? 1 : 0.35);
       if (Math.abs(target - offset) < 0.1) offset = target;
@@ -96,6 +99,16 @@ export function MarqueeBand({ className, reverse = false, children }: Props) {
     const onUp = (e: PointerEvent) => {
       if (e.pointerId !== pointer) return;
       pointer = null;
+      // A touch tap that is not a drag and not on a link toggles the pause.
+      if (
+        e.type === "pointerup" &&
+        !dragged &&
+        e.pointerType !== "mouse" &&
+        !(e.target as Element).closest("a")
+      ) {
+        tapped = !tapped;
+        el.toggleAttribute("data-paused", tapped);
+      }
       delete el.dataset.dragging;
       wake();
     };
@@ -107,6 +120,14 @@ export function MarqueeBand({ className, reverse = false, children }: Props) {
       dragged = false;
     };
     const onDragStart = (e: DragEvent) => e.preventDefault();
+    const onFocusIn = () => {
+      focused = true;
+    };
+    const onFocusOut = (e: FocusEvent) => {
+      if (el.contains(e.relatedTarget as Node)) return;
+      focused = false;
+      wake();
+    };
 
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
@@ -127,6 +148,8 @@ export function MarqueeBand({ className, reverse = false, children }: Props) {
     el.addEventListener("pointercancel", onUp);
     el.addEventListener("click", onClick, true);
     el.addEventListener("dragstart", onDragStart);
+    el.addEventListener("focusin", onFocusIn);
+    el.addEventListener("focusout", onFocusOut);
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
@@ -138,6 +161,8 @@ export function MarqueeBand({ className, reverse = false, children }: Props) {
       el.removeEventListener("pointercancel", onUp);
       el.removeEventListener("click", onClick, true);
       el.removeEventListener("dragstart", onDragStart);
+      el.removeEventListener("focusin", onFocusIn);
+      el.removeEventListener("focusout", onFocusOut);
     };
   }, [reverse]);
 

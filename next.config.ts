@@ -78,6 +78,20 @@ const nextConfig: NextConfig = {
       // temporary 307; a permanent redirect tells search engines which URL to keep.
       { source: "/sr", destination: "/", permanent: true },
       { source: "/sr/:path*", destination: "/:path*", permanent: true },
+      // Serbian pages moved from English slugs to Serbian ones (i18n/routing.ts pathnames).
+      // English URLs keep their /en prefix and do not match these sources.
+      { source: "/projects", destination: "/projekti", permanent: true },
+      { source: "/projects/:slug", destination: "/projekti/:slug", permanent: true },
+      { source: "/services", destination: "/usluge", permanent: true },
+      {
+        source: "/services/web-development",
+        destination: "/usluge/izrada-sajtova",
+        permanent: true,
+      },
+      { source: "/services/:service", destination: "/usluge/:service", permanent: true },
+      { source: "/about", destination: "/o-meni", permanent: true },
+      { source: "/contact", destination: "/kontakt", permanent: true },
+      { source: "/privacy", destination: "/privatnost", permanent: true },
       // The old CV file was replaced by the /cv page and its generated PDFs.
       { source: "/CV.pdf", destination: "/cv", permanent: true },
       { source: "/cv.pdf", destination: "/cv", permanent: true },

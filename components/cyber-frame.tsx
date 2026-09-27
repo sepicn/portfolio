@@ -91,7 +91,7 @@ export function cyberFlip(variant: number) {
   return shapes[((variant % shapes.length) + shapes.length) % shapes.length].flip;
 }
 
-type Tone = "dim" | "faint" | "pink" | "cyan" | "violet" | "sun" | "spin";
+type Tone = "dim" | "faint" | "pink" | "cyan" | "violet" | "sun" | "yellow" | "spin";
 
 /** The border layer's paint; hover colours come from the caller via `edgeClassName`. */
 const tones: Record<Tone, string> = {
@@ -101,6 +101,7 @@ const tones: Record<Tone, string> = {
   cyan: "bg-neon-cyan/35",
   violet: "bg-neon-violet/50",
   sun: "bg-neon-sun/35",
+  yellow: "bg-neon-yellow/35",
   spin: "cyber-spin",
 };
 

@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { Link } from "@/i18n/navigation";
+import { projectHref, serviceHref } from "@/i18n/paths";
 import { routing } from "@/i18n/routing";
 import { Reveal } from "@/components/reveal";
 import { CyberFrame, cyberClip } from "@/components/cyber-frame";
@@ -17,7 +18,7 @@ import { Testimonials } from "@/components/testimonials";
 import { PerfScores } from "@/components/perf-scores";
 import { pick, pickList } from "@/content/i18n";
 import { projects } from "@/content/data/projects";
-import { services } from "@/content/data/services";
+import { servicePages, services } from "@/content/data/services";
 import { siteConfig } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/seo";
 import {
@@ -89,11 +90,21 @@ export default function ProjectPage({ params }: Props) {
       dateCreated: project.year.slice(0, 4),
       mainEntityOfPage: absoluteUrl(locale, `/projects/${slug}`),
       inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
-      // The case study is the canonical page for this work; the live site is related to it.
       url: absoluteUrl(locale, `/projects/${slug}`),
-      sameAs: project.links.live,
-      ...(project.client
-        ? { funder: { "@type": "Organization", name: project.client } }
+      // The case study is about the client and their live site; sameAs would claim the page
+      // *is* that site, and funder would claim the client paid for the write-up.
+      ...(project.client || project.links.live
+        ? {
+            about: project.links.live
+              ? {
+                  "@type": "WebSite",
+                  url: project.links.live,
+                  ...(project.client
+                    ? { publisher: { "@type": "Organization", name: project.client } }
+                    : {}),
+                }
+              : { "@type": "Organization", name: project.client },
+          }
         : {}),
       image: project.image ? `${siteConfig.url}${project.image}` : undefined,
       keywords: project.stack.join(", "),
@@ -185,6 +196,7 @@ export default function ProjectPage({ params }: Props) {
                       alt={`${project.title}, ${t("screenshot")}`}
                       fill
                       preload
+                      fetchPriority="high"
                       sizes="(max-width: 1200px) 100vw, 1152px"
                       className="object-cover object-top"
                     />
@@ -192,7 +204,7 @@ export default function ProjectPage({ params }: Props) {
                     <PrivateArt label={project.title} accent={project.accent} />
                   )}
                 </div>
-                <div className="flex items-center justify-between px-3 pt-2 pb-1 font-mono text-[11px] tracking-widest text-ink-400 uppercase">
+                <div className="flex items-center justify-between px-3 pt-2 pb-1 font-mono text-xs tracking-widest text-ink-400 uppercase">
                   <span>
                     {project.links.live
                       ?.replace(/^https?:\/\/(www\.)?/, "")
@@ -212,7 +224,9 @@ export default function ProjectPage({ params }: Props) {
 
       {/* Facts bar: what a recruiter scans first */}
       <section aria-label={t("facts")} className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {/* One <dl> per card: the Reveal and CyberFrame wrappers may not sit between a
+            <dl> and its <dt>/<dd>. */}
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {facts.map((f, i) => (
             <Reveal key={f.label} as="div" delay={i * 0.06}>
               <CyberFrame
@@ -221,14 +235,16 @@ export default function ProjectPage({ params }: Props) {
                 edgeClassName="h-full"
                 className="bg-night-900 p-5"
               >
-                <dt className="font-mono text-[11px] tracking-widest text-ink-400 uppercase">
-                  {f.label}
-                </dt>
-                <dd className="mt-2 text-ink-100">{f.value}</dd>
+                <dl>
+                  <dt className="font-mono text-xs tracking-widest text-ink-400 uppercase">
+                    {f.label}
+                  </dt>
+                  <dd className="mt-2 text-ink-100">{f.value}</dd>
+                </dl>
               </CyberFrame>
             </Reveal>
           ))}
-        </dl>
+        </div>
         <Reveal className="mt-6">
           <ul className="flex flex-wrap gap-1.5">
             {project.stack.map((item) => (
@@ -353,7 +369,7 @@ export default function ProjectPage({ params }: Props) {
                       />
                     </div>
                   </div>
-                  <p className="mt-3 text-center font-mono text-[11px] tracking-widest text-ink-400 uppercase">
+                  <p className="mt-3 text-center font-mono text-xs tracking-widest text-ink-400 uppercase">
                     {t("phone")}
                   </p>
                 </Parallax>
@@ -391,10 +407,10 @@ export default function ProjectPage({ params }: Props) {
                   <span key={s.id}>
                     {i > 0 ? ", " : null}
                     <Link
-                      href={`/services#${s.id}`}
+                      href={serviceHref(s.id, locale)}
                       className="text-neon-cyan underline-offset-4 hover:underline"
                     >
-                      {pick(s.title, locale)}
+                      {pick(servicePages[s.id].h1, locale)}
                     </Link>
                   </span>
                 ))}
@@ -411,7 +427,7 @@ export default function ProjectPage({ params }: Props) {
         aria-label={t("moreNav")}
         className="mx-auto flex max-w-6xl justify-between gap-4 px-4 pt-10 sm:px-6"
       >
-        <Link href={`/projects/${prev.slug}`} className="group max-w-[45%]">
+        <Link href={projectHref(prev.slug)} className="group max-w-[45%]">
           <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
             <ArrowLeftIcon
               aria-hidden="true"
@@ -423,7 +439,7 @@ export default function ProjectPage({ params }: Props) {
             {prev.title}
           </span>
         </Link>
-        <Link href={`/projects/${next.slug}`} className="group max-w-[45%] text-right">
+        <Link href={projectHref(next.slug)} className="group max-w-[45%] text-right">
           <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
             {t("next")}{" "}
             <ArrowRightIcon

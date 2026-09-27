@@ -37,6 +37,18 @@ const routes = {
   },
   "/projects": { files: [page("/projects"), data("projects")], namespaces: ["projects"] },
   "/services": { files: [page("/services"), data("services")], namespaces: ["services"] },
+  // One page per service; they share the page file and content/data/services.ts.
+  ...Object.fromEntries(
+    [...read(data("service-slugs")).matchAll(/^ {2}"?([\w-]+)"?: \{ sr:/gm)].map(
+      ([, id]) => [
+        `/services/${id}`,
+        {
+          files: [page("/services/[service]"), data("services"), data("service-slugs")],
+          namespaces: ["services", "nav"],
+        },
+      ],
+    ),
+  ),
   "/about": {
     files: [page("/about"), data("profile"), data("experience")],
     namespaces: ["about"],

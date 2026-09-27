@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -52,27 +52,18 @@ const INTENT_EVENTS = ["pointermove", "pointerdown", "wheel", "keydown", "touchs
 const prefetchScene = () => import("@/components/scene/room-canvas");
 
 /**
- * Resolves once the visitor shows intent or the page has been idle for a while. Mounting
- * (scene build and shader compile) costs main thread, so it waits; the download does not,
- * so the code and model are fetched as soon as the page has loaded. Otherwise the first
- * mouse move started a ~1 MB download and the room took seconds to come alive.
+ * Resolves once the visitor shows intent: a mouse move, touch, wheel or key. Mounting (scene
+ * build and shader compile) costs ~1.7 s of main thread, so a visitor who only reads the
+ * first screen never pays it, and it no longer lands inside the load window as blocking time.
+ * The download does not wait: the code and model are fetched as soon as the page has loaded,
+ * so the room comes alive quickly once the mouse moves; until then the poster is the room.
  */
-function useDeferredMount(idleMs = 2000) {
+function useDeferredMount() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    let timer = 0;
-    let idle = 0;
     const go = () => setReady(true);
-    const onLoad = () => {
-      void prefetchScene();
-      timer = window.setTimeout(() => {
-        // Older Safari has no requestIdleCallback.
-        if (typeof window.requestIdleCallback === "function") {
-          idle = window.requestIdleCallback(go, { timeout: 2000 });
-        } else go();
-      }, idleMs);
-    };
+    const onLoad = () => void prefetchScene();
     INTENT_EVENTS.forEach((e) =>
       window.addEventListener(e, go, { once: true, passive: true }),
     );
@@ -81,10 +72,8 @@ function useDeferredMount(idleMs = 2000) {
     return () => {
       INTENT_EVENTS.forEach((e) => window.removeEventListener(e, go));
       window.removeEventListener("load", onLoad);
-      window.clearTimeout(timer);
-      if (idle) window.cancelIdleCallback(idle);
     };
-  }, [idleMs]);
+  }, []);
 
   return ready;
 }
@@ -95,7 +84,16 @@ export function Hero3D({ overlay }: HeroProps) {
   useEffect(() => {
     // Client-only decision, deferred one tick so hydration matches the server HTML.
     const id = window.requestAnimationFrame(() => setMode(detectMode()));
-    return () => window.cancelAnimationFrame(id);
+    // Widening a narrow window (or rotating a tablet) past md kept the phone tour, whose
+    // portrait frames then stretched across a desktop screen. Crossing the breakpoint either
+    // way picks the hero again; resizes within one side of it change nothing.
+    const wide = window.matchMedia("(min-width: 768px)");
+    const onChange = () => setMode(detectMode());
+    wide.addEventListener("change", onChange);
+    return () => {
+      window.cancelAnimationFrame(id);
+      wide.removeEventListener("change", onChange);
+    };
   }, []);
 
   useEffect(() => {
@@ -107,14 +105,21 @@ export function Hero3D({ overlay }: HeroProps) {
     return () => window.cancelAnimationFrame(id);
   }, [mode]);
 
-  if (mode === "pending") return <HeroPlaceholder overlay={overlay} />;
-
-  if (mode === "tour") return <HeroTour overlay={overlay} />;
+  // The server HTML and the phone tour are one component, so settling on the tour keeps the
+  // poster (the LCP image) as the same DOM node. See HeroTour.
+  if (mode === "pending" || mode === "tour") {
+    return <HeroTour overlay={overlay} enabled={mode === "tour"} />;
+  }
 
   if (mode !== "webgl") {
     return (
       <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
-        <div className="relative mb-8 min-h-40">{overlay}</div>
+        {/* The overlay is built to float over the room (absolute, with backdrop gradients).
+            Here it sits above the picture instead: the gradients go and the text flows, so it
+            can neither slide under the sticky header nor over the picture below. */}
+        <div className="relative mb-8 [&>:last-child]:static [&>:last-child]:px-0 [&>:not(:last-child)]:hidden">
+          {overlay}
+        </div>
         <HeroStatic />
       </div>
     );
@@ -124,44 +129,6 @@ export function Hero3D({ overlay }: HeroProps) {
     <SceneProvider>
       <PinnedRoom overlay={overlay} scene={mode === "webgl"} />
     </SceneProvider>
-  );
-}
-
-/**
- * What the server renders before the client picks a hero: the first screen of the phone
- * tour below md and of the pinned room from md up, laid out by CSS alone. Each matches
- * its hero's geometry, so the swap after hydration moves nothing (no layout shift) and
- * the poster that is the LCP image is in the HTML from the start instead of arriving
- * with JavaScript. A <picture> sends each screen size only its own poster.
- */
-function HeroPlaceholder({ overlay }: HeroProps) {
-  const common = { alt: "", fill: true, sizes: "100vw" } as const;
-  const phone = getImageProps({ ...common, src: "/images/tour/overview.webp" }).props;
-  const desktop = getImageProps({ ...common, src: "/images/room-poster.webp" }).props;
-
-  return (
-    <div className="relative h-[calc(100svh-4rem)] md:h-[180vh]">
-      <div className="relative h-full w-full overflow-hidden bg-night-950 md:sticky md:top-16 md:h-[calc(100dvh-4rem)]">
-        <picture>
-          <source media="(max-width: 767px)" srcSet={phone.srcSet} sizes={phone.sizes} />
-          <img
-            {...desktop}
-            alt=""
-            fetchPriority="high"
-            loading="eager"
-            className="pointer-events-none absolute inset-0 size-full object-cover"
-          />
-        </picture>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-night-950 via-night-950/70 to-transparent md:hidden" />
-        <div className="absolute inset-x-0 top-0 z-10 md:bottom-0">
-          <div className="bg-gradient-to-b from-night-950 via-night-950/80 to-transparent pb-16 md:h-full md:bg-none md:pb-0">
-            <div className="pointer-events-none relative min-h-40 md:h-full">
-              {overlay}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -267,7 +234,7 @@ function PinnedRoom({ overlay, scene = true }: HeroProps & { scene?: boolean }) 
                 <Link
                   key={spot.id}
                   href={spot.href!}
-                  className="rounded-full border border-white/10 bg-night-950/70 px-3 py-1 font-mono text-[11px] tracking-widest text-ink-200 uppercase backdrop-blur transition hover:border-neon-cyan/60 hover:text-neon-cyan"
+                  className="rounded-full border border-white/10 bg-night-950/70 px-3 py-1 font-mono text-xs tracking-widest text-ink-200 uppercase backdrop-blur transition hover:border-neon-cyan/60 hover:text-neon-cyan"
                 >
                   {t(spot.id)}
                 </Link>

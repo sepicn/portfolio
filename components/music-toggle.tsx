@@ -34,7 +34,7 @@ export function MusicToggle() {
       onClick={toggle}
       aria-pressed={playing}
       title={playing ? t("mute") : t("play")}
-      className="group flex h-9 items-center gap-2 rounded-full border border-white/10 px-3 font-mono text-[11px] tracking-widest text-ink-200 uppercase transition hover:border-neon-pink/60 hover:text-neon-pink"
+      className="group flex h-9 items-center gap-2 rounded-full border border-white/10 px-3 font-mono text-xs tracking-widest text-ink-200 uppercase transition hover:border-neon-pink/60 hover:text-neon-pink"
     >
       <span className="flex h-3 items-end gap-0.5" aria-hidden="true">
         {[0.4, 0.9, 0.6, 1].map((h, i) => (

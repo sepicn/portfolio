@@ -24,7 +24,7 @@ export function SiteFooter() {
               href="https://blendswap.com/blend/26625"
               rel="noopener"
               target="_blank"
-              className="hover:text-neon-cyan"
+              className="inline-block py-1 hover:text-neon-cyan"
             >
               Retro computer
             </a>
@@ -33,14 +33,14 @@ export function SiteFooter() {
               href="https://creativecommons.org/licenses/by/4.0/"
               rel="license noopener"
               target="_blank"
-              className="hover:text-neon-cyan"
+              className="inline-block py-1 hover:text-neon-cyan"
             >
               CC BY 4.0
             </a>
           </p>
         </div>
         <div className="flex flex-wrap gap-4">
-          <Link href="/privacy" className="hover:text-neon-cyan">
+          <Link href="/privacy" className="inline-block py-1 hover:text-neon-cyan">
             {t("privacy")}
           </Link>
           <ConsentSettingsButton label={t("cookies")} />
@@ -48,7 +48,7 @@ export function SiteFooter() {
             href={siteConfig.github}
             rel="me noopener"
             target="_blank"
-            className="hover:text-neon-cyan"
+            className="inline-block py-1 hover:text-neon-cyan"
           >
             GitHub
           </a>
@@ -56,7 +56,7 @@ export function SiteFooter() {
             href={siteConfig.linkedin}
             rel="me noopener"
             target="_blank"
-            className="hover:text-neon-cyan"
+            className="inline-block py-1 hover:text-neon-cyan"
           >
             LinkedIn
           </a>
