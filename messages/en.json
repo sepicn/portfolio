@@ -249,5 +249,18 @@
   "testimonials": {
     "eyebrow": "Testimonials",
     "title": "What clients say"
+  },
+  "perf": {
+    "title": "Speed and quality",
+    "lead": "The live site measured with Lighthouse, the tool behind Google PageSpeed Insights, on a phone and a desktop. Green is 90 or more out of 100.",
+    "mobile": "Mobile",
+    "desktop": "Desktop",
+    "performance": "Performance",
+    "accessibility": "Accessibility",
+    "bestPractices": "Best practices",
+    "measured": "Measured on {date}, {source}.",
+    "sourcePagespeed": "Google PageSpeed Insights",
+    "sourceLighthouse": "Lighthouse with PageSpeed settings (slow 4G, slower CPU)",
+    "rerun": "Run it again on PageSpeed"
   }
 }

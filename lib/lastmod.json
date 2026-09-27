@@ -1,22 +1,22 @@
 {
   "/": {
-    "hash": "9e4b71f47b7ec493",
+    "hash": "b7071c534eebcd8a",
     "date": "2026-09-27"
   },
   "/projects": {
-    "hash": "7081fa6b59dbdfc7",
+    "hash": "99e86e5345f2644a",
     "date": "2026-09-27"
   },
   "/services": {
-    "hash": "30bac2b581a8e587",
+    "hash": "47f83d183b526492",
     "date": "2026-09-27"
   },
   "/about": {
-    "hash": "72ffb46bd715ae3c",
+    "hash": "5ec7a2a2f2dccb54",
     "date": "2026-09-27"
   },
   "/cv": {
-    "hash": "3289e1db6c75048e",
+    "hash": "6665e3390709c47c",
     "date": "2026-09-27"
   },
   "/contact": {
@@ -28,51 +28,51 @@
     "date": "2026-09-27"
   },
   "/projects/medical-time": {
-    "hash": "e569342ec6d47e19",
+    "hash": "f065511098cf4073",
     "date": "2026-09-27"
   },
   "/projects/meridian-tms": {
-    "hash": "5416600c3bc5f605",
+    "hash": "289d55bb27e98a5c",
     "date": "2026-09-27"
   },
   "/projects/delta-tracking": {
-    "hash": "0bb44c46a3f66203",
+    "hash": "1fe7398f6e1e25cc",
     "date": "2026-09-27"
   },
   "/projects/itexpert": {
-    "hash": "875f43ad1fec281c",
+    "hash": "2d66f382e0c3f6e1",
     "date": "2026-09-27"
   },
   "/projects/prostor-izmedju": {
-    "hash": "7caf2c8dff240cee",
+    "hash": "1aaed1af489b683f",
     "date": "2026-09-27"
   },
   "/projects/mango": {
-    "hash": "3c6f94775ba8ea92",
+    "hash": "97fd8784ccfcc1ef",
     "date": "2026-09-27"
   },
   "/projects/vuk-studio": {
-    "hash": "be21da7835336275",
+    "hash": "88d36ca6493d74e7",
     "date": "2026-09-27"
   },
   "/projects/olimp": {
-    "hash": "5548a21b7050274d",
+    "hash": "8e159a2e6a3d4690",
     "date": "2026-09-27"
   },
   "/projects/job-application-tracker": {
-    "hash": "e190ae102a5f1757",
+    "hash": "cba95d8081848e09",
     "date": "2026-09-27"
   },
   "/projects/gymai": {
-    "hash": "4a184d5cb73ef4b4",
+    "hash": "597cc82b52712991",
     "date": "2026-09-27"
   },
   "/projects/launchhub": {
-    "hash": "4e88ccde5927fbc8",
+    "hash": "cb82c8ded5583751",
     "date": "2026-09-27"
   },
   "/projects/echo": {
-    "hash": "9089529bcca62e96",
+    "hash": "69c8df427d4c63f3",
     "date": "2026-09-27"
   }
 }
