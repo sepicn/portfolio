@@ -47,7 +47,7 @@ export function FloatingProp({
             src={src}
             alt=""
             fill
-            priority={priority}
+            preload={priority}
             sizes="(max-width: 768px) 60vw, 360px"
             className="object-contain drop-shadow-[0_24px_28px_rgba(0,0,0,0.55)]"
           />

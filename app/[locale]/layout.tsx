@@ -27,10 +27,13 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+// Only small labels use the mono face, never the largest text, so it is not preloaded:
+// two fewer font files competing with the page on the first load.
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
   variable: "--font-jetbrains-mono",
   display: "swap",
+  preload: false,
 });
 
 type Props = {

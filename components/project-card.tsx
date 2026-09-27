@@ -60,7 +60,7 @@ export function ProjectCard({ project, index = 0, priority = false }: Props) {
             src={project.image}
             alt=""
             fill
-            priority={priority}
+            preload={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             className="object-cover object-top transition duration-700 group-hover:scale-105"
           />

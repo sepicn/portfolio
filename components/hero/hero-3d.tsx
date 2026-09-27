@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -36,14 +36,9 @@ function detectMode(): Mode {
 
 type HeroProps = { overlay?: React.ReactNode };
 
-const INTENT_EVENTS = [
-  "pointermove",
-  "pointerdown",
-  "wheel",
-  "keydown",
-  "touchstart",
-  "scroll",
-];
+// Real input only: "scroll" also fires when ScrollTrigger pins and restores the position
+// on load, which mounted three.js before anyone touched the page.
+const INTENT_EVENTS = ["pointermove", "pointerdown", "wheel", "keydown", "touchstart"];
 
 /**
  * Resolves once the visitor shows intent or the page has been idle for a while. The
@@ -99,6 +94,8 @@ export function Hero3D({ overlay }: HeroProps) {
     return () => window.cancelAnimationFrame(id);
   }, [mode]);
 
+  if (mode === "pending") return <HeroPlaceholder overlay={overlay} />;
+
   if (mode === "tour") return <HeroTour overlay={overlay} />;
 
   if (mode !== "webgl") {
@@ -114,6 +111,44 @@ export function Hero3D({ overlay }: HeroProps) {
     <SceneProvider>
       <PinnedRoom overlay={overlay} />
     </SceneProvider>
+  );
+}
+
+/**
+ * What the server renders before the client picks a hero: the first screen of the phone
+ * tour below md and of the pinned room from md up, laid out by CSS alone. Each matches
+ * its hero's geometry, so the swap after hydration moves nothing (no layout shift) and
+ * the poster that is the LCP image is in the HTML from the start instead of arriving
+ * with JavaScript. A <picture> sends each screen size only its own poster.
+ */
+function HeroPlaceholder({ overlay }: HeroProps) {
+  const common = { alt: "", fill: true, sizes: "100vw" } as const;
+  const phone = getImageProps({ ...common, src: "/images/tour/overview.webp" }).props;
+  const desktop = getImageProps({ ...common, src: "/images/room-poster.webp" }).props;
+
+  return (
+    <div className="relative h-[calc(100svh-4rem)] md:h-[180vh]">
+      <div className="relative h-full w-full overflow-hidden bg-night-950 md:sticky md:top-16 md:h-[calc(100dvh-4rem)]">
+        <picture>
+          <source media="(max-width: 767px)" srcSet={phone.srcSet} sizes={phone.sizes} />
+          <img
+            {...desktop}
+            alt=""
+            fetchPriority="high"
+            loading="eager"
+            className="pointer-events-none absolute inset-0 size-full object-cover"
+          />
+        </picture>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-night-950 via-night-950/70 to-transparent md:hidden" />
+        <div className="absolute inset-x-0 top-0 z-10 md:bottom-0">
+          <div className="bg-gradient-to-b from-night-950 via-night-950/80 to-transparent pb-16 md:h-full md:bg-none md:pb-0">
+            <div className="pointer-events-none relative min-h-40 md:h-full">
+              {overlay}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -193,7 +228,7 @@ function PinnedRoom({ overlay }: HeroProps) {
             src="/images/room-poster.webp"
             alt=""
             fill
-            priority
+            preload
             sizes="100vw"
             className={`pointer-events-none object-cover transition-opacity duration-700 ${
               sceneReady ? "opacity-0" : "opacity-100"

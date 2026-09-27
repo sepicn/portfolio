@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Link } from "@/i18n/navigation";
@@ -42,9 +43,9 @@ export function HomeDeck() {
         <Tilt max={10}>
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-neon-pink/50 via-neon-violet/30 to-neon-cyan/50 blur-2xl" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={profile.photo}
+              sizes="(max-width: 640px) 240px, 320px"
               alt={profile.name}
               width={320}
               height={320}

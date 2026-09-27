@@ -309,9 +309,23 @@ select {
   opacity: 1;
 }
 
-/* Elements animated in by GSAP start hidden only once JS has taken over (html.js). */
-html.js [data-reveal] {
-  visibility: hidden;
+/* Words of a SplitHeading rise in with CSS, so a page title on screen at load animates
+   without waiting for JavaScript. SplitHeading turns this off for headings further down,
+   which GSAP animates on scroll instead. */
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(60%) rotateX(-30deg);
+  }
+}
+[data-word] {
+  animation: word-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-word] {
+    animation: none;
+  }
 }
 
 /* Rotating neon border for cards: a conic gradient on a padding box behind the content. */
