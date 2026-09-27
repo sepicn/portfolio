@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Selection } from "@react-three/postprocessing";
 import { AdaptiveDpr, Preload } from "@react-three/drei";
 import { useRouter } from "@/i18n/navigation";
@@ -13,6 +13,25 @@ import { SceneLoader } from "./loader";
 import { useScene } from "./scene-state";
 
 type Props = { onReady?: () => void };
+
+/**
+ * Tells the hero the room is really on screen, so the poster can fade. It sits inside the
+ * Suspense boundary, so it mounts only once the model has loaded; it then compiles every
+ * shader up front and waits a few rendered frames. Fading on "loaded" alone showed the
+ * empty dark canvas while the first frames were still compiling.
+ */
+function SceneReady({ onReady }: Props) {
+  const { gl, scene, camera } = useThree();
+  const frames = useRef(0);
+  useEffect(() => {
+    gl.compile(scene, camera);
+  }, [gl, scene, camera]);
+  useFrame(() => {
+    frames.current += 1;
+    if (frames.current === 6) onReady?.();
+  });
+  return null;
+}
 
 export function RoomCanvas({ onReady }: Props) {
   const router = useRouter();
@@ -50,7 +69,7 @@ export function RoomCanvas({ onReady }: Props) {
 
   return (
     <div ref={wrapper} className="absolute inset-0">
-      <SceneLoader onReady={onReady} />
+      <SceneLoader />
       <Canvas
         dpr={[1, 1.5]}
         frameloop={visible ? "always" : "never"}
@@ -121,6 +140,7 @@ export function RoomCanvas({ onReady }: Props) {
             <Effects />
           </Selection>
           <Preload all />
+          <SceneReady onReady={onReady} />
         </Suspense>
         <CameraRig />
         <AdaptiveDpr pixelated />

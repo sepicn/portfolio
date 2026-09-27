@@ -400,7 +400,16 @@ def screen_texture(width=512, height=384):
     return img
 
 
-def city_texture(width=1024, height=512):
+def city_texture(width=1024, height=512, cell=8):
+    """Night skyline: dark towers on a violet haze with lit windows.
+
+    Every window pane sits on one global grid: a 3 x 4 px pane at (2, 2) inside each
+    cell x cell px cell. The web app finds each pane from its UV with the same grid and
+    switches it off and on over time (CITY_GRID in components/scene/city-lights.ts), so
+    keep the two in sync. Its own random stream keeps the skyline stable when other
+    random props change.
+    """
+    rng = random.Random(1024)
     img = np.zeros((height, width, 4), dtype=np.float32)
     img[..., 3] = 1
     y = np.arange(height, dtype=np.float32)[:, None] / height
@@ -409,22 +418,24 @@ def city_texture(width=1024, height=512):
     img[..., :3] = low * (1 - y)[..., None] + top * y[..., None]
     haze = np.clip(1 - np.abs(y - 0.18) / 0.18, 0, 1)[..., None]
     img[..., :3] += hex_to_rgb01("ff2d95") * haze * 0.18
-    window_colors = [hex_to_rgb01(h) for h in ("ffd60a", "00e5ff", "ff2d95", "ffffff")]
+    # Mostly warm light, some neon pink and cyan.
+    window_colors = [hex_to_rgb01(h) for h in ("ffd60a", "ffd60a", "ffc46b", "fff4d6", "00e5ff", "ff2d95")]
     body = hex_to_rgb01("0a0514")
     x = 0
     while x < width:
-        w = random.randint(28, 90)
+        w = rng.randint(28, 90)
         center_bias = 1 - abs((x + w / 2) / width - 0.5) * 1.4
-        h = int(height * random.uniform(0.22, 0.34 + 0.45 * max(center_bias, 0)))
+        h = int(height * rng.uniform(0.22, 0.34 + 0.45 * max(center_bias, 0)))
         img[:h, x : x + w, :3] = body
-        for wy in range(6, h - 6, 9):
-            for wx in range(x + 5, x + w - 5, 8):
-                if random.random() < 0.28:
-                    color = random.choice(window_colors) * random.uniform(0.5, 1.0)
-                    img[wy : wy + 4, wx : wx + 3, :3] = color
-        if h > height * 0.6 and random.random() < 0.7:
+        # Panes at least 3 px inside the tower sides and 4 px below its roof.
+        for cy in range(1, (h - 10) // cell + 1):
+            for cx in range(-(-(x + 1) // cell), (x + w - 8) // cell + 1):
+                if rng.random() < 0.42:
+                    px, py = cx * cell + 2, cy * cell + 2
+                    img[py : py + 4, px : px + 3, :3] = rng.choice(window_colors) * rng.uniform(0.75, 1.0)
+        if h > height * 0.6 and rng.random() < 0.7:
             img[h : h + 3, x + w // 2 - 1 : x + w // 2 + 1, :3] = hex_to_rgb01("ff2d95")
-        x += w + random.randint(2, 10)
+        x += w + rng.randint(2, 10)
     return img
 
 
@@ -459,7 +470,7 @@ NEON_GLYPHS["Ć"] = (0.66, NEON_GLYPHS["C"][1] + [[(0.3, 1.12), (0.46, 1.3)]])
 CODE_TAG = (1.48, [[(0.45, 1), (0, 0.5), (0.45, 0)], [(0.58, -0.05), (0.9, 1.05)], [(1.03, 1), (1.48, 0.5), (1.03, 0)]])
 
 
-def neon_tubes(name, glyphs, origin, height, y, mat, spacing=0.26, radius=0.006):
+def neon_tubes(name, glyphs, origin, height, y, mat, spacing=0.26, radius=0.008):
     """Bent-glass tubes on a wall plane: glyphs are (width, strokes) laid out left to right
     from origin (x, z of the bottom left) at the given letter height, all joined as name."""
     x0, z0 = origin
@@ -505,13 +516,15 @@ def build():
     M["floor"].node_tree.nodes["Principled BSDF"].inputs["Roughness"].default_value = 0.3
     for key in ("book_1", "book_2", "book_3", "book_4", "book_5", "note_1", "note_2"):
         M[key] = material(key, rgb(HEX[key]), roughness=0.8)
-    M["neon_pink"] = material("neon_pink", rgb(HEX["pink"]), emission=rgb(HEX["pink"]), strength=8)
-    M["neon_cyan"] = material("neon_cyan", rgb(HEX["cyan"]), emission=rgb(HEX["cyan"]), strength=6)
-    M["neon_yellow"] = material("neon_yellow", rgb(HEX["yellow"]), emission=rgb(HEX["yellow"]), strength=5)
-    M["neon_violet"] = material("neon_violet", rgb(HEX["violet"]), emission=rgb(HEX["violet"]), strength=4)
-    M["neon_green"] = material("neon_green", rgb(HEX["green"]), emission=rgb(HEX["green"]), strength=4)
-    M["neon_red"] = material("neon_red", rgb(HEX["red"]), emission=rgb(HEX["red"]), strength=4)
-    M["neon_sun"] = material("neon_sun", rgb(HEX["sun"]), emission=rgb(HEX["sun"]), strength=4)
+    M["neon_pink"] = material("neon_pink", rgb(HEX["pink"]), emission=rgb(HEX["pink"]), strength=12)
+    M["neon_cyan"] = material("neon_cyan", rgb(HEX["cyan"]), emission=rgb(HEX["cyan"]), strength=10)
+    M["neon_yellow"] = material("neon_yellow", rgb(HEX["yellow"]), emission=rgb(HEX["yellow"]), strength=7)
+    M["neon_violet"] = material("neon_violet", rgb(HEX["violet"]), emission=rgb(HEX["violet"]), strength=7)
+    M["neon_green"] = material("neon_green", rgb(HEX["green"]), emission=rgb(HEX["green"]), strength=6)
+    M["neon_red"] = material("neon_red", rgb(HEX["red"]), emission=rgb(HEX["red"]), strength=6)
+    # Its own material so the web app can find it by name and blink it (room-model.tsx).
+    M["neon_error"] = material("neon_error", rgb(HEX["red"]), emission=rgb(HEX["red"]), strength=10)
+    M["neon_sun"] = material("neon_sun", rgb(HEX["sun"]), emission=rgb(HEX["sun"]), strength=6)
     M["phone_plastic"] = material("phone_plastic", rgb("f59ac4"), roughness=0.22)
     M["neon_white"] = material("neon_white", rgb("e8e6ee"), emission=rgb("e8e6ee"), strength=3)
     M["neon_gold"] = material("neon_gold", rgb("d8b04a"), emission=rgb("d8b04a"), strength=4)
@@ -532,7 +545,9 @@ def build():
     bsdf_photo.inputs["Emission Strength"].default_value = 0.35
     for key, hexv in (("cat", "ff9a3c"), ("cat_dark", "c86a1e"), ("cat_white", "fff4e6"), ("cat_pink", "ff7eb6")):
         M[key] = material(key, rgb(hexv), roughness=0.9)
-    M["glass"] = material("glass", rgb("a8d8ff", 0.08), roughness=0.05, alpha=0.08)
+    # Nearly clear and barely tinted: a pale base colour caught the cyan window light and
+    # washed the skyline out behind a blue haze.
+    M["glass"] = material("glass", rgb("16222e", 0.04), roughness=0.02, alpha=0.04)
     M["dark_glass"] = material("dark_glass", rgb("101018", 0.6), roughness=0.1, alpha=0.6)
     # Palette names the converted BlendSwap models ask for (see convert_blendswap.py).
     M["chair_fabric"] = material("chair_fabric", rgb("2b3f8f"), roughness=0.95)
@@ -573,13 +588,25 @@ def build():
                 if random.random() < 0.55:
                     towers.append(box(f"tw_{i}_{z:.2f}_{dx:.2f}", (0.04, 0.02, 0.06), (x + dx, WALL_Y + 0.6 + i * 0.05, z), random.choice([M["neon_yellow"], M["led"], M["neon_pink"]])))
     join(towers, "towers")
+    # Billboard lettering glows far softer than the room neon: at neon strength the bloom
+    # swallowed the letters and VUK STUDIO could not be read. The edge rails are white on
+    # every board, the thin bright line Medical Time already had.
+    sign_yellow = material("sign_yellow", rgb(HEX["yellow"]), emission=rgb(HEX["yellow"]), strength=2.2)
+    sign_cyan = material("sign_cyan", rgb(HEX["cyan"]), emission=rgb(HEX["cyan"]), strength=2.2)
     billboards = [
-        ("billboard_1", "MEDICAL TIME", M["neon_pink"], -0.8, 1.68, 0.5),
-        ("billboard_2", "MANGO", M["neon_yellow"], 0.75, 1.55, 0.36),
-        # Between the centre mullion and the MANGO pole: at x=0.05 the mullion hid the "V",
+        ("billboard_1", "MEDICAL TIME", M["neon_pink"], 0.75, 1.55, 0.5),
+        ("billboard_2", "MANGO", sign_yellow, -0.8, 1.68, 0.36),
+        # Between the centre mullion and the Medical Time pole: at x=0.05 the mullion hid the "V",
         # further right the pole crossed the "D".
-        ("billboard_3", "VUK STUDIO", M["neon_cyan"], 0.33, 1.25, 0.5),
+        ("billboard_3", "VUK STUDIO", sign_cyan, 0.33, 1.25, 0.5),
     ]
+    def pole(name, x, y, top):
+        # Down to just behind the window's bottom rail (top at z=1.11), no further: a fixed
+        # 0.5 m ran through the wall, and the hover outline, which draws hidden edges,
+        # showed the poles inside the room.
+        bottom = 1.08
+        return box(f"{name}_pole", (0.02, 0.02, top - bottom), (x, y + 0.03, (top + bottom) / 2), M["grey"])
+
     for i, (name, label, mat, x, z, w) in enumerate(billboards):
         y = WALL_Y + 0.55 + i * 0.05
         if name == "billboard_1":
@@ -592,16 +619,16 @@ def build():
                 text(f"{name}_time", "Time", (x - 0.03 + gap, y, z), size, 0.004, M["neon_gold"], rotation=(math.pi / 2, 0, 0), align="LEFT"),
                 box(f"{name}_edge", (w + 0.02, 0.01, 0.006), (x, y, z + w * 0.18), M["neon_gold"]),
                 box(f"{name}_edge2", (w + 0.02, 0.01, 0.006), (x, y, z - w * 0.18), M["neon_gold"]),
-                box(f"{name}_pole", (0.02, 0.02, 0.5), (x, y + 0.03, z - w * 0.18 - 0.25), M["grey"]),
+                pole(name, x, y, z - w * 0.18),
             ]
             join(parts, name)
             continue
         parts = [
             box(f"{name}_panel", (w, 0.02, w * 0.4), (x, y + 0.02, z), M["black_soft"], bevel=0.004),
             text(f"{name}_text", label, (x, y, z), w * 0.16, 0.004, mat, rotation=(math.pi / 2, 0, 0)),
-            box(f"{name}_edge", (w + 0.02, 0.01, 0.006), (x, y, z + w * 0.2), mat),
-            box(f"{name}_edge2", (w + 0.02, 0.01, 0.006), (x, y, z - w * 0.2), mat),
-            box(f"{name}_pole", (0.02, 0.02, 0.5), (x, y + 0.03, z - w * 0.2 - 0.25), M["grey"]),
+            box(f"{name}_edge", (w + 0.02, 0.01, 0.006), (x, y, z + w * 0.2), M["neon_white"]),
+            box(f"{name}_edge2", (w + 0.02, 0.01, 0.006), (x, y, z - w * 0.2), M["neon_white"]),
+            pole(name, x, y, z - w * 0.2),
         ]
         join(parts, name)
     # Blinds with a cord.
@@ -890,16 +917,15 @@ def build():
     for i in range(4):
         poster.append(box(f"poster_1_stripe_{i}", (0.3 - i * 0.03, 0.004, 0.012), (-2.65, WALL_Y - 0.037, 2.6 - i * 0.03), M["black_soft"]))
     join(poster, "poster_1")
-    text("wall_neon_1", "SYNTH", (2.15, WALL_Y - 0.05, 2.62), 0.2, 0.012, M["neon_cyan"], rotation=(math.pi / 2, 0, 0), bevel=0.003)
-    text("wall_neon_2", "WAVE", (2.15, WALL_Y - 0.05, 2.4), 0.2, 0.012, M["neon_pink"], rotation=(math.pi / 2, 0, 0), bevel=0.003)
+    text("wall_neon_error", "ERROR", (2.15, WALL_Y - 0.05, 2.5), 0.26, 0.012, M["neon_error"], rotation=(math.pi / 2, 0, 0), bevel=0.003)
     box("wall_neon_bracket", (0.02, 0.04, 0.5), (1.65, WALL_Y - 0.03, 2.5), M["grey"])
     box("wall_neon_bracket2", (0.02, 0.04, 0.5), (2.65, WALL_Y - 0.03, 2.5), M["grey"])
     clock = [
-        cylinder("clock_face", 0.14, 0.03, (2.1, WALL_Y - 0.02, 2.5), M["black"], rotation=(math.pi / 2, 0, 0), vertices=40),
-        cylinder("clock_dial", 0.125, 0.004, (2.1, WALL_Y - 0.04, 2.5), M["paper"], rotation=(math.pi / 2, 0, 0), vertices=40),
-        box("clock_hand_h", (0.006, 0.004, 0.07), (2.1, WALL_Y - 0.045, 2.535), M["black"]),
-        box("clock_hand_m", (0.1, 0.004, 0.006), (2.15, WALL_Y - 0.045, 2.5), M["black"]),
-        box("clock_hand_s", (0.11, 0.003, 0.003), (2.05, WALL_Y - 0.047, 2.51), M["neon_red"], rotation=(0, 0, math.radians(35))),
+        cylinder("clock_face", 0.14, 0.03, (3.1, WALL_Y - 0.02, 2.5), M["black"], rotation=(math.pi / 2, 0, 0), vertices=40),
+        cylinder("clock_dial", 0.125, 0.004, (3.1, WALL_Y - 0.04, 2.5), M["paper"], rotation=(math.pi / 2, 0, 0), vertices=40),
+        box("clock_hand_h", (0.006, 0.004, 0.07), (3.1, WALL_Y - 0.045, 2.535), M["black"]),
+        box("clock_hand_m", (0.1, 0.004, 0.006), (3.15, WALL_Y - 0.045, 2.5), M["black"]),
+        box("clock_hand_s", (0.11, 0.003, 0.003), (3.05, WALL_Y - 0.047, 2.51), M["neon_red"], rotation=(0, 0, math.radians(35))),
     ]
     join(clock, "clock")
 
@@ -1015,20 +1041,15 @@ FLY_FRAMES = 24
 # Hand-framed tour shots (three.js position, look-at, lens) where the automatic front view
 # misses: all three billboards in view, the whole shelf centred, the photo with the floppies.
 TOUR_FRAMING = {
-    "clients": ((-0.09, 1.78, -1.0), (-0.09, 1.45, -3.6), 16),
+    "clients": ((0.04, 1.78, -1.0), (0.04, 1.45, -3.6), 15),
     "about": ((2.08, 1.52, -0.8), (2.08, 1.45, -2.83), 20),
     "cv": ((-0.58, 1.22, -0.98), (-0.58, 0.86, -1.55), 30),
     "contact": ((-0.98, 1.1, -1.28), (-0.98, 0.86, -1.72), 30),
 }
 
 
-def render_tour(scene):
-    """Portrait stills for the phone tour, sharp at phone resolution instead of a zoomed crop."""
-    data = bpy.data.cameras.new("camera_tour")
-    data.sensor_fit = "VERTICAL"
-    cam = bpy.data.objects.new("camera_tour", data)
-    scene.collection.objects.link(cam)
-    scene.camera = cam
+def tour_shots():
+    """Every phone tour camera as {name: (three.js position, look-at, lens)}, overview first."""
     shots = {"overview": ((0.3, 1.55, 0.9), (0.15, 1.5, -2.5), 15)}
     for spot, (position, look) in hotspot_cameras().items():
         # Straight on from the front (+z in three.js), at a distance based on how close the
@@ -1038,11 +1059,30 @@ def render_tour(scene):
         rise = 0.3 if t.y < 1.3 else 0.03
         shots[spot] = ((t.x, t.y + rise * distance, t.z + distance), tuple(t), 30)
     shots.update(TOUR_FRAMING)
+    return shots
+
+
+def tour_camera(scene):
+    """A portrait camera for the tour, and a function that points it at one shot."""
+    data = bpy.data.cameras.new("camera_tour")
+    data.sensor_fit = "VERTICAL"
+    cam = bpy.data.objects.new("camera_tour", data)
+    scene.collection.objects.link(cam)
+    scene.camera = cam
+
     def aim(position, look, lens):
         data.lens = lens
         cam.location = three_to_blender(position)
         target = three_to_blender(look)
         cam.rotation_euler = (target - cam.location).to_track_quat("-Z", "Y").to_euler()
+
+    return cam, aim
+
+
+def render_tour(scene):
+    """Portrait stills for the phone tour, sharp at phone resolution instead of a zoomed crop."""
+    cam, aim = tour_camera(scene)
+    shots = tour_shots()
 
     overview_points = None
     for name, (position, look, lens) in shots.items():
@@ -1087,7 +1127,36 @@ def project_hotspots(scene, cam, size):
     return out
 
 
+def setup_bloom(scene):
+    """Compositor bloom, so the neon glows into the air around it like on the web (Eevee
+    lost its own bloom in 4.2). Blender 5 compositors are node groups with an Image output."""
+    if scene.compositing_node_group is not None:
+        return
+    tree = bpy.data.node_groups.new("bloom", "CompositorNodeTree")
+    tree.interface.new_socket("Image", in_out="OUTPUT", socket_type="NodeSocketColor")
+    layers = tree.nodes.new("CompositorNodeRLayers")
+    glare = tree.nodes.new("CompositorNodeGlare")
+    out = tree.nodes.new("NodeGroupOutput")
+    settings = {
+        "Type": "Bloom",
+        "Quality": "High",
+        # Only the emissive tubes, screens and bulbs sit above this in scene linear.
+        "Threshold": 1.2,
+        "Smoothness": 0.3,
+        "Strength": 0.9,
+        "Saturation": 1.3,
+        "Size": 0.7,
+    }
+    for key, value in settings.items():
+        glare.inputs[key].default_value = value
+    tree.links.new(layers.outputs["Image"], glare.inputs["Image"])
+    tree.links.new(glare.outputs["Image"], out.inputs[0])
+    scene.compositing_node_group = tree
+    scene.render.use_compositing = True
+
+
 def render_preview(scene, path, size=PREVIEW_SIZE):
+    setup_bloom(scene)
     for engine in ("BLENDER_EEVEE", "BLENDER_EEVEE_NEXT"):
         try:
             scene.render.engine = engine

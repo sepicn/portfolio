@@ -6,6 +6,7 @@ import { use } from "react";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectFeature } from "@/components/project-feature";
 import { Reveal } from "@/components/reveal";
+import { CyberDivider } from "@/components/cyber-divider";
 import { SectionHeading } from "@/components/section-heading";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { Marquee } from "@/components/motion/marquee";
@@ -110,7 +111,7 @@ export default function ProjectsPage({ params }: Props) {
         </div>
       </section>
 
-      <Marquee items={clientProjects.map((p) => p.title)} />
+      <Marquee variant="tape" items={clientProjects.map((p) => p.title)} />
 
       <section id="clients" className="scroll-mt-24 py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -126,7 +127,7 @@ export default function ProjectsPage({ params }: Props) {
               <ProjectFeature key={project.slug} project={project} index={i} />
             ))}
           </div>
-          <ul className="mt-28 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-28 grid gap-6 md:grid-cols-2">
             {rest.map((project, i) => (
               <Reveal
                 key={project.slug}
@@ -134,15 +135,20 @@ export default function ProjectsPage({ params }: Props) {
                 from={i % 2 === 0 ? "left" : "right"}
                 delay={i * 0.06}
               >
-                <ProjectCard project={project} index={featured.length + i} />
+                <ProjectCard
+                  project={project}
+                  index={featured.length + i}
+                  layout="wide"
+                />
               </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      <section id="personal" className="scroll-mt-24 border-t border-white/5 py-20 pb-32">
+      <section id="personal" className="scroll-mt-24 pb-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <CyberDivider variant={7} className="mb-20 text-white/10" />
           <Reveal from="right">
             <SectionHeading
               eyebrow={t("personalEyebrow")}
@@ -151,7 +157,7 @@ export default function ProjectsPage({ params }: Props) {
               align="right"
             />
           </Reveal>
-          <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-12 grid gap-6 md:grid-cols-2">
             {personalProjects.map((project, i) => (
               <Reveal
                 key={project.slug}
@@ -159,7 +165,7 @@ export default function ProjectsPage({ params }: Props) {
                 from={i % 2 === 0 ? "left" : "right"}
                 delay={i * 0.06}
               >
-                <ProjectCard project={project} index={i} />
+                <ProjectCard project={project} index={i} layout="wide" />
               </Reveal>
             ))}
           </ul>

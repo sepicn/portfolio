@@ -6,6 +6,7 @@ import { Reveal } from "@/components/reveal";
 import { Parallax } from "@/components/motion/parallax";
 import { Tilt } from "@/components/motion/tilt";
 import { PrivateArt } from "@/components/project-card";
+import { CyberFrame, cyberClip } from "@/components/cyber-frame";
 import { pick, pickList } from "@/content/i18n";
 import type { Project } from "@/content/data/projects";
 
@@ -36,9 +37,20 @@ export function ProjectFeature({ project, index }: Props) {
       >
         <Parallax distance={40}>
           <Tilt max={5}>
-            <Link href={`/projects/${project.slug}`} className="group block">
-              <div className="relative rounded-2xl border border-white/10 bg-night-900 p-2 shadow-2xl shadow-black/50 transition group-hover:border-white/25">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-night-950">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="group block [filter:drop-shadow(0_24px_36px_rgba(0,0,0,0.5))]"
+            >
+              <CyberFrame
+                variant={[8, 1, 6, 9][index % 4]}
+                scale={0.8}
+                edgeClassName="group-hover:bg-white/30"
+                className="bg-night-900 p-2 pt-4"
+              >
+                <div
+                  className="relative aspect-[16/10] overflow-hidden bg-night-950"
+                  style={{ clipPath: cyberClip(index % 2 ? 0 : 1, 0.4) }}
+                >
                   {project.image ? (
                     <Image
                       src={project.image}
@@ -62,7 +74,7 @@ export function ProjectFeature({ project, index }: Props) {
                     <span className="size-1.5 rounded-full bg-neon-green" />
                   </span>
                 </div>
-              </div>
+              </CyberFrame>
             </Link>
           </Tilt>
         </Parallax>
@@ -100,7 +112,7 @@ export function ProjectFeature({ project, index }: Props) {
           {project.stack.slice(0, 5).map((item) => (
             <li
               key={item}
-              className="rounded-md border border-white/10 px-2 py-0.5 font-mono text-[11px] text-ink-200"
+              className="border border-white/10 notch-one px-2 py-0.5 font-mono text-[11px] text-ink-200 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
             >
               {item}
             </li>

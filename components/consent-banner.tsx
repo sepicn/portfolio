@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { CyberFrame } from "@/components/cyber-frame";
 import {
   CONSENT_OPEN_EVENT,
   readConsent,
@@ -38,33 +39,35 @@ export function ConsentBanner() {
     <section
       role="region"
       aria-label={t("label")}
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl rounded-2xl border border-white/10 bg-night-900/95 p-5 text-sm text-ink-200 shadow-neon-pink backdrop-blur sm:bottom-5"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl text-sm text-ink-200 [filter:drop-shadow(0_0_14px_rgba(255,45,149,0.45))] sm:bottom-5"
     >
-      <p className="font-mono text-[11px] tracking-widest text-neon-cyan uppercase">
-        {t("eyebrow")}
-      </p>
-      <p className="mt-2">
-        {t("text")}{" "}
-        <Link href="/privacy" className="text-ink-100 underline underline-offset-4">
-          {t("more")}
-        </Link>
-      </p>
-      <div className="mt-4 flex gap-3">
-        <button
-          type="button"
-          onClick={() => choose("granted")}
-          className="flex-1 rounded-full border border-neon-pink/60 px-4 py-2 font-medium text-ink-100 transition hover:bg-neon-pink/15"
-        >
-          {t("accept")}
-        </button>
-        <button
-          type="button"
-          onClick={() => choose("denied")}
-          className="flex-1 rounded-full border border-neon-pink/60 px-4 py-2 font-medium text-ink-100 transition hover:bg-neon-pink/15"
-        >
-          {t("decline")}
-        </button>
-      </div>
+      <CyberFrame variant={1} scale={0.7} tone="pink" className="bg-night-900 p-5">
+        <p className="font-mono text-[11px] tracking-widest text-neon-cyan uppercase">
+          {t("eyebrow")}
+        </p>
+        <p className="mt-2">
+          {t("text")}{" "}
+          <Link href="/privacy" className="text-ink-100 underline underline-offset-4">
+            {t("more")}
+          </Link>
+        </p>
+        <div className="mt-4 flex gap-3">
+          <button
+            type="button"
+            onClick={() => choose("granted")}
+            className="flex-1 border border-neon-pink/60 notch px-4 py-2 font-medium text-ink-100 transition [--nc:rgba(255,45,149,0.6)] hover:bg-neon-pink/15"
+          >
+            {t("accept")}
+          </button>
+          <button
+            type="button"
+            onClick={() => choose("denied")}
+            className="flex-1 border border-neon-pink/60 notch-alt px-4 py-2 font-medium text-ink-100 transition [--nc:rgba(255,45,149,0.6)] hover:bg-neon-pink/15"
+          >
+            {t("decline")}
+          </button>
+        </div>
+      </CyberFrame>
     </section>
   );
 }

@@ -15,6 +15,7 @@ import os
 
 import json
 
+import bmesh
 import bpy
 from bpy_extras.object_utils import world_to_camera_view
 from mathutils import Vector
@@ -28,6 +29,9 @@ os.makedirs(OUT, exist_ok=True)
 # hanging to the floor does not pull the camera away from the phone.
 FRAME_MIN_Z = {"telephone": 0.76}
 UNLIT = {"open-sign-off"}
+# Faces with these materials are left out of the render, e.g. the yoga mat next to the
+# weights, which would otherwise shrink the dumbbells to specks in a small icon.
+DROP_MATERIALS = {"icon-gym": {"gym_violet"}}
 PROPS = {
     "computer": (["monitor", "monitor_screen", "computer_case", "keyboard"], -28, 0.45, 1.0),
     "open-sign": (["neon_sign", "neon_border", "neon_panel"], -18, 0.1, 1.0),
@@ -35,7 +39,23 @@ PROPS = {
     "open-sign-off": (["neon_sign", "neon_border", "neon_panel"], -18, 0.1, 1.0),
     "floppy": (["floppy"], -20, 1.1, 1.0),
     "telephone": (["phone"], -32, 0.7, 0.88),
+    # Small icons for the ticker on the about page (icon-*.png, resized to 256 by room.mjs).
+    # From the right front so the voxel cat shows its face and ears.
+    "icon-cat": (["cat"], 40, 0.3, 1.0),
+    "icon-books": (["books"], -20, 0.35, 1.0),
+    "icon-book": (["book_open"], -10, 1.2, 1.0),
+    "icon-gym": (["gym"], -20, 0.8, 1.0),
+    "icon-headphones": (["headphones"], -25, 0.5, 1.0),
+    "icon-hifi": (["hifi"], -20, 0.4, 1.0),
+    "icon-cassettes": (["cassettes"], -20, 0.6, 1.0),
+    "icon-code": (["monitor", "monitor_screen", "computer_case", "keyboard"], -20, 0.45, 1.0),
+    "icon-plant": (["plant"], -20, 0.4, 1.0),
+    "icon-speaker": (["speaker"], -20, 0.4, 1.0),
 }
+# PROP_ONLY=icon- renders just the props whose name starts with it, for quick reruns.
+ONLY = os.environ.get("PROP_ONLY")
+if ONLY:
+    PROPS = {k: v for k, v in PROPS.items() if k.startswith(ONLY)}
 SIZE = 900
 
 bpy.ops.wm.open_mainfile(filepath=os.path.join(HERE, "out", "room.blend"))
@@ -93,6 +113,41 @@ def aim(obj, target):
 
 
 for name, (objects, yaw, rise, zoom) in PROPS.items():
+    swapped = []
+    for obj_name in objects if name in DROP_MATERIALS else []:
+        obj = scene.objects.get(obj_name)
+        if obj is None:
+            continue
+        drop = {i for i, slot in enumerate(obj.material_slots) if slot.material and slot.material.name in DROP_MATERIALS[name]}
+        mesh = obj.data.copy()
+        bm = bmesh.new()
+        bm.from_mesh(mesh)
+        dropped = [f for f in bm.faces if f.material_index in drop]
+        # Loose parts that sit inside the dropped faces (the pink roll on the mat) go too.
+        box = [(min(v.co[i] for f in dropped for v in f.verts) - 0.02, max(v.co[i] for f in dropped for v in f.verts) + 0.02) for i in range(3)]
+        inside = lambda co: all(lo <= co[i] <= hi for i, (lo, hi) in enumerate(box))
+        seen = set()
+        for face in bm.faces:
+            if face in seen:
+                continue
+            stack, island = [face], []
+            while stack:
+                g = stack.pop()
+                if g in seen:
+                    continue
+                seen.add(g)
+                island.append(g)
+                stack += [h for e in g.edges for h in e.link_faces if h not in seen]
+            if all(inside(v.co) for g in island for v in g.verts):
+                dropped += [g for g in island if g not in dropped]
+        bmesh.ops.delete(bm, geom=dropped, context="FACES")
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context="VERTS")
+        bm.to_mesh(mesh)
+        bm.free()
+        swapped.append((obj, obj.data))
+        obj.data = mesh
+    if swapped:
+        bpy.context.view_layer.update()
     keep = set(objects)
     for obj in scene.objects:
         if obj.type == "MESH":
@@ -156,4 +211,6 @@ for name, (objects, yaw, rise, zoom) in PROPS.items():
     bpy.ops.render.render(write_still=True)
     for bsdf, strength in dimmed:
         bsdf.inputs["Emission Strength"].default_value = strength
+    for obj, original in swapped:
+        obj.data = original
     print(f"PROP_OK {name}")

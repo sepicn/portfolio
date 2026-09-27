@@ -1,28 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
 import { useProgress } from "@react-three/drei";
-
-type Props = { onReady?: () => void };
 
 /**
  * Small progress pill over the poster image. The poster itself lives in the hero so it
- * can paint before any 3D code has been downloaded.
+ * can paint before any 3D code has been downloaded; SceneReady in room-canvas.tsx decides
+ * when the poster may fade.
  */
-export function SceneLoader({ onReady }: Props) {
+export function SceneLoader() {
   const { progress, active } = useProgress();
-  const done = !active && progress >= 100;
-
-  useEffect(() => {
-    if (!done || !onReady) return;
-    // Two frames so the first rendered frame is on screen before the poster fades out.
-    let id = window.requestAnimationFrame(() => {
-      id = window.requestAnimationFrame(onReady);
-    });
-    return () => window.cancelAnimationFrame(id);
-  }, [done, onReady]);
-
-  if (done) return null;
+  if (!active && progress >= 100) return null;
 
   return (
     <div

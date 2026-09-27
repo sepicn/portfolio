@@ -2,13 +2,15 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ConsentSettingsButton } from "@/components/consent-banner";
 import { siteConfig } from "@/lib/site-config";
+import { CyberDivider } from "@/components/cyber-divider";
 
 export function SiteFooter() {
   const t = useTranslations("footer");
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/5 py-10 text-sm text-ink-400">
+    <footer className="pb-10 text-sm text-ink-400">
+      <CyberDivider variant={5} className="mb-10 text-white/10" />
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="flex flex-col gap-1">
           <p>

@@ -31,6 +31,9 @@ const icons: Record<string, typeof CodeBracketIcon> = {
 };
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+// The address bar sliding in and out resizes the viewport on every direction change. A
+// refresh there re-measures the pin mid-scroll, which read as the tour jumping.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 /** Width over height of the tour stills in /images/tour (rendered at 1080x1920). */
 const STILL_RATIO = 9 / 16;
@@ -40,6 +43,9 @@ const FLY_FRAMES = 24;
 const frameUrl = (spot: string, frame: number) =>
   `/images/tour/fly/${spot}/${String(frame).padStart(2, "0")}.webp`;
 
+/** Frames whose pixels are decoded, so drawing them never stalls a scroll frame. */
+const decoded = new WeakSet<HTMLImageElement>();
+
 /** Loads a flight's frames once, on demand; returns the (possibly still loading) images. */
 const flights = new Map<string, HTMLImageElement[]>();
 function loadFlight(spot: string) {
@@ -47,8 +53,13 @@ function loadFlight(spot: string) {
   if (!frames) {
     frames = Array.from({ length: FLY_FRAMES }, (_, i) => {
       const img = new window.Image();
-      img.decoding = "async";
       img.src = frameUrl(spot, i);
+      // Decode off the main thread up front: drawing an undecoded image to a canvas decodes
+      // it synchronously, which made the flight hitch the first time through.
+      img.decode().then(
+        () => decoded.add(img),
+        () => undefined,
+      );
       return img;
     });
     flights.set(spot, frames);
@@ -111,40 +122,67 @@ export function HeroTour({ overlay }: Props) {
       const shots = gsap.utils.toArray<HTMLElement>("[data-shot]", el);
       const pins = el.querySelector<HTMLElement>("[data-pins]");
 
+      // The frames are 540x960, so a backing store past 1.5x only costs fill rate.
       const size = () => {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = Math.round(el.clientWidth * dpr);
-        canvas.height = Math.round(el.clientHeight * dpr);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        const w = Math.round(el.clientWidth * dpr);
+        const h = Math.round(el.clientHeight * dpr);
+        // Setting a canvas size, even the same one, reallocates and clears it.
+        if (canvas.width === w && canvas.height === h) return false;
+        canvas.width = w;
+        canvas.height = h;
+        return true;
       };
       size();
 
+      const nearest = (frames: HTMLImageElement[], from: number) => {
+        for (let i = from; i >= 0; i--) if (decoded.has(frames[i])) return frames[i];
+        return null;
+      };
+
       // Which flight is showing and how far along it is (0 = room, FLY_FRAMES - 1 = close-up).
       const fly = { stop: -1, frame: 0 };
+      let drawn = "";
       const draw = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         const spot = stops[fly.stop];
         // Frame 0 is the wide shot, which the still under the canvas already shows. Drawing
         // it would also fetch the whole flight the moment the page loads.
-        if (!spot || Math.round(fly.frame) === 0) return;
+        const on = spot && fly.frame > 0.05;
+        // Scrub fires every tick; skip the repaint when nothing visible changed.
+        const key = on ? `${fly.stop}:${Math.round(fly.frame * 16)}` : "";
+        if (key === drawn) return;
+        drawn = key;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (!on) return;
         const frames = loadFlight(spot.id);
-        // Use the nearest frame that has arrived, so a slow network shows a coarser flight.
-        for (let i = Math.round(fly.frame); i >= 0; i--) {
-          if (frames[i].complete && frames[i].naturalWidth) {
-            drawCover(ctx, frames[i]);
-            return;
-          }
+        // Blend the two frames either side of the scroll position, so 24 renders read as
+        // continuous motion instead of steps. Until a frame is decoded, the nearest earlier
+        // one stands in, so a slow network shows a coarser flight rather than a stall.
+        const lo = Math.floor(fly.frame);
+        const base = nearest(frames, lo);
+        if (!base) return;
+        drawCover(ctx, base);
+        const next = frames[Math.min(lo + 1, FLY_FRAMES - 1)];
+        const mix = fly.frame - lo;
+        if (mix > 0.03 && next !== base && decoded.has(next)) {
+          ctx.globalAlpha = mix;
+          drawCover(ctx, next);
+          ctx.globalAlpha = 1;
         }
       };
       // The first flight loads on the first interaction (see warm); each next one while
-      // the current plays.
+      // the current plays. Phones fire resize whenever the address bar slides; the canvas
+      // follows the svh-sized section, so that is usually a no-op.
       const onResize = () => {
-        size();
+        if (!size()) return;
+        drawn = "";
         draw();
       };
       window.addEventListener("resize", onResize);
 
       // Each stop takes two timeline units: push in and hold (0 to 1), pull out (1 to 2).
       const units = stops.length * 2;
+      let shown = -1;
       const tl = gsap.timeline({
         defaults: { ease: "power2.inOut" },
         scrollTrigger: {
@@ -152,18 +190,26 @@ export function HeroTour({ overlay }: Props) {
           start: "top top+=64",
           end: () => `+=${stops.length * window.innerHeight * 1.1}`,
           pin: true,
-          scrub: 0.6,
+          // A longer catch-up smooths out the uneven deltas of a finger flick.
+          scrub: 1,
           snap: {
             // Rest on the overview, on each close-up, and on the overview at the end.
             snapTo: [0, ...stops.map((_, i) => (i * 2 + 1) / units), 1],
-            duration: { min: 0.25, max: 0.7 },
-            ease: "power1.inOut",
+            // Wait for the fling to settle before gliding in, instead of fighting it.
+            delay: 0.15,
+            duration: { min: 0.4, max: 0.9 },
+            ease: "power2.inOut",
           },
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const at = self.progress * units;
             const i = Math.round((at - 1) / 2);
-            setActive(Math.abs(at - (i * 2 + 1)) < 0.45 ? i : -1);
+            const now = Math.abs(at - (i * 2 + 1)) < 0.45 ? i : -1;
+            // Only touch React when the stop changes, not on every scroll tick.
+            if (now !== shown) {
+              shown = now;
+              setActive(now);
+            }
             const next = stops[Math.min(stops.length - 1, Math.floor(at / 2) + 1)];
             if (next) loadFlight(next.id);
           },
@@ -235,7 +281,7 @@ export function HeroTour({ overlay }: Props) {
                 >
                   <Link
                     href={spot.href!}
-                    className="flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-neon-cyan/50 bg-night-950/80 py-1 pr-3 pl-1.5 font-mono text-[10px] tracking-widest text-neon-cyan uppercase backdrop-blur"
+                    className="flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-neon-cyan/50 bg-night-950/85 py-1 pr-3 pl-1.5 font-mono text-[10px] tracking-widest text-neon-cyan uppercase"
                   >
                     <span className="block size-2 animate-pulse rounded-full bg-neon-cyan shadow-neon-cyan" />
                     {labels(spot.id)}
@@ -247,16 +293,27 @@ export function HeroTour({ overlay }: Props) {
 
         <canvas aria-hidden="true" className="absolute inset-0 size-full" />
 
-        {stops.map((spot) => (
+        {stops.map((spot, i) => (
           <div key={spot.id} data-shot className="invisible absolute inset-0 opacity-0">
             {warm ? (
-              <Image
-                src={`/images/tour/${spot.id}.webp`}
-                alt=""
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
+              <>
+                <Image
+                  src={`/images/tour/${spot.id}.webp`}
+                  alt=""
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+                {/* A neon trace around the object (blender/render_outlines.py), lit once
+                    the tour rests here, so it reads as the thing to tap. */}
+                {/* eslint-disable-next-line @next/next/no-img-element -- flat ~20 KB overlay */}
+                <img
+                  src={`/images/tour/outline/${spot.id}.webp`}
+                  alt=""
+                  decoding="async"
+                  className={`absolute inset-0 size-full object-cover mix-blend-screen ${i === active ? "animate-tube-on" : "opacity-0"}`}
+                />
+              </>
             ) : null}
           </div>
         ))}
@@ -294,7 +351,7 @@ export function HeroTour({ overlay }: Props) {
             <Link
               key={spot.id}
               href={spot.href!}
-              className={`absolute inset-x-0 bottom-0 block rounded-2xl border border-neon-cyan/30 bg-night-950/85 p-4 shadow-neon-cyan backdrop-blur transition duration-300 ${i === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"}`}
+              className={`absolute inset-x-0 bottom-0 block rounded-2xl border border-neon-cyan/30 bg-night-950/90 p-4 shadow-neon-cyan transition duration-300 ${i === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"}`}
               inert={i !== active}
             >
               <p className="font-mono text-[10px] tracking-[0.3em] text-neon-pink uppercase">

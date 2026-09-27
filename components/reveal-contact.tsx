@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { CyberFrame } from "@/components/cyber-frame";
 
 type Kind = "email" | "phone" | "whatsapp";
+
+/** Each contact row gets its own silhouette. */
+const rowShape: Record<Kind, number> = { email: 3, phone: 5, whatsapp: 7 };
 
 type Props = {
   kind: Kind;
@@ -51,8 +55,11 @@ export function RevealContact({
           ? t("labelPhone")
           : "WhatsApp";
     return (
-      <div
-        className={`flex min-h-[3.75rem] items-center justify-between gap-4 rounded-xl border border-white/10 px-4 py-3 transition hover:border-neon-cyan/50 ${className}`}
+      <CyberFrame
+        variant={rowShape[kind]}
+        scale={0.45}
+        edgeClassName={`hover:bg-neon-cyan/50 ${className}`}
+        className="flex min-h-[3.625rem] items-center justify-between gap-4 bg-night-900 px-4 py-3"
       >
         <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
           {label}
@@ -61,7 +68,7 @@ export function RevealContact({
           <button
             type="button"
             onClick={reveal}
-            className="rounded-md border border-neon-cyan/50 px-3 py-1.5 font-mono text-xs text-neon-cyan transition hover:bg-neon-cyan/10"
+            className="border border-neon-cyan/50 notch px-3 py-1.5 font-mono text-xs text-neon-cyan transition [--n:6px] [--nc:rgba(0,229,255,0.5)] hover:bg-neon-cyan/10"
           >
             {t(kind)}
           </button>
@@ -79,14 +86,14 @@ export function RevealContact({
               <button
                 type="button"
                 onClick={copy}
-                className="shrink-0 rounded-md border border-white/10 px-2 py-1 font-mono text-[11px] text-ink-300 transition hover:border-neon-pink/60 hover:text-neon-pink"
+                className="shrink-0 border border-white/10 notch-one px-2 py-1 font-mono text-[11px] text-ink-300 transition [--nc:rgba(255,255,255,0.1)] hover:border-neon-pink/60 hover:text-neon-pink hover:[--nc:rgba(255,45,149,0.6)]"
               >
                 {copied ? t("copied") : t("copy")}
               </button>
             ) : null}
           </span>
         )}
-      </div>
+      </CyberFrame>
     );
   }
 
@@ -95,7 +102,7 @@ export function RevealContact({
       <button
         type="button"
         onClick={reveal}
-        className={`rounded-md border border-neon-cyan/50 px-4 py-2 font-mono text-sm text-neon-cyan transition hover:bg-neon-cyan/10 ${className}`}
+        className={`border border-neon-cyan/50 notch-alt px-4 py-2 font-mono text-sm text-neon-cyan transition [--n:8px] [--nc:rgba(0,229,255,0.5)] hover:bg-neon-cyan/10 ${className}`}
       >
         {t(kind)}
       </button>
@@ -107,7 +114,7 @@ export function RevealContact({
       href={hrefFor(kind, value)}
       target={kind === "whatsapp" ? "_blank" : undefined}
       rel="noopener"
-      className={`inline-block rounded-md border border-neon-pink/60 px-4 py-2 font-mono text-sm text-ink-100 hover:text-neon-pink ${className}`}
+      className={`inline-block border border-neon-pink/60 notch px-4 py-2 font-mono text-sm text-ink-100 [--n:8px] [--nc:rgba(255,45,149,0.6)] hover:text-neon-pink ${className}`}
     >
       {kind === "whatsapp" ? t("openWhatsapp") : value}
     </a>

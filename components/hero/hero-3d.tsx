@@ -14,10 +14,9 @@ import { HeroTour } from "./hero-tour";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RoomCanvas = dynamic(
-  () => import("@/components/scene/room-canvas").then((m) => m.RoomCanvas),
-  { ssr: false },
-);
+const RoomCanvas = dynamic(() => prefetchScene().then((m) => m.RoomCanvas), {
+  ssr: false,
+});
 
 type Mode = "pending" | "webgl" | "poster" | "tour" | "static";
 
@@ -49,12 +48,16 @@ type HeroProps = { overlay?: React.ReactNode };
 // on load, which mounted three.js before anyone touched the page.
 const INTENT_EVENTS = ["pointermove", "pointerdown", "wheel", "keydown", "touchstart"];
 
+/** Fetches the scene's code and, through its module-level useGLTF.preload, the model. */
+const prefetchScene = () => import("@/components/scene/room-canvas");
+
 /**
- * Resolves once the visitor shows intent or the page has been idle for a while. The
- * three.js bundle and scene compile cost ~1 s of main thread; doing it before anyone
- * touches the page only delays interactivity, and the poster looks the same meanwhile.
+ * Resolves once the visitor shows intent or the page has been idle for a while. Mounting
+ * (scene build and shader compile) costs main thread, so it waits; the download does not,
+ * so the code and model are fetched as soon as the page has loaded. Otherwise the first
+ * mouse move started a ~1 MB download and the room took seconds to come alive.
  */
-function useDeferredMount(idleMs = 4000) {
+function useDeferredMount(idleMs = 2000) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -62,6 +65,7 @@ function useDeferredMount(idleMs = 4000) {
     let idle = 0;
     const go = () => setReady(true);
     const onLoad = () => {
+      void prefetchScene();
       timer = window.setTimeout(() => {
         // Older Safari has no requestIdleCallback.
         if (typeof window.requestIdleCallback === "function") {
@@ -186,32 +190,41 @@ function PinnedRoom({ overlay, scene = true }: HeroProps & { scene?: boolean }) 
   // Old-TV power-off while the room leaves the screen: the picture closes from top and
   // bottom into a bright line, and the line shrinks to nothing. It runs as the section
   // scrolls out, with the next section already rising underneath. It animates a clip-path
-  // and an overlay line, never the WebGL canvas itself: scaling or filtering the canvas
-  // dropped frames to black in Chrome.
-  const screenRef = useRef<HTMLDivElement>(null);
+  // on the picture layer and a separate line, never the WebGL canvas itself: scaling or
+  // filtering the canvas dropped frames to black in Chrome. The line sits outside the
+  // clipped layer, so the picture can shut completely while the line keeps its glow.
+  const pictureRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const section = sectionRef.current;
-    const screen = screenRef.current;
+    const picture = pictureRef.current;
     const line = lineRef.current;
-    if (!section || !screen || !line) return;
+    if (!section || !picture || !line) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: "bottom bottom",
-        end: "bottom 40%",
-        scrub: 0.3,
+        // A longer stretch of scroll and a softer catch-up make the close glide.
+        end: "bottom 58%",
+        scrub: 0.6,
       },
     });
     tl.fromTo(
-      screen,
+      picture,
       { clipPath: "inset(0% 0% 0% 0%)" },
-      { clipPath: "inset(49.6% 0% 49.6% 0%)", duration: 0.6, ease: "power3.in" },
+      { clipPath: "inset(50% 0% 50% 0%)", duration: 0.55, ease: "power2.in" },
     )
-      .fromTo(line, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.15 }, 0.45)
-      .to(line, { scaleX: 0, duration: 0.3, ease: "power2.in" }, 0.6)
-      .to(line, { autoAlpha: 0, duration: 0.05 }, 0.9);
+      // Fully shut: hidden outright, so no antialiased sliver of the room survives.
+      .set(picture, { visibility: "hidden" }, 0.55)
+      .fromTo(
+        line,
+        { autoAlpha: 0, scaleX: 1 },
+        { autoAlpha: 1, duration: 0.15, ease: "none" },
+        0.4,
+      )
+      .to(line, { scaleX: 0, duration: 0.35, ease: "power2.inOut" }, 0.55)
+      .to(line, { autoAlpha: 0, duration: 0.1, ease: "none" }, 0.9);
     return () => {
       tl.scrollTrigger?.kill();
       tl.kill();
@@ -220,48 +233,47 @@ function PinnedRoom({ overlay, scene = true }: HeroProps & { scene?: boolean }) 
 
   return (
     <div ref={sectionRef} className="relative h-[180vh]">
-      <div
-        ref={screenRef}
-        className="sticky top-16 h-[calc(100dvh-4rem)] w-full overflow-hidden"
-      >
+      <div className="sticky top-16 h-[calc(100dvh-4rem)] w-full overflow-hidden">
         <div
           ref={lineRef}
           aria-hidden="true"
           className="pointer-events-none invisible absolute inset-x-0 top-1/2 z-30 h-[3px] -translate-y-1/2 bg-white shadow-[0_0_24px_8px_rgba(0,229,255,0.65)]"
         />
-        {scene && mountScene ? <RoomCanvas onReady={onReady} /> : null}
-        {/* A capture of this very scene (scripts/poster.mjs), so the fade into WebGL is seamless.
+        <div ref={pictureRef} className="absolute inset-0">
+          {scene && mountScene ? <RoomCanvas onReady={onReady} /> : null}
+          {/* A capture of this very scene (scripts/poster.mjs), so the fade into WebGL is seamless.
             Wrapped because next/image fill needs a positioned parent, and this one is sticky. */}
-        <div className="pointer-events-none absolute inset-0">
-          <Image
-            src="/images/room-poster.webp"
-            alt=""
-            fill
-            preload
-            sizes="100vw"
-            className={`pointer-events-none object-cover transition-opacity duration-700 ${
-              sceneReady ? "opacity-0" : "opacity-100"
-            }`}
-          />
+          <div className="pointer-events-none absolute inset-0">
+            <Image
+              src="/images/room-poster.webp"
+              alt=""
+              fill
+              preload
+              sizes="100vw"
+              className={`pointer-events-none object-cover transition-opacity duration-700 ${
+                sceneReady ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          </div>
+          <div className="pointer-events-none absolute inset-0 z-10">{overlay}</div>
+          {/* Keyboard and screen-reader path: the same hotspots as plain links. */}
+          <nav
+            aria-label="Room"
+            className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-wrap justify-center gap-2 px-4 md:flex"
+          >
+            {hotspots
+              .filter((spot) => spot.href)
+              .map((spot) => (
+                <Link
+                  key={spot.id}
+                  href={spot.href!}
+                  className="rounded-full border border-white/10 bg-night-950/70 px-3 py-1 font-mono text-[11px] tracking-widest text-ink-200 uppercase backdrop-blur transition hover:border-neon-cyan/60 hover:text-neon-cyan"
+                >
+                  {t(spot.id)}
+                </Link>
+              ))}
+          </nav>
         </div>
-        <div className="pointer-events-none absolute inset-0 z-10">{overlay}</div>
-        {/* Keyboard and screen-reader path: the same hotspots as plain links. */}
-        <nav
-          aria-label="Room"
-          className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-wrap justify-center gap-2 px-4 md:flex"
-        >
-          {hotspots
-            .filter((spot) => spot.href)
-            .map((spot) => (
-              <Link
-                key={spot.id}
-                href={spot.href!}
-                className="rounded-full border border-white/10 bg-night-950/70 px-3 py-1 font-mono text-[11px] tracking-widest text-ink-200 uppercase backdrop-blur transition hover:border-neon-cyan/60 hover:text-neon-cyan"
-              >
-                {t(spot.id)}
-              </Link>
-            ))}
-        </nav>
       </div>
     </div>
   );

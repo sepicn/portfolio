@@ -11,6 +11,7 @@ const blender =
 const run = (cmd, args) => execFileSync(cmd, args, { stdio: "inherit", shell: false });
 
 run(blender, ["-b", "-P", "blender/build_room.py"]);
+run(blender, ["-b", "blender/out/room.blend", "-P", "blender/render_outlines.py"]);
 run(blender, ["-b", "-P", "blender/render_props.py"]);
 // Called through node directly: spawning npx.cmd without a shell is refused on Windows.
 run(process.execPath, [
@@ -46,6 +47,15 @@ for (const file of readdirSync("blender/out").filter((name) =>
     .webp({ quality: 80 })
     .toFile(`public/images/tour/${name}.webp`);
 }
+mkdirSync("public/images/tour/outline", { recursive: true });
+for (const file of readdirSync("blender/out/outline").filter((name) =>
+  /^[a-z]+[.]png$/.test(name),
+)) {
+  // One flat colour with the shape in alpha; lossy alpha keeps each near 20 KB.
+  await sharp(`blender/out/outline/${file}`)
+    .webp({ quality: 80, alphaQuality: 70, effort: 6 })
+    .toFile(`public/images/tour/outline/${file.replace(".png", ".webp")}`);
+}
 for (const file of readdirSync("blender/out/fly").filter((name) =>
   /^[a-z]+_[0-9]+[.]png$/.test(name),
 )) {
@@ -56,8 +66,19 @@ for (const file of readdirSync("blender/out/fly").filter((name) =>
     .toFile(`public/images/tour/fly/${spot}/${frame}.webp`);
 }
 mkdirSync("public/images/props", { recursive: true });
-for (const file of readdirSync("blender/out/props").filter((name) =>
-  name.endsWith(".png"),
+mkdirSync("public/images/icons", { recursive: true });
+for (const file of readdirSync("blender/out/props").filter(
+  (name) => name.startsWith("icon-") && name.endsWith(".png"),
+)) {
+  // Ticker icons on the about page: small, cropped to the object.
+  await sharp(`blender/out/props/${file}`)
+    .trim()
+    .resize(256, 256, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .webp({ quality: 84, alphaQuality: 90 })
+    .toFile(`public/images/icons/${file.replace("icon-", "").replace(".png", ".webp")}`);
+}
+for (const file of readdirSync("blender/out/props").filter(
+  (name) => name.endsWith(".png") && !name.startsWith("icon-"),
 )) {
   await sharp(`blender/out/props/${file}`)
     .resize(640, 640)

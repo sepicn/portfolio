@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { Reveal } from "@/components/reveal";
+import { CyberFrame } from "@/components/cyber-frame";
+import { CyberDivider } from "@/components/cyber-divider";
 import { pick, pickList } from "@/content/i18n";
 import {
   profile,
@@ -86,7 +88,12 @@ export default function CvPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <Reveal className="no-print">
-        <div className="neon-frame flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/5 bg-night-800/50 p-5">
+        <CyberFrame
+          variant={2}
+          scale={0.7}
+          tone="spin"
+          className="flex flex-wrap items-center justify-between gap-4 bg-night-800 p-5 pt-6"
+        >
           <div className="flex items-center gap-4">
             <FloatingProp
               src="/images/props/floppy.webp"
@@ -101,7 +108,7 @@ export default function CvPage({ params }: Props) {
                 locale === "en" ? "/cv/Nikola_Sepic_CV_EN.pdf" : "/cv/Nikola_Sepic_CV.pdf"
               }
               download
-              className="rounded-md bg-neon-cyan px-4 py-2 font-medium text-night-950 shadow-neon-cyan"
+              className="bg-neon-cyan notch px-4 py-2 font-medium text-night-950"
             >
               {t("downloadPdf")}
             </a>
@@ -112,16 +119,20 @@ export default function CvPage({ params }: Props) {
                   : "/cv/Nikola_Sepic_CV.docx"
               }
               download
-              className="rounded-md border border-white/15 px-4 py-2 font-medium text-ink-100 hover:border-neon-pink/60"
+              className="border border-white/15 notch-alt px-4 py-2 font-medium text-ink-100 [--nc:rgba(255,255,255,0.15)] hover:border-neon-pink/60 hover:[--nc:rgba(255,45,149,0.6)]"
             >
               {t("downloadDocx")}
             </a>
           </div>
-        </div>
+        </CyberFrame>
       </Reveal>
 
-      <article className="cv mt-10 rounded-2xl border border-white/10 bg-night-900/80 p-8 sm:p-12 print:border-0 print:bg-white print:p-0 print:text-black">
-        <header className="flex flex-wrap items-start justify-between gap-6 border-b border-white/10 pb-8 print:border-black/20">
+      <article className="cv mt-10 border border-white/10 bg-night-900/80 notch p-8 [--n:28px] [--nc:rgba(255,255,255,0.1)] sm:p-12 print:border-0 print:bg-white print:bg-none print:p-0 print:text-black print:[clip-path:none]">
+        <header className="relative flex flex-wrap items-start justify-between gap-6 pb-8 print:border-b print:border-black/20">
+          <CyberDivider
+            variant={6}
+            className="no-print absolute inset-x-0 bottom-0 text-white/10"
+          />
           <div>
             <h1 className="font-display text-4xl font-semibold tracking-tight text-ink-100 print:text-black">
               {profile.name}

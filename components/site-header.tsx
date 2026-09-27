@@ -5,13 +5,18 @@ import { navItems } from "@/lib/site-config";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileNav } from "./mobile-nav";
 import { MusicToggle } from "./music-toggle";
+import { CyberDivider } from "./cyber-divider";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
   const site = useTranslations("site");
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-night-900/70 backdrop-blur-md">
+    <header className="sticky top-0 z-40 bg-night-900/70 backdrop-blur-md">
+      <CyberDivider
+        variant={2}
+        className="pointer-events-none absolute inset-x-0 bottom-0 text-white/10"
+      />
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* The mark is the brand: a neon code tag on a synthwave sun (blender/render_logo.py).
             The name stays in the accessible label for screen readers and search. */}

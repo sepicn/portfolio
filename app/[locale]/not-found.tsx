@@ -8,7 +8,7 @@ export default function NotFoundPage() {
     <PageIntro title={t("title")} intro={t("body")}>
       <Link
         href="/"
-        className="mt-8 inline-block rounded-md border border-neon-cyan/60 px-5 py-3 text-neon-cyan"
+        className="mt-8 inline-block border border-neon-cyan/60 notch px-5 py-3 text-neon-cyan [--n:9px] [--nc:rgba(0,229,255,0.6)]"
       >
         {t("back")}
       </Link>

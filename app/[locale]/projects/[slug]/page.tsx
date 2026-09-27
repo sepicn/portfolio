@@ -8,6 +8,8 @@ import { use } from "react";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { Reveal } from "@/components/reveal";
+import { CyberFrame, cyberClip } from "@/components/cyber-frame";
+import { CyberDivider } from "@/components/cyber-divider";
 import { Parallax } from "@/components/motion/parallax";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { PrivateArt } from "@/components/project-card";
@@ -139,7 +141,7 @@ export default function ProjectPage({ params }: Props) {
                   href={project.links.live}
                   target="_blank"
                   rel="noopener"
-                  className="rounded-md bg-neon-pink px-5 py-2.5 font-medium text-night-950 shadow-neon-pink transition hover:brightness-110"
+                  className="bg-neon-pink notch px-5 py-2.5 font-medium text-night-950 transition [--n:9px] hover:brightness-110"
                 >
                   {t("visit")} ↗
                 </a>
@@ -149,7 +151,7 @@ export default function ProjectPage({ params }: Props) {
                   href={project.links.repo}
                   target="_blank"
                   rel="noopener"
-                  className="rounded-md border border-neon-cyan/60 px-5 py-2.5 font-medium text-neon-cyan transition hover:bg-neon-cyan/10"
+                  className="border border-neon-cyan/60 notch-alt px-5 py-2.5 font-medium text-neon-cyan transition [--n:9px] [--nc:rgba(0,229,255,0.6)] hover:bg-neon-cyan/10"
                 >
                   GitHub ↗
                 </a>
@@ -163,33 +165,38 @@ export default function ProjectPage({ params }: Props) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal from="up">
           <Parallax distance={60}>
-            <div className="relative rounded-2xl border border-white/10 bg-night-900 p-2 shadow-2xl shadow-black/60">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-night-950">
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={`${project.title}, ${t("screenshot")}`}
-                    fill
-                    preload
-                    sizes="(max-width: 1200px) 100vw, 1152px"
-                    className="object-cover object-top"
-                  />
-                ) : (
-                  <PrivateArt label={project.title} accent={project.accent} />
-                )}
-              </div>
-              <div className="flex items-center justify-between px-3 pt-2 pb-1 font-mono text-[11px] tracking-widest text-ink-400 uppercase">
-                <span>
-                  {project.links.live
-                    ?.replace(/^https?:\/\/(www\.)?/, "")
-                    .replace(/\/$/, "") ?? t("privateLabel")}
-                </span>
-                <span className="flex gap-1.5" aria-hidden="true">
-                  <span className="size-2 rounded-full bg-neon-red" />
-                  <span className="size-2 rounded-full bg-neon-yellow" />
-                  <span className="size-2 rounded-full bg-neon-green" />
-                </span>
-              </div>
+            <div className="[filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.6))]">
+              <CyberFrame variant={2} scale={0.8} className="bg-night-900 p-2 pt-4">
+                <div
+                  className="relative aspect-[16/10] overflow-hidden bg-night-950"
+                  style={{ clipPath: cyberClip(3, 0.5) }}
+                >
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={`${project.title}, ${t("screenshot")}`}
+                      fill
+                      preload
+                      sizes="(max-width: 1200px) 100vw, 1152px"
+                      className="object-cover object-top"
+                    />
+                  ) : (
+                    <PrivateArt label={project.title} accent={project.accent} />
+                  )}
+                </div>
+                <div className="flex items-center justify-between px-3 pt-2 pb-1 font-mono text-[11px] tracking-widest text-ink-400 uppercase">
+                  <span>
+                    {project.links.live
+                      ?.replace(/^https?:\/\/(www\.)?/, "")
+                      .replace(/\/$/, "") ?? t("privateLabel")}
+                  </span>
+                  <span className="flex gap-1.5" aria-hidden="true">
+                    <span className="size-2 rounded-full bg-neon-red" />
+                    <span className="size-2 rounded-full bg-neon-yellow" />
+                    <span className="size-2 rounded-full bg-neon-green" />
+                  </span>
+                </div>
+              </CyberFrame>
             </div>
           </Parallax>
         </Reveal>
@@ -197,13 +204,20 @@ export default function ProjectPage({ params }: Props) {
 
       {/* Facts bar: what a recruiter scans first */}
       <section aria-label={t("facts")} className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <dl className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {facts.map((f, i) => (
-            <Reveal key={f.label} as="div" delay={i * 0.06} className="bg-night-900 p-5">
-              <dt className="font-mono text-[11px] tracking-widest text-ink-400 uppercase">
-                {f.label}
-              </dt>
-              <dd className="mt-2 text-ink-100">{f.value}</dd>
+            <Reveal key={f.label} as="div" delay={i * 0.06}>
+              <CyberFrame
+                variant={[4, 9, 7, 1][i % 4]}
+                scale={0.55}
+                edgeClassName="h-full"
+                className="bg-night-900 p-5"
+              >
+                <dt className="font-mono text-[11px] tracking-widest text-ink-400 uppercase">
+                  {f.label}
+                </dt>
+                <dd className="mt-2 text-ink-100">{f.value}</dd>
+              </CyberFrame>
             </Reveal>
           ))}
         </dl>
@@ -212,7 +226,7 @@ export default function ProjectPage({ params }: Props) {
             {project.stack.map((item) => (
               <li
                 key={item}
-                className="rounded-md border border-white/10 px-2.5 py-1 font-mono text-xs text-ink-200"
+                className="border border-white/10 notch-one px-2.5 py-1 font-mono text-xs text-ink-200 [--nc:rgba(255,255,255,0.1)]"
               >
                 {item}
               </li>
@@ -253,17 +267,17 @@ export default function ProjectPage({ params }: Props) {
 
         <div className="space-y-6">
           <Reveal from="right">
-            <div className="rounded-2xl border border-neon-cyan/30 bg-night-800/60 p-7">
+            <CyberFrame variant={5} tone="cyan" className="bg-night-800 p-7">
               <h2 className="font-mono text-xs tracking-[0.3em] text-neon-cyan uppercase">
                 {t("hard")}
               </h2>
               <p className="mt-4 leading-relaxed text-ink-100">
                 {pick(project.hard, locale)}
               </p>
-            </div>
+            </CyberFrame>
           </Reveal>
           <Reveal from="right" delay={0.1}>
-            <div className="rounded-2xl border border-neon-pink/30 bg-night-800/60 p-7">
+            <CyberFrame variant={10} tone="pink" className="bg-night-800 p-7">
               <h2 className="font-mono text-xs tracking-[0.3em] text-neon-pink uppercase">
                 {t("impact")}
               </h2>
@@ -274,7 +288,7 @@ export default function ProjectPage({ params }: Props) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </CyberFrame>
           </Reveal>
           {!project.links.live && !project.links.repo ? (
             <Reveal from="right" delay={0.15}>
@@ -299,7 +313,11 @@ export default function ProjectPage({ params }: Props) {
             <div className="space-y-8">
               {desktopShots.map((src, i) => (
                 <Reveal key={src} from={i % 2 === 0 ? "left" : "right"}>
-                  <div className="overflow-hidden rounded-xl border border-white/10 bg-night-950">
+                  <CyberFrame
+                    variant={[0, 6, 9, 1, 8][i % 5]}
+                    scale={0.8}
+                    className="overflow-hidden bg-night-950"
+                  >
                     <Image
                       src={src}
                       alt={`${project.title}, ${t("screenshot")} ${i + 2}`}
@@ -308,7 +326,7 @@ export default function ProjectPage({ params }: Props) {
                       sizes="(max-width: 1024px) 100vw, 860px"
                       className="h-auto w-full"
                     />
-                  </div>
+                  </CyberFrame>
                 </Reveal>
               ))}
             </div>
@@ -339,9 +357,12 @@ export default function ProjectPage({ params }: Props) {
 
       <Testimonials locale={locale} project={slug} />
 
+      <div className="mx-auto mt-24 max-w-6xl px-4 sm:px-6">
+        <CyberDivider variant={4} />
+      </div>
       <nav
         aria-label={t("moreNav")}
-        className="mx-auto mt-24 flex max-w-6xl justify-between gap-4 border-t border-white/5 px-4 pt-10 sm:px-6"
+        className="mx-auto flex max-w-6xl justify-between gap-4 px-4 pt-10 sm:px-6"
       >
         <Link href={`/projects/${prev.slug}`} className="group max-w-[45%]">
           <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">

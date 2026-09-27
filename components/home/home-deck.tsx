@@ -6,6 +6,7 @@ import { SlideDeck } from "@/components/motion/slide-deck";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { Tilt } from "@/components/motion/tilt";
 import { ProjectCard } from "@/components/project-card";
+import { CyberFrame, cyberClip } from "@/components/cyber-frame";
 import { RevealContact } from "@/components/reveal-contact";
 import { pick, pickList } from "@/content/i18n";
 import { featuredProjects, projects } from "@/content/data/projects";
@@ -43,16 +44,26 @@ export function HomeDeck() {
         <Tilt max={10}>
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-neon-pink/50 via-neon-violet/30 to-neon-cyan/50 blur-2xl" />
-            <Image
-              src={profile.photo}
-              sizes="(max-width: 640px) 240px, 320px"
-              alt={profile.name}
-              width={320}
-              height={320}
-              className="relative aspect-square w-60 rounded-2xl border border-white/10 object-cover sm:w-80"
-            />
-            <span className="absolute -right-3 -bottom-3 rounded-md border border-neon-cyan/50 bg-night-950 px-3 py-1 font-mono text-[11px] tracking-widest text-neon-cyan uppercase">
-              Beograd
+            <CyberFrame variant={9} tone="spin" className="bg-night-950">
+              <Image
+                src={profile.photo}
+                sizes="(max-width: 640px) 240px, 320px"
+                alt={profile.name}
+                width={320}
+                height={320}
+                className="aspect-square w-60 object-cover sm:w-80"
+              />
+            </CyberFrame>
+            <span
+              className="absolute -right-3 -bottom-3 bg-neon-cyan/60 p-px"
+              style={{ clipPath: cyberClip(1, 0.3) }}
+            >
+              <span
+                className="block bg-night-950 px-3 py-1 font-mono text-[11px] tracking-widest text-neon-cyan uppercase"
+                style={{ clipPath: cyberClip(1, 0.3) }}
+              >
+                Beograd
+              </span>
             </span>
           </div>
         </Tilt>
@@ -78,27 +89,37 @@ export function HomeDeck() {
             <Tilt className="h-full">
               <Link
                 href={`/services#${service.id}`}
-                className="group flex h-full flex-col rounded-2xl border border-white/10 bg-night-800/60 p-6 transition hover:border-neon-pink/60"
+                className="group block h-full transition duration-300 hover:[filter:drop-shadow(0_0_12px_rgba(255,45,149,0.45))]"
               >
-                <span className="font-mono text-4xl font-semibold text-white/10 transition group-hover:text-neon-pink/60">
-                  0{i + 1}
-                </span>
-                <h3 className="mt-4 font-display text-xl font-semibold text-ink-100">
-                  {pick(service.title, locale)}
-                </h3>
-                <p className="mt-3 flex-1 text-sm text-ink-200">
-                  {pick(service.lead, locale)}
-                </p>
-                <ul className="mt-4 space-y-1 text-xs text-ink-400">
-                  {pickList(service.includes, locale)
-                    .slice(0, 2)
-                    .map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <span className="mt-1.5 size-1 shrink-0 rounded-full bg-neon-cyan" />
-                        {item}
-                      </li>
-                    ))}
-                </ul>
+                <CyberFrame
+                  variant={[4, 9, 5, 8][i % 4]}
+                  tone="violet"
+                  edgeClassName="h-full group-hover:bg-neon-pink/70"
+                  className="flex flex-col bg-night-800 p-6 pt-7"
+                >
+                  <span className="font-mono text-4xl font-semibold text-white/10 transition group-hover:text-neon-pink/60">
+                    0{i + 1}
+                  </span>
+                  <h3 className="mt-4 font-display text-xl font-semibold text-ink-100">
+                    {pick(service.title, locale)}
+                  </h3>
+                  <p className="mt-3 flex-1 text-sm text-ink-200">
+                    {pick(service.lead, locale)}
+                  </p>
+                  <ul className="mt-4 space-y-1 text-xs text-ink-400">
+                    {pickList(service.includes, locale)
+                      .slice(0, 2)
+                      .map((item) => (
+                        <li key={item} className="flex gap-2">
+                          <span
+                            aria-hidden="true"
+                            className="mt-1.5 size-1.5 shrink-0 rotate-45 bg-neon-cyan"
+                          />
+                          {item}
+                        </li>
+                      ))}
+                  </ul>
+                </CyberFrame>
               </Link>
             </Tilt>
           </li>
@@ -157,8 +178,10 @@ export function HomeDeck() {
       <ol className="relative space-y-6 before:absolute before:top-3 before:bottom-3 before:left-4 before:w-px before:bg-gradient-to-b before:from-neon-pink before:via-neon-violet before:to-neon-cyan">
         {steps.map((step, i) => (
           <li key={step.title} data-layer className="relative pl-14">
-            <span className="absolute top-0 left-0 flex size-8 items-center justify-center rounded-full border border-neon-cyan/60 bg-night-950 font-mono text-xs text-neon-cyan shadow-neon-cyan">
-              {i + 1}
+            <span className="absolute top-0 left-0 flex size-8 items-center justify-center bg-neon-cyan/70 [clip-path:polygon(25%_0,75%_0,100%_50%,75%_100%,25%_100%,0_50%)]">
+              <span className="flex size-[30px] items-center justify-center bg-night-950 font-mono text-xs text-neon-cyan [clip-path:polygon(25%_0,75%_0,100%_50%,75%_100%,25%_100%,0_50%)]">
+                {i + 1}
+              </span>
             </span>
             <h3 className="font-display text-xl font-semibold text-ink-100">
               {step.title}
@@ -191,7 +214,7 @@ export function HomeDeck() {
       <div data-layer className="mt-8 flex flex-wrap justify-center gap-3">
         <Link
           href="/contact"
-          className="rounded-md bg-neon-cyan px-6 py-3 font-medium text-night-950 shadow-neon-cyan transition hover:brightness-110"
+          className="bg-neon-cyan notch px-6 py-3 font-medium text-night-950 transition [--n:10px] hover:brightness-110"
         >
           {t("ctaContact")}
         </Link>
