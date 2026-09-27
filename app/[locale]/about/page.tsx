@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import { useTranslations } from "next-intl";
@@ -85,9 +86,10 @@ export default function AboutPage({ params }: Props) {
           <div className="relative">
             <div className="absolute -inset-6 animate-glow rounded-[2rem] bg-gradient-to-br from-neon-pink/40 via-neon-violet/25 to-neon-cyan/40 blur-2xl" />
             <div className="neon-frame relative rounded-2xl p-[3px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={profile.photo}
+                sizes="(max-width: 640px) 256px, 320px"
+                preload
                 alt={profile.name}
                 width={320}
                 height={320}

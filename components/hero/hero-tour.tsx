@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -84,6 +84,20 @@ export function HeroTour({ overlay }: Props) {
   const outer = useRef<HTMLDivElement>(null);
   const section = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(-1);
+  // The close-up stills and the first flight wait for the visitor to start moving: someone
+  // who only reads the first screen never downloads ~600 KB of frames they would not see.
+  const [warm, setWarm] = useState(false);
+  useEffect(() => {
+    // Real input only: "scroll" also fires when ScrollTrigger pins and restores the
+    // position on load, which would start the download before anyone touched the page.
+    const events = ["touchstart", "pointerdown", "wheel", "keydown"];
+    const go = () => setWarm(true);
+    events.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, go));
+  }, []);
+  useEffect(() => {
+    if (warm) loadFlight(stops[0].id);
+  }, [warm]);
 
   useGSAP(
     () => {
@@ -109,7 +123,9 @@ export function HeroTour({ overlay }: Props) {
       const draw = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const spot = stops[fly.stop];
-        if (!spot) return;
+        // Frame 0 is the wide shot, which the still under the canvas already shows. Drawing
+        // it would also fetch the whole flight the moment the page loads.
+        if (!spot || Math.round(fly.frame) === 0) return;
         const frames = loadFlight(spot.id);
         // Use the nearest frame that has arrived, so a slow network shows a coarser flight.
         for (let i = Math.round(fly.frame); i >= 0; i--) {
@@ -119,8 +135,8 @@ export function HeroTour({ overlay }: Props) {
           }
         }
       };
-      // Warm the first flight straight away and each next one while the current plays.
-      loadFlight(stops[0].id);
+      // The first flight loads on the first interaction (see warm); each next one while
+      // the current plays.
       const onResize = () => {
         size();
         draw();
@@ -197,7 +213,7 @@ export function HeroTour({ overlay }: Props) {
             src="/images/tour/overview.webp"
             alt=""
             fill
-            priority
+            preload
             sizes="100vw"
             className="object-cover"
           />
@@ -233,13 +249,15 @@ export function HeroTour({ overlay }: Props) {
 
         {stops.map((spot) => (
           <div key={spot.id} data-shot className="invisible absolute inset-0 opacity-0">
-            <Image
-              src={`/images/tour/${spot.id}.webp`}
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
+            {warm ? (
+              <Image
+                src={`/images/tour/${spot.id}.webp`}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+            ) : null}
           </div>
         ))}
 

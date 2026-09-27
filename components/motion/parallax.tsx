@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { loadGsap } from "@/lib/gsap";
 
 type Props = {
   children: React.ReactNode;
@@ -30,25 +27,34 @@ export function Parallax({
   useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const tween = gsap.fromTo(
-      el,
-      { y: -distance / 2, rotate: 0, scale: 1 },
-      {
-        y: distance / 2,
-        rotate,
-        scale: scaleTo,
-        ease: "none",
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 0.6,
+    let cancelled = false;
+    let cleanup: (() => void) | undefined;
+    loadGsap().then(({ gsap }) => {
+      if (cancelled) return;
+      const tween = gsap.fromTo(
+        el,
+        { y: -distance / 2, rotate: 0, scale: 1 },
+        {
+          y: distance / 2,
+          rotate,
+          scale: scaleTo,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.6,
+          },
         },
-      },
-    );
+      );
+      cleanup = () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      };
+    });
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      cancelled = true;
+      cleanup?.();
     };
   }, [distance, rotate, scaleTo]);
 

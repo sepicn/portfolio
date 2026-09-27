@@ -169,7 +169,7 @@ export default function ProjectPage({ params }: Props) {
                     src={project.image}
                     alt={`${project.title}, ${t("screenshot")}`}
                     fill
-                    priority
+                    preload
                     sizes="(max-width: 1200px) 100vw, 1152px"
                     className="object-cover object-top"
                   />

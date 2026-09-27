@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { loadGsap } from "@/lib/gsap";
 
 type Props = {
   text: string;
@@ -32,26 +29,38 @@ export function SplitHeading({
     const el = ref.current;
     if (!el) return;
     const targets = el.querySelectorAll<HTMLElement>("[data-word]");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set(targets, { y: 0, rotateX: 0, autoAlpha: 1 });
-      return;
-    }
-    const tween = gsap.fromTo(
-      targets,
-      { y: "110%", rotateX: -40, autoAlpha: 0 },
-      {
-        y: "0%",
-        rotateX: 0,
-        autoAlpha: 1,
-        duration: 0.9,
-        ease: "power4.out",
-        stagger: 0.06,
-        scrollTrigger: { trigger: el, start: "top 85%", once: true },
-      },
-    );
+    // Headings on screen at load (page titles) rise in with the CSS animation below, which
+    // needs no JavaScript and so does not hold back LCP; GSAP only takes the ones further down.
+    const rect = el.getBoundingClientRect();
+    const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
+    if (onScreen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // A CSS animation outranks GSAP's inline styles, so switch it off before taking over.
+    targets.forEach((t) => (t.style.animation = "none"));
+    let cancelled = false;
+    let cleanup: (() => void) | undefined;
+    loadGsap().then(({ gsap }) => {
+      if (cancelled) return;
+      const tween = gsap.fromTo(
+        targets,
+        { y: "110%", rotateX: -40, autoAlpha: 0 },
+        {
+          y: "0%",
+          rotateX: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: "power4.out",
+          stagger: 0.06,
+          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+        },
+      );
+      cleanup = () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      };
+    });
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      cancelled = true;
+      cleanup?.();
     };
   }, [text]);
 
@@ -65,8 +74,8 @@ export function SplitHeading({
         >
           <span
             data-word
-            className={`inline-block will-change-transform ${accentLast && i === words.length - 1 ? "text-neon-pink text-glow-pink" : ""}`}
-            data-reveal
+            className={`inline-block ${accentLast && i === words.length - 1 ? "text-neon-pink text-glow-pink" : ""}`}
+            style={{ "--i": i } as React.CSSProperties}
           >
             {word}
           </span>

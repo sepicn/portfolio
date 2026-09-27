@@ -21,7 +21,7 @@ export function SiteHeader() {
             alt=""
             width={44}
             height={44}
-            priority
+            preload
             className="size-11 transition duration-300 group-hover:rotate-[-8deg] group-hover:drop-shadow-[0_0_12px_rgba(255,45,149,0.7)]"
           />
         </Link>

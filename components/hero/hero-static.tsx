@@ -16,7 +16,7 @@ export function HeroStatic() {
         src="/images/room-preview.webp"
         alt=""
         fill
-        priority
+        preload
         sizes="(max-width: 768px) 100vw, 1200px"
         className="object-cover"
       />
