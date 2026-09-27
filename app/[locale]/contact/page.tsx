@@ -21,6 +21,8 @@ import {
   personId,
   serializeJsonLd,
   websiteId,
+  businessId,
+  businessJsonLd,
 } from "@/lib/structured-data";
 import { siteConfig } from "@/lib/site-config";
 
@@ -56,7 +58,9 @@ export default function ContactPage({ params }: Props) {
       inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
       isPartOf: { "@id": websiteId },
       about: { "@id": personId },
+      mainEntity: { "@id": businessId },
     },
+    businessJsonLd(locale),
     breadcrumbJsonLd(locale, [
       [siteConfig.name, "/"],
       [navT("contact"), "/contact"],

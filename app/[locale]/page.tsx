@@ -26,6 +26,7 @@ import { Marquee } from "@/components/motion/marquee";
 import {
   graph,
   personJsonLd,
+  businessJsonLd,
   websiteJsonLd,
   serializeJsonLd,
 } from "@/lib/structured-data";
@@ -68,7 +69,11 @@ export default function HomePage({ params }: Props) {
   const { locale } = use(params);
   setRequestLocale(locale);
   const t = useTranslations("home");
-  const jsonLd = graph(websiteJsonLd(locale), personJsonLd(locale));
+  const jsonLd = graph(
+    websiteJsonLd(locale),
+    personJsonLd(locale),
+    businessJsonLd(locale),
+  );
 
   return (
     <>

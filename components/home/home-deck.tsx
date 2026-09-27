@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Link } from "@/i18n/navigation";
+import { serviceHref } from "@/i18n/paths";
 import { SlideDeck } from "@/components/motion/slide-deck";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { Tilt } from "@/components/motion/tilt";
@@ -13,6 +14,38 @@ import { featuredProjects, projects } from "@/content/data/projects";
 import { services, process } from "@/content/data/services";
 import { profile } from "@/content/data/profile";
 import { encodeContact } from "@/lib/obfuscate";
+
+/** One neon per service card: its edge, the glow and number on hover, and its bullets. */
+const serviceAccents = [
+  {
+    tone: "pink",
+    edge: "group-hover:bg-neon-pink/80",
+    glow: "hover:[filter:drop-shadow(0_0_12px_rgba(255,45,149,0.5))]",
+    number: "group-hover:text-neon-pink",
+    dot: "bg-neon-pink",
+  },
+  {
+    tone: "cyan",
+    edge: "group-hover:bg-neon-cyan/80",
+    glow: "hover:[filter:drop-shadow(0_0_12px_rgba(0,229,255,0.45))]",
+    number: "group-hover:text-neon-cyan",
+    dot: "bg-neon-cyan",
+  },
+  {
+    tone: "sun",
+    edge: "group-hover:bg-neon-sun/80",
+    glow: "hover:[filter:drop-shadow(0_0_12px_rgba(255,140,66,0.5))]",
+    number: "group-hover:text-neon-sun",
+    dot: "bg-neon-sun",
+  },
+  {
+    tone: "yellow",
+    edge: "group-hover:bg-neon-yellow/80",
+    glow: "hover:[filter:drop-shadow(0_0_12px_rgba(255,214,10,0.4))]",
+    number: "group-hover:text-neon-yellow",
+    dot: "bg-neon-yellow",
+  },
+] as const;
 
 /**
  * Four scroll-driven panels under the 3D hero, then the contact call to action as a plain
@@ -59,7 +92,7 @@ export function HomeDeck() {
               style={{ clipPath: cyberClip(1, 0.3) }}
             >
               <span
-                className="block bg-night-950 px-3 py-1 font-mono text-[11px] tracking-widest text-neon-cyan uppercase"
+                className="block bg-night-950 px-3 py-1 font-mono text-xs tracking-widest text-neon-cyan uppercase"
                 style={{ clipPath: cyberClip(1, 0.3) }}
               >
                 Beograd
@@ -88,18 +121,18 @@ export function HomeDeck() {
           <li key={service.id} data-layer>
             <Tilt className="h-full">
               <Link
-                href={`/services#${service.id}`}
-                className="group block h-full transition duration-300 hover:[filter:drop-shadow(0_0_12px_rgba(255,45,149,0.45))]"
+                href={serviceHref(service.id, locale)}
+                className={`group block h-full transition duration-300 ${serviceAccents[i % 4].glow}`}
               >
                 <CyberFrame
                   variant={[4, 9, 5, 8][i % 4]}
-                  tone="violet"
-                  edgeClassName="h-full group-hover:bg-neon-pink/70"
+                  tone={serviceAccents[i % 4].tone}
+                  edgeClassName={`h-full ${serviceAccents[i % 4].edge}`}
                   className="flex flex-col bg-night-800 p-6 pt-7"
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-4xl font-semibold text-ink-600 transition group-hover:text-neon-pink/60"
+                    className={`font-mono text-4xl font-semibold text-ink-600 transition ${serviceAccents[i % 4].number}`}
                   >
                     0{i + 1}
                   </span>
@@ -116,7 +149,7 @@ export function HomeDeck() {
                         <li key={item} className="flex gap-2">
                           <span
                             aria-hidden="true"
-                            className="mt-1.5 size-1.5 shrink-0 rotate-45 bg-neon-cyan"
+                            className={`mt-1.5 size-1.5 shrink-0 rotate-45 ${serviceAccents[i % 4].dot}`}
                           />
                           {item}
                         </li>

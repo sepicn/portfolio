@@ -40,7 +40,10 @@ export function ContactForm({ encodedEmail }: Props) {
 
   return (
     <CyberFrame variant={4} tone="spin" className="bg-night-900">
-      <form onSubmit={onSubmit} className="p-7 pb-9">
+      {/* method and action only matter without JavaScript: the default GET would put the
+          name, email and message in the URL. */}
+      <form method="post" action="/api/contact" onSubmit={onSubmit} className="p-7 pb-9">
+        <input type="hidden" name="locale" value={locale} />
         <label className="block">
           <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
             {t("name")}

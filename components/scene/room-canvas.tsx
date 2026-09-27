@@ -4,7 +4,9 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Selection } from "@react-three/postprocessing";
 import { AdaptiveDpr, Preload } from "@react-three/drei";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import { publicPath } from "@/i18n/paths";
 import type { Hotspot } from "@/lib/hotspots";
 import { RoomModel } from "./room-model";
 import { CameraRig } from "./camera-rig";
@@ -35,6 +37,7 @@ function SceneReady({ onReady }: Props) {
 
 export function RoomCanvas({ onReady }: Props) {
   const router = useRouter();
+  const locale = useLocale();
   const { setFocused, toggleLamp, setHovered } = useScene();
   const wrapper = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
@@ -61,10 +64,11 @@ export function RoomCanvas({ onReady }: Props) {
       setFocused(spot.id);
       // Let the camera fly in, then navigate. The route change unmounts the scene.
       window.setTimeout(() => {
-        if (spot.href) router.push(spot.href);
+        // Plain Next router with the localized path, so a hash like #clients survives.
+        if (spot.href) router.push(publicPath(locale, spot.href));
       }, 650);
     },
-    [router, setFocused, setHovered, toggleLamp],
+    [router, locale, setFocused, setHovered, toggleLamp],
   );
 
   return (

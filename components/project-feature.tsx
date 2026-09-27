@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { projectHref } from "@/i18n/paths";
 import { Reveal } from "@/components/reveal";
 import { Parallax } from "@/components/motion/parallax";
 import { Tilt } from "@/components/motion/tilt";
@@ -38,7 +39,7 @@ export function ProjectFeature({ project, index }: Props) {
         <Parallax distance={40}>
           <Tilt max={5}>
             <Link
-              href={`/projects/${project.slug}`}
+              href={projectHref(project.slug)}
               className="group block [filter:drop-shadow(0_24px_36px_rgba(0,0,0,0.5))]"
             >
               <CyberFrame
@@ -63,7 +64,11 @@ export function ProjectFeature({ project, index }: Props) {
                     <PrivateArt label={project.title} accent={project.accent} />
                   )}
                 </div>
-                <div className="mt-2 flex items-center justify-between px-2 pb-1 font-mono text-[10px] tracking-widest text-ink-400 uppercase">
+                {/* Browser-chrome decoration; hidden so the link is named by the image alt alone. */}
+                <div
+                  aria-hidden="true"
+                  className="mt-2 flex items-center justify-between px-2 pb-1 font-mono text-[10px] tracking-widest text-ink-400 uppercase"
+                >
                   <span>
                     {project.links.live?.replace(/^https?:\/\/(www\.)?/, "") ??
                       "internal"}
@@ -118,7 +123,7 @@ export function ProjectFeature({ project, index }: Props) {
           {project.stack.slice(0, 5).map((item) => (
             <li
               key={item}
-              className="border border-white/10 notch-one px-2 py-0.5 font-mono text-[11px] text-ink-200 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
+              className="border border-white/10 notch-one px-2 py-0.5 font-mono text-xs text-ink-200 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
             >
               {item}
             </li>
@@ -128,10 +133,11 @@ export function ProjectFeature({ project, index }: Props) {
           className={`mt-6 flex gap-4 font-mono text-xs tracking-widest uppercase ${flip ? "lg:justify-end" : ""}`}
         >
           <Link
-            href={`/projects/${project.slug}`}
+            href={projectHref(project.slug)}
             className="text-neon-cyan hover:underline"
           >
-            {t("open")}{" "}
+            {t("open")}
+            <span className="sr-only">: {project.title}</span>{" "}
             <ArrowRightIcon
               aria-hidden="true"
               className="inline size-4 align-[-3px] transition group-hover:translate-x-0.5"

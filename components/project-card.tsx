@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { projectHref } from "@/i18n/paths";
 import { pick, pickList } from "@/content/i18n";
 import type { Project } from "@/content/data/projects";
 import { CyberFrame, cyberFlip } from "@/components/cyber-frame";
@@ -70,7 +71,7 @@ export function ProjectCard({
 
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={projectHref(project.slug)}
       className="group relative block h-full transition duration-300 hover:-translate-y-1 hover:[filter:drop-shadow(0_0_14px_var(--glow))]"
       style={{ "--glow": a.glow } as React.CSSProperties}
     >
@@ -113,7 +114,7 @@ export function ProjectCard({
             className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(0,0,0,0.18)_0_1px,transparent_1px_3px)] opacity-60"
           />
           <span
-            className={`absolute bottom-3 ${flip ? "right-3" : "left-3"} bg-night-950/85 px-2 py-0.5 font-mono text-[11px] tracking-widest text-ink-200 uppercase backdrop-blur [clip-path:polygon(6px_0,100%_0,100%_100%,0_100%,0_6px)]`}
+            className={`absolute bottom-3 ${flip ? "right-3" : "left-3"} bg-night-950/85 px-2 py-0.5 font-mono text-xs tracking-widest text-ink-200 uppercase backdrop-blur [clip-path:polygon(6px_0,100%_0,100%_100%,0_100%,0_6px)]`}
           >
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -123,9 +124,7 @@ export function ProjectCard({
           className={`relative flex flex-1 flex-col p-5 sm:p-6 ${ring ? "lg:p-8" : ""}`}
         >
           <div className="flex items-center justify-between gap-3">
-            <span
-              className={`font-mono text-[11px] tracking-[0.25em] uppercase ${a.text}`}
-            >
+            <span className={`font-mono text-xs tracking-[0.25em] uppercase ${a.text}`}>
               {project.kind === "personal" ? t("filterPersonal") : project.year}
             </span>
             <span aria-hidden="true" className={`flex gap-1 ${a.text}`}>
@@ -164,14 +163,14 @@ export function ProjectCard({
               {project.stack.slice(0, ring ? 5 : 3).map((item) => (
                 <li
                   key={item}
-                  className="border border-white/10 notch-one px-2 py-0.5 font-mono text-[10px] text-ink-300 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
+                  className="border border-white/10 notch-one px-2 py-0.5 font-mono text-xs text-ink-300 [--n:5px] [--nc:rgba(255,255,255,0.1)]"
                 >
                   {item}
                 </li>
               ))}
             </ul>
             <span
-              className={`shrink-0 font-mono text-[11px] tracking-widest uppercase ${a.text} transition ${ring ? "" : "opacity-0 group-hover:opacity-100"}`}
+              className={`shrink-0 font-mono text-xs tracking-widest uppercase ${a.text} transition ${ring ? "" : "opacity-0 group-hover:opacity-100"}`}
             >
               {t("open")}{" "}
               <ArrowRightIcon
@@ -204,7 +203,7 @@ export function PrivateArt({
         <span className={`font-mono text-xs tracking-[0.3em] uppercase ${a.text}`}>
           {label}
         </span>
-        <span className="mt-1 block font-mono text-[10px] tracking-widest text-ink-400 uppercase">
+        <span className="mt-1 block font-mono text-xs tracking-widest text-ink-400 uppercase">
           private system
         </span>
       </div>

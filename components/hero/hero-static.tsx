@@ -37,7 +37,7 @@ export function HeroStatic() {
                 className="group flex -translate-x-1/2 -translate-y-1/2 items-center gap-2"
               >
                 <span className="block size-3 rounded-full bg-neon-cyan shadow-neon-cyan ring-4 ring-neon-cyan/20 transition group-hover:scale-125" />
-                <span className="rounded-md border border-neon-cyan/40 bg-night-950/85 px-2 py-0.5 font-mono text-[10px] tracking-widest text-neon-cyan uppercase">
+                <span className="rounded-md border border-neon-cyan/40 bg-night-950/85 px-2 py-0.5 font-mono text-xs tracking-widest text-neon-cyan uppercase">
                   {t(spot.id)}
                 </span>
               </Link>

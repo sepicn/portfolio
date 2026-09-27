@@ -18,7 +18,10 @@ export function personJsonLd(locale: string) {
     "@type": "Person",
     "@id": personId,
     name: profile.name,
+    // The ASCII spelling people type into search and AI assistants.
+    alternateName: "Nikola Sepic",
     jobTitle: pick(profile.title, locale),
+    description: pick(profile.summary, locale).split(". ")[0] + ".",
     url: siteConfig.url,
     image: `${siteConfig.url}${profile.photo}`,
     address: {
@@ -33,8 +36,49 @@ export function personJsonLd(locale: string) {
       url: "https://singidunum.ac.rs",
     },
     worksFor: { "@id": businessId },
+    // No email or phone here (see above): the contact page is the way in.
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: locale === "sr" ? "upiti za saradnju" : "project enquiries",
+      url: absoluteUrl(locale, "/contact"),
+      availableLanguage: ["sr", "en"],
+      areaServed: "RS",
+    },
     knowsLanguage: ["sr", "en"],
     knowsAbout: skillGroups.flatMap((g) => g.skills.map((s) => s.name)),
+  };
+}
+
+const businessText = {
+  sr: "Izrada sajtova i web aplikacija, Google Ads, Meta Ads i SEO. Freelance iz Beograda, uživo ili remote.",
+  en: "Websites and web apps, Google Ads, Meta Ads and SEO. Freelance from Belgrade, in person or remote.",
+};
+
+/**
+ * The freelance business, the same node on every page that references it (home, services,
+ * contact), so its @id never carries two different descriptions.
+ */
+export function businessJsonLd(locale: string) {
+  return {
+    "@type": "ProfessionalService",
+    "@id": businessId,
+    name: siteConfig.name,
+    url: siteConfig.url,
+    founder: { "@id": personId },
+    image: `${siteConfig.url}${profile.photo}`,
+    description: pick(businessText, locale),
+    areaServed: [
+      { "@type": "City", name: "Belgrade" },
+      { "@type": "Country", name: "Serbia" },
+      { "@type": "Place", name: "Worldwide (remote)" },
+    ],
+    knowsLanguage: ["sr", "en"],
+    sameAs: [siteConfig.github, siteConfig.linkedin],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Belgrade",
+      addressCountry: "RS",
+    },
   };
 }
 

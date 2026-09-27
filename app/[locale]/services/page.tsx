@@ -11,13 +11,20 @@ import { CyberFrame } from "@/components/cyber-frame";
 import { CyberDivider } from "@/components/cyber-divider";
 import { SectionHeading } from "@/components/section-heading";
 import { pick, pickList } from "@/content/i18n";
-import { services, process, faq } from "@/content/data/services";
+import {
+  services,
+  process,
+  faq,
+  servicePageLabels,
+  servicePages,
+} from "@/content/data/services";
+import { projectHref, serviceHref } from "@/i18n/paths";
 import { siteConfig } from "@/lib/site-config";
 import { projects } from "@/content/data/projects";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
-  businessId,
+  businessJsonLd,
   graph,
   personId,
   serializeJsonLd,
@@ -55,32 +62,17 @@ export default function ServicesPage({ params }: Props) {
   const navT = useTranslations("nav");
   const jsonLd = graph(
     {
-      "@type": "ProfessionalService",
-      "@id": businessId,
-      name: siteConfig.name,
-      url: absoluteUrl(locale, "/services"),
-      founder: { "@id": personId },
-      image: `${siteConfig.url}/og/${locale}-services.jpg`,
-      description: t("metaDescription"),
-      // Belgrade in person, everywhere else remotely.
-      areaServed: [
-        { "@type": "City", name: "Belgrade" },
-        { "@type": "Country", name: "Serbia" },
-        { "@type": "Place", name: "Worldwide (remote)" },
-      ],
-      knowsLanguage: ["sr", "en"],
-      sameAs: [siteConfig.github, siteConfig.linkedin],
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Belgrade",
-        addressCountry: "RS",
-      },
+      // The shared business node, plus what it offers: one Service per service page.
+      ...businessJsonLd(locale),
       makesOffer: services.map((s) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: pick(s.title, locale),
+          "@id": `${absoluteUrl(locale, `/services/${s.id}`)}#service`,
+          name: pick(servicePages[s.id].h1, locale),
           description: pick(s.lead, locale),
+          url: absoluteUrl(locale, `/services/${s.id}`),
+          provider: { "@id": personId },
         },
       })),
     },
@@ -150,7 +142,12 @@ export default function ServicesPage({ params }: Props) {
                   0{i + 1}
                 </p>
                 <h2 className="mt-3 font-display text-3xl font-semibold text-ink-100 sm:text-4xl">
-                  {pick(service.title, locale)}
+                  <Link
+                    href={serviceHref(service.id, locale)}
+                    className="transition-colors hover:text-neon-cyan"
+                  >
+                    {pick(service.title, locale)}
+                  </Link>
                 </h2>
                 <p className="mt-5 text-lg text-ink-200">{pick(service.lead, locale)}</p>
                 <p className="mt-4 text-ink-400">
@@ -166,7 +163,7 @@ export default function ServicesPage({ params }: Props) {
                       <span key={slug}>
                         {j > 0 ? ", " : ""}
                         <Link
-                          href={`/projects/${slug}`}
+                          href={projectHref(slug)}
                           className="text-neon-cyan underline-offset-4 hover:underline"
                         >
                           {project.title}
@@ -175,6 +172,13 @@ export default function ServicesPage({ params }: Props) {
                     );
                   })}
                 </p>
+                <Link
+                  href={serviceHref(service.id, locale)}
+                  className="mt-6 inline-block border border-neon-cyan/60 notch-alt px-5 py-2.5 font-medium text-neon-cyan transition [--n:9px] [--nc:rgba(0,229,255,0.6)] hover:bg-neon-cyan/10"
+                >
+                  {pick(servicePageLabels.hubLink, locale)}:{" "}
+                  {pick(servicePages[service.id].h1, locale)}
+                </Link>
               </Reveal>
               <Reveal from={i % 2 === 0 ? "right" : "left"} delay={0.1}>
                 <CyberFrame

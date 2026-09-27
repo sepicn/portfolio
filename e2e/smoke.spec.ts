@@ -1,7 +1,20 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const routes = ["/", "/projects", "/services", "/about", "/cv", "/contact", "/privacy"];
+// Serbian public URLs (i18n/routing.ts pathnames).
+const routes = [
+  "/",
+  "/projekti",
+  "/usluge",
+  "/usluge/izrada-sajtova",
+  "/usluge/google-ads",
+  "/usluge/meta-ads",
+  "/usluge/seo",
+  "/o-meni",
+  "/cv",
+  "/kontakt",
+  "/privatnost",
+];
 
 for (const route of routes) {
   test(`renders ${route} in Serbian and passes axe`, async ({ page }) => {
@@ -24,7 +37,7 @@ test("English version is served under /en", async ({ page }) => {
 });
 
 test("language switcher keeps the current page", async ({ page }) => {
-  await page.goto("/services");
+  await page.goto("/usluge/izrada-sajtova");
   const menuButton = page.getByRole("button", { name: /meni|menu/i });
   if (await menuButton.isVisible()) await menuButton.click();
   await page
@@ -32,7 +45,22 @@ test("language switcher keeps the current page", async ({ page }) => {
     .filter({ visible: true })
     .first()
     .click();
-  await expect(page).toHaveURL(/\/en\/services$/);
+  await expect(page).toHaveURL(/\/en\/services\/web-development$/);
+});
+
+test("old Serbian URLs with English slugs redirect permanently", async ({ request }) => {
+  for (const [from, to] of [
+    ["/projects", "/projekti"],
+    ["/projects/medical-time", "/projekti/medical-time"],
+    ["/services", "/usluge"],
+    ["/about", "/o-meni"],
+    ["/contact", "/kontakt"],
+    ["/privacy", "/privatnost"],
+  ]) {
+    const response = await request.get(from, { maxRedirects: 0 });
+    expect(response.status(), from).toBe(308);
+    expect(response.headers().location, from).toMatch(new RegExp(`${to}$`));
+  }
 });
 
 test("skip link is the first focusable element", async ({ page }) => {
@@ -52,7 +80,7 @@ test("sitemap and robots exist", async ({ request }) => {
 });
 
 test("consent banner stores the choice and the footer reopens it", async ({ page }) => {
-  await page.goto("/about");
+  await page.goto("/o-meni");
   const banner = page.getByRole("region", { name: /kolačić/i });
   await expect(banner).toBeVisible();
   await banner.getByRole("button", { name: "Odbij" }).click();
@@ -80,10 +108,11 @@ test("every page has its own Open Graph image", async ({ page }) => {
 test("email and phone never appear in plain HTML outside the CV", async ({ request }) => {
   for (const route of [
     "/",
-    "/about",
-    "/services",
-    "/contact",
-    "/projects/medical-time",
+    "/o-meni",
+    "/usluge",
+    "/usluge/google-ads",
+    "/kontakt",
+    "/projekti/medical-time",
   ]) {
     const html = await (await request.get(route)).text();
     expect(html, route).not.toContain("sepicnikola@gmail.com");
@@ -99,5 +128,9 @@ test("structured data: home graph and case study breadcrumbs", async ({ request 
       .join(" ");
   };
   expect(await ld("/")).toContain('"@type":"WebSite"');
-  expect(await ld("/projects/medical-time")).toContain('"@type":"BreadcrumbList"');
+  expect(await ld("/projekti/medical-time")).toContain('"@type":"BreadcrumbList"');
+  const service = await ld("/usluge/seo");
+  for (const type of ["Service", "BreadcrumbList", "FAQPage"]) {
+    expect(service).toContain(`"@type":"${type}"`);
+  }
 });

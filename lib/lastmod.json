@@ -1,26 +1,42 @@
 {
   "/": {
-    "hash": "0fe1fc5c5bf170c4",
+    "hash": "2d5ba33b660e53e7",
     "date": "2026-09-27"
   },
   "/projects": {
-    "hash": "042b330805e68b2d",
+    "hash": "643933fb23016a1c",
     "date": "2026-09-27"
   },
   "/services": {
-    "hash": "881287ff117d36a6",
+    "hash": "0e862db843bace18",
+    "date": "2026-09-27"
+  },
+  "/services/web": {
+    "hash": "50652a8d1e47200b",
+    "date": "2026-09-27"
+  },
+  "/services/google-ads": {
+    "hash": "50652a8d1e47200b",
+    "date": "2026-09-27"
+  },
+  "/services/meta-ads": {
+    "hash": "50652a8d1e47200b",
+    "date": "2026-09-27"
+  },
+  "/services/seo": {
+    "hash": "50652a8d1e47200b",
     "date": "2026-09-27"
   },
   "/about": {
-    "hash": "c325b33d262d5cc6",
+    "hash": "4885293458c0fbc7",
     "date": "2026-09-27"
   },
   "/cv": {
-    "hash": "9546716da5429122",
+    "hash": "0fb79c1adcf9f563",
     "date": "2026-09-27"
   },
   "/contact": {
-    "hash": "386ba8d0b9a96934",
+    "hash": "38126c4dbc9a1e0f",
     "date": "2026-09-27"
   },
   "/privacy": {
@@ -28,51 +44,51 @@
     "date": "2026-09-27"
   },
   "/projects/medical-time": {
-    "hash": "1227be06a83ca77a",
+    "hash": "08c9162ddaf04378",
     "date": "2026-09-27"
   },
   "/projects/meridian-tms": {
-    "hash": "bd6fe1018dee8309",
+    "hash": "ba05b82f3c6bf967",
     "date": "2026-09-27"
   },
   "/projects/delta-tracking": {
-    "hash": "e5655d9baebb3a66",
+    "hash": "953466cec92f5e5c",
     "date": "2026-09-27"
   },
   "/projects/itexpert": {
-    "hash": "3b924733a98a3980",
+    "hash": "e23bf2b9fe7fb88e",
     "date": "2026-09-27"
   },
   "/projects/prostor-izmedju": {
-    "hash": "35267bd81d500a6b",
+    "hash": "186c9205285ab8fd",
     "date": "2026-09-27"
   },
   "/projects/mango": {
-    "hash": "ab5a0304b1feb928",
+    "hash": "cada841b917274a6",
     "date": "2026-09-27"
   },
   "/projects/vuk-studio": {
-    "hash": "f693fa1660f50d62",
+    "hash": "9fd0e67dc2525acf",
     "date": "2026-09-27"
   },
   "/projects/olimp": {
-    "hash": "160a2a571939683d",
+    "hash": "e14b93fa2d0afbb4",
     "date": "2026-09-27"
   },
   "/projects/job-application-tracker": {
-    "hash": "c233be7578905ee8",
+    "hash": "09c8ef1998482a77",
     "date": "2026-09-27"
   },
   "/projects/gymai": {
-    "hash": "93a04ded96234f37",
+    "hash": "27f4ce5b2b31efae",
     "date": "2026-09-27"
   },
   "/projects/launchhub": {
-    "hash": "963fc4107b4e5deb",
+    "hash": "27938743fd392c7f",
     "date": "2026-09-27"
   },
   "/projects/echo": {
-    "hash": "57c32938b2079e3b",
+    "hash": "a71e6e4239ec3237",
     "date": "2026-09-27"
   }
 }
