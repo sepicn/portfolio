@@ -38,7 +38,10 @@ const period = (start, end, l) => {
   const f = (ym) => {
     const [y, m] = ym.split("-").map(Number);
     return new Date(y, m - 1, 1)
-      .toLocaleDateString(l === "en" ? "en-GB" : "sr-Latn-RS", { month: "short", year: "numeric" })
+      .toLocaleDateString(l === "en" ? "en-GB" : "sr-Latn-RS", {
+        month: "short",
+        year: "numeric",
+      })
       .replace(/\.$/, "");
   };
   return `${f(start)} – ${end ? f(end) : l === "en" ? "Present" : "danas"}`;
@@ -46,8 +49,20 @@ const period = (start, end, l) => {
 
 // Standard section names only: ATS parsers map these exact headings.
 const headings = {
-  sr: { summary: "Profil", skills: "Veštine", experience: "Radno iskustvo", projects: "Projekti", education: "Obrazovanje" },
-  en: { summary: "Summary", skills: "Skills", experience: "Work Experience", projects: "Projects", education: "Education" },
+  sr: {
+    summary: "Profil",
+    skills: "Veštine",
+    experience: "Radno iskustvo",
+    projects: "Projekti",
+    education: "Obrazovanje",
+  },
+  en: {
+    summary: "Summary",
+    skills: "Skills",
+    experience: "Work Experience",
+    projects: "Projects",
+    education: "Education",
+  },
 };
 const extraLabels = {
   sr: { certificates: "Sertifikati", languages: "Jezici" },
@@ -85,7 +100,9 @@ function resolve(v, l) {
       note: v.educationNote ? pick(v.educationNote, l) : null,
     })),
     certificates: certLine,
-    languages: languages.map((x) => `${pick(x.name, l)} (${pick(x.level, l)})`).join(", "),
+    languages: languages
+      .map((x) => `${pick(x.name, l)} (${pick(x.level, l)})`)
+      .join(", "),
   };
 }
 
@@ -109,19 +126,45 @@ function docx(v, l) {
   const font = "Calibri";
   const size = 20;
   const run = (text, o = {}) => new TextRun({ text, font, size, ...o });
-  const para = (children, after = 60, extra = {}) => new Paragraph({ children, spacing: { after }, ...extra });
-  const rightTab = { tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }] };
+  const para = (children, after = 60, extra = {}) =>
+    new Paragraph({ children, spacing: { after }, ...extra });
+  const rightTab = {
+    tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
+  };
   const dated = (children, date, after) =>
-    para([...children, new TextRun({ font, size: 19, color: "5B6470", children: [new Tab(), date] })], after, rightTab);
+    para(
+      [
+        ...children,
+        new TextRun({ font, size: 19, color: "5B6470", children: [new Tab(), date] }),
+      ],
+      after,
+      rightTab,
+    );
   const h = (text) =>
     new Paragraph({
       heading: HeadingLevel.HEADING_2,
-      children: [new TextRun({ text: text.toUpperCase(), font, size: 21, bold: true, color: ACCENT })],
+      children: [
+        new TextRun({
+          text: text.toUpperCase(),
+          font,
+          size: 21,
+          bold: true,
+          color: ACCENT,
+        }),
+      ],
       spacing: { before: 160, after: 70 },
-      border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: "C9D3DE", space: 2 } },
+      border: {
+        bottom: { style: BorderStyle.SINGLE, size: 4, color: "C9D3DE", space: 2 },
+      },
     });
-  const bullet = (text) => new Paragraph({ children: [run(text)], bullet: { level: 0 }, spacing: { after: 30 } });
-  const labelled = (label, text) => para([run(`${label}: `, { bold: true }), run(text)], 40);
+  const bullet = (text) =>
+    new Paragraph({
+      children: [run(text)],
+      bullet: { level: 0 },
+      spacing: { after: 30 },
+    });
+  const labelled = (label, text) =>
+    para([run(`${label}: `, { bold: true }), run(text)], 40);
 
   const blocks = {
     summary: () => [h(H.summary), para([run(d.summary)], 40)],
@@ -130,7 +173,16 @@ function docx(v, l) {
       h(H.experience),
       ...d.jobs.flatMap((j) => [
         dated([run(j.role, { bold: true }), run(` | ${j.company}`)], j.period, 10),
-        para([run(`${j.location} | ${j.stack}`, { italics: true, size: 18, color: "5B6470" })], 30),
+        para(
+          [
+            run(`${j.location} | ${j.stack}`, {
+              italics: true,
+              size: 18,
+              color: "5B6470",
+            }),
+          ],
+          30,
+        ),
         ...j.bullets.map(bullet),
         para([], 30),
       ]),
@@ -141,7 +193,11 @@ function docx(v, l) {
             h(H.projects),
             ...d.projects.map((p) =>
               para(
-                [run(p.title, { bold: true }), run(` | ${p.stack}: `, { color: "5B6470" }), run(`${p.line} ${p.link}`)],
+                [
+                  run(p.title, { bold: true }),
+                  run(` | ${p.stack}: `, { color: "5B6470" }),
+                  run(`${p.line} ${p.link}`),
+                ],
                 40,
               ),
             ),
@@ -164,9 +220,22 @@ function docx(v, l) {
     styles: { default: { document: { run: { font, size } } } },
     sections: [
       {
-        properties: { page: { margin: { top: 680, bottom: 680, left: 800, right: 800 } } },
+        properties: {
+          page: { margin: { top: 680, bottom: 680, left: 800, right: 800 } },
+        },
         children: [
-          para([new TextRun({ text: profile.name, font, size: 40, bold: true, color: "111111" })], 20),
+          para(
+            [
+              new TextRun({
+                text: profile.name,
+                font,
+                size: 40,
+                bold: true,
+                color: "111111",
+              }),
+            ],
+            20,
+          ),
           para([run(d.headline, { size: 23, bold: true, color: ACCENT })], 30),
           para([run(contacts(l).join(" | "), { size: 18 })], 60),
           ...v.order.flatMap((s) => blocks[s]()),
@@ -179,7 +248,8 @@ function docx(v, l) {
 // ---------------------------------------------------------------------------
 // PDF: the same content as HTML, one column, printed by Chromium. Text stays real text.
 
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const esc = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 function html(v, l, photo, fontPt) {
   const d = resolve(v, l);
@@ -190,7 +260,13 @@ function html(v, l, photo, fontPt) {
     `<div class="row"><h3>${esc(title)} <span class="at">| ${esc(sub)}</span></h3><span class="date">${esc(date)}</span></div>`;
   const blocks = {
     summary: () => sec(H.summary, `<p>${esc(d.summary)}</p>`),
-    skills: () => sec(H.skills, d.skills.map((s) => `<p class="kv"><b>${esc(s.label)}:</b> ${esc(s.items)}</p>`).join("")),
+    skills: () =>
+      sec(
+        H.skills,
+        d.skills
+          .map((s) => `<p class="kv"><b>${esc(s.label)}:</b> ${esc(s.items)}</p>`)
+          .join(""),
+      ),
     experience: () =>
       sec(
         H.experience,
@@ -218,7 +294,11 @@ function html(v, l, photo, fontPt) {
       sec(
         H.education,
         d.education
-          .map((e) => row(e.degree, e.school, e.period) + (e.note ? `<p class="note">${esc(e.note)}</p>` : ""))
+          .map(
+            (e) =>
+              row(e.degree, e.school, e.period) +
+              (e.note ? `<p class="note">${esc(e.note)}</p>` : ""),
+          )
           .join("") +
           `<p class="kv first"><b>${esc(X.certificates)}:</b> ${esc(d.certificates)}</p>` +
           `<p class="kv"><b>${esc(X.languages)}:</b> ${esc(d.languages)}</p>`,
@@ -264,7 +344,9 @@ function html(v, l, photo, fontPt) {
   <div class="id">
     <h1>${esc(profile.name)}</h1>
     <p class="headline">${esc(d.headline)}</p>
-    <p class="contact">${contacts(l).map((c) => `<span>${esc(c)}</span>`).join(" ")}</p>
+    <p class="contact">${contacts(l)
+      .map((c) => `<span>${esc(c)}</span>`)
+      .join(" ")}</p>
   </div>
   ${photo ? `<img class="photo" src="${photo}" alt="">` : ""}
 </header>
@@ -275,13 +357,18 @@ ${v.order.map((s) => blocks[s]()).join("\n")}
 const photoUri = `data:image/webp;base64,${readFileSync(`public${profile.photo}`).toString("base64")}`;
 const browser = await chromium.launch();
 const page = await browser.newPage();
-const countPages = (pdf) => (pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) ?? []).length;
+const countPages = (pdf) =>
+  (pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) ?? []).length;
 
 /** Prints at 10.5pt and steps the size down until the CV fits on one page. */
 async function onePagePdf(v, l, photo) {
   for (const pt of [10.5, 10.2, 9.9, 9.6]) {
     await page.setContent(html(v, l, photo, pt), { waitUntil: "load" });
-    const pdf = await page.pdf({ format: "A4", preferCSSPageSize: true, printBackground: true });
+    const pdf = await page.pdf({
+      format: "A4",
+      preferCSSPageSize: true,
+      printBackground: true,
+    });
     if (countPages(pdf) === 1) return { pdf, pt };
   }
   throw new Error(`${v.id} (${l}) does not fit on one page even at 9.6pt: cut a bullet`);
@@ -291,11 +378,15 @@ async function build(v, l, base, { withNoPhoto }) {
   writeFileSync(`${base}.docx`, await Packer.toBuffer(docx(v, l)));
   const { pdf, pt } = await onePagePdf(v, l, photoUri);
   writeFileSync(`${base}.pdf`, pdf);
-  if (withNoPhoto) writeFileSync(`${base}_nophoto.pdf`, (await onePagePdf(v, l, null)).pdf);
+  if (withNoPhoto)
+    writeFileSync(`${base}_nophoto.pdf`, (await onePagePdf(v, l, null)).pdf);
   if (process.env.CV_PREVIEW) {
     await page.setViewportSize({ width: 697, height: 1050 });
     await page.setContent(html(v, l, photoUri, pt), { waitUntil: "load" });
-    await page.screenshot({ path: `${process.env.CV_PREVIEW}/${v.id}-${l}.png`, fullPage: true });
+    await page.screenshot({
+      path: `${process.env.CV_PREVIEW}/${v.id}-${l}.png`,
+      fullPage: true,
+    });
   }
   return pt;
 }
@@ -303,17 +394,28 @@ async function build(v, l, base, { withNoPhoto }) {
 const report = [];
 mkdirSync("public/cv", { recursive: true });
 for (const l of LANGS) {
-  const pt = await build(siteVariant, l, `public/cv/Nikola_Sepic_CV${l === "en" ? "_EN" : ""}`, { withNoPhoto: false });
+  const pt = await build(
+    siteVariant,
+    l,
+    `public/cv/Nikola_Sepic_CV${l === "en" ? "_EN" : ""}`,
+    { withNoPhoto: false },
+  );
   report.push(`${"site".padEnd(17)} ${l}  1 page at ${pt}pt`);
 }
 for (const v of variants) {
   const dir = `${OUT}/${v.id}`;
   mkdirSync(dir, { recursive: true });
   for (const l of LANGS) {
-    const pt = await build(v, l, `${dir}/Nikola_Sepic_${v.file}_CV${l === "en" ? "_EN" : ""}`, { withNoPhoto: true });
+    const pt = await build(
+      v,
+      l,
+      `${dir}/Nikola_Sepic_${v.file}_CV${l === "en" ? "_EN" : ""}`,
+      { withNoPhoto: true },
+    );
     report.push(`${v.id.padEnd(17)} ${l}  1 page at ${pt}pt`);
     const letter = letters[v.id]?.[l];
-    if (letter) writeFileSync(`${dir}/Cover_Letter${l === "en" ? "_EN" : ""}.txt`, letter);
+    if (letter)
+      writeFileSync(`${dir}/Cover_Letter${l === "en" ? "_EN" : ""}.txt`, letter);
   }
 }
 await browser.close();

@@ -251,16 +251,22 @@
     "title": "Šta kažu klijenti"
   },
   "perf": {
-    "title": "Brzina i kvalitet sajta",
-    "lead": "Živi sajt izmeren Lighthouse-om, alatom koji stoji iza Google PageSpeed Insights, na telefonu i računaru. Zeleno je 90 ili više od 100.",
+    "title": "Pravim sajtove sa 90+ na Google Lighthouse testu",
+    "lead": "Lighthouse je Googleov alat koji stoji iza PageSpeed Insights. Ocenu 90 za neku metriku daje tek kad je sajt brži od oko 92% sajtova na webu. Ovaj sajt ima 90+ u sve četiri kategorije, na telefonu i na računaru.",
     "mobile": "Telefon",
     "desktop": "Računar",
     "performance": "Performanse",
     "accessibility": "Pristupačnost",
     "bestPractices": "Dobre prakse",
-    "measured": "Izmereno {date}, {source}.",
+    "measured": "Izmereno: {date} ({source}).",
     "sourcePagespeed": "Google PageSpeed Insights",
     "sourceLighthouse": "Lighthouse sa PageSpeed podešavanjima (spor 4G, sporiji procesor)",
-    "rerun": "Izmeri ponovo na PageSpeed-u"
+    "rerun": "Izmeri ponovo na PageSpeed-u",
+    "compareTitle": "Za poređenje, prosečan sajt na webu",
+    "compareScore": "sajtova na webu dostigne ocenu 90 za pojedinačnu metriku",
+    "compareCwv": "sajtova na telefonu prolazi Googleove Core Web Vitals",
+    "compareLcp": "stranica na telefonu učita glavni sadržaj za 2,5 s ili brže",
+    "thisSite": "Ovaj sajt: {lcp} s",
+    "sources": "Izvori"
   }
 }

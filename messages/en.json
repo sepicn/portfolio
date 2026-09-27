@@ -251,16 +251,22 @@
     "title": "What clients say"
   },
   "perf": {
-    "title": "Speed and quality",
-    "lead": "The live site measured with Lighthouse, the tool behind Google PageSpeed Insights, on a phone and a desktop. Green is 90 or more out of 100.",
+    "title": "I build sites that score 90+ on Google Lighthouse",
+    "lead": "Lighthouse is the Google tool behind PageSpeed Insights. It gives a metric a 90 only when the site is faster than about 92% of sites on the web. This site scores 90+ in all four categories, on a phone and on a desktop.",
     "mobile": "Mobile",
     "desktop": "Desktop",
     "performance": "Performance",
     "accessibility": "Accessibility",
     "bestPractices": "Best practices",
-    "measured": "Measured on {date}, {source}.",
+    "measured": "Measured on {date} ({source}).",
     "sourcePagespeed": "Google PageSpeed Insights",
     "sourceLighthouse": "Lighthouse with PageSpeed settings (slow 4G, slower CPU)",
-    "rerun": "Run it again on PageSpeed"
+    "rerun": "Run it again on PageSpeed",
+    "compareTitle": "For comparison, the average site on the web",
+    "compareScore": "of sites on the web reach a 90 on a given metric",
+    "compareCwv": "of sites pass Google's Core Web Vitals on mobile",
+    "compareLcp": "of mobile pages load their main content in 2.5 s or less",
+    "thisSite": "This site: {lcp} s",
+    "sources": "Sources"
   }
 }
