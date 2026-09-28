@@ -34,16 +34,16 @@ export const experience: Experience[] = [
     bullets: {
       sr: [
         "Vodim osam Google Ads Search kampanja i Meta Ads za Medical Time, privatnu bolnicu u Beogradu, uz GA4 i GTM merenje konverzija, consent mode i ClickCease zaštitu od lažnih klikova.",
-        "Iz izveštaja o terminima pretrage izdvojio 370+ negativnih ključnih reči (fraza i tačno podudaranje) i predložio limit cene po kliku tamo gde su pojedinačni klikovi bili i 19 puta skuplji od proseka.",
-        "Analizom udela prikaza izgubljenog zbog ranga i zbog budžeta pokazao da dve kampanje sa najnižom cenom konverzije (do 54% ispod proseka naloga) imaju najviše prostora za rast, i predložio preraspodelu budžeta.",
+        "Iz izveštaja o terminima pretrage izdvojio 370+ negativnih ključnih reči (fraza i tačno podudaranje) i uveo limit cene po kliku tamo gde su pojedinačni klikovi bili i 19 puta skuplji od proseka.",
+        "Analizom udela prikaza izgubljenog zbog ranga i zbog budžeta pokazao da dve kampanje sa najnižom cenom konverzije (do 54% ispod proseka naloga) imaju najviše prostora za rast, i preraspodelio budžet ka njima.",
         "Podigao Semrush Site Health na medicaltime.rs sa 90% na 98% za nedelju dana: greške 6 → 0, upozorenja −87%. SSR za blog i prodavnicu, hreflang i canonical za pet jezika, JSON-LD, HSTS, llms.txt.",
         "Gradim IT Expert platformu na pet jezika (Nuxt 4, Laravel 12): korisnički portal, paketi sa kalkulatorom cene, pretplate, fakture, predračuni i Raiffeisen plaćanja, a naplatu pokriva 133 automatska testa.",
         "Isporučio sajtove za Mango poslastičarnicu (cookie consent, GTM tek posle pristanka, kontakt zaštićen od botova), Vuk Studio i Stanke Enterijer u Nuxt-u 4; poslednja dva su statični sajtovi na GitHub Pages, sa lokalnim SEO-om.",
       ],
       en: [
         "Manage eight Google Ads Search campaigns and Meta Ads for Medical Time, a private hospital in Belgrade, with GA4 and GTM conversion tracking, consent mode and ClickCease click fraud protection.",
-        "Mined search term reports for 370+ phrase and exact match negative keywords, and recommended CPC caps where single clicks cost up to 19 times the average.",
-        "Analyzed impression share lost to rank versus budget, showed that the two campaigns with the lowest cost per conversion (up to 54% below the account average) had the most room to grow, and proposed a budget reallocation.",
+        "Mined search term reports for 370+ phrase and exact match negative keywords, and set CPC caps where single clicks cost up to 19 times the average.",
+        "Analyzed impression share lost to rank versus budget, showed that the two campaigns with the lowest cost per conversion (up to 54% below the account average) had the most room to grow, and moved budget towards them.",
         "Raised the Semrush Site Health of medicaltime.rs from 90% to 98% in one week: errors 6 → 0, warnings −87%. Server-side rendering for the blog and shop, hreflang and canonical across five languages, JSON-LD, HSTS, llms.txt.",
         "Build the IT Expert platform in five languages (Nuxt 4, Laravel 12): customer portal, packages with a price calculator, subscriptions, invoices, pro-forma invoices and Raiffeisen payments, with billing covered by 133 automated tests.",
         "Shipped the websites for Mango pastry shop (cookie consent, GTM only after consent, contact details hidden from bots), Vuk Studio and Stanke Enterijer in Nuxt 4; the last two are static sites on GitHub Pages with local SEO.",
