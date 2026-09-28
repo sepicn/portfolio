@@ -188,7 +188,24 @@ export function HeroTour({ overlay, enabled = true }: Props) {
     const events = ["touchstart", "pointerdown", "wheel", "keydown"];
     const go = () => setWarm(true);
     events.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
-    return () => events.forEach((e) => window.removeEventListener(e, go));
+    // The first touch is usually the scroll itself, so waiting for it left the first flight
+    // playing from the handful of frames that had arrived. Fetch (not decode) that flight
+    // once the page is idle after load, unless the visitor asked to save data.
+    const saveData = (navigator as { connection?: { saveData?: boolean } }).connection
+      ?.saveData;
+    let idle = 0;
+    const prefetch = () => {
+      idle = window.setTimeout(() => fetchFlight(stops[0].id), 1500);
+    };
+    if (!saveData) {
+      if (document.readyState === "complete") prefetch();
+      else window.addEventListener("load", prefetch, { once: true });
+    }
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, go));
+      window.removeEventListener("load", prefetch);
+      window.clearTimeout(idle);
+    };
   }, [enabled]);
   useEffect(() => {
     if (warm) decodeFlight(stops[0].id);
@@ -213,13 +230,15 @@ export function HeroTour({ overlay, enabled = true }: Props) {
   useGSAP(
     () => {
       if (!enabled) return;
-      // Pin an inner node: ScrollTrigger wraps what it pins in a spacer div, which React
-      // cannot unmount cleanly if it owns that node directly (see SlideDeck).
+      // The section is held by CSS sticky inside the tall outer div, not by a ScrollTrigger
+      // pin. A pin swaps to position: fixed from JavaScript, which on a phone lands a frame
+      // after the native touch scroll and read as the room jumping as the tour started.
       const el = section.current;
+      const wrap = outer.current;
       const intro = el?.querySelector<HTMLElement>("[data-intro]");
       const canvas = el?.querySelector<HTMLCanvasElement>("canvas");
       const ctx = canvas?.getContext("2d");
-      if (!el || !intro || !canvas || !ctx) return;
+      if (!el || !wrap || !intro || !canvas || !ctx) return;
       const shots = gsap.utils.toArray<HTMLElement>("[data-shot]", el);
       const pins = el.querySelector<HTMLElement>("[data-pins]");
 
@@ -288,21 +307,29 @@ export function HeroTour({ overlay, enabled = true }: Props) {
       // Each stop takes two timeline units: push in and hold (0 to 1), pull out (1 to 2).
       const units = stops.length * 2;
       let shown = -1;
+      const closeUps = stops.map((_, i) => (i * 2 + 1) / units);
       const tl = gsap.timeline({
         defaults: { ease: "power2.inOut" },
         scrollTrigger: {
-          trigger: el,
+          trigger: wrap,
           start: "top top+=64",
-          end: () => `+=${stops.length * window.innerHeight * 1.1}`,
-          pin: true,
-          // A longer catch-up smooths out the uneven deltas of a finger flick.
-          scrub: 1,
+          // The scroll the sticky section stays held for (the outer div's extra height).
+          end: () => `+=${wrap.offsetHeight - el.offsetHeight}`,
+          // Short catch-up: a longer one left the flight trailing the finger by a second.
+          scrub: 0.4,
           snap: {
-            // Rest on the overview, on each close-up, and on the overview at the end.
-            snapTo: [0, ...stops.map((_, i) => (i * 2 + 1) / units), 1],
+            // Settle on a close-up only when the scroll already stopped near one. Snapping
+            // to every stop turned a small scroll into the page flying a whole stop on its
+            // own; anywhere else the tour simply stays where the finger left it.
+            snapTo: (value: number) => {
+              const near = closeUps.reduce((a, b) =>
+                Math.abs(b - value) < Math.abs(a - value) ? b : a,
+              );
+              return Math.abs(near - value) * units < 0.3 ? near : value;
+            },
             // Wait for the fling to settle before gliding in, instead of fighting it.
-            delay: 0.15,
-            duration: { min: 0.4, max: 0.9 },
+            delay: 0.25,
+            duration: { min: 0.2, max: 0.5 },
             ease: "power2.inOut",
             // Snap to the stop nearest to where the scroll ends, not where its velocity
             // points: a tap on a label jumps the scroll in one step, and with inertia that
@@ -375,10 +402,18 @@ export function HeroTour({ overlay, enabled = true }: Props) {
   const pending = !enabled;
 
   return (
-    <div ref={outer} className={pending ? "relative md:h-[180vh]" : undefined}>
+    <div
+      ref={outer}
+      className={pending ? "relative md:h-[180vh]" : "relative"}
+      // Enabled: the screen plus 1.1 screens of scroll per stop, in svh so the address bar
+      // sliding in and out never changes the length of the tour mid-scroll.
+      style={
+        pending ? undefined : { height: `calc(100svh - 4rem + ${stops.length * 110}svh)` }
+      }
+    >
       <div
         ref={section}
-        className={`relative h-[calc(100svh-4rem)] w-full overflow-hidden bg-night-950 ${pending ? "md:sticky md:top-16 md:h-[calc(100dvh-4rem)]" : ""}`}
+        className={`h-[calc(100svh-4rem)] w-full overflow-hidden bg-night-950 ${pending ? "relative md:sticky md:top-16 md:h-[calc(100dvh-4rem)]" : "sticky top-16"}`}
       >
         {/* Sized to the still's aspect ratio, so the label percentages match the render. */}
         <div
