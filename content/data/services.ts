@@ -709,11 +709,11 @@ export const servicePages: Record<ServiceId, ServicePage> = {
     measure: {
       sr: [
         "Pratim cenu po konverziji po kampanji i po ključnoj reči, udeo prikaza i udeo izgubljen zbog budžeta ili ranga. Tako se vidi gde dodatni budžet donosi upite, a gde samo skuplje klikove.",
-        "Na Medical Time je ta analiza pokazala ključne reči sa cenom po kliku i do 19 puta iznad proseka naloga. Predložio sam limite cene po kliku i preraspodelu budžeta ka kampanjama koje donose upite jeftinije.",
+        "Na Medical Time je ta analiza pokazala ključne reči sa cenom po kliku i do 19 puta iznad proseka naloga. Uveo sam limite cene po kliku i prebacio budžet ka kampanjama koje donose upite jeftinije.",
       ],
       en: [
         "I track cost per conversion by campaign and keyword, impression share, and the share lost to budget or rank. That shows where extra budget brings inquiries and where it only buys pricier clicks.",
-        "At Medical Time that analysis found keywords with a cost per click up to 19 times the account average. I recommended CPC caps and moving budget towards the campaigns that bring inquiries for less.",
+        "At Medical Time that analysis found keywords with a cost per click up to 19 times the account average. I set CPC caps and moved budget towards the campaigns that bring inquiries for less.",
       ],
     },
     timeline: {
