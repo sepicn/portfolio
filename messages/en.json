@@ -65,7 +65,7 @@
     "cubeHint": "Scroll to turn the cube",
     "personalEyebrow": "Personal projects",
     "personalTitle": "Apps I built for myself",
-    "personalLead": "Next.js, React 19, TypeScript, real databases and real auth. Each has a live demo or a public repo.",
+    "personalLead": "Next.js, React, TypeScript, real databases and real auth. Each has a live demo or a public repo.",
     "filterAll": "All",
     "filterClient": "Clients",
     "filterPersonal": "Personal",

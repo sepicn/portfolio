@@ -17,7 +17,7 @@ export const letters: Record<string, { sr: string; en: string }> = {
 
 Poštovani/a [ime osobe ili „tim [Firma]"],
 
-prijavljujem se za poziciju [naziv pozicije] u [Firma]. Poslednjih godinu i po radim kao full-stack developer na produkcionim sistemima: bolničkoj platformi od oko 400 hiljada linija koda u Nuxt-u 4 i Laravelu 12, TMS sistemu za logistiku iz SAD u ASP.NET Core 8 MVC i portalu za praćenje pošiljki u Rails-u 7.
+prijavljujem se za poziciju [naziv pozicije] u [Firma]. Poslednjih godinu i po radim kao full-stack developer na produkcionim sistemima: bolničkoj platformi od oko 400 hiljada linija koda u Nuxt-u i Laravelu, TMS sistemu za logistiku iz SAD u ASP.NET Core MVC i portalu za praćenje pošiljki u Rails-u.
 
 Na bolničkoj platformi sam isporučio chatbot koji zakazuje termine i daljinsko potpisivanje saglasnosti sa šaltera na tablet, a vodim i i18n na pet jezika. U logistici sam kao UI developer u timu od dva developera redizajnirao 40+ formi u modularne wizard-e, radeći kroz Jira tikete i code review sa timom u SAD.
 
@@ -35,7 +35,7 @@ Zdravo [ime], video sam oglas za [pozicija] u [Firma]. Full-stack sam developer 
 
 Dear [Name / "[Company] team"],
 
-I am applying for the [Job title] role at [Company]. For the past year and a half I have worked as a full-stack developer on production systems: a ~400k-line private hospital platform in Nuxt 4 and Laravel 12, a US logistics TMS in ASP.NET Core 8 MVC, and a shipment tracking portal in Rails 7.
+I am applying for the [Job title] role at [Company]. For the past year and a half I have worked as a full-stack developer on production systems: a ~400k-line private hospital platform in Nuxt and Laravel, a US logistics TMS in ASP.NET Core MVC, and a shipment tracking portal in Rails.
 
 On the hospital platform I built a chatbot that books appointments and remote consent signing from the front desk to a tablet, and I own i18n across five languages. At the logistics company, as the UI developer on a two-developer team, I redesigned 40+ forms into modular multi-step wizards, working through Jira tickets and code review with a US team.
 
@@ -58,7 +58,7 @@ Poštovani/a [ime osobe ili „tim [Firma]"],
 
 prijavljujem se za poziciju [naziv pozicije] u [Firma]. Diplomirao sam informacione tehnologije na Singidunumu 2024. i od tada godinu i po radim na pravim produkcionim projektima: bolničkoj platformi u Nuxt-u i Laravelu, TMS sistemu za logistiku u .NET-u i portalu za praćenje pošiljki u Rails-u.
 
-Rails i .NET sam savladao na poslu i u oba isporučio interfejs koji se koristi svaki dan. Pored toga sam samostalno napravio nekoliko full-stack aplikacija, na primer Job Application Tracker u Next.js 16 sa MongoDB-om, Better Auth-om i Zod validacijom na svakoj serverskoj akciji, i GymAI sa Express 5 API-jem, Prisma-om i 44 testa.
+Rails i .NET sam savladao na poslu i u oba isporučio interfejs koji se koristi svaki dan. Pored toga sam samostalno napravio nekoliko full-stack aplikacija, na primer Job Application Tracker u Next.js sa MongoDB-om, Better Auth-om i Zod validacijom na svakoj serverskoj akciji, i GymAI sa Express API-jem, Prisma-om i 44 testa.
 
 [Jedna rečenica zašto baš ova firma i šta želiš da naučiš kod njih.]
 
@@ -76,7 +76,7 @@ Dear [Name / "[Company] team"],
 
 I am applying for the [Job title] role at [Company]. I graduated in Information Technology from Singidunum University in 2024 and have since spent a year and a half on real production projects: a hospital platform in Nuxt and Laravel, a logistics TMS in .NET, and a shipment tracking portal in Rails.
 
-I picked up Rails and .NET on the job and shipped UI in each that people use every day. I have also built several full-stack apps on my own, such as a Job Application Tracker in Next.js 16 with MongoDB, Better Auth and Zod validation on every server action, and GymAI with an Express 5 API, Prisma and 44 tests.
+I picked up Rails and .NET on the job and shipped UI in each that people use every day. I have also built several full-stack apps on my own, such as a Job Application Tracker in Next.js with MongoDB, Better Auth and Zod validation on every server action, and GymAI with an Express API, Prisma and 44 tests.
 
 [One sentence on why this company and what you want to learn there.]
 
@@ -97,7 +97,7 @@ Poštovani/a [ime osobe ili „tim [Firma]"],
 
 prijavljujem se za poziciju [naziv pozicije] u [Firma]. Godinu i po radim na produkcionom interfejsu. Za logističku firmu iz SAD bio sam UI developer u timu od dva developera i redizajnirao sam ceo TMS sistem, uključujući 40+ Add/Edit formi pretvorenih u modularne wizard-e koji rade i u modalu i na celoj stranici. Na njihovom portalu za praćenje pošiljki napravio sam interaktivnu Leaflet mapu sa živom lokacijom kamiona.
 
-Danas radim na javnom delu bolničke platforme na pet jezika u Nuxt-u 4, a lične projekte pravim u React-u i Next.js-u. Pristupačnost (WCAG AA), performanse i SEO su deo svakog zadatka: moj tehnički SEO podigao je Semrush Site Health sa 90% na 98% za nedelju dana.
+Danas radim na javnom delu bolničke platforme na pet jezika u Nuxt-u, a lične projekte pravim u React-u i Next.js-u. Pristupačnost (WCAG AA), performanse i SEO su deo svakog zadatka: moj tehnički SEO podigao je Semrush Site Health sa 90% na 98% za nedelju dana.
 
 [Jedna rečenica o njihovom proizvodu ili interfejsu i šta bi konkretno doneo.]
 
@@ -115,7 +115,7 @@ Dear [Name / "[Company] team"],
 
 I am applying for the [Job title] role at [Company]. I have spent a year and a half on production UI. At a US logistics company I was the UI developer on a two-developer team and redesigned the whole TMS, including 40+ Add/Edit forms turned into modular wizards that work both in a modal and on a full page. On their shipment tracking portal I built an interactive Leaflet map with live truck locations.
 
-Today I work on the public site of a five-language hospital platform in Nuxt 4, and I build personal projects in React and Next.js. Accessibility (WCAG AA), performance and SEO are part of every task: my technical SEO work raised Semrush Site Health from 90% to 98% in one week.
+Today I work on the public site of a five-language hospital platform in Nuxt, and I build personal projects in React and Next.js. Accessibility (WCAG AA), performance and SEO are part of every task: my technical SEO work raised Semrush Site Health from 90% to 98% in one week.
 
 [One sentence about their product or interface and what you would bring to it.]
 

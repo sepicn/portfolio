@@ -49,12 +49,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const ticker = (
   [
     ["TypeScript", siTypescript],
-    ["React 19", siReact],
-    ["Next.js 16", siNextdotjs],
-    ["Vue 3", siVuedotjs],
-    ["Nuxt 4", siNuxt],
-    ["Laravel 12", siLaravel],
-    ["Tailwind 4", siTailwindcss],
+    ["React", siReact],
+    ["Next.js", siNextdotjs],
+    ["Vue", siVuedotjs],
+    ["Nuxt", siNuxt],
+    ["Laravel", siLaravel],
+    ["Tailwind", siTailwindcss],
     ["Google Ads", siGoogleads],
     ["Meta Ads", siMeta],
     ["GA4", siGoogleanalytics],
