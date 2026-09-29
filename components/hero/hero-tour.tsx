@@ -176,6 +176,7 @@ export function HeroTour({ overlay, enabled = true }: Props) {
     end: number;
     units: number;
     tl: gsap.core.Timeline;
+    glide: (unit: number) => void;
   } | null>(null);
   const [active, setActive] = useState(-1);
   // The close-up stills and the first flight wait for the visitor to start moving: someone
@@ -220,11 +221,11 @@ export function HeroTour({ overlay, enabled = true }: Props) {
     decodeFlight(stops[i].id);
     const y = (unit: number) => at.start + (unit / at.units) * (at.end - at.start);
     // Settle on the wide shot before stop i at once (it looks the same as the room now),
-    // then move the scroll to the close-up and let the scrub play the flight. A smooth
-    // scroll instead passed through the other stops, and snap could land on the next one.
+    // then glide to the close-up so the flight plays. A smooth scroll from where the page
+    // was passed through the other stops, and snap could land on the next one.
     scrollPageTo(y(i * 2));
     at.tl.progress((i * 2) / at.units);
-    window.setTimeout(() => scrollPageTo(y(i * 2 + 1)), 60);
+    window.setTimeout(() => at.glide(i * 2 + 1), 60);
   };
 
   useGSAP(
@@ -383,15 +384,100 @@ export function HeroTour({ overlay, enabled = true }: Props) {
       });
 
       const trigger = tl.scrollTrigger!;
+      const scrollAt = (unit: number) =>
+        trigger.start + (unit / units) * (trigger.end - trigger.start);
+      const unitNow = () =>
+        ((window.scrollY - trigger.start) / (trigger.end - trigger.start)) * units;
+
+      // A swipe moves the tour one stop and the page glides there on its own, instead of the
+      // flight following the finger frame by frame and stopping wherever the fling ran out.
+      // The rests are the room (0), each close-up (odd units) and the room after the last
+      // stop (units); past either end the swipe scrolls the page as usual.
+      const rests = [0, ...closeUps.map((p) => p * units), units];
+      const glide = { tween: null as gsap.core.Tween | null, to: 0 };
+      const glideTo = (unit: number) => {
+        const target = gsap.utils.clamp(0, units, unit);
+        const from = glide.tween ? glide.to : unitNow();
+        glide.to = target;
+        glide.tween?.kill();
+        const stop = stops[Math.min(stops.length - 1, Math.floor(target / 2))];
+        if (stop) decodeFlight(stop.id);
+        const pos = { y: window.scrollY };
+        glide.tween = gsap.to(pos, {
+          y: scrollAt(target),
+          // About 0.7 s per flight, so a close-up to the next one (two units) takes 1.4 s.
+          duration: gsap.utils.clamp(0.6, 1.6, Math.abs(target - from) * 0.7),
+          ease: "power1.inOut",
+          onUpdate: () => scrollPageTo(pos.y),
+          onComplete: () => {
+            glide.tween = null;
+          },
+        });
+      };
+      const nextRest = (dir: 1 | -1) => {
+        const from = glide.tween ? glide.to : unitNow();
+        return dir > 0
+          ? rests.find((r) => r > from + 0.1)
+          : [...rests].reverse().find((r) => r < from - 0.1);
+      };
+
+      const touch = { y: 0, owned: false, decided: false, dir: 0 as 0 | 1 | -1 };
+      const onTouchStart = (e: TouchEvent) => {
+        const y = window.scrollY;
+        touch.y = e.touches[0].clientY;
+        touch.owned =
+          e.touches.length === 1 && y >= trigger.start - 2 && y <= trigger.end + 2;
+        touch.decided = false;
+        touch.dir = 0;
+      };
+      const onTouchMove = (e: TouchEvent) => {
+        if (!touch.owned) return;
+        // The browser commits to a native scroll on the first move it is not stopped on,
+        // so the tour decides who owns the swipe right there.
+        if (!touch.decided) {
+          const dy = touch.y - e.touches[0].clientY;
+          if (dy === 0) return;
+          touch.decided = true;
+          touch.dir = dy > 0 ? 1 : -1;
+          // Nothing further this way: let the page scroll on past the tour.
+          if (nextRest(touch.dir) === undefined) {
+            touch.owned = false;
+            return;
+          }
+        }
+        if (e.cancelable) e.preventDefault();
+      };
+      const onTouchEnd = (e: TouchEvent) => {
+        if (!touch.owned || !touch.decided) return;
+        touch.owned = false;
+        // A tiny drag is a tap that wobbled, not a swipe.
+        if (Math.abs(touch.y - e.changedTouches[0].clientY) < 24) return;
+        const rest = nextRest(touch.dir as 1 | -1);
+        if (rest !== undefined) glideTo(rest);
+      };
+      el.addEventListener("touchstart", onTouchStart, { passive: true });
+      el.addEventListener("touchmove", onTouchMove, { passive: false });
+      el.addEventListener("touchend", onTouchEnd, { passive: true });
+
       const remember = () => {
-        tour.current = { start: trigger.start, end: trigger.end, units, tl };
+        tour.current = {
+          start: trigger.start,
+          end: trigger.end,
+          units,
+          tl,
+          glide: glideTo,
+        };
       };
       remember();
       trigger.vars.onRefresh = remember;
 
       return () => {
         tour.current = null;
+        glide.tween?.kill();
         window.removeEventListener("resize", onResize);
+        el.removeEventListener("touchstart", onTouchStart);
+        el.removeEventListener("touchmove", onTouchMove);
+        el.removeEventListener("touchend", onTouchEnd);
       };
     },
     { scope: outer, dependencies: [enabled] },
