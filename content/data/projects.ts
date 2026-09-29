@@ -83,8 +83,8 @@ export const projects: Project[] = [
       en: "A ~400k-line private hospital platform in five languages, plus the Google Ads campaigns that bring in inquiries and calls.",
     },
     summary: {
-      sr: "Na Medical Time-u radim od februara 2025, danas i na razvoju i na oglašavanju. Prvih pet meseci posvetio sam starom sajtu bolnice: prebacio sam ga na noviji Nuxt 3, napravio stranice usluga za hirurgiju, plastičnu hirurgiju, dijagnostiku, infuzije i preglede, sa fotografijama, alt tekstovima i prevodima na sedam stranih jezika. Od jula 2025. gradim novu platformu, danas oko 400 hiljada linija koda: Nuxt 4 na frontu, Laravel 12 pozadi i Flutter za telefon. Ima javni sajt na pet jezika, online zakazivanje, portale za deset uloga zaposlenih, prodavnicu, chat i video konsultacije, predračune i plaćanje karticom. Moj teren su javni sajt, prevodi i SEO, a paralelno vodim Google Ads i Meta Ads naloge bolnice.",
-      en: "I have worked on Medical Time since February 2025, and today I handle both its development and its advertising. The first five months went to the hospital's old site: I moved it to a newer Nuxt 3, built service pages for surgery, plastic surgery, diagnostics, infusions and check-ups, with photos, alt text and translations into seven foreign languages. Since July 2025 I have been building a new platform, now about 400 thousand lines of code: Nuxt 4 on the front, Laravel 12 behind it and Flutter for the phone. It has a public site in five languages, online booking, portals for ten staff roles, a shop, chat and video consultations, pro-forma invoices and card payments. My focus is the public site, translations and SEO, and alongside that I run the hospital's Google Ads and Meta Ads accounts.",
+      sr: "Na Medical Time-u radim od februara 2025, danas i na razvoju i na oglašavanju. Prvih pet meseci posvetio sam starom sajtu bolnice: prebacio sam ga na noviju verziju Nuxt-a, napravio stranice usluga za hirurgiju, plastičnu hirurgiju, dijagnostiku, infuzije i preglede, sa fotografijama, alt tekstovima i prevodima na sedam stranih jezika. Od jula 2025. gradim novu platformu, danas oko 400 hiljada linija koda: Nuxt na frontu, Laravel pozadi i Flutter za telefon. Ima javni sajt na pet jezika, online zakazivanje, portale za deset uloga zaposlenih, prodavnicu, chat i video konsultacije, predračune i plaćanje karticom. Moj teren su javni sajt, prevodi i SEO, a paralelno vodim Google Ads i Meta Ads naloge bolnice.",
+      en: "I have worked on Medical Time since February 2025, and today I handle both its development and its advertising. The first five months went to the hospital's old site: I moved it to a newer version of Nuxt, built service pages for surgery, plastic surgery, diagnostics, infusions and check-ups, with photos, alt text and translations into seven foreign languages. Since July 2025 I have been building a new platform, now about 400 thousand lines of code: Nuxt on the front, Laravel behind it and Flutter for the phone. It has a public site in five languages, online booking, portals for ten staff roles, a shop, chat and video consultations, pro-forma invoices and card payments. My focus is the public site, translations and SEO, and alongside that I run the hospital's Google Ads and Meta Ads accounts.",
     },
     did: {
       sr: [
@@ -97,7 +97,7 @@ export const projects: Project[] = [
         "Plaćanje karticom preko Raiffeisen banke: sačuvane kartice, obnova pretplata i predračuni koji se plaćaju iz profila, na sajtu i u aplikaciji.",
         "JSON-LD za Hospital, Physician, MedicalProcedure, FAQ, Article i Product; llms.txt; HSTS i noindex za SPA rute.",
         "GTM kontejner, GA4 konverzije, consent mode i ClickCease zaštita.",
-        "Stari sajt (februar do jul 2025): prelazak na Nuxt 3, stranice usluga sa fotografijama i dinamičkim alt tekstovima, cenovnik i prevodi na sedam jezika: engleski, nemački, ruski, turski, italijanski, španski i francuski.",
+        "Stari sajt (februar do jul 2025): prelazak na Nuxt, stranice usluga sa fotografijama i dinamičkim alt tekstovima, cenovnik i prevodi na sedam jezika: engleski, nemački, ruski, turski, italijanski, španski i francuski.",
       ],
       en: [
         "Semrush Site Health from 90% to 98% in one week: errors 6 → 0, warnings 1,012 → 129 (−87%).",
@@ -109,7 +109,7 @@ export const projects: Project[] = [
         "Card payments through Raiffeisen bank: saved cards, subscription renewal and pro-forma invoices paid from the user's profile, on the site and in the app.",
         "JSON-LD for Hospital, Physician, MedicalProcedure, FAQ, Article and Product; llms.txt; HSTS and noindex for SPA routes.",
         "GTM container, GA4 conversions, consent mode and ClickCease protection.",
-        "The old site (February to July 2025): a move to Nuxt 3, service pages with photos and dynamic alt text, a price list and translations into seven languages: English, German, Russian, Turkish, Italian, Spanish and French.",
+        "The old site (February to July 2025): a move to Nuxt, service pages with photos and dynamic alt text, a price list and translations into seven languages: English, German, Russian, Turkish, Italian, Spanish and French.",
       ],
     },
     hard: {
@@ -117,10 +117,10 @@ export const projects: Project[] = [
       en: "Blog post canonical URLs were stored in the database alongside meta data, so after slugs changed Google indexed duplicate pages. The fix was to always derive the canonical from the current route rather than saved meta, and to 301 the old slugs.",
     },
     stack: [
-      "Nuxt 4",
-      "Vue 3",
+      "Nuxt",
+      "Vue",
       "TypeScript",
-      "Laravel 12",
+      "Laravel",
       "MySQL",
       "Flutter",
       "GTM",
@@ -140,8 +140,8 @@ export const projects: Project[] = [
     },
     logo: "/images/clients/delta.webp",
     description: {
-      sr: "Studija slučaja: redizajn interfejsa TMS sistema za kamionsku logistiku u .NET 8 MVC. Tamni režim, nova navigacija i 40+ formi pretvorenih u vođene korake.",
-      en: "Case study: redesigning the interface of a trucking logistics TMS in .NET 8 MVC. Dark mode, new navigation and 40+ data entry forms turned into guided steps.",
+      sr: "Studija slučaja: redizajn interfejsa TMS sistema za kamionsku logistiku u .NET MVC. Tamni režim, nova navigacija i 40+ formi pretvorenih u vođene korake.",
+      en: "Case study: redesigning the interface of a trucking logistics TMS in .NET MVC. Dark mode, new navigation and 40+ data entry forms turned into guided steps.",
     },
     team: {
       sr: "Tim od dva developera; ja sam radio redizajn UI-ja",
@@ -183,8 +183,8 @@ export const projects: Project[] = [
       en: "A UI redesign of a US trucking company's TMS: dispatch, fleet, safety and accounting, with 40+ forms turned into guided steps.",
     },
     summary: {
-      sr: "Od oktobra 2025. do jula 2026. redizajnirao sam interfejs Meridian TMS-a, sistema za upravljanje transportom američke logističke firme Delta Group Logistics: 101 commit na glavnoj grani, u Razor pogledima, CSS-u i JavaScript-u. U sistemu su na jednom mestu dispečeri, flota, vozači, bezbednost i računovodstvo. Pozadina je .NET 8 MVC sa SQL Server bazom, Azure servisima, mobilnim API-jem za vozače i posebnim servisima za ELD uređaje i gorivo; to su radile kolege iz tima. Posao je išao modul po modul. Prvo prijava, navigacija i kontrolna tabla, zatim flota, korisnici, vozači i divizije, pa tamni režim za ceo sistem. U 2026. su forme prvo složene da stanu na ekran bez skrolovanja, a onda je 40+ formi za unos pretvoreno u vođene korake. Repo je privatan i vlasništvo klijenta, pa ovde nema koda; screenshotovi su sa lokalne instance sa izmišljenim podacima.",
-      en: "From October 2025 to July 2026 I redesigned the interface of Meridian TMS, the transport management system of Delta Group Logistics, a US trucking company: 101 commits on the main branch across Razor views, CSS and JavaScript. Dispatch, fleet, drivers, safety and accounting live in one place. The back end is .NET 8 MVC with SQL Server, Azure services, a mobile API for drivers and separate services for ELD devices and fuel; my teammates built that. The work went module by module. First sign-in, navigation and the dashboard, then fleet, users, drivers and divisions, then dark mode for the whole system. In 2026 the forms were first reworked to fit on one screen without scrolling, and then 40+ data entry forms became guided steps. The repo is private and client-owned, so there is no code here; the screenshots come from a local instance with made-up data.",
+      sr: "Od oktobra 2025. do jula 2026. redizajnirao sam interfejs Meridian TMS-a, sistema za upravljanje transportom američke logističke firme Delta Group Logistics: 101 commit na glavnoj grani, u Razor pogledima, CSS-u i JavaScript-u. U sistemu su na jednom mestu dispečeri, flota, vozači, bezbednost i računovodstvo. Pozadina je .NET MVC sa SQL Server bazom, Azure servisima, mobilnim API-jem za vozače i posebnim servisima za ELD uređaje i gorivo; to su radile kolege iz tima. Posao je išao modul po modul. Prvo prijava, navigacija i kontrolna tabla, zatim flota, korisnici, vozači i divizije, pa tamni režim za ceo sistem. U 2026. su forme prvo složene da stanu na ekran bez skrolovanja, a onda je 40+ formi za unos pretvoreno u vođene korake. Repo je privatan i vlasništvo klijenta, pa ovde nema koda; screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "From October 2025 to July 2026 I redesigned the interface of Meridian TMS, the transport management system of Delta Group Logistics, a US trucking company: 101 commits on the main branch across Razor views, CSS and JavaScript. Dispatch, fleet, drivers, safety and accounting live in one place. The back end is .NET MVC with SQL Server, Azure services, a mobile API for drivers and separate services for ELD devices and fuel; my teammates built that. The work went module by module. First sign-in, navigation and the dashboard, then fleet, users, drivers and divisions, then dark mode for the whole system. In 2026 the forms were first reworked to fit on one screen without scrolling, and then 40+ data entry forms became guided steps. The repo is private and client-owned, so there is no code here; the screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
@@ -215,7 +215,7 @@ export const projects: Project[] = [
       en: "The same forms open both standalone and from inside other forms: Truck from Driver, Lease from Equipment, Owner Operator from Truck. When Truck and Equipment first got steps, the logic lived in each form's own file. A form opened from another form therefore fell back to a flat layout without steps. It worked, but the user saw the same task two ways depending on where they started. The fix was to pull steps, per-step validation and navigation into a shared core, with each form only describing its own steps. Once the core was done, the flat fallback just had to be deleted: the last commit in that series removed 42 lines and added 9.",
     },
     stack: [
-      "ASP.NET Core 8 MVC",
+      "ASP.NET Core MVC",
       "Razor",
       "JavaScript",
       "jQuery",
@@ -234,16 +234,16 @@ export const projects: Project[] = [
     },
     logo: "/images/clients/delta.webp",
     description: {
-      sr: "Studija slučaja: portal za praćenje pošiljki u Rails 7.2. Leaflet mapa sa rutom po putevima, status svake stanice i redizajn ekrana, u 20 mojih commit-a.",
-      en: "Case study: a shipment tracking portal in Rails 7.2. A Leaflet map with road routing, a status for every stop and redesigned screens, in 20 commits of mine.",
+      sr: "Studija slučaja: portal za praćenje pošiljki u Rails. Leaflet mapa sa rutom po putevima, status svake stanice i redizajn ekrana, u 20 mojih commit-a.",
+      en: "Case study: a shipment tracking portal in Rails. A Leaflet map with road routing, a status for every stop and redesigned screens, in 20 commits of mine.",
     },
     team: {
       sr: "Rad po timovima: Miloš Obradović aplikacija i McLeod integracija, ja UI",
       en: "Work split across teams: Miloš Obradović on the app and McLeod integration, me on the UI",
     },
     scale: {
-      sr: "Rails 7.2 sa McLeod LoadMaster API-jem; moj deo: 20 commit-a, mapa od ~700 linija",
-      en: "Rails 7.2 on the McLeod LoadMaster API; my part: 20 commits, a ~700-line map",
+      sr: "Rails sa McLeod LoadMaster API-jem; moj deo: 20 commit-a, mapa od ~700 linija",
+      en: "Rails on the McLeod LoadMaster API; my part: 20 commits, a ~700-line map",
     },
     impact: {
       sr: [
@@ -274,8 +274,8 @@ export const projects: Project[] = [
       en: "A live shipment map for a US logistics company's customers, with road routing and a status for every stop.",
     },
     summary: {
-      sr: "Delta Group Logistics je kamionska logistika iz SAD-a, a ovaj portal je mesto gde njeni kupci prate svoje pošiljke. Aplikaciju od oktobra 2024. pravi Miloš Obradović: Rails 7.2 sa Hotwire-om i Tailwind-om, povezana sa McLeod LoadMaster sistemom iz kog dolaze pošiljke, stanice, javljanja kamiona i dokaz o isporuci. Ja sam se priključio u maju 2025. i do oktobra, u 20 commit-a, preuzeo izgled i ponašanje ekrana. U julu sam uradio listu i detalje pošiljke, a zatim mapu od oko 700 linija, najveći pojedinačni deo mog posla. Na jesen su došli statusi po stanicama, kartice za upravljanje kupcima i korisnicima i jedan backend zadatak: pozivnica za nove korisnike. Screenshotovi su sa lokalne instance sa izmišljenim podacima.",
-      en: "Delta Group Logistics is a US trucking company, and this portal is where its customers follow their shipments. Miloš Obradović has been building the app since October 2024: Rails 7.2 with Hotwire and Tailwind, connected to the McLeod LoadMaster system that supplies shipments, stops, truck check-ins and proof of delivery. I joined in May 2025 and by October, in 20 commits, had taken over how the screens look and behave. In July I did the shipment list and detail pages, and then the ~700-line map, the biggest single piece of my work. In the autumn came per-stop statuses, card layouts for managing customers and users, and one back-end task: invitations for new users. The screenshots come from a local instance with made-up data.",
+      sr: "Delta Group Logistics je kamionska logistika iz SAD-a, a ovaj portal je mesto gde njeni kupci prate svoje pošiljke. Aplikaciju od oktobra 2024. pravi Miloš Obradović: Rails sa Hotwire-om i Tailwind-om, povezana sa McLeod LoadMaster sistemom iz kog dolaze pošiljke, stanice, javljanja kamiona i dokaz o isporuci. Ja sam se priključio u maju 2025. i do oktobra, u 20 commit-a, preuzeo izgled i ponašanje ekrana. U julu sam uradio listu i detalje pošiljke, a zatim mapu od oko 700 linija, najveći pojedinačni deo mog posla. Na jesen su došli statusi po stanicama, kartice za upravljanje kupcima i korisnicima i jedan backend zadatak: pozivnica za nove korisnike. Screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "Delta Group Logistics is a US trucking company, and this portal is where its customers follow their shipments. Miloš Obradović has been building the app since October 2024: Rails with Hotwire and Tailwind, connected to the McLeod LoadMaster system that supplies shipments, stops, truck check-ins and proof of delivery. I joined in May 2025 and by October, in 20 commits, had taken over how the screens look and behave. In July I did the shipment list and detail pages, and then the ~700-line map, the biggest single piece of my work. In the autumn came per-stop statuses, card layouts for managing customers and users, and one back-end task: invitations for new users. The screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
@@ -302,7 +302,7 @@ export const projects: Project[] = [
       en: "The map worked locally, but in production every marker icon vanished. The JavaScript asked for /assets/pickup.svg as a plain string, and in production the Rails asset pipeline fingerprints file names, so that address did not exist. The fix was to add the icons to the precompile list and have the view pass the real paths from the asset helper to the controller as Stimulus values. The other trap was status. McLeod returns one letter for the whole shipment, D for delivered, while a customer with three delivery stops wants to know which one is done. So a helper now works out the status from arrival and departure times at each stop, not from that one letter.",
     },
     stack: [
-      "Rails 7.2",
+      "Rails",
       "Hotwire",
       "Stimulus",
       "Tailwind",
@@ -321,8 +321,8 @@ export const projects: Project[] = [
     },
     logo: "/images/clients/itexpert.webp",
     description: {
-      sr: "Studija slučaja: sajt i platforma agencije IT Expert u Nuxt 4 i Laravel 12. Portali, prodavnica, tiketi, pet jezika i plaćanje karticom sa 133 testa.",
-      en: "Case study: the IT Expert agency site and platform in Nuxt 4 and Laravel 12. Portals, a shop, tickets, five languages and card billing covered by 133 tests.",
+      sr: "Studija slučaja: sajt i platforma agencije IT Expert u Nuxt i Laravel. Portali, prodavnica, tiketi, pet jezika i plaćanje karticom sa 133 testa.",
+      en: "Case study: the IT Expert agency site and platform in Nuxt and Laravel. Portals, a shop, tickets, five languages and card billing covered by 133 tests.",
     },
     gallery: [
       "/images/projects/gallery/itexpert-2.webp",
@@ -333,8 +333,8 @@ export const projects: Project[] = [
       en: "Under the IT Expert brand",
     },
     scale: {
-      sr: "Nuxt 4 + Laravel 12, 5 jezika, 165 komponenti, 50 kontrolera; naplata: 91 fajl, 133 testa",
-      en: "Nuxt 4 + Laravel 12, 5 languages, 165 components, 50 controllers; billing: 91 files, 133 tests",
+      sr: "Nuxt + Laravel, 5 jezika, 165 komponenti, 50 kontrolera; naplata: 91 fajl, 133 testa",
+      en: "Nuxt + Laravel, 5 languages, 165 components, 50 controllers; billing: 91 files, 133 tests",
     },
     impact: {
       sr: [
@@ -360,8 +360,8 @@ export const projects: Project[] = [
       en: "A web agency platform in five languages: portals, a shop, tickets and card billing covered by 133 tests.",
     },
     summary: {
-      sr: "IT Expert je brend preko kog me klijenti takođe mogu naći i angažovati. Ima dva dela. Javni sajt itexpert.rs nastao je u martu 2026: statičan Nuxt 4 sa sedam stranica, alatom koji preko Google PageSpeed Insights API-ja ocenjuje bilo koji sajt, kontakt formom, sistemom kolačića i četiri teme. Od njega je napravljen zajednički šablon, na kome su posle nastali sajtovi za Mango i Stanke Enterijer. Drugi deo je platforma, od aprila 2026: Nuxt 4 i Laravel 12 na pet jezika, sa portalima za klijente, korisnike i četiri uloge zaposlenih, prodavnicom, tiketima, chatom, editorom dokumenata, magacinom i pretplatama. U avgustu su na posebnoj grani u deset faza preneti moduli iz platforme Medical Time, bez medicinskih pojmova. U septembru je stigao ceo tok naplate: sačuvane kartice, automatska obnova pretplata i predračuni, u jednom commit-u od 91 fajla sa 133 automatska testa.",
-      en: "IT Expert is another place where clients can find and hire me. It has two parts. The public site itexpert.rs was built in March 2026: a static Nuxt 4 site with seven pages, a tool that scores any website through the Google PageSpeed Insights API, a contact form, a cookie system and four themes. It became a shared template, which later carried the Mango and Stanke Enterijer sites. The second part is the platform, started in April 2026: Nuxt 4 and Laravel 12 in five languages, with portals for clients, users and four staff roles, a shop, tickets, chat, a document editor, a warehouse and subscriptions. In August, modules from the Medical Time platform were ported over on a separate branch in ten phases, with the medical terms taken out. September brought the whole billing flow: saved cards, automatic subscription renewal and pro-forma invoices, in one commit of 91 files with 133 automated tests.",
+      sr: "IT Expert je brend preko kog me klijenti takođe mogu naći i angažovati. Ima dva dela. Javni sajt itexpert.rs nastao je u martu 2026: statičan Nuxt sa sedam stranica, alatom koji preko Google PageSpeed Insights API-ja ocenjuje bilo koji sajt, kontakt formom, sistemom kolačića i četiri teme. Od njega je napravljen zajednički šablon, na kome su posle nastali sajtovi za Mango i Stanke Enterijer. Drugi deo je platforma, od aprila 2026: Nuxt i Laravel na pet jezika, sa portalima za klijente, korisnike i četiri uloge zaposlenih, prodavnicom, tiketima, chatom, editorom dokumenata, magacinom i pretplatama. U avgustu su na posebnoj grani u deset faza preneti moduli iz platforme Medical Time, bez medicinskih pojmova. U septembru je stigao ceo tok naplate: sačuvane kartice, automatska obnova pretplata i predračuni, u jednom commit-u od 91 fajla sa 133 automatska testa.",
+      en: "IT Expert is another place where clients can find and hire me. It has two parts. The public site itexpert.rs was built in March 2026: a static Nuxt site with seven pages, a tool that scores any website through the Google PageSpeed Insights API, a contact form, a cookie system and four themes. It became a shared template, which later carried the Mango and Stanke Enterijer sites. The second part is the platform, started in April 2026: Nuxt and Laravel in five languages, with portals for clients, users and four staff roles, a shop, tickets, chat, a document editor, a warehouse and subscriptions. In August, modules from the Medical Time platform were ported over on a separate branch in ten phases, with the medical terms taken out. September brought the whole billing flow: saved cards, automatic subscription renewal and pro-forma invoices, in one commit of 91 files with 133 automated tests.",
     },
     did: {
       sr: [
@@ -392,8 +392,8 @@ export const projects: Project[] = [
       en: "Renewal must never charge the same period twice. Protection against a repeated bank message does not help here: if the scheduled job runs twice, each of its charges is a new and perfectly valid message. So every billing cycle has its own key with a unique index, and the database, not careful code, rejects the second attempt. The other trap was the date. The charge runs a day early, and if the new period started at the moment of charging, the customer would lose a day every cycle. So the period always extends from the end of the previous one.",
     },
     stack: [
-      "Nuxt 4",
-      "Laravel 12",
+      "Nuxt",
+      "Laravel",
       "MySQL",
       "@nuxtjs/i18n",
       "Raiffeisen",
@@ -523,8 +523,8 @@ export const projects: Project[] = [
       en: "A boutique pastry shop site across two versions since 2024: a filterable price list of 32 cakes and one-tap calling.",
     },
     summary: {
-      sr: "Mango je butik poslastičarnica u Zemunu, a sajt joj pravim od 2024, kroz dve verzije. Prva je bila na Nuxt-u 3 sa SSR-om: pet jezika (srpski, engleski, nemački, ruski i turski), dve teme boja koje prate tamni režim telefona, mega meni, sopstveni slajder, galerija preko celog ekrana i cenovnik sa korpom u Pinia store-u. U februaru 2025. usledili su SEO prolaz, merenje preko GTM-a i prelazak slika na WebP. U martu 2026. sajt je napravljen iznova, na Nuxt-u 4 i zajedničkom šablonu IT Expert-a: devet stranica (početna, O nama, butik, tradicionalni, vegan i sitni kolači, cenovnik, galerija i kontakt), 17 komponenti, cenovnik od 32 kolača, sistem kolačića u kome se ništa ne meri pre pristanka i kontakt zaštićen od botova. Nova verzija je objavljena samo na srpskom, a stare adrese na drugim jezicima vode preusmerenjem 301 na srpske stranice, da se ne izgube postojeći linkovi.",
-      en: "Mango is a boutique pastry shop in Zemun, and I have been building its site since 2024, across two versions. The first ran on Nuxt 3 with SSR: five languages (Serbian, English, German, Russian and Turkish), two colour themes that follow the phone's dark mode, a mega menu, a custom slider, a full-screen gallery and a price list with a cart in a Pinia store. February 2025 brought an SEO pass, GTM tracking and a move of all images to WebP. In March 2026 the site was rebuilt on Nuxt 4 and IT Expert's shared template: nine pages (home, about, boutique, traditional, vegan and small cakes, price list, gallery and contact), 17 components, a price list of 32 cakes, a cookie system where nothing is tracked before consent, and contact details hidden from bots. The new version launched in Serbian only, and the old URLs in other languages 301 to the Serbian pages so existing links still work.",
+      sr: "Mango je butik poslastičarnica u Zemunu, a sajt joj pravim od 2024, kroz dve verzije. Prva je bila na Nuxt-u sa SSR-om: pet jezika (srpski, engleski, nemački, ruski i turski), dve teme boja koje prate tamni režim telefona, mega meni, sopstveni slajder, galerija preko celog ekrana i cenovnik sa korpom u Pinia store-u. U februaru 2025. usledili su SEO prolaz, merenje preko GTM-a i prelazak slika na WebP. U martu 2026. sajt je napravljen iznova, na Nuxt-u i zajedničkom šablonu IT Expert-a: devet stranica (početna, O nama, butik, tradicionalni, vegan i sitni kolači, cenovnik, galerija i kontakt), 17 komponenti, cenovnik od 32 kolača, sistem kolačića u kome se ništa ne meri pre pristanka i kontakt zaštićen od botova. Nova verzija je objavljena samo na srpskom, a stare adrese na drugim jezicima vode preusmerenjem 301 na srpske stranice, da se ne izgube postojeći linkovi.",
+      en: "Mango is a boutique pastry shop in Zemun, and I have been building its site since 2024, across two versions. The first ran on Nuxt with SSR: five languages (Serbian, English, German, Russian and Turkish), two colour themes that follow the phone's dark mode, a mega menu, a custom slider, a full-screen gallery and a price list with a cart in a Pinia store. February 2025 brought an SEO pass, GTM tracking and a move of all images to WebP. In March 2026 the site was rebuilt on Nuxt and IT Expert's shared template: nine pages (home, about, boutique, traditional, vegan and small cakes, price list, gallery and contact), 17 components, a price list of 32 cakes, a cookie system where nothing is tracked before consent, and contact details hidden from bots. The new version launched in Serbian only, and the old URLs in other languages 301 to the Serbian pages so existing links still work.",
     },
     did: {
       sr: [
@@ -553,9 +553,8 @@ export const projects: Project[] = [
       en: "The shop's palette is warm and light: pink, cream and burgundy. Those exact colours failed the Lighthouse contrast check. I did not want to change the brand, so I darkened each colour only as far as it needed to pass: secondary text from #7a5c5c to #705252, muted text from #a08080 to #7e5f5f, and section labels to a darker shade of the same accent. The harder part was the header. It is transparent over the photo and white after scrolling, so a link that reads well in one state disappears in the other. The menu therefore gets its own rules while the header is transparent. The next step was the critical path: section CSS moved out of the head into its own file and only four fonts preloaded, after which Lighthouse showed 91, 100, 100 and 100.",
     },
     stack: [
-      "Nuxt 3",
-      "Nuxt 4",
-      "Vue 3",
+      "Nuxt",
+      "Vue",
       "TypeScript",
       "Pinia",
       "@nuxtjs/i18n",
@@ -573,8 +572,8 @@ export const projects: Project[] = [
     },
     logo: "/images/clients/vuk-studio.webp",
     description: {
-      sr: "Studija slučaja: sajt muzičkog i video studija Vuk u Beogradu. Istraživanje ključnih reči, šest stranica u Nuxt 4, LocalBusiness i FAQPage podaci.",
-      en: "Case study: the site of Vuk, a Belgrade music and video studio. Keyword research, six Nuxt 4 pages, LocalBusiness and FAQPage data, deployed to GitHub Pages.",
+      sr: "Studija slučaja: sajt muzičkog i video studija Vuk u Beogradu. Istraživanje ključnih reči, šest stranica u Nuxt, LocalBusiness i FAQPage podaci.",
+      en: "Case study: the site of Vuk, a Belgrade music and video studio. Keyword research, six Nuxt pages, LocalBusiness and FAQPage data, deployed to GitHub Pages.",
     },
     gallery: [
       "/images/projects/gallery/vuk-studio-2.webp",
@@ -582,8 +581,8 @@ export const projects: Project[] = [
     ],
     team: { sr: "Pod brendom IT Expert", en: "Under the IT Expert brand" },
     scale: {
-      sr: "Statičan Nuxt 4 sajt, 6 stranica, 7 sekcija na početnoj, brief u 7 delova",
-      en: "Static Nuxt 4 site, 6 pages, 7 home sections, a 7-part brief",
+      sr: "Statičan Nuxt sajt, 6 stranica, 7 sekcija na početnoj, brief u 7 delova",
+      en: "Static Nuxt site, 6 pages, 7 home sections, a 7-part brief",
     },
     impact: {
       sr: [
@@ -609,8 +608,8 @@ export const projects: Project[] = [
       en: "A music and video studio site, ready for local search from day one and rebranded in a single day.",
     },
     summary: {
-      sr: "Vuk je muzički i video studio iz Beograda, za ljude koji žele da snime pesmu ili spot. Sajt je nastao u junu 2026. na osnovi našeg Nuxt 4 sajta za molersku firmu Stanke Enterijer, sa istom arhitekturom i istim načinom učitavanja CSS-a. Prvo sam napisao brief u sedam delova: brend i podaci o firmi, arhitektura, dizajn, SEO i ključne reči, izgled svake stranice, build i provera pre objave. Ceo rebrending je zatim urađen u jednom danu, 25. juna: šest stranica (početna, Muzički studio, Video produkcija, Galerija, O nama i Kontakt), nov izgled, fontovi, logo i automatska objava. Četiri dana kasnije u galeriju su stigle fotografije studija i Instagram reel, a u avgustu sekcija Saradnici na stranici O nama. Sajt se generiše u statične stranice i stoji na GitHub Pages, a kontakt ide preko poziva, WhatsApp-a i Viber-a, bez forme.",
-      en: "Vuk is a Belgrade music and video studio for people who want to record a song or shoot a video. The site was built in June 2026 on top of our Nuxt 4 site for Stanke Enterijer, a house-painting business, with the same architecture and the same way of loading CSS. First I wrote a seven-part brief: brand and business facts, architecture, design, SEO and keywords, the layout of each page, build and pre-launch checks. The rebrand was then done in one day, 25 June: six pages (home, Music studio, Video production, Gallery, About and Contact), a new look, fonts, logo and automatic deploys. Four days later studio photos and an Instagram reel arrived in the gallery, and in August a Partners section on the About page. The site is generated as static pages and hosted on GitHub Pages, and contact goes by call, WhatsApp and Viber, with no form.",
+      sr: "Vuk je muzički i video studio iz Beograda, za ljude koji žele da snime pesmu ili spot. Sajt je nastao u junu 2026. na osnovi našeg Nuxt sajta za molersku firmu Stanke Enterijer, sa istom arhitekturom i istim načinom učitavanja CSS-a. Prvo sam napisao brief u sedam delova: brend i podaci o firmi, arhitektura, dizajn, SEO i ključne reči, izgled svake stranice, build i provera pre objave. Ceo rebrending je zatim urađen u jednom danu, 25. juna: šest stranica (početna, Muzički studio, Video produkcija, Galerija, O nama i Kontakt), nov izgled, fontovi, logo i automatska objava. Četiri dana kasnije u galeriju su stigle fotografije studija i Instagram reel, a u avgustu sekcija Saradnici na stranici O nama. Sajt se generiše u statične stranice i stoji na GitHub Pages, a kontakt ide preko poziva, WhatsApp-a i Viber-a, bez forme.",
+      en: "Vuk is a Belgrade music and video studio for people who want to record a song or shoot a video. The site was built in June 2026 on top of our Nuxt site for Stanke Enterijer, a house-painting business, with the same architecture and the same way of loading CSS. First I wrote a seven-part brief: brand and business facts, architecture, design, SEO and keywords, the layout of each page, build and pre-launch checks. The rebrand was then done in one day, 25 June: six pages (home, Music studio, Video production, Gallery, About and Contact), a new look, fonts, logo and automatic deploys. Four days later studio photos and an Instagram reel arrived in the gallery, and in August a Partners section on the About page. The site is generated as static pages and hosted on GitHub Pages, and contact goes by call, WhatsApp and Viber, with no form.",
     },
     did: {
       sr: [
@@ -638,7 +637,7 @@ export const projects: Project[] = [
       sr: "Ljudi najčešće traže „snimanje pesme cena“, a studiji skoro nikad ne objavljuju cenovnik. Izmišljena cena bi donela klikove i razočarane pozive. Rešenje je bilo da ta fraza dobije pravo pitanje u FAQ-u sa iskrenim odgovorom (cena zavisi od pesme, javite se za okvirnu), bez brojeva koje studio nije potvrdio. Drugi deo posla bilo je čišćenje: kod je došao od molerske firme, pa su domen, naslovi, sitemap i robots morali da se prebace do poslednjeg URL-a, a stilovi za usluge i portfolio koje studio ne koristi da se izbace.",
       en: "People most often search for the price of recording a song, and studios almost never publish a price list. A made-up price would bring clicks and disappointed calls. The fix was to give that phrase a real FAQ question with an honest answer (the price depends on the song, get in touch for an estimate), with no numbers the studio had not confirmed. The other part of the job was cleanup: the code came from a house-painting business, so the domain, titles, sitemap and robots had to move over down to the last URL, and the styles for services and portfolio pages the studio does not use had to go.",
     },
-    stack: ["Nuxt 4", "Vue 3", "JSON-LD", "GitHub Actions", "GitHub Pages"],
+    stack: ["Nuxt", "Vue", "JSON-LD", "GitHub Actions", "GitHub Pages"],
     links: { live: "https://vuk-studio.rs" },
     accent: "violet",
   },
@@ -649,8 +648,8 @@ export const projects: Project[] = [
       en: "Stanke Enterijer: site for a Belgrade painter",
     },
     description: {
-      sr: "Studija slučaja: sajt molerske firme Stanke Enterijer u Nuxt 4. Tri stranice za lokalnu pretragu, poziv jednim dodirom i Lighthouse 90+ na telefonu.",
-      en: "Case study: a Nuxt 4 site for Stanke Enterijer, a Belgrade house painter. Three pages for local search, one-tap calling and Lighthouse 90+ on mobile.",
+      sr: "Studija slučaja: sajt molerske firme Stanke Enterijer u Nuxt. Tri stranice za lokalnu pretragu, poziv jednim dodirom i Lighthouse 90+ na telefonu.",
+      en: "Case study: a Nuxt site for Stanke Enterijer, a Belgrade house painter. Three pages for local search, one-tap calling and Lighthouse 90+ on mobile.",
     },
     team: { sr: "Pod brendom IT Expert", en: "Under the IT Expert brand" },
     scale: {
@@ -692,7 +691,7 @@ export const projects: Project[] = [
         "Naslov, opis, Open Graph i canonical za svaku stranicu; početna cilja „moler Beograd“, uz krečenje, gletovanje i farbanje u naslovu.",
         "Slike iz JPG-a u WebP: fotografija za O nama sa 84,7 na 7,6 KB, hero sa 45 na 3,1 KB.",
         "Inter Variable sveden skriptom na latinicu sa slovima č, ć, đ, š i ž, u jednom woff2 fajlu, bez spoljnog servisa za fontove.",
-        "GitHub Actions build na Node-u 22 i objava na GitHub Pages posle svakog push-a.",
+        "GitHub Actions build na Node-u i objava na GitHub Pages posle svakog push-a.",
       ],
       en: [
         "A home page in six sections: a hero with brush strokes drawn in SVG and CSS gradients, six services, why choose them, a four-step process, promises and a closing call to action.",
@@ -701,14 +700,14 @@ export const projects: Project[] = [
         "A title, description, Open Graph tags and canonical for each page; the home page targets the Serbian for house painter Belgrade, with painting and skim coating in the title.",
         "Images from JPG to WebP: the About photo from 84.7 to 7.6 KB, the hero from 45 to 3.1 KB.",
         "Inter Variable cut down by a script to Latin with č, ć, đ, š and ž, in a single woff2 file, with no outside font service.",
-        "A GitHub Actions build on Node 22 and a GitHub Pages deploy after every push.",
+        "A GitHub Actions build on Node and a GitHub Pages deploy after every push.",
       ],
     },
     hard: {
       sr: "Šablon iz koga je sajt nastao bio je pravljen za veće sajtove: komponente, composable-i, fajlovi sa podacima i dvadesetak malih CSS fajlova koji se učitavaju po sekciji dok se skroluje. Za tri stranice to je bio višak koda i zahteva, a CSS ubačen u toku rada na telefonu kasni za prvim prikazom. Zato sam sajt prepisao u ravne stranice sa jednim CSS fajlom koji build ubacuje direktno u HTML i jednim fontom. Verzija sa komponentama ostala je na posebnoj grani, pa se dva pristupa mogu uporediti. Usput je pukla hidracija: dugme za povratak na vrh i dugme za poziv renderovali su se preko Teleport-a, pa se HTML sa servera nije slagao sa onim u pretraživaču. Rešenje je bilo da se oba prikazuju samo na klijentu.",
       en: "The template the site came from was made for bigger sites: components, composables, data files and about twenty small CSS files loaded per section while you scroll. For three pages that meant extra code and extra requests, and CSS injected at runtime on a phone arrives after the first paint. So I rewrote the site as flat pages with one CSS file the build inlines straight into the HTML, and one font. The component version stayed on a separate branch, so the two approaches can be compared. Along the way hydration broke: the back-to-top button and the call button rendered through a Teleport, so the server HTML did not match the browser's. The fix was to render both on the client only.",
     },
-    stack: ["Nuxt 4", "Vue 3", "CSS", "GitHub Actions", "GitHub Pages"],
+    stack: ["Nuxt", "Vue", "CSS", "GitHub Actions", "GitHub Pages"],
     links: { live: "https://stanke-enterijer.rs" },
     accent: "sun",
   },
@@ -719,8 +718,8 @@ export const projects: Project[] = [
       en: "NST: site for a dental metal print and mill lab",
     },
     description: {
-      sr: "Studija slučaja: statičan Next.js 16 sajt za firmu koja štampa i gloda metal za zubne laboratorije. 3D presek krunice iz Blendera i Lighthouse 90+ na telefonu.",
-      en: "Case study: a static Next.js 16 site for a firm that prints and mills metal for dental labs. A 3D crown cross-section from Blender and Lighthouse 90+ on mobile.",
+      sr: "Studija slučaja: statičan Next.js sajt za firmu koja štampa i gloda metal za zubne laboratorije. 3D presek krunice iz Blendera i Lighthouse 90+ na telefonu.",
+      en: "Case study: a static Next.js site for a firm that prints and mills metal for dental labs. A 3D crown cross-section from Blender and Lighthouse 90+ on mobile.",
     },
     team: { sr: "Sam", en: "Solo" },
     scale: {
@@ -751,8 +750,8 @@ export const projects: Project[] = [
       en: "A site for metal 3D printing and milling for dental labs, with a crown cross-section from Blender.",
     },
     summary: {
-      sr: "NST Print and Mill Centar iz Beograda 3D štampa kobalt-hrom i titanijum i gloda konstrukcije za zubotehničke laboratorije. Kupci su laboratorije i ordinacije, pa sajt mora da pokaže sam proizvod i jasno kaže kako se radi posao. Sajt sam napravio sam, od dizajna do objave, za pet dana u septembru 2026. To je statičan Next.js 16 sa TypeScript-om i Tailwind-om 4: build ispisuje gotov HTML koji stoji na GitHub Pages, bez servera i baze. Početna je napravljena oko jednog vizuala: preseka krunice na implantu koji se na skrol razmiče sloj po sloj, sa nazivom materijala uz svaki sloj. Ispod su proizvodni program, fotografije iz proizvodnje, rotacija preseka koja se vrti prstom, deo o materijalima i postupak od fajla do isporuke u četiri koraka. Projekat je pod ugovorom o poverljivosti, pa ovde pokazujem samo početnu stranicu.",
-      en: "NST Print and Mill Centar in Belgrade 3D prints cobalt-chrome and titanium and mills frameworks for dental labs. Its customers are labs and dental practices, so the site has to show the product itself and say clearly how the work gets done. I built it alone, from design to launch, in five days in September 2026. It is a static Next.js 16 site with TypeScript and Tailwind 4: the build writes plain HTML that sits on GitHub Pages, with no server or database. The home page is built around one visual: a cross-section of a crown on an implant that spreads apart layer by layer as you scroll, with the material named next to each layer. Below it come the product range, photos from production, a turntable of the cross-section you can spin with a finger, a section on materials and a four-step process from file to delivery. The project is under a non-disclosure agreement, so I show only the home page here.",
+      sr: "NST Print and Mill Centar iz Beograda 3D štampa kobalt-hrom i titanijum i gloda konstrukcije za zubotehničke laboratorije. Kupci su laboratorije i ordinacije, pa sajt mora da pokaže sam proizvod i jasno kaže kako se radi posao. Sajt sam napravio sam, od dizajna do objave, za pet dana u septembru 2026. To je statičan Next.js sa TypeScript-om i Tailwind-om: build ispisuje gotov HTML koji stoji na GitHub Pages, bez servera i baze. Početna je napravljena oko jednog vizuala: preseka krunice na implantu koji se na skrol razmiče sloj po sloj, sa nazivom materijala uz svaki sloj. Ispod su proizvodni program, fotografije iz proizvodnje, rotacija preseka koja se vrti prstom, deo o materijalima i postupak od fajla do isporuke u četiri koraka. Projekat je pod ugovorom o poverljivosti, pa ovde pokazujem samo početnu stranicu.",
+      en: "NST Print and Mill Centar in Belgrade 3D prints cobalt-chrome and titanium and mills frameworks for dental labs. Its customers are labs and dental practices, so the site has to show the product itself and say clearly how the work gets done. I built it alone, from design to launch, in five days in September 2026. It is a static Next.js site with TypeScript and Tailwind: the build writes plain HTML that sits on GitHub Pages, with no server or database. The home page is built around one visual: a cross-section of a crown on an implant that spreads apart layer by layer as you scroll, with the material named next to each layer. Below it come the product range, photos from production, a turntable of the cross-section you can spin with a finger, a section on materials and a four-step process from file to delivery. The project is under a non-disclosure agreement, so I show only the home page here.",
     },
     did: {
       sr: [
@@ -777,9 +776,9 @@ export const projects: Project[] = [
       en: "After one version that spun too fast and one that looked choppy, the turntable settled at 72 frames at 10 fps, 7.2 seconds per turn. That ran into a format limit: 72 frames of 380 pixels make a strip 27,360 pixels wide, and WebP stops at 16,383. So the strip is laid out as a 12 by 6 grid and the offset moves on both axes. The other problem was that the object slid left and right instead of turning in place. The model is cut in half, so the remaining mass orbits the axis and the silhouette wanders by 36 pixels. A script now measures the opaque bounds of every frame and centres it, and after that the centre sits at 190 or 191 pixels in every frame.",
     },
     stack: [
-      "Next.js 16",
+      "Next.js",
       "TypeScript",
-      "Tailwind 4",
+      "Tailwind",
       "Blender",
       "JSON-LD",
       "GitHub Pages",
@@ -864,12 +863,12 @@ export const projects: Project[] = [
   {
     slug: "job-application-tracker",
     seoTitle: {
-      sr: "Job Application Tracker: Kanban u Next.js 16",
-      en: "Job Application Tracker: Kanban in Next.js 16",
+      sr: "Job Application Tracker: Kanban u Next.js",
+      en: "Job Application Tracker: Kanban in Next.js",
     },
     description: {
-      sr: "Studija slučaja: Kanban tabla za prijave za posao u Next.js 16. Server Actions, MongoDB, Better Auth i prevlačenje kartica koje se vraća ako server odbije.",
-      en: "Case study: a Kanban board for job applications in Next.js 16. Server Actions, MongoDB, Better Auth and drag and drop that rolls back if the server says no.",
+      sr: "Studija slučaja: Kanban tabla za prijave za posao u Next.js. Server Actions, MongoDB, Better Auth i prevlačenje kartica koje se vraća ako server odbije.",
+      en: "Case study: a Kanban board for job applications in Next.js. Server Actions, MongoDB, Better Auth and drag and drop that rolls back if the server says no.",
     },
     gallery: [
       "/images/projects/gallery/job-application-tracker-1.webp",
@@ -884,12 +883,12 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Najnoviji Next.js 16 (cacheComponents, Server Actions) u aplikaciji koja radi, sa bazom i prijavom, a ne u tutorijalu.",
+        "Najnoviji Next.js (cacheComponents, Server Actions) u aplikaciji koja radi, sa bazom i prijavom, a ne u tutorijalu.",
         "Bezbednost od početka: Zod na svakoj akciji, provera vlasnika zapisa, ograničen broj zahteva, CSP i HSTS.",
         "Svaka ispravka u istoriji ima commit koji objašnjava uzrok, a ne samo šta je promenjeno.",
       ],
       en: [
-        "The latest Next.js 16 (cacheComponents, Server Actions) in a working app with a database and sign-in, not a tutorial.",
+        "The latest Next.js (cacheComponents, Server Actions) in a working app with a database and sign-in, not a tutorial.",
         "Security from the start: Zod on every action, record-owner checks, rate limits, CSP and HSTS.",
         "Every fix in the history has a commit that explains the cause, not just what changed.",
       ],
@@ -905,8 +904,8 @@ export const projects: Project[] = [
       en: "A Kanban board for the job hunt: drag an application from sent to interview.",
     },
     summary: {
-      sr: "Tabla sa kolonama Wish List, Applied, Interviewing, Offer i Rejected, na kojoj se prijava za posao prevlači kako napreduje. Uz svaku prijavu stoje firma, pozicija, link oglasa, plata, beleške i tagovi. Napravio sam je sam: 23 commit-a od 31. jula do 4. avgusta 2026, i jedan u septembru koji je pooštrio prijavu i podigao zavisnosti. Next.js 16 sa cacheComponents, Server Actions kao jedini put za upis, MongoDB kroz Mongoose, Better Auth za prijavu mejlom i preko Google-a, dnd-kit za prevlačenje. Svaka izmena na tabli je optimistična: kartica se pomeri odmah, a ako server odbije, tabla se vraća na stanje pre akcije i korisnik dobija poruku. Veći deo tog vremena otišao je na greške koje se ne vide u demo verziji. Svaka je ispravljena posebnim commit-om koji objašnjava uzrok.",
-      en: "A board with Wish List, Applied, Interviewing, Offer and Rejected columns, where a job application is dragged along as it moves forward. Each one carries the company, role, job ad link, salary, notes and tags. I built it alone: 23 commits from 31 July to 4 August 2026, plus one in September that tightened sign-in and upgraded dependencies. Next.js 16 with cacheComponents, Server Actions as the only write path, MongoDB through Mongoose, Better Auth for email and Google sign-in, dnd-kit for dragging. Every change on the board is optimistic: the card moves at once, and if the server refuses, the board returns to its state before the action and the user sees a message. Most of that time went into bugs you do not see in a demo. Each got its own commit explaining the cause.",
+      sr: "Tabla sa kolonama Wish List, Applied, Interviewing, Offer i Rejected, na kojoj se prijava za posao prevlači kako napreduje. Uz svaku prijavu stoje firma, pozicija, link oglasa, plata, beleške i tagovi. Napravio sam je sam: 23 commit-a od 31. jula do 4. avgusta 2026, i jedan u septembru koji je pooštrio prijavu i podigao zavisnosti. Next.js sa cacheComponents, Server Actions kao jedini put za upis, MongoDB kroz Mongoose, Better Auth za prijavu mejlom i preko Google-a, dnd-kit za prevlačenje. Svaka izmena na tabli je optimistična: kartica se pomeri odmah, a ako server odbije, tabla se vraća na stanje pre akcije i korisnik dobija poruku. Veći deo tog vremena otišao je na greške koje se ne vide u demo verziji. Svaka je ispravljena posebnim commit-om koji objašnjava uzrok.",
+      en: "A board with Wish List, Applied, Interviewing, Offer and Rejected columns, where a job application is dragged along as it moves forward. Each one carries the company, role, job ad link, salary, notes and tags. I built it alone: 23 commits from 31 July to 4 August 2026, plus one in September that tightened sign-in and upgraded dependencies. Next.js with cacheComponents, Server Actions as the only write path, MongoDB through Mongoose, Better Auth for email and Google sign-in, dnd-kit for dragging. Every change on the board is optimistic: the card moves at once, and if the server refuses, the board returns to its state before the action and the user sees a message. Most of that time went into bugs you do not see in a demo. Each got its own commit explaining the cause.",
     },
     did: {
       sr: [
@@ -935,14 +934,14 @@ export const projects: Project[] = [
       en: "Optimistic drag across several columns: if the server rejects, the board must return to exactly the previous state, not some middle ground. The fix is a snapshot of the columns before the action and restoring the whole snapshot, not individual cards. The first version still had a hole. The server action refuses a move by returning an error, not by throwing, so the catch block never saw the refusal. The card stayed in its new column while the database kept the old one. Now the rollback runs both when the action returns an error and when it throws, and the user gets a message instead of a card sitting quietly in the wrong place. A similar bug hid in the list keys: cards were keyed by position, so after a drag an open edit dialog could stay attached to the wrong application.",
     },
     stack: [
-      "Next.js 16",
-      "React 19",
+      "Next.js",
+      "React",
       "TypeScript",
       "MongoDB",
       "Better Auth",
       "dnd-kit",
       "Zod",
-      "Tailwind 4",
+      "Tailwind",
     ],
     links: {
       live: "https://job-application-tracker-two-rust.vercel.app",
@@ -957,8 +956,8 @@ export const projects: Project[] = [
       en: "GymAI: AI training planner, React + Express",
     },
     description: {
-      sr: "Studija slučaja: GymAI od šest odgovora pravi nedeljni plan treninga. React 19, Express 5, Prisma na Neon bazi, AI izlaz proveren Zod-om i 44 testa.",
-      en: "Case study: GymAI turns six answers into a weekly training plan. React 19, Express 5, Prisma on Neon Postgres, AI output checked with Zod, and 44 tests.",
+      sr: "Studija slučaja: GymAI od šest odgovora pravi nedeljni plan treninga. React, Express, Prisma na Neon bazi, AI izlaz proveren Zod-om i 44 testa.",
+      en: "Case study: GymAI turns six answers into a weekly training plan. React, Express, Prisma on Neon Postgres, AI output checked with Zod, and 44 tests.",
     },
     image: "/images/projects/gymai.webp",
     gallery: [
@@ -993,8 +992,8 @@ export const projects: Project[] = [
       en: "A weekly training plan an AI writes from six questions, with every model reply validated before it reaches the database.",
     },
     summary: {
-      sr: "Aplikaciju sam napravio sam, od praznog repoa do dokumentacije, u 21 commit-u od avgusta do septembra 2026. Korisnik odgovori na šest pitanja (cilj, iskustvo, broj dana, dužina treninga, oprema, podela treninga) i po želji opiše povredu. Server od toga sastavi prompt, a model preko OpenRouter-a vrati ceo nedeljni program: vežbe, serije, ponavljanja, pauze, RPE, savete za tehniku, zamenske vežbe i pravila progresije. Front je React 19 sa Vite-om i Tailwind-om, API je Express 5, podaci su u Neon Postgres bazi kroz Prisma-u, a prijava ide preko Neon Auth-a. Svako novo generisanje čuva se kao nova verzija, pa se korisnik uvek može vratiti na stari plan.",
-      en: "I built it alone, from an empty repo to the docs, in 21 commits from August to September 2026. The user answers six questions (goal, experience, days per week, session length, equipment, training split) and can describe an injury. The server turns that into a prompt, and a model on OpenRouter returns a full weekly program: exercises, sets, reps, rest, RPE, form cues, swap-in alternatives and progression rules. The front end is React 19 with Vite and Tailwind, the API is Express 5, data lives in Neon Postgres through Prisma, and sign-in runs on Neon Auth. Every regeneration is stored as a new version, so the user can always go back to an old plan.",
+      sr: "Aplikaciju sam napravio sam, od praznog repoa do dokumentacije, u 21 commit-u od avgusta do septembra 2026. Korisnik odgovori na šest pitanja (cilj, iskustvo, broj dana, dužina treninga, oprema, podela treninga) i po želji opiše povredu. Server od toga sastavi prompt, a model preko OpenRouter-a vrati ceo nedeljni program: vežbe, serije, ponavljanja, pauze, RPE, savete za tehniku, zamenske vežbe i pravila progresije. Front je React sa Vite-om i Tailwind-om, API je Express, podaci su u Neon Postgres bazi kroz Prisma-u, a prijava ide preko Neon Auth-a. Svako novo generisanje čuva se kao nova verzija, pa se korisnik uvek može vratiti na stari plan.",
+      en: "I built it alone, from an empty repo to the docs, in 21 commits from August to September 2026. The user answers six questions (goal, experience, days per week, session length, equipment, training split) and can describe an injury. The server turns that into a prompt, and a model on OpenRouter returns a full weekly program: exercises, sets, reps, rest, RPE, form cues, swap-in alternatives and progression rules. The front end is React with Vite and Tailwind, the API is Express, data lives in Neon Postgres through Prisma, and sign-in runs on Neon Auth. Every regeneration is stored as a new version, so the user can always go back to an old plan.",
     },
     did: {
       sr: [
@@ -1023,10 +1022,10 @@ export const projects: Project[] = [
       en: "Models return JSON with extra text, markdown fences, trailing commas or the wrong number of days. The parser pulls out the JSON block first, Zod rejects anything off-schema, and a day count check decides whether to move on to the next attempt. The bundle was the second lesson. Route-level lazy loading saved only 19 kB; the real weight was three eager imports of the Neon auth UI. Once the session was read through useSyncExternalStore and the UI provider mounted only for signed-in users and /auth routes, the initial download dropped by 54%.",
     },
     stack: [
-      "React 19",
+      "React",
       "Vite",
-      "Tailwind 4",
-      "Express 5",
+      "Tailwind",
+      "Express",
       "Prisma",
       "Neon",
       "Zod",
@@ -1039,12 +1038,12 @@ export const projects: Project[] = [
   {
     slug: "launchhub",
     seoTitle: {
-      sr: "LaunchHub: Next.js 16 platforma za proizvode",
-      en: "LaunchHub: Next.js 16 product launch board",
+      sr: "LaunchHub: Next.js platforma za proizvode",
+      en: "LaunchHub: Next.js product launch board",
     },
     description: {
-      sr: "Studija slučaja: LaunchHub, mesto za prijavu i glasanje za nove proizvode. Next.js 16 sa keširanim komponentama, Clerk organizacije, Neon Postgres i Drizzle.",
-      en: "Case study: LaunchHub, a place to submit and vote on new products. Next.js 16 with cached components, Clerk organizations, Neon Postgres and Drizzle ORM.",
+      sr: "Studija slučaja: LaunchHub, mesto za prijavu i glasanje za nove proizvode. Next.js sa keširanim komponentama, Clerk organizacije, Neon Postgres i Drizzle.",
+      en: "Case study: LaunchHub, a place to submit and vote on new products. Next.js with cached components, Clerk organizations, Neon Postgres and Drizzle ORM.",
     },
     gallery: [
       "/images/projects/gallery/launchhub-2.webp",
@@ -1057,11 +1056,11 @@ export const projects: Project[] = [
     },
     impact: {
       sr: [
-        "Full-stack Next.js 16 sa pravom prijavom, bazom i tokom odobravanja, ne samo front.",
+        "Full-stack Next.js sa pravom prijavom, bazom i tokom odobravanja, ne samo front.",
         "Keširanje po komponentama: statični delovi stranice stižu odmah, a samo ono što zavisi od korisnika čeka server.",
       ],
       en: [
-        "Full-stack Next.js 16 with real sign-in, a database and an approval flow, not just a front end.",
+        "Full-stack Next.js with real sign-in, a database and an approval flow, not just a front end.",
         "Per-component caching: static parts of a page arrive at once, and only what depends on the user waits for the server.",
       ],
     },
@@ -1076,8 +1075,8 @@ export const projects: Project[] = [
       en: "A place to submit new products, vote and approve, Product Hunt style.",
     },
     summary: {
-      sr: "LaunchHub stavlja novi model keširanja iz Next.js 16 na pravu aplikaciju sa javnim i zaštićenim delom. Napravio sam ga za sedam dana, u 22 commit-a od 22. do 28. decembra 2025, uz jednu dopunu u septembru 2026. Autor prijavi proizvod sa opisom, linkom i tagovima; proizvod čeka admina, a posle odobrenja se pojavljuje na početnoj i na /explore, gde posetioci glasaju. Stack je Next.js 16 sa Server Components i Server Actions, Clerk za prijavu i organizacije, Neon Postgres kroz Drizzle ORM i shadcn/ui komponente. Uključen je cacheComponents, pa su liste i stranice proizvoda keširane, a dinamični delovi stižu kroz Suspense sa skeletonima.",
-      en: "LaunchHub puts the new Next.js 16 caching model to work in a real app with both a public and a protected side. I built it in seven days, 22 commits from 22 to 28 December 2025, plus one update in September 2026. An author submits a product with a description, link and tags; it waits for an admin, and once approved it shows up on the home page and /explore, where visitors vote. The stack is Next.js 16 with Server Components and Server Actions, Clerk for sign-in and organizations, Neon Postgres through Drizzle ORM, and shadcn/ui. cacheComponents is on, so product lists and pages are cached, and the dynamic parts stream in through Suspense with skeletons.",
+      sr: "LaunchHub stavlja novi model keširanja iz Next.js na pravu aplikaciju sa javnim i zaštićenim delom. Napravio sam ga za sedam dana, u 22 commit-a od 22. do 28. decembra 2025, uz jednu dopunu u septembru 2026. Autor prijavi proizvod sa opisom, linkom i tagovima; proizvod čeka admina, a posle odobrenja se pojavljuje na početnoj i na /explore, gde posetioci glasaju. Stack je Next.js sa Server Components i Server Actions, Clerk za prijavu i organizacije, Neon Postgres kroz Drizzle ORM i shadcn/ui komponente. Uključen je cacheComponents, pa su liste i stranice proizvoda keširane, a dinamični delovi stižu kroz Suspense sa skeletonima.",
+      en: "LaunchHub puts the new Next.js caching model to work in a real app with both a public and a protected side. I built it in seven days, 22 commits from 22 to 28 December 2025, plus one update in September 2026. An author submits a product with a description, link and tags; it waits for an admin, and once approved it shows up on the home page and /explore, where visitors vote. The stack is Next.js with Server Components and Server Actions, Clerk for sign-in and organizations, Neon Postgres through Drizzle ORM, and shadcn/ui. cacheComponents is on, so product lists and pages are cached, and the dynamic parts stream in through Suspense with skeletons.",
     },
     did: {
       sr: [
@@ -1105,7 +1104,7 @@ export const projects: Project[] = [
       sr: "Clerk organizacije se ne prave same za nove korisnike, a svaki proizvod mora da ima organizaciju. Proxy (tako se middleware zove u Next 16) pri prvom ulasku proveri članstva i, ako ih nema, napravi ličnu organizaciju sa imenom korisnika. Druga zamka je bilo keširanje: kad je cela stranica keširana, dugme za nalog u zaglavlju ne sme da uđe u keš. Zaglavlje zato drži korisnički deo u posebnoj Suspense granici, pa ostatak stranice ostaje statičan.",
       en: "Clerk organizations are not created automatically for new users, and every product needs one. The proxy (what middleware is called in Next 16) checks memberships on first sign-in and, if there are none, creates a personal organization named after the user. The second trap was caching: when the whole page is cached, the account button in the header must stay out of the cache. So the header keeps the user part in its own Suspense boundary, and the rest of the page stays static.",
     },
-    stack: ["Next.js 16", "React 19", "Clerk", "Neon", "Drizzle", "Zod", "shadcn/ui"],
+    stack: ["Next.js", "React", "Clerk", "Neon", "Drizzle", "Zod", "shadcn/ui"],
     links: {
       live: "https://launchhub-five.vercel.app",
       repo: "https://github.com/sepicn/launchhub",
@@ -1119,8 +1118,8 @@ export const projects: Project[] = [
       en: "Echo: self-destructing realtime chat",
     },
     description: {
-      sr: "Studija slučaja: Echo, anonimna soba za dvoje koja se sama briše posle deset minuta. Next.js 15, Elysia API, Upstash Redis sa TTL-om i realtime događaji.",
-      en: "Case study: Echo, an anonymous room for two that deletes itself after ten minutes. Next.js 15, an Elysia API, Upstash Redis with TTL and realtime events.",
+      sr: "Studija slučaja: Echo, anonimna soba za dvoje koja se sama briše posle deset minuta. Next.js, Elysia API, Upstash Redis sa TTL-om i realtime događaji.",
+      en: "Case study: Echo, an anonymous room for two that deletes itself after ten minutes. Next.js, an Elysia API, Upstash Redis with TTL and realtime events.",
     },
     team: { sr: "Sam", en: "Solo" },
     scale: {
@@ -1154,8 +1153,8 @@ export const projects: Project[] = [
       en: "An anonymous room for two that deletes itself after ten minutes.",
     },
     summary: {
-      sr: "Chat bez naloga i bez istorije: otvorite sobu, pošaljete link jednoj osobi, i posle deset minuta od razgovora ne ostaje ništa. Napravio sam ga sam za dva dana, 28. i 29. decembra 2025, u 17 commit-a. Next.js 15 nosi i front i API: Elysia je montirana u jednu catch-all rutu, a Eden Treaty klijent daje tipizirane pozive bez posebnog SDK-a. Upstash Redis čuva sobu i poruke sa rokom trajanja, Upstash Realtime šalje četiri vrste događaja (poruka, kucanje, pročitano, uništi), a TanStack Query drži stanje na klijentu. Korisničko ime je nasumično, izgled je terminal sa JetBrains Mono fontom.",
-      en: "A chat with no account and no history: open a room, send the link to one person, and ten minutes later nothing of the conversation is left. I built it alone in two days, 28 and 29 December 2025, in 17 commits. Next.js 15 carries both the front end and the API: Elysia is mounted in one catch-all route, and the Eden Treaty client gives typed calls without a separate SDK. Upstash Redis stores the room and messages with an expiry, Upstash Realtime pushes four event types (message, typing, read, destroy), and TanStack Query holds client state. The username is random and the look is a terminal in JetBrains Mono.",
+      sr: "Chat bez naloga i bez istorije: otvorite sobu, pošaljete link jednoj osobi, i posle deset minuta od razgovora ne ostaje ništa. Napravio sam ga sam za dva dana, 28. i 29. decembra 2025, u 17 commit-a. Next.js nosi i front i API: Elysia je montirana u jednu catch-all rutu, a Eden Treaty klijent daje tipizirane pozive bez posebnog SDK-a. Upstash Redis čuva sobu i poruke sa rokom trajanja, Upstash Realtime šalje četiri vrste događaja (poruka, kucanje, pročitano, uništi), a TanStack Query drži stanje na klijentu. Korisničko ime je nasumično, izgled je terminal sa JetBrains Mono fontom.",
+      en: "A chat with no account and no history: open a room, send the link to one person, and ten minutes later nothing of the conversation is left. I built it alone in two days, 28 and 29 December 2025, in 17 commits. Next.js carries both the front end and the API: Elysia is mounted in one catch-all route, and the Eden Treaty client gives typed calls without a separate SDK. Upstash Redis stores the room and messages with an expiry, Upstash Realtime pushes four event types (message, typing, read, destroy), and TanStack Query holds client state. The username is random and the look is a terminal in JetBrains Mono.",
     },
     did: {
       sr: [
@@ -1182,7 +1181,7 @@ export const projects: Project[] = [
       en: "A room has to disappear entirely, all at once. So every new Redis key (messages, read receipts) does not get its own ten minutes but the room's remaining expiry, and nothing outlives the room by even a second. When the room expires or someone destroys it, a destroy event sends both sides to the home page with a note, and anyone who opens the old link is redirected by the middleware because the room is gone. On Vercel the middleware first stopped working; the cause was that it has to live in src/ when the app uses that folder.",
     },
     stack: [
-      "Next.js 15",
+      "Next.js",
       "Elysia",
       "Eden Treaty",
       "Upstash Redis",

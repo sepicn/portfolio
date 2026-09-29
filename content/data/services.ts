@@ -454,8 +454,8 @@ export const servicePages: Record<ServiceId, ServicePage> = {
       {
         slug: "mango",
         text: {
-          sr: "Nuxt 4 sa SSR-om, GTM tek posle pristanka na kolačiće i fotografije koje se same smanjuju sa 8 MB na 60 do 120 KB.",
-          en: "Nuxt 4 with SSR, GTM only after cookie consent, and photos that shrink themselves from 8 MB to 60 to 120 KB.",
+          sr: "Nuxt sa SSR-om, GTM tek posle pristanka na kolačiće i fotografije koje se same smanjuju sa 8 MB na 60 do 120 KB.",
+          en: "Nuxt with SSR, GTM only after cookie consent, and photos that shrink themselves from 8 MB to 60 to 120 KB.",
         },
       },
       {

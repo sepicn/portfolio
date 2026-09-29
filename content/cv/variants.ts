@@ -71,20 +71,20 @@ const b = {
     en: "As the UI developer on a two-developer team, redesigned 40+ TMS forms into modular multi-step wizards.",
   },
   dMap: {
-    sr: "Napravio živu Leaflet mapu pošiljke sa stanicama, lokacijom kamiona i ETA po stanici (Rails 7, Hotwire).",
-    en: "Built a live Leaflet shipment map with stops, truck location and ETA per stop (Rails 7, Hotwire).",
+    sr: "Napravio živu Leaflet mapu pošiljke sa stanicama, lokacijom kamiona i ETA po stanici (Rails, Hotwire).",
+    en: "Built a live Leaflet shipment map with stops, truck location and ETA per stop (Rails, Hotwire).",
   },
   dScreens: {
     sr: "Standardizovao Safety, Invoicing i Fuel ekrane u grid prikaze i modale; 101 commit kroz Jira i code review.",
     en: "Rebuilt the Safety, Invoicing and Fuel screens as standard grids and modals; 101 commits via Jira and code review.",
   },
   fPlatform: {
-    sr: "Gradim klijentsku platformu IT Expert (Nuxt 4, Laravel 12): portal, pretplate i Raiffeisen naplata pokrivena sa 133 testa.",
-    en: "Build the IT Expert client platform (Nuxt 4, Laravel 12): portal, subscriptions and Raiffeisen billing covered by 133 tests.",
+    sr: "Gradim klijentsku platformu IT Expert (Nuxt, Laravel): portal, pretplate i Raiffeisen naplata pokrivena sa 133 testa.",
+    en: "Build the IT Expert client platform (Nuxt, Laravel): portal, subscriptions and Raiffeisen billing covered by 133 tests.",
   },
   fSites: {
-    sr: "Isporučio 3 sajta za firme u Nuxt-u 4 sa GTM-om tek posle pristanka; slike smanjio sa ~8 MB na ispod 120 KB.",
-    en: "Delivered 3 business sites in Nuxt 4 with consent-gated GTM; cut images from ~8 MB to under 120 KB.",
+    sr: "Isporučio 3 sajta za firme u Nuxt-u sa GTM-om tek posle pristanka; slike smanjio sa ~8 MB na ispod 120 KB.",
+    en: "Delivered 3 business sites in Nuxt with consent-gated GTM; cut images from ~8 MB to under 120 KB.",
   },
   fAds: {
     sr: "Vodim 8 Google Ads Search kampanja i Meta Ads za privatnu bolnicu, uz GA4 i GTM merenje konverzija.",
@@ -111,7 +111,7 @@ const both = (...items: Localized[]) => ({
 const p = {
   tracker: {
     title: "Job Application Tracker",
-    stack: "Next.js 16, MongoDB, Better Auth",
+    stack: "Next.js, MongoDB, Better Auth",
     line: {
       sr: "Kanban sa optimističnim prevlačenjem i Zod validacijom na svakoj serverskoj akciji.",
       en: "Kanban board with optimistic drag and drop and Zod validation on every server action.",
@@ -120,7 +120,7 @@ const p = {
   },
   gymai: {
     title: "GymAI",
-    stack: "React 19, Express 5, Prisma",
+    stack: "React, Express, Prisma",
     line: {
       sr: "AI nedeljni plan treninga: Zod provera odgovora, fallback modeli, rate limit, 44 testa.",
       en: "AI weekly training plans: Zod-checked output, model fallback, rate limits, 44 tests.",
@@ -129,7 +129,7 @@ const p = {
   },
   launchhub: {
     title: "LaunchHub",
-    stack: "Next.js 16, Clerk, Drizzle",
+    stack: "Next.js, Clerk, Drizzle",
     line: {
       sr: "Glasanje za proizvode u stilu Product Hunt-a za 7 dana: keširane komponente i admin odobravanje.",
       en: "Product Hunt-style voting built in 7 days: cached components and an admin approval flow.",
@@ -138,7 +138,7 @@ const p = {
   },
   echo: {
     title: "Echo",
-    stack: "Next.js 15, Elysia, Upstash Redis",
+    stack: "Next.js, Elysia, Upstash Redis",
     line: {
       sr: "Realtime chat soba za dvoje koja se sama briše posle 10 minuta.",
       en: "Realtime chat room for two that deletes itself after 10 minutes.",
@@ -147,7 +147,7 @@ const p = {
   },
   portfolio: {
     title: "sepic.me",
-    stack: "Next.js 16, React Three Fiber, GSAP",
+    stack: "Next.js, React Three Fiber, GSAP",
     line: {
       sr: "Portfolio kao 3D soba, dvojezičan, WCAG AA, Playwright i Vitest testovi.",
       en: "Portfolio built as a 3D room, bilingual, WCAG AA, Playwright and Vitest tests.",
@@ -156,7 +156,7 @@ const p = {
   },
   medicaltime: {
     title: "medicaltime.rs",
-    stack: "Nuxt 4, Laravel 12",
+    stack: "Nuxt, Laravel",
     line: {
       sr: "Bolnička platforma na 5 jezika: SEO, GA4 i GTM merenje, Google Ads i Meta Ads.",
       en: "Hospital platform in 5 languages: SEO, GA4 and GTM tracking, Google Ads and Meta Ads.",
@@ -165,7 +165,7 @@ const p = {
   },
   mango: {
     title: "Mango poslastičarnica",
-    stack: "Nuxt 4, SSR",
+    stack: "Nuxt, SSR",
     line: {
       sr: "Sajt sa 2 teme, GTM tek posle pristanka i brzim slikama na mobilnom.",
       en: "Site with 2 themes, consent-gated GTM and fast images on mobile.",
@@ -174,7 +174,7 @@ const p = {
   },
   vuk: {
     title: "Vuk Studio",
-    stack: "Nuxt 4, static",
+    stack: "Nuxt, static",
     line: {
       sr: "LocalBusiness i FAQ strukturirani podaci za lokalnu pretragu od prvog dana.",
       en: "LocalBusiness and FAQ structured data for local search from day one.",
@@ -204,12 +204,12 @@ const midSkills: CvVariant["skills"] = [
   },
   {
     label: { sr: "Front-end", en: "Front-end" },
-    items: "React 19, Next.js 16, Vue 3, Nuxt 4, Tailwind CSS, HTML, CSS",
+    items: "React, Next.js, Vue, Nuxt, Tailwind CSS, HTML, CSS",
   },
   {
     label: { sr: "Back-end", en: "Back-end" },
     items:
-      "Node.js, Express, Laravel 12, ASP.NET Core 8, Rails 7, REST APIs, Auth (Better Auth, Clerk, Sanctum)",
+      "Node.js, Express, Laravel, ASP.NET Core, Rails, REST APIs, Auth (Better Auth, Clerk, Sanctum)",
   },
   {
     label: { sr: "Baze i alati", en: "Data and tools" },
@@ -221,12 +221,12 @@ const midSkills: CvVariant["skills"] = [
 const midJobs: CvJob[] = [
   {
     id: "medicaltime",
-    stack: "Nuxt 4, Vue 3, TypeScript, Laravel 12, MySQL",
+    stack: "Nuxt, Vue, TypeScript, Laravel, MySQL",
     bullets: both(b.mtChatbot, b.mtConsent, b.mtI18n, b.seo),
   },
   {
     id: "delta",
-    stack: "ASP.NET Core 8 MVC, Razor, Rails 7, Hotwire, Leaflet",
+    stack: "ASP.NET Core MVC, Razor, Rails, Hotwire, Leaflet",
     bullets: both(b.dForms, b.dMap, b.dScreens),
   },
 ];
@@ -244,8 +244,8 @@ export const variants: CvVariant[] = [
       en: "Full-Stack Developer | TypeScript · Next.js · Nuxt · Laravel · Node.js",
     },
     summary: {
-      sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima: bolnička platforma od ~400 hiljada linija koda (Nuxt 4, Laravel 12), TMS za logistiku iz SAD (ASP.NET Core 8) i portal za praćenje pošiljki (Rails 7). Funkcionalnost vodim od interfejsa preko REST API-ja do baze.",
-      en: "Full-stack developer with 1.5 years on production systems: a ~400k-line hospital platform (Nuxt 4, Laravel 12), a US logistics TMS (ASP.NET Core 8) and a shipment tracking portal (Rails 7). I take features from the UI through REST APIs to the database.",
+      sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima: bolnička platforma od ~400 hiljada linija koda (Nuxt, Laravel), TMS za logistiku iz SAD (ASP.NET Core) i portal za praćenje pošiljki (Rails). Funkcionalnost vodim od interfejsa preko REST API-ja do baze.",
+      en: "Full-stack developer with 1.5 years on production systems: a ~400k-line hospital platform (Nuxt, Laravel), a US logistics TMS (ASP.NET Core) and a shipment tracking portal (Rails). I take features from the UI through REST APIs to the database.",
     },
     skills: midSkills,
     order: ["summary", "skills", "experience", "projects", "education"],
@@ -257,7 +257,7 @@ export const variants: CvVariant[] = [
           sr: "Freelance full-stack developer",
           en: "Freelance Full-Stack Developer",
         },
-        stack: "Nuxt 4, Laravel 12, MySQL",
+        stack: "Nuxt, Laravel, MySQL",
         bullets: both(b.fPlatform, b.fSites),
       },
     ],
@@ -279,12 +279,12 @@ export const variants: CvVariant[] = [
       {
         label: { sr: "Front-end", en: "Front-end" },
         items:
-          "TypeScript, JavaScript, React 19, Next.js 16, Vue 3, Nuxt 4, Tailwind CSS, HTML, CSS",
+          "TypeScript, JavaScript, React, Next.js, Vue, Nuxt, Tailwind CSS, HTML, CSS",
       },
       {
         label: { sr: "Back-end", en: "Back-end" },
         items:
-          "Node.js, Express, REST APIs, Server Actions, Laravel 12, Auth (Better Auth, Clerk)",
+          "Node.js, Express, REST APIs, Server Actions, Laravel, Auth (Better Auth, Clerk)",
       },
       {
         label: { sr: "Baze i alati", en: "Data and tools" },
@@ -293,25 +293,25 @@ export const variants: CvVariant[] = [
       },
       {
         label: { sr: "Upoznat sa", en: "Familiar with" },
-        items: "ASP.NET Core 8 (C#), Ruby on Rails 7, Redis, Docker",
+        items: "ASP.NET Core (C#), Ruby on Rails, Redis, Docker",
       },
     ],
     order: ["summary", "skills", "projects", "experience", "education"],
     jobs: [
       {
         id: "medicaltime",
-        stack: "Nuxt 4, Vue 3, Laravel 12",
+        stack: "Nuxt, Vue, Laravel",
         bullets: both(b.mtChatbot, b.mtI18n),
       },
       {
         id: "delta",
-        stack: "ASP.NET Core 8 MVC, Rails 7, Leaflet",
+        stack: "ASP.NET Core MVC, Rails, Leaflet",
         bullets: both(b.dForms, b.dMap),
       },
       {
         id: "freelance",
         role: freelanceDev,
-        stack: "Nuxt 4, Laravel 12",
+        stack: "Nuxt, Laravel",
         bullets: both(b.fPlatform),
       },
     ],
@@ -333,7 +333,7 @@ export const variants: CvVariant[] = [
       {
         label: { sr: "Front-end", en: "Front-end" },
         items:
-          "TypeScript, JavaScript, React 19, Next.js 16, Vue 3, Nuxt 4, HTML, CSS, Tailwind CSS",
+          "TypeScript, JavaScript, React, Next.js, Vue, Nuxt, HTML, CSS, Tailwind CSS",
       },
       {
         label: { sr: "UI i podaci", en: "UI and data" },
@@ -354,12 +354,12 @@ export const variants: CvVariant[] = [
     jobs: [
       {
         id: "medicaltime",
-        stack: "Nuxt 4, Vue 3, TypeScript, @nuxtjs/i18n",
+        stack: "Nuxt, Vue, TypeScript, @nuxtjs/i18n",
         bullets: both(b.mtI18n, b.seo, b.mtChatbot),
       },
       {
         id: "delta",
-        stack: "Razor, JavaScript, Bootstrap, Rails 7, Hotwire, Tailwind, Leaflet",
+        stack: "Razor, JavaScript, Bootstrap, Rails, Hotwire, Tailwind, Leaflet",
         bullets: both(b.dForms, b.dMap, b.dScreens),
       },
       {
@@ -368,7 +368,7 @@ export const variants: CvVariant[] = [
           sr: "Freelance front-end developer",
           en: "Freelance Front-End Developer",
         },
-        stack: "Nuxt 4, Vue 3, Tailwind",
+        stack: "Nuxt, Vue, Tailwind",
         bullets: both(b.fSites),
       },
     ],
@@ -409,15 +409,15 @@ export const variants: CvVariant[] = [
     jobs: [
       {
         id: "medicaltime",
-        stack: "Nuxt 4, Laravel 12",
+        stack: "Nuxt, Laravel",
         bullets: both(b.mtChatbot, b.mtI18n),
       },
       {
         id: "delta",
-        stack: "ASP.NET Core 8 MVC, Rails 7",
+        stack: "ASP.NET Core MVC, Rails",
         bullets: both(b.dForms, b.dMap),
       },
-      { id: "freelance", role: freelanceDev, stack: "Nuxt 4", bullets: both(b.fSites) },
+      { id: "freelance", role: freelanceDev, stack: "Nuxt", bullets: both(b.fSites) },
     ],
     projects: [p.tracker, p.gymai, p.launchhub],
   },
@@ -450,7 +450,7 @@ export const variants: CvVariant[] = [
       {
         label: { sr: "Web razvoj", en: "Web development" },
         items:
-          "TypeScript, Vue 3, Nuxt 4, React, Next.js, Laravel 12, Tailwind CSS, WordPress",
+          "TypeScript, Vue, Nuxt, React, Next.js, Laravel, Tailwind CSS, WordPress",
       },
     ],
     order: ["summary", "skills", "experience", "projects", "education"],
@@ -461,17 +461,17 @@ export const variants: CvVariant[] = [
           sr: "Web developer i digitalni marketing",
           en: "Web Developer & Digital Marketing Specialist",
         },
-        stack: "Google Ads, Meta Ads, GA4, GTM, Semrush, Nuxt 4, Laravel 12",
+        stack: "Google Ads, Meta Ads, GA4, GTM, Semrush, Nuxt, Laravel",
         bullets: both(b.fAds, b.fNegatives, b.fShare, b.seo, b.seoHow, b.fSites),
       },
       {
         id: "medicaltime",
-        stack: "Nuxt 4, Vue 3, Laravel 12",
+        stack: "Nuxt, Vue, Laravel",
         bullets: both(b.mtI18n, b.mtChatbot),
       },
       {
         id: "delta",
-        stack: "ASP.NET Core 8 MVC, Rails 7, Leaflet",
+        stack: "ASP.NET Core MVC, Rails, Leaflet",
         bullets: both(b.dForms, b.dMap),
       },
     ],
@@ -489,8 +489,8 @@ export const siteVariant: CvVariant = {
     en: "Full-Stack Web Developer | Next.js · Nuxt · Laravel · Google Ads · SEO",
   },
   summary: {
-    sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima (Nuxt 4 i Laravel 12, ASP.NET Core 8, Rails 7) i rezultatima u digitalnom marketingu: 8 Google Ads kampanja za privatnu bolnicu i tehnički SEO koji je Site Health podigao sa 90% na 98%. Najjači u front-endu: TypeScript, React, Next.js, Vue.",
-    en: "Full-stack developer with 1.5 years on production systems (Nuxt 4 and Laravel 12, ASP.NET Core 8, Rails 7) and measurable digital marketing results: 8 Google Ads campaigns for a private hospital and technical SEO that raised Site Health from 90% to 98%. Strongest on the front end: TypeScript, React, Next.js, Vue.",
+    sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima (Nuxt i Laravel, ASP.NET Core, Rails) i rezultatima u digitalnom marketingu: 8 Google Ads kampanja za privatnu bolnicu i tehnički SEO koji je Site Health podigao sa 90% na 98%. Najjači u front-endu: TypeScript, React, Next.js, Vue.",
+    en: "Full-stack developer with 1.5 years on production systems (Nuxt and Laravel, ASP.NET Core, Rails) and measurable digital marketing results: 8 Google Ads campaigns for a private hospital and technical SEO that raised Site Health from 90% to 98%. Strongest on the front end: TypeScript, React, Next.js, Vue.",
   },
   skills: [
     ...midSkills,
@@ -504,7 +504,7 @@ export const siteVariant: CvVariant = {
     ...midJobs,
     {
       id: "freelance",
-      stack: "Nuxt 4, Laravel 12, Google Ads, Meta Ads, GA4, GTM",
+      stack: "Nuxt, Laravel, Google Ads, Meta Ads, GA4, GTM",
       bullets: both(b.fPlatform, b.fAds, b.fNegatives),
     },
   ],
