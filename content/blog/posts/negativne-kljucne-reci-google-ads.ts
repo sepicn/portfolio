@@ -10,12 +10,12 @@ export const post: Post = {
     en: "370 negative keywords: how I stopped paying for the wrong clicks",
   },
   description: {
-    sr: "Kako sam na Google Ads nalogu bolnice Medical Time kroz 8 Search kampanja dodao 370+ negativnih ključnih reči, ograničio preskupe klikove i prebacio budžet na kampanje sa najnižom cenom konverzije.",
-    en: "How I added 370+ negative keywords across 8 Search campaigns on the Medical Time hospital account, capped overpriced clicks and moved budget to the campaigns with the lowest cost per conversion.",
+    sr: "Kako sam na jednom Google Ads nalogu kroz 8 Search kampanja dodao 370+ negativnih ključnih reči, ograničio preskupe klikove i prebacio budžet na kampanje sa najnižom cenom konverzije.",
+    en: "How I added 370+ negative keywords across 8 Search campaigns on one account, capped overpriced clicks and moved budget to the campaigns with the lowest cost per conversion.",
   },
   answer: {
-    sr: "Na Google Ads nalogu bolnice Medical Time dodao sam više od 370 negativnih ključnih reči iz izveštaja o terminima pretrage, kroz 8 Search kampanja. Uveo sam i ograničenja CPC-a tamo gde su neki klikovi koštali i do 19 puta više od proseka. Budžet sam prebacio na kampanje čija je cena konverzije bila i do 54% ispod proseka naloga.",
-    en: "On the Medical Time hospital's Google Ads account I added more than 370 negative keywords from search term reports, across 8 Search campaigns. I also set CPC caps where some clicks cost up to 19 times the account average. Then I moved budget to campaigns whose cost per conversion was up to 54% below the account average.",
+    sr: "Na jednom Google Ads nalogu dodao sam više od 370 negativnih ključnih reči iz izveštaja o terminima pretrage, kroz 8 Search kampanja. Uveo sam i ograničenja CPC-a tamo gde su neki klikovi koštali i do 19 puta više od proseka. Budžet sam prebacio na kampanje čija je cena konverzije bila i do 54% ispod proseka naloga.",
+    en: "On one Google Ads account I added more than 370 negative keywords from search term reports, across 8 Search campaigns. I also set CPC caps where some clicks cost up to 19 times the account average. Then I moved budget to campaigns whose cost per conversion was up to 54% below the account average.",
   },
   category: "google-ads",
   date: "2026-10-07",
@@ -24,25 +24,25 @@ export const post: Post = {
     sr: [
       {
         type: "p",
-        text: "Kada sam preuzeo Google Ads nalog privatne bolnice Medical Time, prvo sam otvorio izveštaj o terminima pretrage. To je lista stvarnih upita koje su ljudi ukucali pre nego što su kliknuli na oglas. Ključne reči su ono što vi zadate. Termini pretrage su ono za šta zapravo plaćate. Razlika između to dvoje bila je veća nego što bi iko voleo da vidi.",
+        text: "Kada sam preuzeo jedan Google Ads nalog, prvo sam otvorio izveštaj o terminima pretrage. To je lista stvarnih upita koje su ljudi ukucali pre nego što su kliknuli na oglas. Ključne reči su ono što vi zadate. Termini pretrage su ono za šta zapravo plaćate. Razlika između to dvoje bila je veća nego što bi iko voleo da vidi.",
       },
       { type: "h2", text: "Zašto oglasi dobijaju pogrešne klikove" },
       {
         type: "p",
-        text: "Google danas tumači ključne reči prilično slobodno. I phrase i exact match hvataju upite koje sistem smatra sličnim po značenju. Za bolnicu to znači da se oglas za određeni pregled može pojaviti na pretragu za simptomima, za besplatnim savetima, za poslom u bolnici ili za lekovima. Neki od tih ljudi nikada neće postati pacijenti. Klik se plaća svejedno.",
+        text: "Google danas tumači ključne reči prilično slobodno. I phrase i exact match hvataju upite koje sistem smatra sličnim po značenju. Za firmu koja prodaje usluge to znači da se oglas za jednu uslugu može pojaviti na pretragu za besplatnim savetima, za uputstvima kako da to uradite sami, za poslom u toj firmi ili za nečim sasvim drugim. Neki od tih ljudi nikada neće postati klijenti. Klik se plaća svejedno.",
       },
       {
         type: "p",
-        text: "Nalog je imao 8 Search kampanja, podeljenih po medicinskim oblastima. Svaka je imala svoje promašaje, pa nije bilo moguće napraviti jednu listu i završiti posao.",
+        text: "Nalog je imao 8 Search kampanja, podeljenih po oblastima usluga. Svaka je imala svoje promašaje, pa nije bilo moguće napraviti jednu listu i završiti posao.",
       },
       { type: "h2", text: "Kako sam prolazio kroz termine pretrage" },
       {
         type: "p",
-        text: "Metod je dosadan, i baš zato radi. Izvezem termine pretrage za svaku kampanju, sortiram ih po trošku i idem red po red. Za svaki upit postavim isto pitanje: da li bi osoba koja ovo kuca mogla da zakaže pregled? Ako ne bi, upit ide na listu za isključivanje.",
+        text: "Metod je dosadan, i baš zato radi. Izvezem termine pretrage za svaku kampanju, sortiram ih po trošku i idem red po red. Za svaki upit postavim isto pitanje: da li bi osoba koja ovo kuca mogla da postane klijent? Ako ne bi, upit ide na listu za isključivanje.",
       },
       {
         type: "p",
-        text: "Obrasci se brzo pojave. Iste reči se vraćaju kroz različite upite: pretrage za poslom, za školovanjem, za kućnim lečenjem, za uslugama koje bolnica uopšte ne radi. Umesto da isključujem ceo upit, isključim reč koja pravi problem. Ona onda pokrije i upite koji se još nisu ni pojavili.",
+        text: "Obrasci se brzo pojave. Iste reči se vraćaju kroz različite upite: pretrage za poslom, za školovanjem, za besplatnim alternativama, za uslugama koje firma uopšte ne radi. Umesto da isključujem ceo upit, isključim reč koja pravi problem. Ona onda pokrije i upite koji se još nisu ni pojavili.",
       },
       {
         type: "p",
@@ -51,7 +51,7 @@ export const post: Post = {
       { type: "h2", text: "Greška koju je lako napraviti" },
       {
         type: "p",
-        text: "Negativne ključne reči mogu i da naškode. Ako preširoko isključite reč, prestanete da se prikazujete za upite koji donose pacijente. Zato pre svake šire negativne reči proverim da li se ikad pojavila u terminu pretrage koji je doneo konverziju. Ako jeste, ne ide na listu za ceo nalog. Ide samo tamo gde je stvarno višak, ili je dodam kao exact negativnu reč.",
+        text: "Negativne ključne reči mogu i da naškode. Ako preširoko isključite reč, prestanete da se prikazujete za upite koji donose klijente. Zato pre svake šire negativne reči proverim da li se ikad pojavila u terminu pretrage koji je doneo konverziju. Ako jeste, ne ide na listu za ceo nalog. Ide samo tamo gde je stvarno višak, ili je dodam kao exact negativnu reč.",
       },
       {
         type: "p",
@@ -73,7 +73,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "Sledeći korak je bio logičan. Kampanjama koje je budžet kočio, a imale su nisku cenu konverzije, dao sam više novca. Kampanjama sa visokom cenom smanjio sam budžet, ali ih nisam ugasio. Bolnici neke oblasti trebaju i kada su skuplje, i to je poslovna odluka koju donosi klijent. Moj posao je da pokažem koliko šta košta.",
+        text: "Sledeći korak je bio logičan. Kampanjama koje je budžet kočio, a imale su nisku cenu konverzije, dao sam više novca. Kampanjama sa visokom cenom smanjio sam budžet, ali ih nisam ugasio. Klijentu neke oblasti trebaju i kada su skuplje, i to je poslovna odluka koju donosi klijent. Moj posao je da pokažem koliko šta košta.",
       },
       { type: "h2", text: "Šta bih preporučio za svaki nalog" },
       {
@@ -98,25 +98,25 @@ export const post: Post = {
     en: [
       {
         type: "p",
-        text: "When I took over the Google Ads account of Medical Time, a private hospital, the first thing I opened was the search terms report. That is the list of real queries people typed before they clicked an ad. Keywords are what you set. Search terms are what you actually pay for. The gap between the two was bigger than anyone would like to see.",
+        text: "When I took over one Google Ads account, the first thing I opened was the search terms report. That is the list of real queries people typed before they clicked an ad. Keywords are what you set. Search terms are what you actually pay for. The gap between the two was bigger than anyone would like to see.",
       },
       { type: "h2", text: "Why ads get the wrong clicks" },
       {
         type: "p",
-        text: "Google reads keywords quite loosely these days. Both phrase and exact match catch queries the system considers close in meaning. For a hospital this means an ad for a specific exam can show up for symptom searches, for free advice, for jobs at the hospital or for medication. Some of those people will never become patients. The click gets charged anyway.",
+        text: "Google reads keywords quite loosely these days. Both phrase and exact match catch queries the system considers close in meaning. For a business that sells services this means an ad for one service can show up for free advice, for do-it-yourself guides, for jobs at that company or for something else entirely. Some of those people will never become customers. The click gets charged anyway.",
       },
       {
         type: "p",
-        text: "The account had 8 Search campaigns, split by medical field. Each had its own misses, so there was no way to build one list and call it done.",
+        text: "The account had 8 Search campaigns, split by service area. Each had its own misses, so there was no way to build one list and call it done.",
       },
       { type: "h2", text: "How I went through the search terms" },
       {
         type: "p",
-        text: "The method is boring, and that's exactly why it works. I export the search terms for each campaign, sort them by cost and go line by line. For every query I ask the same question: could the person typing this book an appointment? If not, the query goes on the exclusion list.",
+        text: "The method is boring, and that's exactly why it works. I export the search terms for each campaign, sort them by cost and go line by line. For every query I ask the same question: could the person typing this become a customer? If not, the query goes on the exclusion list.",
       },
       {
         type: "p",
-        text: "Patterns show up fast. The same words keep coming back in different queries: job searches, education, home treatment, services the hospital doesn't offer at all. Instead of excluding the whole query, I exclude the word causing the trouble. That word then also covers queries that haven't appeared yet.",
+        text: "Patterns show up fast. The same words keep coming back in different queries: job searches, education, free alternatives, services the company doesn't offer at all. Instead of excluding the whole query, I exclude the word causing the trouble. That word then also covers queries that haven't appeared yet.",
       },
       {
         type: "p",
@@ -125,7 +125,7 @@ export const post: Post = {
       { type: "h2", text: "An easy mistake to make" },
       {
         type: "p",
-        text: "Negative keywords can hurt too. Exclude a word too broadly and you stop showing for queries that bring in patients. So before adding any broader negative, I check whether it ever appeared in a search term that led to a conversion. If it did, it doesn't go on the account-wide list. It goes only where it really is waste, or I add it as an exact negative.",
+        text: "Negative keywords can hurt too. Exclude a word too broadly and you stop showing for queries that bring in customers. So before adding any broader negative, I check whether it ever appeared in a search term that led to a conversion. If it did, it doesn't go on the account-wide list. It goes only where it really is waste, or I add it as an exact negative.",
       },
       {
         type: "p",
@@ -147,7 +147,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "The next step was obvious. Campaigns that were held back by budget but had a low cost per conversion got more money. Campaigns with a high cost got less, but I didn't switch them off. The hospital needs some fields even when they are more expensive, and that's a business decision the client makes. My job is to show what each one costs.",
+        text: "The next step was obvious. Campaigns that were held back by budget but had a low cost per conversion got more money. Campaigns with a high cost got less, but I didn't switch them off. The client needs some areas even when they are more expensive, and that's a business decision the client makes. My job is to show what each one costs.",
       },
       { type: "h2", text: "What I'd recommend for any account" },
       {

@@ -49,7 +49,7 @@ function Chapter({ no, title, children }: { no: string; title: string; children:
         </p>
         <h2 className="mt-3 text-[28px] tracking-[-0.03em]">{title}</h2>
       </div>
-      <div className="max-w-[68ch] text-[17px] leading-[1.65] text-ink lg:text-[19px]">{children}</div>
+      <div className="max-w-[76ch] border border-rule bg-paper px-5 py-6 text-[17px] leading-[1.65] text-ink lg:px-9 lg:py-8 lg:text-[19px]">{children}</div>
     </section>
   );
 }

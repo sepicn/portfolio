@@ -108,7 +108,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "Primer za WordPress iz moje prakse je Prostor Između, onlajn magazin sa više od 70 članaka. Tu je WordPress bio pravi izbor. Urednici redovno objavljuju tekstove, dodaju slike i kategorije, i ne treba im programer za svaki novi članak. Da smo išli na rešenje po meri, platili bi razvoj admin panela koji WordPress već ima.",
+        text: "Primer za WordPress iz moje prakse je jedan onlajn magazin sa više od 70 članaka. Tu je WordPress bio pravi izbor. Urednici redovno objavljuju tekstove, dodaju slike i kategorije, i ne treba im programer za svaki novi članak. Da smo išli na rešenje po meri, platili bi razvoj admin panela koji WordPress već ima.",
       },
       {
         type: "p",
@@ -215,7 +215,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "A WordPress example from my own work is Prostor Između, an online magazine with more than 70 articles. WordPress was the right call there. The editors publish regularly, add images and categories, and don't need a developer for every new article. A custom build would have meant paying for an admin panel that WordPress already has.",
+        text: "A WordPress example from my own work is an online magazine with more than 70 articles. WordPress was the right call there. The editors publish regularly, add images and categories, and don't need a developer for every new article. A custom build would have meant paying for an admin panel that WordPress already has.",
       },
       {
         type: "p",

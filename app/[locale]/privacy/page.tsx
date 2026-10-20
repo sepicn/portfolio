@@ -31,7 +31,7 @@ export default async function PrivacyPage({ params }: Props) {
   return (
     <div className="wrap">
       <PageHead crumbs={[{ label: nav("home"), href: "/" }, { label: t("title") }]} tag="sepic.me" title={t("title")} lead={t("intro")} />
-      <div className="max-w-3xl space-y-10 pt-12">
+      <div className="mt-12 max-w-3xl space-y-10 border border-rule bg-paper px-5 py-8 lg:px-10 lg:py-10">
         {sections.map((s) => (
           <section key={s.h}>
             <h2 className="text-[26px] tracking-[-0.02em]">{s.h}</h2>

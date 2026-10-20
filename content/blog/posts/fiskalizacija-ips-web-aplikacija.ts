@@ -10,8 +10,8 @@ export const post: Post = {
     en: "Fiscalization and IPS payments in a web application",
   },
   description: {
-    sr: "Šta developer mora da reši kada web aplikacija izdaje fiskalne račune i prima IPS uplate: tok računa, stanja, prekidi veze, depoziti i testiranje. Iz iskustva sa softverom Makaze i Kafe.",
-    en: "What a developer has to handle when a web app issues fiscal receipts and accepts IPS payments in Serbia: receipt flow, states, dropped connections, deposits and testing. From building Makaze and Kafe.",
+    sr: "Šta developer mora da reši kada web aplikacija izdaje fiskalne račune i prima IPS uplate: tok računa, stanja, prekidi veze, depoziti i testiranje. Iz iskustva sa softverom za salone i ugostiteljstvo.",
+    en: "What a developer has to handle when a web app issues fiscal receipts and accepts IPS payments in Serbia: receipt flow, states, dropped connections, deposits and testing. From building software for salons and hospitality.",
   },
   answer: {
     sr: "Web aplikacija koja izdaje fiskalne račune u Srbiji ne potpisuje ih sama. Ona radi kao ESIR: šalje podatke o računu procesoru fiskalnih računa i od njega dobija potpisan račun sa QR kodom. IPS se uklapa kao još jedan način plaćanja, a developer mora da reši stanja transakcija, prekide veze i povezivanje uplate sa pravim računom.",
@@ -24,7 +24,7 @@ export const post: Post = {
     sr: [
       {
         type: "p",
-        text: "Radio sam dva projekta u kojima je fiskalizacija bila u centru: Makaze, softver za frizerske i kozmetičke salone, i Kafe, POS za ugostiteljske objekte. U Makazama klijent može da plati depozit za termin preko IPS-a, a salon izdaje fiskalni račun. U Kafeu konobari kucaju porudžbine, a račun ide na štampač. Ovde pišem šta sam naučio kao developer, iz ugla koda.",
+        text: "Radio sam dva projekta u kojima je fiskalizacija bila u centru: softver za salone i POS za ugostiteljske objekte. U prvom klijent može da plati depozit za termin preko IPS-a, a salon izdaje fiskalni račun. U drugom konobari kucaju porudžbine, a račun ide na štampač. Ovde pišem šta sam naučio kao developer, iz ugla koda.",
       },
       {
         type: "callout",
@@ -66,7 +66,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "U Kafeu je ovo bilo posebno važno. Konobar u gužvi ne čeka. Ekran mora da bude brz, ali i da spreči dupli račun kada neko dva puta pritisne dugme.",
+        text: "U ugostiteljstvu je ovo posebno važno. Konobar u gužvi ne čeka. Ekran mora da bude brz, ali i da spreči dupli račun kada neko dva puta pritisne dugme.",
       },
       { type: "h2", text: "IPS plaćanje" },
       {
@@ -84,7 +84,7 @@ export const post: Post = {
       { type: "h2", text: "Depozit i fiskalni račun" },
       {
         type: "p",
-        text: "Depozit unapred i konačna naplata posle usluge su dva različita događaja. U Makazama sam ih modelovao kao dva povezana zapisa: uplata depozita vezana za termin i konačna naplata koja uzima depozit u obzir. Kako se tačno depozit fiskalizuje zavisi od situacije, i to je pitanje za knjigovođu. Moj posao je da aplikacija može da izda ono što knjigovođa kaže i da se iznosi uvek slažu.",
+        text: "Depozit unapred i konačna naplata posle usluge su dva različita događaja. U softveru za salone modelovao sam ih kao dva povezana zapisa: uplata depozita vezana za termin i konačna naplata koja uzima depozit u obzir. Kako se tačno depozit fiskalizuje zavisi od situacije, i to je pitanje za knjigovođu. Moj posao je da aplikacija može da izda ono što knjigovođa kaže i da se iznosi uvek slažu.",
       },
       { type: "h2", text: "Testiranje" },
       {
@@ -108,7 +108,7 @@ export const post: Post = {
     en: [
       {
         type: "p",
-        text: "I've built two projects where fiscalization sat at the center: Makaze, software for hair and beauty salons, and Kafe, a POS for restaurants and cafés. In Makaze a client can pay a deposit for an appointment through IPS, and the salon issues a fiscal receipt. In Kafe the waiters ring up orders and the receipt goes to the printer. Here I'm writing about what I learned as a developer, from the code side.",
+        text: "I've built two projects where fiscalization sat at the center: software for salons and a POS for restaurants and cafés. In the first, a client can pay a deposit for an appointment through IPS, and the salon issues a fiscal receipt. In the second, waiters ring up orders and the receipt goes to the printer. Here I'm writing about what I learned as a developer, from the code side.",
       },
       {
         type: "callout",
@@ -150,7 +150,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "In Kafe this mattered a lot. A waiter in a rush doesn't wait around. The screen has to be fast, and it also has to stop a duplicate receipt when someone taps the button twice.",
+        text: "In hospitality this matters a lot. A waiter in a rush doesn't wait around. The screen has to be fast, and it also has to stop a duplicate receipt when someone taps the button twice.",
       },
       { type: "h2", text: "IPS payments" },
       {
@@ -168,7 +168,7 @@ export const post: Post = {
       { type: "h2", text: "Deposits and fiscal receipts" },
       {
         type: "p",
-        text: "A deposit paid in advance and the final charge after the service are two separate events. In Makaze I modeled them as two linked records: the deposit payment tied to the appointment, and the final charge that takes the deposit into account. Exactly how the deposit gets fiscalized depends on the situation, and that's a question for an accountant. My job is to make sure the app can issue whatever the accountant says and that the amounts always add up.",
+        text: "A deposit paid in advance and the final charge after the service are two separate events. In the salon software I modeled them as two linked records: the deposit payment tied to the appointment, and the final charge that takes the deposit into account. Exactly how the deposit gets fiscalized depends on the situation, and that's a question for an accountant. My job is to make sure the app can issue whatever the accountant says and that the amounts always add up.",
       },
       { type: "h2", text: "Testing" },
       {

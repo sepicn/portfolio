@@ -132,8 +132,8 @@ export default async function PostPage({ params }: Props) {
           </ol>
         </aside>
 
-        <div className="min-w-0 max-w-[68ch]">
-          <div className="mb-9 border border-ink bg-paper p-5 lg:p-6">
+        <div className="min-w-0 max-w-[76ch] border border-rule bg-paper px-5 py-6 lg:px-10 lg:py-10">
+          <div className="mb-9 border border-ink bg-bg p-5 lg:p-6">
             <p className="tag mb-2">{t("answer")}</p>
             <p className="text-[17px] leading-[1.6] lg:text-[18px]">{post.answer[l]}</p>
           </div>

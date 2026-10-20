@@ -19,7 +19,7 @@ export function AboutMe({ locale }: { locale: string }) {
           {pick(home.photoCaption, locale)}
         </figcaption>
       </figure>
-      <div>
+      <div className="border border-rule bg-paper px-5 py-7 lg:px-10 lg:py-10">
         <p className="tag">{pick(home.meTag, locale)}</p>
         <h2 className="mt-3 text-display">{pick(home.meTitle, locale)}</h2>
         <p className="mt-5 max-w-[40ch] text-[clamp(19px,1.6vw,23px)] leading-[1.55] text-ink">

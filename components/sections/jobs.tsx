@@ -36,11 +36,11 @@ export function Jobs({ locale }: { locale: string }) {
         <li
           key={r.key}
           data-reveal
-          className="relative grid gap-1.5 border-b border-rule py-6 lg:grid-cols-[200px_1fr_1.3fr] lg:gap-7"
+          className="relative mb-3 grid gap-1.5 border border-rule bg-paper px-4 py-5 lg:grid-cols-[200px_1fr_1.3fr] lg:gap-7 lg:px-6 lg:py-6"
         >
           <span
             aria-hidden="true"
-            className={`absolute top-[26px] -left-[30px] size-[11px] border-2 border-blue lg:top-8 lg:-left-[34px] ${r.now ? "bg-blue" : "bg-bg"}`}
+            className={`absolute top-[26px] -left-[31px] size-[11px] border-2 border-blue lg:top-8 lg:-left-[35px] ${r.now ? "bg-blue" : "bg-bg"}`}
           />
           <span className="font-mono text-[13px] text-blue lg:pt-1.5 lg:text-[14px] lg:text-ink-2">
             {r.period}

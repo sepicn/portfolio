@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { projectHref, serviceHref } from "@/i18n/paths";
@@ -12,6 +11,7 @@ import { PageHead } from "@/components/sections/page-head";
 import { SectionHead } from "@/components/sections/section-head";
 import { FaqList } from "@/components/sections/faq-list";
 import { ContactBlock } from "@/components/sections/contact-block";
+import { ServiceArt } from "@/components/sections/service-art";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -22,13 +22,6 @@ import {
 } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string }> };
-
-const art: Record<string, { src: string; w: number; h: number }> = {
-  web: { src: "/images/drawings/obj-web.webp", w: 586, h: 718 },
-  "google-ads": { src: "/images/drawings/obj-ads.webp", w: 776, h: 691 },
-  "meta-ads": { src: "/images/drawings/obj-meta.webp", w: 280, h: 625 },
-  seo: { src: "/images/drawings/obj-seo.webp", w: 558, h: 700 },
-};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -99,9 +92,7 @@ export default async function ServicesPage({ params }: Props) {
             aria-labelledby={`svc-${s.id}`}
             className="grid gap-6 border-b border-ink py-10 lg:grid-cols-[180px_1.2fr_1fr] lg:gap-10 lg:py-14"
           >
-            <div className="grid h-[140px] w-[140px] place-items-center">
-              <Image src={art[s.id].src} width={art[s.id].w} height={art[s.id].h} alt="" className="max-h-full max-w-full object-contain" />
-            </div>
+            <ServiceArt id={s.id} size={140} />
             <div>
               <p className="font-mono text-[13px] text-blue">0{i + 1}</p>
               <h2 id={`svc-${s.id}`} className="mt-2 text-title">

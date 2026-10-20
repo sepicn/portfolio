@@ -61,9 +61,9 @@ export default async function AboutPage({ params }: Props) {
 
       <section aria-labelledby="exp-title" className="pt-24 lg:pt-32">
         <SectionHead id="exp-title" tag={t("experienceEyebrow")} title={t("experienceTitle")} />
-        <ol className="border-t border-ink">
+        <ol className="border-x border-t border-ink">
           {experience.map((job) => (
-            <li key={job.id} className="grid gap-4 border-b border-ink py-9 lg:grid-cols-[240px_1fr] lg:gap-12">
+            <li key={job.id} className="grid gap-4 border-b border-ink bg-paper px-5 py-8 lg:grid-cols-[240px_1fr] lg:gap-12 lg:px-8 lg:py-10">
               <div>
                 <p className="font-mono text-[13px] text-blue">
                   {date(job.start)} · {date(job.end)}

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -15,6 +14,7 @@ import { PageHead } from "@/components/sections/page-head";
 import { SectionHead } from "@/components/sections/section-head";
 import { FaqList } from "@/components/sections/faq-list";
 import { ContactBlock } from "@/components/sections/contact-block";
+import { ServiceArt } from "@/components/sections/service-art";
 import { absoluteUrl, breadcrumbJsonLd, graph, personId, serializeJsonLd } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string; service: string }> };
@@ -50,13 +50,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }),
   };
 }
-
-const art: Record<string, { src: string; w: number; h: number }> = {
-  web: { src: "/images/drawings/obj-web.webp", w: 586, h: 718 },
-  "google-ads": { src: "/images/drawings/obj-ads.webp", w: 776, h: 691 },
-  "meta-ads": { src: "/images/drawings/obj-meta.webp", w: 280, h: 625 },
-  seo: { src: "/images/drawings/obj-seo.webp", w: 558, h: 700 },
-};
 
 export default async function ServicePage({ params }: Props) {
   const { locale, service: slug } = await params;
@@ -125,13 +118,11 @@ export default async function ServicePage({ params }: Props) {
         tag={pick(service.title, locale)}
         title={h1}
       >
-        <div className="grid h-[150px] w-[150px] place-items-center lg:ml-auto">
-          <Image src={art[service.id].src} width={art[service.id].w} height={art[service.id].h} alt="" priority className="max-h-full max-w-full object-contain" />
-        </div>
+        <ServiceArt id={service.id} size={150} priority className="lg:ml-auto" />
       </PageHead>
 
       <div className="grid gap-10 pt-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16 lg:pt-16">
-        <div className="space-y-5 text-[18px] leading-[1.65] lg:text-[20px]">
+        <div className="space-y-5 self-start border border-rule bg-paper px-5 py-6 text-[18px] leading-[1.65] lg:px-9 lg:py-8 lg:text-[20px]">
           {pickList(page.intro, locale).map((p) => (
             <p key={p}>{p}</p>
           ))}

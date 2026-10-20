@@ -10,12 +10,12 @@ export const post: Post = {
     en: "A website in five languages: i18n and hreflang without errors",
   },
   description: {
-    sr: "Šta sam naučio radeći i18n za 5 jezika na Medical Time platformi (Nuxt i Laravel, 779 adresa u mapi sajta): rute, prevodi, mapa sajta, hreflang i x-default.",
-    en: "What I learned running i18n for 5 languages on the Medical Time platform (Nuxt and Laravel, 779 sitemap URLs): routes, translations, sitemap, hreflang and x-default.",
+    sr: "Šta sam naučio radeći i18n za 5 jezika na jednoj platformi (Nuxt i Laravel, 779 adresa u mapi sajta): rute, prevodi, mapa sajta, hreflang i x-default.",
+    en: "What I learned running i18n for 5 languages on one platform (Nuxt and Laravel, 779 sitemap URLs): routes, translations, sitemap, hreflang and x-default.",
   },
   answer: {
-    sr: "Na platformi Medical Time (Nuxt i Laravel) vodim i18n za 5 jezika, a mapa sajta ima 779 adresa. Da bi hreflang radio bez grešaka, svaka jezička verzija mora da ima svoju stabilnu adresu, sopstvene meta podatke i uzajamne hreflang veze sa x-default oznakom. Rute, hreflang i mapa sajta treba da dolaze iz istog izvora, da se nikad ne raziđu.",
-    en: "On the Medical Time platform (Nuxt and Laravel) I run i18n for 5 languages, and the sitemap has 779 URLs. For hreflang to work without errors, every language version needs its own stable URL, its own meta data and reciprocal hreflang links with an x-default. Routes, hreflang and the sitemap should come from the same source so they never drift apart.",
+    sr: "Na jednoj platformi u Nuxt-u i Laravelu vodim i18n za 5 jezika, a mapa sajta ima 779 adresa. Da bi hreflang radio bez grešaka, svaka jezička verzija mora da ima svoju stabilnu adresu, sopstvene meta podatke i uzajamne hreflang veze sa x-default oznakom. Rute, hreflang i mapa sajta treba da dolaze iz istog izvora, da se nikad ne raziđu.",
+    en: "On one Nuxt and Laravel platform I run i18n for 5 languages, and the sitemap has 779 URLs. For hreflang to work without errors, every language version needs its own stable URL, its own meta data and reciprocal hreflang links with an x-default. Routes, hreflang and the sitemap should come from the same source so they never drift apart.",
   },
   category: "razvoj",
   date: "2026-09-24",
@@ -24,7 +24,7 @@ export const post: Post = {
     sr: [
       {
         type: "p",
-        text: "Medical Time je bolnička platforma sa frontendom u Nuxt-u i backendom u Laravelu. Sajt postoji na 5 jezika, a moj deo posla je i18n: rute, prevodi, mapa sajta i hreflang. Mapa sajta danas ima 779 adresa. Na tom obimu svaka greška u šablonu se umnoži, pa sam naučio da višejezičnost tretiram kao arhitekturu od prvog dana, a ne kao prevod na kraju.",
+        text: "Radim na platformi sa frontendom u Nuxt-u i backendom u Laravelu. Sajt postoji na 5 jezika, a moj deo posla je i18n: rute, prevodi, mapa sajta i hreflang. Mapa sajta danas ima 779 adresa. Na tom obimu svaka greška u šablonu se umnoži, pa sam naučio da višejezičnost tretiram kao arhitekturu od prvog dana, a ne kao prevod na kraju.",
       },
       { type: "h2", text: "Rute: jedan jezik, jedna adresa" },
       {
@@ -97,7 +97,7 @@ export const post: Post = {
     en: [
       {
         type: "p",
-        text: "Medical Time is a hospital platform with a Nuxt frontend and a Laravel backend. The site runs in 5 languages, and my part of the work is i18n: routes, translations, the sitemap and hreflang. The sitemap now has 779 URLs. At that size every template mistake multiplies, so I've learned to treat multilingual support as architecture from day one, not as translation at the end.",
+        text: "I work on a platform with a Nuxt frontend and a Laravel backend. The site runs in 5 languages, and my part of the work is i18n: routes, translations, the sitemap and hreflang. The sitemap now has 779 URLs. At that size every template mistake multiplies, so I've learned to treat multilingual support as architecture from day one, not as translation at the end.",
       },
       { type: "h2", text: "Routes: one language, one URL" },
       {

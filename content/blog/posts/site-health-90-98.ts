@@ -10,12 +10,12 @@ export const post: Post = {
     en: "Site Health from 90% to 98% in one week",
   },
   description: {
-    sr: "Kako sam na sajtu Medical Time podigao Semrush Site Health sa 90% na 98% za nedelju dana: greške sa 6 na 0, upozorenja manje za 87%. Tehnički SEO korak po korak.",
-    en: "How I raised Semrush Site Health on the Medical Time site from 90% to 98% in a week: errors from 6 to 0, warnings down 87%. Technical SEO step by step.",
+    sr: "Kako sam na jednom velikom sajtu podigao Semrush Site Health sa 90% na 98% za nedelju dana: greške sa 6 na 0, upozorenja manje za 87%. Tehnički SEO korak po korak.",
+    en: "How I raised Semrush Site Health on a large site from 90% to 98% in a week: errors from 6 to 0, warnings down 87%. Technical SEO step by step.",
   },
   answer: {
-    sr: "Semrush Site Health za sajt Medical Time podigao sam sa 90% na 98% za nedelju dana. Greške su pale sa 6 na 0, a upozorenja za 87%. Najveći pomak je došao od popravki u šablonima, jer jedan problem u šablonu pravi isto upozorenje na svim stranicama koje ga koriste.",
-    en: "I raised Semrush Site Health on the Medical Time site from 90% to 98% in one week. Errors went from 6 to 0 and warnings dropped by 87%. The biggest gain came from fixing templates, because one problem in a template creates the same warning on every page that uses it.",
+    sr: "Semrush Site Health na jednom velikom višejezičnom sajtu podigao sam sa 90% na 98% za nedelju dana. Greške su pale sa 6 na 0, a upozorenja za 87%. Najveći pomak je došao od popravki u šablonima, jer jedan problem u šablonu pravi isto upozorenje na svim stranicama koje ga koriste.",
+    en: "I raised Semrush Site Health on a large multilingual site from 90% to 98% in one week. Errors went from 6 to 0 and warnings dropped by 87%. The biggest gain came from fixing templates, because one problem in a template creates the same warning on every page that uses it.",
   },
   category: "seo",
   date: "2026-09-30",
@@ -28,7 +28,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "Kada sam počeo da radim na sajtu Medical Time, skor je bio 90%. Nedelju dana kasnije bio je 98%. Greške su pale sa 6 na 0, a broj upozorenja za 87%. Evo kojim redom sam radio.",
+        text: "Kada sam počeo da radim na tom sajtu, skor je bio 90%. Nedelju dana kasnije bio je 98%. Greške su pale sa 6 na 0, a broj upozorenja za 87%. Evo kojim redom sam radio.",
       },
       { type: "h2", text: "Prvo pročitajte izveštaj, pa tek onda popravljajte" },
       {
@@ -97,7 +97,7 @@ export const post: Post = {
       },
       {
         type: "p",
-        text: "When I started working on the Medical Time site, the score was 90%. A week later it was 98%. Errors went from 6 to 0 and the number of warnings dropped by 87%. Here's the order I worked in.",
+        text: "When I started working on that site, the score was 90%. A week later it was 98%. Errors went from 6 to 0 and the number of warnings dropped by 87%. Here's the order I worked in.",
       },
       { type: "h2", text: "Read the report first, fix things second" },
       {

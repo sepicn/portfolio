@@ -402,8 +402,8 @@ export const projects: Project[] = [
       en: "Case study: a shipment tracking portal in Rails. A Leaflet map with road routing, a status for every stop and redesigned screens, in 20 commits of mine.",
     },
     team: {
-      sr: "Rad po timovima: Miloš Obradović aplikacija i McLeod integracija, ja UI",
-      en: "Work split across teams: Miloš Obradović on the app and McLeod integration, me on the UI",
+      sr: "Rad po timovima: drugi developer aplikacija i McLeod integracija, ja UI",
+      en: "Work split across teams: another developer on the app and McLeod integration, me on the UI",
     },
     scale: {
       sr: "Rails sa McLeod LoadMaster API-jem; moj deo: 20 commit-a, mapa od ~700 linija",
@@ -438,8 +438,8 @@ export const projects: Project[] = [
       en: "A live shipment map for a US logistics company's customers, with road routing and a status for every stop.",
     },
     summary: {
-      sr: "Logistics company je kamionska logistika iz SAD-a, a ovaj portal je mesto gde njeni kupci prate svoje pošiljke. Aplikaciju od oktobra 2024. pravi Miloš Obradović: Rails sa Hotwire-om i Tailwind-om, povezana sa McLeod LoadMaster sistemom iz kog dolaze pošiljke, stanice, javljanja kamiona i dokaz o isporuci. Ja sam se priključio u maju 2025. i do oktobra, u 20 commit-a, preuzeo izgled i ponašanje ekrana. U julu sam uradio listu i detalje pošiljke, a zatim mapu od oko 700 linija, najveći pojedinačni deo mog posla. Na jesen su došli statusi po stanicama, kartice za upravljanje kupcima i korisnicima i jedan backend zadatak: pozivnica za nove korisnike. Screenshotovi su sa lokalne instance sa izmišljenim podacima.",
-      en: "Logistics company is a US trucking company, and this portal is where its customers follow their shipments. Miloš Obradović has been building the app since October 2024: Rails with Hotwire and Tailwind, connected to the McLeod LoadMaster system that supplies shipments, stops, truck check-ins and proof of delivery. I joined in May 2025 and by October, in 20 commits, had taken over how the screens look and behave. In July I did the shipment list and detail pages, and then the ~700-line map, the biggest single piece of my work. In the autumn came per-stop statuses, card layouts for managing customers and users, and one back-end task: invitations for new users. The screenshots come from a local instance with made-up data.",
+      sr: "Logistics company je kamionska logistika iz SAD-a, a ovaj portal je mesto gde njeni kupci prate svoje pošiljke. Aplikaciju od oktobra 2024. pravi drugi developer iz tima: Rails sa Hotwire-om i Tailwind-om, povezana sa McLeod LoadMaster sistemom iz kog dolaze pošiljke, stanice, javljanja kamiona i dokaz o isporuci. Ja sam se priključio u maju 2025. i do oktobra, u 20 commit-a, preuzeo izgled i ponašanje ekrana. U julu sam uradio listu i detalje pošiljke, a zatim mapu od oko 700 linija, najveći pojedinačni deo mog posla. Na jesen su došli statusi po stanicama, kartice za upravljanje kupcima i korisnicima i jedan backend zadatak: pozivnica za nove korisnike. Screenshotovi su sa lokalne instance sa izmišljenim podacima.",
+      en: "Logistics company is a US trucking company, and this portal is where its customers follow their shipments. Another developer on the team has been building the app since October 2024: Rails with Hotwire and Tailwind, connected to the McLeod LoadMaster system that supplies shipments, stops, truck check-ins and proof of delivery. I joined in May 2025 and by October, in 20 commits, had taken over how the screens look and behave. In July I did the shipment list and detail pages, and then the ~700-line map, the biggest single piece of my work. In the autumn came per-stop statuses, card layouts for managing customers and users, and one back-end task: invitations for new users. The screenshots come from a local instance with made-up data.",
     },
     did: {
       sr: [
