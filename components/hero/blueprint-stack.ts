@@ -29,7 +29,7 @@ const ease = (t: number) => 1 - Math.pow(1 - clamp(t), 3);
 export function createStackScene(
   canvas: HTMLCanvasElement,
   onFirstFrame: () => void,
-  onLayers: (ys: number[]) => void,
+  options: { auto: boolean; view: number },
 ): StackScene {
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "low-power" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
@@ -91,7 +91,6 @@ export function createStackScene(
   let running = false;
   let first = true;
   const clock = new THREE.Clock();
-  const probe = new THREE.Vector3();
 
   function layout() {
     const p = ease(progress);
@@ -103,7 +102,8 @@ export function createStackScene(
       group.position.y = i * gap - 1.5 * gap + gap / 2 + 0.1;
       group.scale.y = Math.max(0.01, gap - 0.25);
     });
-    root.rotation.y = rotY + p * 0.55;
+    const drift = options.auto ? Math.sin(clock.elapsedTime * 0.45) * 0.35 : 0;
+    root.rotation.y = rotY + drift + p * 0.55;
     root.rotation.x = rotX;
     root.position.y = Math.sin(clock.elapsedTime * 0.8) * 0.06 + p * 0.6;
   }
@@ -114,7 +114,7 @@ export function createStackScene(
     renderer.setSize(w, h, false);
     lineMaterial.resolution.set(w * renderer.getPixelRatio(), h * renderer.getPixelRatio());
     const aspect = w / h;
-    const view = 9.8;
+    const view = options.view;
     camera.left = (-view * aspect) / 2;
     camera.right = (view * aspect) / 2;
     camera.top = view / 2;
@@ -128,15 +128,6 @@ export function createStackScene(
     rotY += (targetY - rotY) * 0.06;
     layout();
     renderer.render(scene, camera);
-    const h = canvas.clientHeight;
-    onLayers(
-      layers.map((layer) => {
-        probe.set(0, 0, 0);
-        layer.localToWorld(probe);
-        probe.project(camera);
-        return ((1 - probe.y) / 2) * h;
-      }),
-    );
     if (first) {
       first = false;
       onFirstFrame();

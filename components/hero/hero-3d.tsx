@@ -11,7 +11,7 @@ export function Hero3D() {
     if (!el) return;
     const wide = window.matchMedia("(min-width: 1024px)").matches;
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!wide || calm) return;
+    if (calm) return;
 
     let disposed = false;
     let cleanup: (() => void) | undefined;
@@ -23,17 +23,14 @@ export function Hero3D() {
         .then(({ createStackScene }) => {
           if (disposed || !el.getContext) return;
           const figure = el.parentElement!;
-          const scene = createStackScene(
-            el,
-            () => setReady(true),
-            (ys) => ys.forEach((y, i) => figure.style.setProperty(`--layer-${i}`, `${y.toFixed(1)}px`)),
-          );
+          const scene = createStackScene(el, () => setReady(true), { auto: !wide, view: wide ? 9.8 : 8.6 });
           const onPointer = (e: PointerEvent) => {
             scene.setPointer((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1);
           };
           const onScroll = () => {
             const r = figure.getBoundingClientRect();
-            scene.setProgress(-r.top / (r.height * 0.9));
+            const vh = window.innerHeight;
+            scene.setProgress(wide ? -r.top / (r.height * 0.9) : (vh * 0.85 - r.top - r.height) / (vh * 0.6));
           };
           const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? scene.start() : scene.stop()));
           const ro = new ResizeObserver(() => scene.resize());
@@ -66,7 +63,7 @@ export function Hero3D() {
       ref={canvas}
       aria-hidden="true"
       data-ready={ready || undefined}
-      className="pointer-events-none absolute inset-y-0 left-0 hidden h-full w-[64%] opacity-0 transition-opacity duration-700 data-ready:opacity-100 lg:block"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-700 data-ready:opacity-100 lg:right-auto lg:w-[64%]"
     />
   );
 }

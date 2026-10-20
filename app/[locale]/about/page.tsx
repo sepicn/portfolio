@@ -52,7 +52,7 @@ export default async function AboutPage({ params }: Props) {
         crumbs={[{ label: nav("home"), href: "/" }, { label: nav("about") }]}
         tag={pick(profile.title, locale)}
         title={t("title")}
-        lead={pick(profile.summary, locale)}
+        lead={pick(home.who, locale)}
       />
 
       <section className="pt-20 lg:pt-28">
@@ -81,9 +81,8 @@ export default async function AboutPage({ params }: Props) {
               </div>
               <div>
                 <h3 className="text-[28px] leading-[1.1] tracking-[-0.03em]">{pick(job.role, locale)}</h3>
-                <p className="mt-3 max-w-[68ch] text-[17px] leading-[1.6] text-ink-2">{pick(job.summary, locale)}</p>
                 <ul className="mt-5 max-w-[68ch] space-y-3 text-[16px] leading-[1.6]">
-                  {pickList(job.bullets, locale).map((b) => (
+                  {pickList(job.bullets, locale).slice(0, 3).map((b) => (
                     <li key={b} className="grid grid-cols-[16px_1fr] gap-2.5">
                       <span aria-hidden="true" className="mt-[0.75em] h-px w-3 bg-blue" />
                       {b}

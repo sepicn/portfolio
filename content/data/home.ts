@@ -7,122 +7,115 @@ export const home = {
   titleBlue: { sr: "sisteme", en: "systems" },
   titleAfter: { sr: "i dovodim im korisnike.", en: "and bring them users." },
   who: {
-    sr: "Ja sam Nikola, programer iz Beograda. Volim da napravim ceo sistem, od baze do dugmeta na ekranu, a onda da vidim da ga ljudi stvarno koriste. Zato radim i kod i Google Ads. Ispod je kako to izgleda u praksi.",
-    en: "I am Nikola, a developer from Belgrade. I like building the whole system, from the database to the button on the screen, and then seeing people actually use it. That is why I do both the code and Google Ads. Below is what that looks like in practice.",
+    sr: "Ja sam Nikola, programer iz Beograda. Pravim web aplikacije od baze do ekrana i dovodim im korisnike preko Google Ads-a.",
+    en: "I am Nikola, a developer from Belgrade. I build web apps from the database to the screen and bring them users through Google Ads.",
   },
   ctaProjects: { sr: "Pogledaj projekte", en: "See the projects" },
   ctaCv: { sr: "Preuzmi CV (PDF)", en: "Download CV (PDF)" },
-  drawingNote: { sr: "Nacrt: Makaze, softver za salone", en: "Drawing: Makaze, salon software" },
-  layers: [
-    { sr: "PostgreSQL", en: "PostgreSQL" },
-    { sr: "Go API, 11 modula", en: "Go API, 11 modules" },
-    { sr: "Studio za salon", en: "Salon studio" },
-    { sr: "Klijentska aplikacija", en: "Client app" },
-  ] satisfies Localized[],
   facts: [
-    { value: "16", label: { sr: "projekata, 10 za klijente", en: "projects, 10 for clients" } },
-    { value: "400k", label: { sr: "linija koda na platformi Medical Time", en: "lines of code on the Medical Time platform" } },
-    { value: "5", label: { sr: "jezika koje održavam na jednoj platformi", en: "languages I maintain on one platform" } },
-    { value: "−54%", label: { sr: "cena konverzije na najboljim kampanjama", en: "cost per conversion on the best campaigns" } },
+    { value: "16", label: { sr: "projekata", en: "projects" } },
+    { value: "400k", label: { sr: "linija koda u jednoj platformi", en: "lines of code in one platform" } },
+    { value: "5", label: { sr: "jezika na jednoj platformi", en: "languages on one platform" } },
+    { value: "−54%", label: { sr: "niža cena konverzije", en: "lower cost per conversion" } },
   ] satisfies { value: string; label: Localized }[],
   projectsTag: { sr: "Projekti", en: "Projects" },
   projectsTitle: { sr: "Na čemu radim", en: "What I work on" },
   projectsLead: {
-    sr: "Tri projekta na kojima sam najviše naučio. Ostali su na strani Projekti, svaki sa pričom i brojevima.",
-    en: "The three projects I learned the most from. The rest are on the Projects page, each with its story and numbers.",
+    sr: "Tri projekta koja najbolje pokazuju kako radim.",
+    en: "The three projects that best show how I work.",
   },
   allProjects: { sr: "Svih 16 projekata", en: "All 16 projects" },
   story: { sr: "Cela priča", en: "Full story" },
   processTag: { sr: "Put jednog projekta", en: "How a project goes" },
   processTitle: { sr: "Od ideje do prvih korisnika", en: "From idea to first users" },
   processLead: {
-    sr: "Šta sve pokrivam na jednom projektu, sa primerima iz mog rada.",
-    en: "What I cover on a single project, with examples from my own work.",
+    sr: "Šta pokrivam na jednom projektu.",
+    en: "What I cover on a single project.",
   },
   process: [
     {
       title: { sr: "Zahtev", en: "The ask" },
       body: {
-        sr: "Sve počne porukom: od klijenta, poslodavca ili moje ideje. Kod Makaza: saloni koji termine vode u svesci.",
-        en: "It starts with a message: from a client, an employer or my own idea. For Makaze: salons that keep bookings in a notebook.",
+        sr: "Sve počne porukom: klijent, poslodavac ili moja ideja.",
+        en: "It starts with a message: a client, an employer or my own idea.",
       },
     },
     {
       title: { sr: "Nacrt", en: "The drawing" },
       body: {
-        sr: "Arhitektura pre koda: moduli, baza, API. Za Makaze je to OpenAPI ugovor iz kog se generiše klijent.",
-        en: "Architecture before code: modules, database, API. For Makaze that is an OpenAPI contract the client is generated from.",
+        sr: "Arhitektura pre koda: moduli, baza, API.",
+        en: "Architecture before code: modules, database, API.",
       },
     },
     {
       title: { sr: "Gradim", en: "Building" },
       body: {
-        sr: "Back-end u Laravelu, Go-u ili Django-u, front-end u Nuxt-u ili Next-u.",
-        en: "Back end in Laravel, Go or Django, front end in Nuxt or Next.",
+        sr: "Back-end i front-end, od baze do ekrana.",
+        en: "Back end and front end, from database to screen.",
       },
     },
     {
       title: { sr: "Puštam", en: "Shipping" },
       body: {
-        sr: "Brzina, prevodi, SEO i merenje od prvog dana. Medical Time: 5 jezika, 779 adresa u sitemap-u.",
-        en: "Speed, translations, SEO and tracking from day one. Medical Time: 5 languages, 779 URLs in the sitemap.",
+        sr: "Brzina, prevodi, SEO i merenje od prvog dana.",
+        en: "Speed, translations, SEO and tracking from day one.",
       },
     },
     {
       title: { sr: "Dovodim ljude", en: "Bringing people" },
       body: {
-        sr: "Google Ads, Meta i SEO. Na nalogu bolnice najbolje kampanje su do 54% ispod prosečne cene konverzije.",
-        en: "Google Ads, Meta and SEO. On the hospital account the best campaigns run up to 54% below the average cost per conversion.",
+        sr: "Google Ads, Meta i SEO, uz stalno praćenje.",
+        en: "Google Ads, Meta and SEO, monitored continuously.",
       },
     },
   ] satisfies { title: Localized; body: Localized }[],
   processOutro: {
-    sr: "Svaki projekat ovde je prošao ovaj put, negde ceo, negde samo deo.",
-    en: "Every project here went down this road, some of it or all of it.",
+    sr: "Svaki projekat ovde je prošao ovaj put.",
+    en: "Every project here went down this road.",
   },
   servicesTag: { sr: "Usluge za firme", en: "Services for businesses" },
   servicesTitle: { sr: "Sajt, oglasi, SEO", en: "Site, ads, SEO" },
   servicesLead: {
-    sr: "Ovo radim za firme kao freelancer. Cenu dajem kad znam obim posla, obično posle jednog razgovora.",
-    en: "This is what I do for businesses as a freelancer. I give a price once I know the scope, usually after one call.",
+    sr: "Za firme, kao freelancer. Cena posle kratkog razgovora.",
+    en: "For businesses, as a freelancer. Price after a short call.",
   },
   serviceCards: {
     web: {
-      sr: "Next.js, Nuxt ili Laravel, zavisi šta projekat traži. Sajt za Mango ima 100 na tri od četiri Lighthouse merenja.",
-      en: "Next.js, Nuxt or Laravel, depending on what the project needs. The Mango site scores 100 on three of four Lighthouse checks.",
+      sr: "Next.js, Nuxt ili Laravel. Brzi sajtovi na više jezika.",
+      en: "Next.js, Nuxt or Laravel. Fast, multilingual sites.",
     },
     "google-ads": {
-      sr: "Search i PMax. Na nalogu bolnice najviše novca su sačuvale negativne ključne reči i granice za cenu klika.",
-      en: "Search and PMax. On the hospital account, negative keywords and CPC caps saved the most money.",
+      sr: "Search i PMax, uz stalno praćenje cene klika.",
+      en: "Search and PMax, with constant CPC monitoring.",
     },
     "meta-ads": {
-      sr: "Facebook i Instagram kampanje, trenutno za Medical Time.",
-      en: "Facebook and Instagram campaigns, currently for Medical Time.",
+      sr: "Facebook i Instagram kampanje sa merenjem.",
+      en: "Facebook and Instagram campaigns with tracking.",
     },
     seo: {
-      sr: "Tehnički SEO, GA4, GTM i strukturirani podaci. Site Health sa 90% na 98% za nedelju dana.",
-      en: "Technical SEO, GA4, GTM and structured data. Site Health from 90% to 98% in one week.",
+      sr: "Tehnički SEO, GA4 i GTM. Site Health 90% na 98%.",
+      en: "Technical SEO, GA4 and GTM. Site Health 90% to 98%.",
     },
   } satisfies Record<string, Localized>,
   more: { sr: "Više", en: "More" },
   jobsTag: { sr: "Iskustvo", en: "Experience" },
   jobsTitle: { sr: "Gde sam radio", en: "Where I have worked" },
   jobsLead: {
-    sr: "Dva ugovora i freelance u isto vreme, od 2025. Pre toga studije i kursevi.",
-    en: "Two contracts and freelance work at the same time, since 2025. Before that, university and courses.",
+    sr: "Od 2025. na produkcionim sistemima.",
+    en: "On production systems since 2025.",
   },
   jobsShort: {
     freelance: {
-      sr: "Vodim 8 Google Ads kampanja i Meta oglase za Medical Time. Napravio sam sajtove za Mango, Vuk Studio i Stanke Enterijer.",
-      en: "I run 8 Google Ads campaigns and Meta ads for Medical Time. I built the sites for Mango, Vuk Studio and Stanke Enterijer.",
+      sr: "Google Ads i Meta oglasi, sajtovi za lokalne firme.",
+      en: "Google Ads and Meta ads, sites for local businesses.",
     },
     medicaltime: {
-      sr: "Održavam prevode na 5 jezika, napravio sam chatbot za zakazivanje, radio na fiskalizaciji i e-zdravlju.",
-      en: "I maintain translations in 5 languages, built the booking chatbot and worked on fiscalisation and e-health.",
+      sr: "Prevodi na 5 jezika, chatbot za zakazivanje.",
+      en: "Translations in 5 languages, a booking chatbot.",
     },
     delta: {
-      sr: "Pretvorio sam 40+ formi u korake u Logistics TMS-u. Mapa pošiljki u Rails-u.",
-      en: "I turned 40+ forms into step-by-step wizards in Logistics TMS. Shipment map in Rails.",
+      sr: "40+ formi pretvoreno u korake, mapa pošiljki.",
+      en: "40+ forms turned into wizards, a shipment map.",
     },
   } satisfies Record<string, Localized>,
   education: {
@@ -130,26 +123,26 @@ export const home = {
     title: { sr: "Diploma, informacione tehnologije", en: "BSc, Information Technology" },
     place: { sr: "Univerzitet Singidunum, Beograd", en: "Singidunum University, Belgrade" },
     note: {
-      sr: "Osnovne studije. Uz njih freeCodeCamp i Udemy kursevi za JavaScript i React.",
-      en: "Undergraduate studies, plus freeCodeCamp and Udemy courses in JavaScript and React.",
+      sr: "Osnovne studije, plus kursevi za JavaScript i React.",
+      en: "Undergraduate studies, plus JavaScript and React courses.",
     },
   },
   now: { sr: "danas", en: "now" },
   skillsTag: { sr: "Veštine", en: "Skills" },
   skillsTitle: { sr: "Šta koristim, i gde", en: "What I use, and where" },
   skillsLead: {
-    sr: "Ne ocenjujem sebe od 1 do 5. Pored svake tehnologije su projekti u kojima sam je koristio, pa proverite sami.",
-    en: "I do not rate myself from 1 to 5. Next to each technology are the projects I used it on, so you can check for yourself.",
+    sr: "Bez ocena od 1 do 5. Uz svaku tehnologiju je projekat gde se vidi.",
+    en: "No 1 to 5 ratings. Each technology links to a project that shows it.",
   },
   meTag: { sr: "O meni", en: "About me" },
   meTitle: { sr: "Kad ne kodiram", en: "When I am not coding" },
   meBody: {
-    sr: "Čitam, idem u teretanu i šetam po Beogradu. Kod kuće me čeka mačka. Dok radim, uglavnom slušam synthwave.",
-    en: "I read, go to the gym and walk around Belgrade. A cat waits for me at home. While I work, it is mostly synthwave in my headphones.",
+    sr: "Knjige, teretana, šetnje po Beogradu i mačka. Dok radim, synthwave.",
+    en: "Books, the gym, walks around Belgrade and a cat. Synthwave while I work.",
   },
   meLanguages: {
-    sr: "Govorim srpski i engleski (C1), a španski učim.",
-    en: "I speak Serbian and English (C1), and I am learning Spanish.",
+    sr: "Srpski, engleski (C1), španski učim.",
+    en: "Serbian, English (C1), learning Spanish.",
   },
   meTags: {
     sr: ["Knjige", "Teretana", "Mačka", "Synthwave", "Šetnje po Beogradu"],
@@ -160,8 +153,8 @@ export const home = {
   contactTitle1: { sr: "Pišite", en: "Write" },
   contactTitle2: { sr: "mi.", en: "to me." },
   contactLead: {
-    sr: "Recite ukratko šta vam treba. Ako je posao za mene, javiću se sa predlogom. Ako nije, reći ću vam i to.",
-    en: "Tell me briefly what you need. If the work is a fit, I will come back with a proposal. If it is not, I will tell you that too.",
+    sr: "Recite ukratko šta vam treba. Javljam se brzo.",
+    en: "Tell me briefly what you need. I reply quickly.",
   },
 };
 
@@ -174,12 +167,8 @@ export const featured: { slug: string; copy: Feature }[] = [
       kind: { sr: "Bolnica · klijent", en: "Hospital · client" },
       body: [
         {
-          sr: "Platforma bolnice, oko 400 hiljada linija u Nuxt-u i Laravelu. Ja vodim prevode na 5 jezika. Napravio sam chatbot koji zakazuje preglede i potpisivanje saglasnosti na daljinu.",
-          en: "A hospital platform, about 400 thousand lines in Nuxt and Laravel. I own translations in 5 languages. I built the chatbot that books appointments and remote consent signing.",
-        },
-        {
-          sr: "Vodim i njihov Google Ads nalog: 8 Search kampanja i 370+ negativnih ključnih reči.",
-          en: "I also run their Google Ads account: 8 Search campaigns and 370+ negative keywords.",
+          sr: "Bolnička platforma na 5 jezika i njen Google Ads nalog.",
+          en: "A hospital platform in 5 languages and its Google Ads account.",
         },
       ],
       kpis: [
@@ -195,12 +184,8 @@ export const featured: { slug: string; copy: Feature }[] = [
       kind: { sr: "Moj SaaS", en: "My SaaS" },
       body: [
         {
-          sr: "Softver za restorane i kafiće: back-office, kasa, ekran za kuhinju i aplikacija za konobare. Kad padne internet, gateway u lokalu nastavlja da štampa bonove i izdaje fiskalne račune.",
-          en: "Software for restaurants and cafés: back office, POS, kitchen display and a staff app. When the internet drops, a gateway in the venue keeps printing tickets and issuing fiscal receipts.",
-        },
-        {
-          sr: "Arhitektura, odluke i pregled koda su moji. Implementaciju radim uz AI agente.",
-          en: "The architecture, decisions and code review are mine. I build it with AI agents.",
+          sr: "SaaS za restorane koji radi i kad padne internet.",
+          en: "Restaurant SaaS that keeps working when the internet drops.",
         },
       ],
       kpis: [
@@ -216,12 +201,8 @@ export const featured: { slug: string; copy: Feature }[] = [
       kind: { sr: "Moj SaaS", en: "My SaaS" },
       body: [
         {
-          sr: "Softver za frizerske salone: kalendar, kasa sa fiskalnim računom, depozit preko IPS-a i online zakazivanje za klijente.",
-          en: "Software for hair salons: a calendar, a till with fiscal receipts, IPS deposits and online booking for clients.",
-        },
-        {
-          sr: "Go API sa 11 modula. Dupli termin sprečava sama baza, pa ni dva klika u istoj sekundi ne prave problem.",
-          en: "A Go API with 11 modules. The database itself blocks double bookings, so even two clicks in the same second cause no trouble.",
+          sr: "Softver za salone: kalendar, kasa i online zakazivanje.",
+          en: "Salon software: calendar, till and online booking.",
         },
       ],
       kpis: [

@@ -1,10 +1,10 @@
 {
   "/": {
-    "hash": "4a722f9ee704cb97",
+    "hash": "dc584a08ad040a65",
     "date": "2026-10-20"
   },
   "/projects": {
-    "hash": "d8bc65a37fe0baca",
+    "hash": "ae285d06783553ad",
     "date": "2026-10-20"
   },
   "/services": {
@@ -28,11 +28,11 @@
     "date": "2026-10-20"
   },
   "/about": {
-    "hash": "5edaedb20e92f1df",
+    "hash": "dbf18319e2ef270d",
     "date": "2026-10-20"
   },
   "/cv": {
-    "hash": "6b25d0ddfe7fe0b8",
+    "hash": "ad5da65928e0a38b",
     "date": "2026-10-20"
   },
   "/contact": {
@@ -48,67 +48,67 @@
     "date": "2026-10-20"
   },
   "/projects/medical-time": {
-    "hash": "9d39c7e0681a0a35",
+    "hash": "289ccbedc4a9e42d",
     "date": "2026-10-20"
   },
   "/projects/kafe": {
-    "hash": "cd5c6cb274a8bf92",
+    "hash": "a0bde90b1183d09a",
     "date": "2026-10-20"
   },
   "/projects/makaze": {
-    "hash": "d0b961235417deb2",
+    "hash": "3db6e91a9e909f85",
     "date": "2026-10-20"
   },
   "/projects/logistics-tms": {
-    "hash": "375c038ab1121357",
+    "hash": "ff7bb63141a63b16",
     "date": "2026-10-20"
   },
   "/projects/shipment-tracking": {
-    "hash": "5d81c76283a99997",
+    "hash": "553f2e7944295568",
     "date": "2026-10-20"
   },
   "/projects/itexpert": {
-    "hash": "0e364457078cd076",
+    "hash": "04df02642893876e",
     "date": "2026-10-20"
   },
   "/projects/prostor-izmedju": {
-    "hash": "88a7eb5f2c6a68a9",
+    "hash": "01d8535ab7d27284",
     "date": "2026-10-20"
   },
   "/projects/mango": {
-    "hash": "5f662bf78a17200c",
+    "hash": "f049211eb9e9039e",
     "date": "2026-10-20"
   },
   "/projects/vuk-studio": {
-    "hash": "42f187bd52ee0ecc",
+    "hash": "14e4c30b4bc726dc",
     "date": "2026-10-20"
   },
   "/projects/stanke-enterijer": {
-    "hash": "da2e9635bbe24e80",
+    "hash": "5499f5c33f7a62e0",
     "date": "2026-10-20"
   },
   "/projects/nst-print-mill": {
-    "hash": "5c3c521670baa0a8",
+    "hash": "178b8d3332041697",
     "date": "2026-10-20"
   },
   "/projects/olimp": {
-    "hash": "8c6e24c495d5693f",
+    "hash": "dee6f2aecf67f4d0",
     "date": "2026-10-20"
   },
   "/projects/job-application-tracker": {
-    "hash": "bad9f17c929a8eb0",
+    "hash": "5de86f5ffa5dd71e",
     "date": "2026-10-20"
   },
   "/projects/gymai": {
-    "hash": "0b8f553ab3f666a0",
+    "hash": "bcc0708cbdff9118",
     "date": "2026-10-20"
   },
   "/projects/launchhub": {
-    "hash": "0a4ce7187f6a8a5a",
+    "hash": "5a8ed9808669611a",
     "date": "2026-10-20"
   },
   "/projects/echo": {
-    "hash": "510ec715c9236600",
+    "hash": "6d6fea99a4fff9d9",
     "date": "2026-10-20"
   }
 }
