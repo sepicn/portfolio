@@ -30,6 +30,7 @@ export function Hero3D({ labels }: { labels: string[] }) {
           const onScroll = () => {
             const r = figure.getBoundingClientRect();
             const vh = window.innerHeight;
+            scene.setFlow(window.scrollY);
             scene.setProgress(wide ? -r.top / (r.height * 0.9) : (vh * 0.85 - r.top - r.height) / (vh * 0.6));
           };
           const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? scene.start() : scene.stop()));

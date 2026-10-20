@@ -6,6 +6,7 @@ import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 export type StackScene = {
   setPointer: (x: number, y: number) => void;
   setProgress: (p: number) => void;
+  setFlow: (y: number) => void;
   resize: () => void;
   start: () => void;
   stop: () => void;
@@ -162,15 +163,25 @@ export function createStackScene(
     const [w, d] = LAYERS[i];
     const x = w * 0.42;
     const z = -d * 0.38;
-    const pillar = box(0.05, 1, 0.05, accent, x, 0, z);
-    const packet = new THREE.Mesh(new THREE.SphereGeometry(0.075, 16, 12), ink);
-    packet.position.set(x, 0, z);
-    disposables.push(packet.geometry);
-    root.add(pillar, packet);
-    return { pillar, packet, phase: i * 0.33 };
+    const geometry = new THREE.CylinderGeometry(0.06, 0.06, 1, 16, 1, true);
+    const pillar = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: ACCENT, transparent: true, opacity: 0.35 }));
+    pillar.position.set(x, 0, z);
+    outline(geometry, pillar, 30);
+    disposables.push(pillar.material as THREE.Material);
+    const packets = [0, 1, 2].map(() => {
+      const packet = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 12), ink);
+      packet.position.set(x, 0, z);
+      disposables.push(packet.geometry);
+      root.add(packet);
+      return packet;
+    });
+    root.add(pillar);
+    return { pillar, packets, phase: i * 0.21 };
   });
 
   let progress = 0;
+  let flow = 0;
+  let flowTarget = 0;
   let targetX = 0;
   let targetY = 0;
   let rotX = 0;
@@ -187,14 +198,16 @@ export function createStackScene(
     layers.forEach((layer, i) => {
       layer.position.y = i * gap - 1.5 * gap;
     });
-    links.forEach(({ pillar, packet, phase }, i) => {
+      flow += (flowTarget - flow) * 0.08;
+    links.forEach(({ pillar, packets, phase }, i) => {
       const bottom = layers[i].position.y + 0.08;
       const length = Math.max(0.01, gap - 0.16);
       pillar.position.y = bottom + length / 2;
       pillar.scale.y = length;
-      const f = (t * 0.45 + phase) % 1;
-      const up = i % 2 === 0;
-      packet.position.y = bottom + (up ? f : 1 - f) * length;
+      packets.forEach((packet, k) => {
+        const f = (((t * 0.18 + flow + phase + k / 3) % 1) + 1) % 1;
+        packet.position.y = bottom + (1 - f) * length;
+      });
     });
     const drift = options.auto ? Math.sin(t * 0.45) * 0.35 : 0;
     root.rotation.y = rotY + drift + p * 0.45;
@@ -237,6 +250,9 @@ export function createStackScene(
     },
     setProgress(p) {
       progress = clamp(p);
+    },
+    setFlow(y) {
+      flowTarget = y / 700;
     },
     resize,
     start() {
