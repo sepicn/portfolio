@@ -77,8 +77,8 @@ const b = {
     en: "Manage 8 Google Ads Search campaigns and Meta Ads for a private hospital, with GA4 and GTM conversion tracking.",
   },
   fNegatives: {
-    sr: "Iz izveštaja o pretragama izdvojio 370+ negativnih ključnih reči; označio klikove i do 19× skuplje od proseka.",
-    en: "Built 370+ negative keywords from search term reports and flagged clicks costing up to 19× the average.",
+    sr: "Kontinuirano pratim kampanje: izdvojio 370+ negativnih ključnih reči i uveo limite cene po kliku, pa nalog više ne plaća klikove i do 19× skuplje od proseka.",
+    en: "Monitor campaigns continuously: added 370+ negative keywords and set CPC caps, so the account no longer pays for clicks costing up to 19× the average.",
   },
   fShare: {
     sr: "Analizom izgubljenog udela prikaza pokazao da kampanje sa do 54% nižom cenom konverzije imaju najviše prostora.",

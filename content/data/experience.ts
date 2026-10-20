@@ -34,7 +34,7 @@ export const experience: Experience[] = [
     bullets: {
       sr: [
         "Vodim osam Google Ads Search kampanja i Meta Ads za Medical Time, privatnu bolnicu u Beogradu, uz GA4 i GTM merenje konverzija, consent mode i ClickCease zaštitu od lažnih klikova.",
-        "Iz izveštaja o terminima pretrage izdvojio 370+ negativnih ključnih reči (fraza i tačno podudaranje) i uveo limit cene po kliku tamo gde su pojedinačni klikovi bili i 19 puta skuplji od proseka.",
+        "Kontinuirano pratim kampanje: iz izveštaja o terminima pretrage izdvojio 370+ negativnih ključnih reči (fraza i tačno podudaranje) i uveo limite cene po kliku, pa nalog više ne plaća pojedinačne klikove i do 19 puta skuplje od proseka.",
         "Analizom udela prikaza izgubljenog zbog ranga i zbog budžeta pokazao da dve kampanje sa najnižom cenom konverzije (do 54% ispod proseka naloga) imaju najviše prostora za rast, i preraspodelio budžet ka njima.",
         "Podigao Semrush Site Health na medicaltime.rs sa 90% na 98% za nedelju dana: greške 6 → 0, upozorenja −87%. SSR za blog i prodavnicu, hreflang i canonical za pet jezika, JSON-LD, HSTS, llms.txt.",
         "Gradim IT Expert platformu na pet jezika (Nuxt, Laravel): korisnički portal, paketi sa kalkulatorom cene, pretplate, fakture, predračuni i Raiffeisen plaćanja, a naplatu pokriva 133 automatska testa.",
@@ -42,7 +42,7 @@ export const experience: Experience[] = [
       ],
       en: [
         "Manage eight Google Ads Search campaigns and Meta Ads for Medical Time, a private hospital in Belgrade, with GA4 and GTM conversion tracking, consent mode and ClickCease click fraud protection.",
-        "Mined search term reports for 370+ phrase and exact match negative keywords, and set CPC caps where single clicks cost up to 19 times the average.",
+        "Monitor campaigns continuously: mined search term reports for 370+ phrase and exact match negative keywords and set CPC caps, so the account no longer pays for single clicks costing up to 19 times the average.",
         "Analyzed impression share lost to rank versus budget, showed that the two campaigns with the lowest cost per conversion (up to 54% below the account average) had the most room to grow, and moved budget towards them.",
         "Raised the Semrush Site Health of medicaltime.rs from 90% to 98% in one week: errors 6 → 0, warnings −87%. Server-side rendering for the blog and shop, hreflang and canonical across five languages, JSON-LD, HSTS, llms.txt.",
         "Build the IT Expert platform in five languages (Nuxt, Laravel): customer portal, packages with a price calculator, subscriptions, invoices, pro-forma invoices and Raiffeisen payments, with billing covered by 133 automated tests.",
