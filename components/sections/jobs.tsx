@@ -35,7 +35,7 @@ export function Jobs({ locale }: { locale: string }) {
       {rows.map((r) => (
         <li
           key={r.key}
-          data-reveal
+          data-reveal="left"
           className="relative mb-3 grid gap-1.5 border border-rule bg-paper px-4 py-5 lg:grid-cols-[200px_1fr_1.3fr] lg:gap-7 lg:px-6 lg:py-6"
         >
           <span

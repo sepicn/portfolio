@@ -15,6 +15,7 @@ import { SkillProof } from "@/components/sections/skill-proof";
 import { AboutMe } from "@/components/sections/about-me";
 import { ContactBlock } from "@/components/sections/contact-block";
 import { CountUp } from "@/components/motion/count-up";
+import { HorizontalPin } from "@/components/motion/horizontal-pin";
 import {
   businessJsonLd,
   graph,
@@ -71,19 +72,31 @@ export default async function HomePage({ params }: Props) {
           ))}
         </dl>
 
-        <section id="projekti" data-ruler={pick(home.projectsTag, locale)} aria-labelledby="projects-title" className="scroll-mt-6 pt-24 lg:pt-36">
-          <SectionHead
-            id="projects-title"
-            tag={pick(home.projectsTag, locale)}
-            title={pick(home.projectsTitle, locale)}
-            lead={pick(home.projectsLead, locale)}
-          />
-          {featured.map((f, i) => {
-            const project = projects.find((p) => p.slug === f.slug);
-            if (!project) return null;
-            return (
+      </div>
+
+      <HorizontalPin
+        id="projekti"
+        ruler={pick(home.projectsTag, locale)}
+        labelledBy="projects-title"
+        className="scroll-mt-6 pt-24 lg:pt-0"
+        trackClassName="gap-5 px-[clamp(16px,3vw,48px)] pb-2 lg:gap-8"
+        head={
+          <div className="wrap">
+            <SectionHead
+              id="projects-title"
+              tag={pick(home.projectsTag, locale)}
+              title={pick(home.projectsTitle, locale)}
+              lead={pick(home.projectsLead, locale)}
+            />
+          </div>
+        }
+      >
+        {featured.map((f, i) => {
+          const project = projects.find((p) => p.slug === f.slug);
+          if (!project) return null;
+          return (
+            <div key={f.slug} className="hpin-item w-[88vw] lg:w-[min(960px,62vw)]">
               <ProjectFeature
-                key={f.slug}
                 project={project}
                 locale={locale}
                 kind={pick(f.copy.kind, locale)}
@@ -92,13 +105,25 @@ export default async function HomePage({ params }: Props) {
                 cta={pick(home.story, locale)}
                 reverse={i % 2 === 1}
               />
-            );
-          })}
-          <Link href="/projects" className="btn btn-ghost mt-4">
-            {pick(home.allProjects, locale).replace("16", total)} <span aria-hidden="true">→</span>
+            </div>
+          );
+        })}
+        <div className="hpin-item w-[70vw] lg:w-[min(520px,36vw)]">
+          <Link
+            href="/projects"
+            className="group dark-sheet flex h-full min-h-[320px] flex-col justify-between border border-ink p-7 lg:min-h-[480px]"
+          >
+            <span className="tag text-blue-2">{pick(home.projectsTag, locale)}</span>
+            <span className="text-[clamp(2.4rem,4vw,4.4rem)] leading-[0.95] tracking-[-0.045em]">
+              {pick(home.allProjects, locale).replace("16", total)}
+            </span>
+            <span aria-hidden="true" className="text-[64px] text-blue-2 transition-transform duration-500 ease-out-expo group-hover:translate-x-3">
+              →
+            </span>
           </Link>
-        </section>
-      </div>
+        </div>
+      </HorizontalPin>
+
 
       <ProcessSteps locale={locale} />
       <ServicesBand locale={locale} />
