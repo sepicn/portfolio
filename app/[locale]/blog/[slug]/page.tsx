@@ -18,6 +18,8 @@ type Props = { params: Promise<{ locale: string; slug: string }> };
 
 const lc = (locale: string) => (locale === "en" ? "en" : "sr") as Locale;
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => posts.map((p) => ({ locale, slug: p.slug[locale] })));
 }

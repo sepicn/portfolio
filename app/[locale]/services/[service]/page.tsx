@@ -25,6 +25,8 @@ function findService(locale: string, slug: string) {
   return services.find((s) => serviceSlugs[s.id][localeKey(locale)] === slug);
 }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
     services.map((s) => ({ locale, service: serviceSlugs[s.id][locale] })),

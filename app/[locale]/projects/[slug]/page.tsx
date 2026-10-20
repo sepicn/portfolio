@@ -14,6 +14,8 @@ import { absoluteUrl, breadcrumbJsonLd, graph, personId, serializeJsonLd } from 
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => projects.map((p) => ({ locale, slug: p.slug })));
 }
