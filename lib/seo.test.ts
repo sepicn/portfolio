@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { routing } from "@/i18n/routing";
 import { projects } from "@/content/data/projects";
+import { posts } from "@/content/blog";
 import { alternatesFor, localePath, pageMetadata } from "./seo";
 
 describe("localePath", () => {
@@ -51,7 +52,6 @@ describe("pageMetadata", () => {
 });
 
 describe("Open Graph images", () => {
-  // Rendered by `npm run og`; this fails when a page or project is added without re-running it.
   const keys = [
     "home",
     "projects",
@@ -59,7 +59,10 @@ describe("Open Graph images", () => {
     "about",
     "cv",
     "contact",
+    "blog",
+    "privacy",
     ...projects.map((p) => `project-${p.slug}`),
+    ...posts.map((p) => `post-${p.slug.sr}`),
   ];
   it.each(routing.locales.flatMap((l) => keys.map((k) => `${l}-${k}.jpg`)))(
     "%s exists",

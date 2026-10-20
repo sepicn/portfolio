@@ -5,7 +5,6 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const isProd = process.env.NODE_ENV === "production";
 
-// Google Tag Manager, GA4 and Google Ads endpoints, plus vercel.live for the preview toolbar.
 const google = [
   "https://www.googletagmanager.com",
   "https://*.googletagmanager.com",
@@ -18,13 +17,9 @@ const google = [
   "https://*.g.doubleclick.net",
 ].join(" ");
 
-// Next inlines its bootstrap scripts and GTM injects inline tags, so script-src keeps
-// unsafe-inline; the rest of the policy still blocks foreign scripts, framing, plugins
-// and base-tag or form hijacking. wasm-unsafe-eval is for the Draco mesh decoder, blob:
-// workers and URLs are how three.js decodes the room model.
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' ${google} https://vercel.live`,
+  `script-src 'self' 'unsafe-inline' ${google} https://vercel.live`,
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: blob: ${google}`,
   "font-src 'self' data:",
@@ -40,7 +35,6 @@ const csp = [
 ].join("; ");
 
 const securityHeaders = [
-  // Dev needs eval for React Refresh, so the policy only applies to production builds.
   ...(isProd ? [{ key: "Content-Security-Policy", value: csp }] : []),
   {
     key: "Strict-Transport-Security",
@@ -65,8 +59,6 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/(.*)", headers: securityHeaders },
-      // Preview deployments share the production content under another host; keep them
-      // out of the index so they never compete with the canonical site.
       ...(process.env.VERCEL_ENV === "preview"
         ? [{ source: "/(.*)", headers: [{ key: "X-Robots-Tag", value: "noindex" }] }]
         : []),
@@ -74,12 +66,8 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Serbian is the default locale without a prefix. next-intl answers /sr with a
-      // temporary 307; a permanent redirect tells search engines which URL to keep.
       { source: "/sr", destination: "/", permanent: true },
       { source: "/sr/:path*", destination: "/:path*", permanent: true },
-      // Serbian pages moved from English slugs to Serbian ones (i18n/routing.ts pathnames).
-      // English URLs keep their /en prefix and do not match these sources.
       { source: "/projects", destination: "/projekti", permanent: true },
       { source: "/projects/:slug", destination: "/projekti/:slug", permanent: true },
       { source: "/services", destination: "/usluge", permanent: true },
@@ -92,7 +80,6 @@ const nextConfig: NextConfig = {
       { source: "/about", destination: "/o-meni", permanent: true },
       { source: "/contact", destination: "/kontakt", permanent: true },
       { source: "/privacy", destination: "/privatnost", permanent: true },
-      // The old CV file was replaced by the /cv page and its generated PDFs.
       { source: "/CV.pdf", destination: "/cv", permanent: true },
       { source: "/cv.pdf", destination: "/cv", permanent: true },
     ];

@@ -1,26 +1,17 @@
-import Image from "next/image";
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
-import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
 import { Link } from "@/i18n/navigation";
-import { PageIntro } from "@/components/page-intro";
-import { Reveal } from "@/components/reveal";
-import { CyberFrame } from "@/components/cyber-frame";
-import { CyberDivider } from "@/components/cyber-divider";
-import { SectionHeading } from "@/components/section-heading";
-import { pick, pickList } from "@/content/i18n";
-import {
-  services,
-  process,
-  faq,
-  servicePageLabels,
-  servicePages,
-} from "@/content/data/services";
 import { projectHref, serviceHref } from "@/i18n/paths";
-import { siteConfig } from "@/lib/site-config";
+import { pageMetadata } from "@/lib/seo";
+import { pick, pickList } from "@/content/i18n";
+import { faq, process, servicePages, services } from "@/content/data/services";
 import { projects } from "@/content/data/projects";
+import { siteConfig } from "@/lib/site-config";
+import { PageHead } from "@/components/sections/page-head";
+import { SectionHead } from "@/components/sections/section-head";
+import { FaqList } from "@/components/sections/faq-list";
+import { ContactBlock } from "@/components/sections/contact-block";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -29,12 +20,15 @@ import {
   personId,
   serializeJsonLd,
 } from "@/lib/structured-data";
-import { FloatingProp } from "@/components/ambient/floating-prop";
-import { NeonHorizon } from "@/components/ambient/neon-horizon";
-import { Marquee } from "@/components/motion/marquee";
-import { Testimonials } from "@/components/testimonials";
 
 type Props = { params: Promise<{ locale: string }> };
+
+const art: Record<string, { src: string; w: number; h: number }> = {
+  web: { src: "/images/drawings/obj-web.webp", w: 586, h: 718 },
+  "google-ads": { src: "/images/drawings/obj-ads.webp", w: 776, h: 691 },
+  "meta-ads": { src: "/images/drawings/obj-meta.webp", w: 280, h: 625 },
+  seo: { src: "/images/drawings/obj-seo.webp", w: 558, h: 700 },
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -51,18 +45,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ServicesPage({ params }: Props) {
-  const { locale } = use(params);
+export default async function ServicesPage({ params }: Props) {
+  const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("services");
+  const t = await getTranslations({ locale, namespace: "services" });
+  const nav = await getTranslations({ locale, namespace: "nav" });
   const key = locale === "en" ? "en" : "sr";
-  const steps = process[key];
-  const questions = faq[key];
+  const titles = new Map(projects.map((p) => [p.slug, p.title]));
 
-  const navT = useTranslations("nav");
   const jsonLd = graph(
     {
-      // The shared business node, plus what it offers: one Service per service page.
       ...businessJsonLd(locale),
       makesOffer: services.map((s) => ({
         "@type": "Offer",
@@ -78,7 +70,7 @@ export default function ServicesPage({ params }: Props) {
     },
     {
       "@type": "FAQPage",
-      mainEntity: questions.map((q) => ({
+      mainEntity: faq[key].map((q) => ({
         "@type": "Question",
         name: q.q,
         acceptedAnswer: { "@type": "Answer", text: q.a },
@@ -86,190 +78,83 @@ export default function ServicesPage({ params }: Props) {
     },
     breadcrumbJsonLd(locale, [
       [siteConfig.name, "/"],
-      [navT("services"), "/services"],
+      [nav("services"), "/services"],
     ]),
   );
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-      />
-      <PageIntro
-        eyebrow={t("title")}
-        title={t("headline")}
-        intro={t("intro")}
-        aside={
-          <FloatingProp src="/images/props/open-sign-off.webp" glow="pink" priority>
-            {/* The lit render over the unlit one, flickering like a real neon sign. */}
-            <Image
-              src="/images/props/open-sign.webp"
-              alt=""
-              fill
-              sizes="(max-width: 768px) 60vw, 360px"
-              className="animate-neon object-contain"
-            />
-          </FloatingProp>
-        }
-      />
-      <Marquee
-        reverse
-        variant="terminal"
-        className="mb-20"
-        items={[
-          "Next.js",
-          "Nuxt",
-          "Laravel",
-          "Google Ads",
-          "Meta Ads",
-          "SEO",
-          "GA4",
-          "GTM",
-          "Core Web Vitals",
-          "Landing pages",
-        ]}
+    <div className="wrap">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <PageHead
+        crumbs={[{ label: nav("home"), href: "/" }, { label: nav("services") }]}
+        tag={t("tag")}
+        title={t("title")}
+        lead={t("intro")}
       />
 
-      <div className="mx-auto max-w-6xl space-y-24 px-4 pb-24 sm:px-6">
-        {services.map((service, i) => (
-          <section key={service.id} id={service.id} className="scroll-mt-24">
-            <div
-              className={`grid items-start gap-10 md:grid-cols-2 ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}
-            >
-              <Reveal from={i % 2 === 0 ? "left" : "right"}>
-                <p className="font-mono text-xs tracking-[0.3em] text-neon-cyan uppercase">
-                  0{i + 1}
-                </p>
-                <h2 className="mt-3 font-display text-3xl font-semibold text-ink-100 sm:text-4xl">
-                  <Link
-                    href={serviceHref(service.id, locale)}
-                    className="transition-colors hover:text-neon-cyan"
-                  >
-                    {pick(service.title, locale)}
-                  </Link>
-                </h2>
-                <p className="mt-5 text-lg text-ink-200">{pick(service.lead, locale)}</p>
-                <p className="mt-4 text-ink-400">
-                  <span className="text-ink-200">{t("forWhom")}:</span>{" "}
-                  {pick(service.forWhom, locale)}
-                </p>
-                <p className="mt-4 text-ink-400">
-                  <span className="text-ink-200">{t("examples")}:</span>{" "}
-                  {service.examples.map((slug, j) => {
-                    const project = projects.find((p) => p.slug === slug);
-                    if (!project) return null;
-                    return (
-                      <span key={slug}>
-                        {j > 0 ? ", " : ""}
-                        <Link
-                          href={projectHref(slug)}
-                          className="text-neon-cyan underline-offset-4 hover:underline"
-                        >
-                          {project.title}
-                        </Link>
-                      </span>
-                    );
-                  })}
-                </p>
-                <Link
-                  href={serviceHref(service.id, locale)}
-                  className="mt-6 inline-block border border-neon-cyan/60 notch-alt px-5 py-2.5 font-medium text-neon-cyan transition [--n:9px] [--nc:rgba(0,229,255,0.6)] hover:bg-neon-cyan/10"
-                >
-                  {pick(servicePageLabels.hubLink, locale)}:{" "}
-                  {pick(servicePages[service.id].h1, locale)}
-                </Link>
-              </Reveal>
-              <Reveal from={i % 2 === 0 ? "right" : "left"} delay={0.1}>
-                <CyberFrame
-                  as="ul"
-                  variant={[3, 8, 5, 9][i % 4]}
-                  tone="spin"
-                  className="bg-night-800 p-7"
-                >
-                  <li className="mb-3 font-mono text-xs tracking-widest text-ink-400 uppercase">
-                    {t("includes")}
+      <div className="mt-10 border-t border-ink">
+        {services.map((s, i) => (
+          <section
+            key={s.id}
+            aria-labelledby={`svc-${s.id}`}
+            className="grid gap-6 border-b border-ink py-10 lg:grid-cols-[180px_1.2fr_1fr] lg:gap-10 lg:py-14"
+          >
+            <div className="grid h-[140px] w-[140px] place-items-center">
+              <Image src={art[s.id].src} width={art[s.id].w} height={art[s.id].h} alt="" className="max-h-full max-w-full object-contain" />
+            </div>
+            <div>
+              <p className="font-mono text-[13px] text-blue">0{i + 1}</p>
+              <h2 id={`svc-${s.id}`} className="mt-2 text-title">
+                {pick(s.title, locale)}
+              </h2>
+              <p className="mt-4 max-w-[52ch] text-[17px] leading-[1.6] text-ink-2">{pick(s.lead, locale)}</p>
+              <Link href={serviceHref(s.id, locale)} className="btn btn-primary mt-6">
+                {t("more")} <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+            <div>
+              <h3 className="label">{t("includes")}</h3>
+              <ul className="mt-3 border-t border-rule">
+                {pickList(s.includes, locale).map((item) => (
+                  <li key={item} className="border-b border-rule py-2.5 text-[15px]">
+                    {item}
                   </li>
-                  {pickList(service.includes, locale).map((item, j) => (
-                    <li key={item} className="text-ink-200">
-                      <CyberDivider variant={i * 3 + j} className="text-white/10" />
-                      <span className="flex gap-3 py-3">
-                        <span
-                          aria-hidden="true"
-                          className="mt-2 size-1.5 shrink-0 rotate-45 bg-neon-pink"
-                        />
-                        {item}
-                      </span>
-                    </li>
+                ))}
+              </ul>
+              <p className="mt-5 flex flex-wrap items-center gap-1.5 text-[14px] text-ink-2">
+                <span className="mr-1">{t("examples")}:</span>
+                {s.examples
+                  .filter((slug) => titles.has(slug))
+                  .map((slug) => (
+                    <Link key={slug} href={projectHref(slug)} className="chip min-h-9 hover:border-blue hover:text-blue">
+                      {titles.get(slug)}
+                    </Link>
                   ))}
-                </CyberFrame>
-              </Reveal>
+              </p>
             </div>
           </section>
         ))}
       </div>
 
-      <Testimonials locale={locale} />
-      <NeonHorizon />
-      <section className="py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <Reveal>
-            <SectionHeading eyebrow={t("processEyebrow")} title={t("processTitle")} />
-          </Reveal>
-          <ol className="mt-12 grid gap-6 md:grid-cols-4">
-            {steps.map((step, i) => (
-              <Reveal key={step.title} as="li" delay={i * 0.1}>
-                <CyberFrame
-                  variant={[6, 1, 10, 4][i % 4]}
-                  scale={0.7}
-                  edgeClassName="h-full"
-                  className="bg-night-900 p-6"
-                >
-                  <span className="font-mono text-2xl text-neon-pink">0{i + 1}</span>
-                  <h3 className="mt-3 font-display text-lg font-semibold text-ink-100">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-ink-200">{step.body}</p>
-                </CyberFrame>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+      <section aria-labelledby="steps-title" className="pt-24 lg:pt-32">
+        <SectionHead id="steps-title" tag={t("processEyebrow")} title={t("processTitle")} />
+        <ol className="grid border border-ink bg-paper sm:grid-cols-2 lg:grid-cols-4">
+          {process[key].map((step, i) => (
+            <li key={step.title} className="border-b border-ink p-6 last:border-b-0 sm:border-r lg:border-b-0 lg:last:border-r-0">
+              <p className="text-[48px] leading-none font-light tracking-[-0.05em] text-blue">0{i + 1}</p>
+              <h3 className="mt-4 text-[22px] tracking-[-0.02em]">{step.title}</h3>
+              <p className="mt-2 text-[15px] leading-[1.55] text-ink-2">{step.body}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <Reveal>
-            <SectionHeading eyebrow="FAQ" title={t("faqTitle")} />
-          </Reveal>
-          <dl className="mt-10">
-            {questions.map((item, i) => (
-              <Reveal
-                key={item.q}
-                as="div"
-                from={i % 2 === 0 ? "left" : "right"}
-                className={i > 0 ? "pb-6" : "py-6"}
-              >
-                <dt className="font-display text-lg font-semibold text-ink-100">
-                  {i > 0 ? (
-                    <CyberDivider variant={i + 2} className="mb-6 text-white/10" />
-                  ) : null}
-                  {item.q}
-                </dt>
-                <dd className="mt-2 text-ink-200">{item.a}</dd>
-              </Reveal>
-            ))}
-          </dl>
-          <Reveal className="mt-12">
-            <Link
-              href="/contact"
-              className="inline-block bg-neon-pink notch-alt px-6 py-3 font-medium text-night-950 transition [--n:10px] hover:brightness-110"
-            >
-              {t("cta")}
-            </Link>
-          </Reveal>
-        </div>
+      <section aria-labelledby="faq-title" className="pt-24 lg:pt-32">
+        <SectionHead id="faq-title" tag="FAQ" title={t("faqTitle")} />
+        <FaqList items={faq[key]} />
       </section>
-    </>
+
+      <ContactBlock locale={locale} />
+    </div>
   );
 }

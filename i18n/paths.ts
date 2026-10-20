@@ -1,4 +1,5 @@
 import { serviceSlug } from "@/content/data/service-slugs";
+import { blogSlug } from "@/content/blog/slug-map";
 import type { AppHref } from "./navigation";
 import { routing, type AppPathname } from "./routing";
 
@@ -17,20 +18,27 @@ function patternOf(template: string) {
 
 const compiled = routes.map((route) => ({ route, ...patternOf(route) }));
 
-/** Params whose values are themselves localized (the service slug). */
+export function translateRouteParam(
+  route: string,
+  key: string,
+  value: string,
+  _from: string,
+  to: string,
+): string {
+  if (key === "service") return serviceSlug(value, to);
+  if (key === "slug" && route.startsWith("/blog")) return blogSlug(value, to);
+  return value;
+}
+
 function translateParams(params: Params, locale: string): Params {
   return Object.fromEntries(
     Object.entries(params).map(([key, value]) => [
       key,
-      key === "service" ? serviceSlug(value, locale) : value,
+      key === "service" ? serviceSlug(value, locale) : key === "slug" ? blogSlug(value, locale) : value,
     ]),
   );
 }
 
-/**
- * Splits a concrete internal path ("/projects/mango#gallery") into its route key, params
- * and hash. Returns null for anything that is not one of the app's routes.
- */
 export function matchRoute(
   href: string,
 ): { pathname: AppPathname; params: Params; hash?: string } | null {
@@ -48,11 +56,6 @@ export function matchRoute(
   return null;
 }
 
-/**
- * Public path of an internal path in one locale, without the locale prefix (a hash is kept):
- * ("sr", "/projects/mango") -> "/projekti/mango", ("sr", "/services/web") -> "/usluge/izrada-sajtova".
- * Unknown paths come back unchanged.
- */
 export function localizedPathname(locale: string, path: string): string {
   const matched = matchRoute(path);
   if (!matched) return path;
@@ -66,11 +69,6 @@ export function localizedPathname(locale: string, path: string): string {
   return template + hash;
 }
 
-/**
- * Turns a plain internal href ("/projects#clients") into the object form next-intl's
- * typed navigation expects, so the link gets the localized URL. Hrefs that are not app
- * routes (external, mailto, unknown) are returned as they are.
- */
 export function resolveHref(href: string, locale?: string): AppHref {
   const matched = matchRoute(href);
   if (!matched) return href as AppHref;
@@ -82,17 +80,12 @@ export function resolveHref(href: string, locale?: string): AppHref {
   } as AppHref;
 }
 
-/**
- * Full public path of an internal path, locale prefix included:
- * ("en", "/about") -> "/en/about", ("sr", "/about#education") -> "/o-meni#education".
- */
 export function publicPath(locale: string, path: string): string {
   const localized = localizedPathname(locale, path);
   if (locale === routing.defaultLocale) return localized;
   return localized === "/" ? `/${locale}` : `/${locale}${localized}`;
 }
 
-/** Typed Link href of a service page, with the slug of the given locale. */
 export function serviceHref(id: string, locale: string): AppHref {
   return {
     pathname: "/services/[service]",
@@ -100,7 +93,10 @@ export function serviceHref(id: string, locale: string): AppHref {
   };
 }
 
-/** Typed Link href of a case study. */
+export function blogHref(slug: string): AppHref {
+  return { pathname: "/blog/[slug]", params: { slug } };
+}
+
 export function projectHref(slug: string): AppHref {
   return { pathname: "/projects/[slug]", params: { slug } };
 }

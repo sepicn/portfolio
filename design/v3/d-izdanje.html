@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D Izdanje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.95 0.018 80);
+  --ink:oklch(0.2 0.02 40);
+  --ink-2:oklch(0.42 0.025 40);
+  --ink-3:oklch(0.6 0.02 40);
+  --red:oklch(0.52 0.19 28);
+  --line:oklch(0.2 0.02 40 / 0.14);
+  --serif:"Fraunces",serif;
+  --sans:"Inter Tight",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{padding:0 clamp(16px,3vw,48px)}
+.topline{display:flex;justify-content:space-between;padding:18px 0 12px;border-bottom:1px solid var(--ink);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.mast{font-family:var(--serif);font-weight:900;font-variation-settings:"opsz" 144;font-size:clamp(5rem,24.6vw,28rem);line-height:.78;letter-spacing:-.055em;text-align:center;padding:2vw 0 5.2vw;margin:0 -0.5vw}
+.mast i{font-weight:300;font-style:italic;color:var(--red)}
+.sub{display:flex;justify-content:space-between;border-top:1px solid var(--ink);border-bottom:3px double var(--ink);padding:10px 0;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.cover{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:40px;padding:40px 0 60px}
+.cl{display:flex;flex-direction:column;gap:30px}
+.line{border-top:1px solid var(--line);padding-top:14px}
+.line .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:600}
+.line h3{font-family:var(--serif);font-weight:500;font-size:clamp(22px,1.9vw,30px);line-height:1.08;letter-spacing:-.015em;margin-top:6px}
+.line h3 em{font-style:italic;font-weight:400}
+.big{font-family:var(--serif);font-weight:300;font-size:clamp(4.5rem,8vw,9rem);line-height:.85;letter-spacing:-.05em;color:var(--red)}
+.photo{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--ink)}
+.photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) sepia(.25);mix-blend-mode:luminosity;opacity:.92}
+.photo .cap{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(transparent,oklch(0.15 0.02 40 / .8));color:var(--bg);font-family:var(--serif);font-style:italic;font-size:18px}
+.lede{font-family:var(--serif);font-size:clamp(20px,1.6vw,26px);line-height:1.3;font-weight:400}
+.lede:first-letter{float:left;font-size:4.2em;line-height:.8;padding:6px 8px 0 0;font-weight:800;color:var(--red)}
+.btn{display:inline-block;margin-top:18px;border-bottom:2px solid var(--red);padding-bottom:4px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+section.toc{border-top:3px double var(--ink);padding:70px 0 100px}
+.toc-head{display:grid;grid-template-columns:1fr 2fr;gap:40px;margin-bottom:40px}
+h2{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(3rem,7vw,8rem);letter-spacing:-.05em;line-height:.85}
+.toc-head p{font-family:var(--serif);font-size:22px;line-height:1.35;align-self:end;color:var(--ink-2);max-width:40ch}
+.row{display:grid;grid-template-columns:120px 1fr 1.2fr 160px;gap:30px;align-items:baseline;padding:26px 0;border-top:1px solid var(--line)}
+.row .pg{font-family:var(--serif);font-weight:300;font-size:64px;line-height:.8;color:var(--red);letter-spacing:-.04em}
+.row h3{font-family:var(--serif);font-weight:600;font-size:clamp(28px,3vw,44px);letter-spacing:-.03em;line-height:1}
+.row h3 em{font-weight:300}
+.row p{font-size:15px;line-height:1.5;color:var(--ink-2)}
+.row .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-align:right;font-weight:600}
+@media (max-width:900px){
+  .topline span:nth-child(2),.sub span:nth-child(2){display:none}
+  .mast{font-size:25vw;padding-top:4vw}
+  .cover{grid-template-columns:1fr;gap:28px;padding-top:24px}
+  .cover .mid{order:-1}
+  .toc-head{grid-template-columns:1fr}
+  .row{grid-template-columns:64px 1fr;gap:8px 16px}
+  .row .pg{font-size:44px}
+  .row p,.row .tag{grid-column:2;text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="topline"><span>Br. 03</span><span>Projekti · Usluge · O meni · CV · Kontakt</span><span>Jesen 2026</span></div>
+<h1 class="mast">Šepić<i>.</i></h1>
+<div class="sub"><span>Beograd</span><span>Časopis o kodu, kampanjama i rezultatima</span><span>sepic.me</span></div>
+
+<section class="cover">
+  <div class="cl">
+    <div class="line"><div class="k">Naslovna priča</div><h3>Kako je bolnica progovorila <em>pet jezika</em></h3></div>
+    <div class="line"><div class="k">Kampanje</div><div class="big">−54%</div><h3>cene konverzije, <em>bez većeg budžeta</em></h3></div>
+    <div class="line"><div class="k">Novo u ovom broju</div><h3>Kafe i Makaze: dva SaaS-a <em>za Srbiju</em></h3></div>
+  </div>
+  <div class="mid"><div class="photo"><img src="../../public/images/nikola.webp" alt="Nikola Šepić"><div class="cap">Nikola Šepić, full-stack developer i PPC specijalista</div></div></div>
+  <div class="cl">
+    <p class="lede">Pravim web aplikacije za bolnice, transport i restorane, a onda pišem kampanje koje im dovedu ljude. Ovo je arhiva tog rada: četrnaest priča, sa brojevima.</p>
+    <div class="line"><div class="k">Intervju</div><h3>Knjige, mačka i teretana: <em>šta radi kad ne kodira</em></h3></div>
+    <a class="btn">Čitaj izdanje ↓</a>
+  </div>
+</section>
+
+<section class="toc">
+  <div class="toc-head"><h2>Sadržaj</h2><p>Svaka priča ima šta sam radio, šta je bilo teško i broj koji to dokazuje.</p></div>
+  <div class="row"><span class="pg">04</span><h3>Medical <em>Time</em></h3><p>Platforma od 400 hiljada linija, chatbot koji zakazuje preglede i Google Ads nalog koji se isplati.</p><span class="tag">Klijent · 2025-26</span></div>
+  <div class="row"><span class="pg">18</span><h3>Kafe</h3><p>POS, kuhinjski ekran i aplikacija za konobare, sve iz jednog API-ja.</p><span class="tag">SaaS · 2026</span></div>
+  <div class="row"><span class="pg">26</span><h3>Makaze</h3><p>Fiskalni račun, IPS depozit i online zakazivanje za frizerske salone.</p><span class="tag">SaaS · 2026</span></div>
+  <div class="row"><span class="pg">34</span><h3>Logistics <em>TMS</em></h3><p>Četrdeset formi za američku logistiku, pretvorenih u čarobnjake.</p><span class="tag">Klijent · SAD</span></div>
+</section>
+</div>
+</body>
+</html>

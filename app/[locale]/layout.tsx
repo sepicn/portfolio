@@ -1,42 +1,38 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { FooterCta } from "@/components/footer-cta";
-import { BackToTop } from "@/components/back-to-top";
+import { MobileBar } from "@/components/mobile-bar";
 import { SkipLink } from "@/components/skip-link";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { CursorGlow } from "@/components/cursor-glow";
+import { RevealObserver } from "@/components/motion/reveal-observer";
+import { SectionRuler } from "@/components/motion/section-ruler";
 import { Analytics, gtmId } from "@/components/analytics";
 import { ConsentBanner } from "@/components/consent-banner";
 import { siteConfig } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/seo";
 import "../globals.css";
 
-const inter = Inter({
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
+  weight: "variable",
+  variable: "--font-plex-sans",
   display: "swap",
+  adjustFontFallback: true,
+  fallback: ["Arial", "Helvetica", "sans-serif"],
 });
 
-const spaceGrotesk = Space_Grotesk({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-space-grotesk",
+  weight: "400",
+  variable: "--font-plex-mono",
   display: "swap",
-});
-
-// Only small labels use the mono face, never the largest text, so it is not preloaded:
-// two fewer font files competing with the page on the first load.
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-  preload: false,
+  fallback: ["Consolas", "Menlo", "Courier New", "monospace"],
+  preload: true,
 });
 
 type Props = {
@@ -44,18 +40,18 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+export const viewport: Viewport = {
+  themeColor: "#f3f5fa",
+};
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: Omit<Props, "children">): Promise<Metadata> {
+export async function generateMetadata({ params }: Omit<Props, "children">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "site" });
   const title = t("metaTitle");
-  // Every page sets its own canonical and hreflang. Here they would leak into pages that do
-  // not, such as the 404, which then pointed its canonical at home next to Next.js noindex.
   const shared = pageMetadata({
     locale,
     path: "/",
@@ -81,30 +77,25 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound();
   }
   setRequestLocale(locale);
+  const all = await getMessages();
+  const clientMessages = Object.fromEntries(
+    ["nav", "consent", "contactForm", "reveal"].map((ns) => [ns, all[ns]]),
+  );
 
   return (
-    // The inline script below adds `js` to <html> before React hydrates, so the class differs
-    // from the server's on purpose; this only silences that one attribute on this one element.
-    <html
-      lang={locale}
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full`}
-      suppressHydrationWarning
-    >
-      <body className="flex min-h-full flex-col">
-        <Script id="js-flag" strategy="beforeInteractive">
-          {"document.documentElement.classList.add('js')"}
-        </Script>
-        <NextIntlClientProvider>
+    <html lang={locale} className={`${plexSans.variable} ${plexMono.variable}`}>
+      <body className="flex min-h-dvh flex-col">
+        <NextIntlClientProvider messages={clientMessages}>
           <SmoothScroll />
-          <CursorGlow />
+          <RevealObserver />
+          <SectionRuler />
           <SkipLink />
           <SiteHeader />
           <main id="content" className="flex-1">
             {children}
           </main>
-          <FooterCta />
-          <SiteFooter />
-          <BackToTop />
+          <SiteFooter consent={Boolean(gtmId)} />
+          <MobileBar />
           {gtmId ? <ConsentBanner /> : null}
         </NextIntlClientProvider>
         <Analytics />

@@ -1,30 +1,15 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
-import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
-import { PageIntro } from "@/components/page-intro";
-import { Reveal } from "@/components/reveal";
-import { CyberFrame } from "@/components/cyber-frame";
-import { ContactForm } from "@/components/contact-form";
+import { pageMetadata } from "@/lib/seo";
 import { profile } from "@/content/data/profile";
 import { pick } from "@/content/i18n";
-import { RevealContact } from "@/components/reveal-contact";
 import { encodeContact } from "@/lib/obfuscate";
-import { FloatingProp } from "@/components/ambient/floating-prop";
-import { SignalLed } from "@/components/ambient/signal-led";
-import { Marquee } from "@/components/motion/marquee";
-import {
-  absoluteUrl,
-  breadcrumbJsonLd,
-  graph,
-  personId,
-  serializeJsonLd,
-  websiteId,
-  businessId,
-  businessJsonLd,
-} from "@/lib/structured-data";
 import { siteConfig } from "@/lib/site-config";
+import { cvPdf } from "@/lib/cv";
+import { RevealContact } from "@/components/reveal-contact";
+import { ContactForm } from "@/components/contact-form";
+import { PageHead } from "@/components/sections/page-head";
+import { breadcrumbJsonLd, businessJsonLd, graph, serializeJsonLd } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -43,128 +28,51 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ContactPage({ params }: Props) {
-  const { locale } = use(params);
+export default async function ContactPage({ params }: Props) {
+  const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("contact");
-  const navT = useTranslations("nav");
+  const t = await getTranslations({ locale, namespace: "contact" });
+  const nav = await getTranslations({ locale, namespace: "nav" });
   const jsonLd = graph(
-    {
-      "@type": "ContactPage",
-      "@id": `${absoluteUrl(locale, "/contact")}#page`,
-      url: absoluteUrl(locale, "/contact"),
-      name: t("metaTitle"),
-      description: t("metaDescription"),
-      inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
-      isPartOf: { "@id": websiteId },
-      about: { "@id": personId },
-      mainEntity: { "@id": businessId },
-    },
     businessJsonLd(locale),
     breadcrumbJsonLd(locale, [
       [siteConfig.name, "/"],
-      [navT("contact"), "/contact"],
+      [nav("contact"), "/contact"],
     ]),
   );
-
   const links = [
-    { label: "LinkedIn", value: "linkedin.com/in/sepicn", href: profile.linkedin },
-    { label: "GitHub", value: "github.com/sepicn", href: profile.github },
+    { label: "LinkedIn", value: "linkedin.com/in/sepicn", href: siteConfig.linkedin },
+    { label: "GitHub", value: "github.com/sepicn", href: siteConfig.github },
   ];
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-      />
-      <PageIntro
-        title={t("title")}
-        intro={t("intro")}
-        aside={<FloatingProp src="/images/props/telephone.webp" glow="pink" priority />}
-      >
-        <SignalLed label={t("signal")} className="mt-6" />
-      </PageIntro>
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 pb-28 sm:px-6 md:grid-cols-2">
-        <Reveal from="left">
-          <div className="space-y-3">
-            <RevealContact
-              variant="row"
-              kind="email"
-              encoded={encodeContact(profile.email)}
-            />
-            <RevealContact
-              variant="row"
-              kind="phone"
-              encoded={encodeContact(profile.phone)}
-            />
-            <RevealContact
-              variant="row"
-              kind="whatsapp"
-              encoded={encodeContact(profile.phone)}
-            />
-          </div>
-          <ul className="mt-3 space-y-3">
-            {links.map((c, i) => (
-              <li key={c.label}>
-                <a href={c.href} target="_blank" rel="noopener" className="group block">
-                  <CyberFrame
-                    variant={[0, 8, 4, 1][i % 4]}
-                    scale={0.45}
-                    edgeClassName="group-hover:bg-neon-cyan/50"
-                    className="flex min-h-[3.625rem] items-center justify-between bg-night-900 px-4 py-3"
-                  >
-                    <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-                      {c.label}
-                    </span>
-                    <span className="text-ink-100">{c.value}</span>
-                  </CyberFrame>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-6 text-ink-400">
-            {t("location")} · {pick(profile.openFor, locale)}
+    <div className="wrap">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <PageHead crumbs={[{ label: nav("home"), href: "/" }, { label: nav("contact") }]} tag={t("tag")} title={t("title")} lead={t("intro")} />
+
+      <div className="mt-10 grid border border-ink bg-paper lg:grid-cols-[1fr_1.1fr]">
+        <div className="border-b border-ink px-[18px] py-6 lg:border-r lg:border-b-0 lg:px-10 lg:py-10">
+          <RevealContact variant="row" kind="email" encoded={encodeContact(profile.email)} />
+          <RevealContact variant="row" kind="phone" encoded={encodeContact(profile.phone)} />
+          <RevealContact variant="row" kind="whatsapp" encoded={encodeContact(profile.phone)} />
+          {links.map((l) => (
+            <a key={l.label} href={l.href} target="_blank" rel="me noopener" className="flex min-h-[68px] items-center justify-between gap-4 border-b border-rule py-3 hover:text-blue">
+              <span className="label">{l.label}</span>
+              <span className="text-[18px] font-medium">{l.value} ↗</span>
+            </a>
+          ))}
+          <a href={cvPdf(locale)} className="flex min-h-[68px] items-center justify-between gap-4 border-b border-rule py-3 hover:text-blue">
+            <span className="label">CV</span>
+            <span className="text-[18px] font-medium">PDF ↓</span>
+          </a>
+          <h2 className="mt-10 text-[24px] tracking-[-0.02em]">{t("areaTitle")}</h2>
+          <p className="mt-3 max-w-[52ch] text-[16px] leading-[1.6] text-ink-2">{t("area")}</p>
+          <p className="mt-4 font-mono text-[13px] text-ink-2">
+            {t("location")} · {pick(profile.availability, locale)}
           </p>
-          <h2 className="mt-10 text-xl font-semibold text-ink-100">{t("howTitle")}</h2>
-          <p className="mt-3 leading-relaxed text-ink-300">{t("how")}</p>
-          <h2 className="mt-8 text-xl font-semibold text-ink-100">{t("areaTitle")}</h2>
-          <p className="mt-3 leading-relaxed text-ink-300">{t("area")}</p>
-        </Reveal>
-        <Reveal from="right" delay={0.1}>
-          <ContactForm encodedEmail={encodeContact(profile.email)} />
-        </Reveal>
+        </div>
+        <ContactForm encodedEmail={encodeContact(profile.email)} />
       </div>
-      <Marquee
-        reverse
-        variant="caution"
-        className="mb-16"
-        items={
-          locale === "en"
-            ? [
-                "Websites",
-                "Web apps",
-                "Google Ads",
-                "Meta Ads",
-                "SEO",
-                "Freelance",
-                "Full-time",
-                "Belgrade",
-                "Remote",
-              ]
-            : [
-                "Sajtovi",
-                "Web aplikacije",
-                "Google Ads",
-                "Meta Ads",
-                "SEO",
-                "Freelance",
-                "Stalni posao",
-                "Beograd",
-                "Remote",
-              ]
-        }
-      />
-    </>
+    </div>
   );
 }

@@ -1,5 +1,3 @@
-// Explicit override first, then the production domain Vercel assigns (it becomes the custom
-// domain once one is attached), so canonical and OG URLs never point at a domain we do not serve.
 const vercelProduction =
   process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ??
   process.env.VERCEL_PROJECT_PRODUCTION_URL;
@@ -18,11 +16,10 @@ export const siteConfig = {
 } as const;
 
 export const navItems = [
-  { key: "home", href: "/" },
   { key: "projects", href: "/projects" },
   { key: "services", href: "/services" },
+  { key: "blog", href: "/blog" },
   { key: "about", href: "/about" },
-  { key: "cv", href: "/cv" },
   { key: "contact", href: "/contact" },
 ] as const;
 

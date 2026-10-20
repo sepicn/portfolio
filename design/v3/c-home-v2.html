@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C Nacrt Home v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="footer.css">
+<style>
+:root{
+  --bg:oklch(0.975 0.006 250);
+  --paper:oklch(0.99 0.003 250);
+  --ink:oklch(0.22 0.04 265);
+  --ink-2:oklch(0.42 0.04 265);
+  --ink-3:oklch(0.53 0.035 265);
+  --blue:oklch(0.47 0.21 265);
+  --blue-2:oklch(0.72 0.15 265);
+  --blue-soft:oklch(0.47 0.21 265 / 0.08);
+  --grid:oklch(0.47 0.21 265 / 0.07);
+  --grid-2:oklch(0.47 0.21 265 / 0.14);
+  --sans:"IBM Plex Sans",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid-2) 1px,transparent 1px),linear-gradient(90deg,var(--grid-2) 1px,transparent 1px);
+  background-size:24px 24px,24px 24px,120px 120px,120px 120px}
+a{color:inherit;text-decoration:none}
+img{display:block}
+.wrap{padding:0 clamp(16px,3vw,48px)}
+.tag{font-family:var(--mono);font-size:13px;color:var(--blue);letter-spacing:.05em;text-transform:uppercase}
+
+.frame{border:1px solid var(--ink);margin-top:16px}
+header{display:grid;grid-template-columns:auto 1fr auto auto;align-items:stretch;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+header>*{padding:14px 18px;display:flex;align-items:center}
+header .id{border-right:1px solid var(--ink);font-weight:500}
+header nav{gap:28px;padding-left:24px}
+header .lang{border-left:1px solid var(--ink);color:var(--blue)}
+header .cv{border-left:1px solid var(--ink);background:var(--ink);color:var(--bg)}
+
+.hero{display:grid;grid-template-columns:1.05fr 1fr;min-height:calc(100vh - 80px)}
+.left{padding:52px 40px 36px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--ink)}
+.status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;padding:8px 12px;border:1px solid var(--grid-2);background:var(--paper)}
+.status:before{content:"";width:8px;height:8px;border-radius:50%;background:oklch(0.65 0.17 150);box-shadow:0 0 0 4px oklch(0.65 0.17 150 / .15)}
+h1{font-weight:500;font-size:clamp(3rem,6.2vw,7.2rem);line-height:.93;letter-spacing:-.045em;margin-top:26px}
+h1 span{color:var(--blue)}
+h1 .strike{position:relative;color:var(--ink-3)}
+h1 .strike:after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.07em;background:var(--blue)}
+.who{display:grid;grid-template-columns:72px 1fr;gap:18px;margin-top:36px;max-width:600px}
+.who img{width:72px;height:72px;object-fit:cover;border:1px solid var(--ink);filter:grayscale(1) contrast(1.05)}
+.who p{font-size:17px;line-height:1.55;color:var(--ink-2)}
+.who p b{color:var(--ink);font-weight:500}
+.cta{display:flex;margin-top:36px;font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:.05em}
+.cta a{padding:17px 22px;border:1px solid var(--ink);min-height:52px}
+.cta a:first-child{background:var(--blue);border-color:var(--blue);color:var(--bg)}
+.right{position:relative;overflow:hidden;min-height:520px}
+.draw{position:absolute;inset:2% 26% 6% 2%;background:url(assets/stack.png) center/contain no-repeat}
+.call{position:absolute;right:5%;font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:10px;flex-direction:row-reverse}
+.call:before{content:"";width:110px;height:1px;background:var(--blue)}
+.call b{color:var(--blue);font-weight:500}
+.c1{top:18%}.c2{top:38%}.c3{top:56%}.c4{top:73%}
+.legend-m{display:none}
+.right .note{position:absolute;left:0;bottom:0;padding:10px 14px;border-top:1px solid var(--ink);border-right:1px solid var(--ink);font-family:var(--mono);font-size:12px;color:var(--ink-2);background:var(--bg)}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);border-top:0;background:var(--paper)}
+.facts div{padding:26px 24px;border-right:1px solid var(--ink)}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-weight:500;font-size:clamp(2.4rem,4vw,4rem);letter-spacing:-.04em;line-height:1}
+.facts span{display:block;margin-top:8px;font-size:15px;color:var(--ink-2);line-height:1.4}
+
+.sec{padding:140px 0 0}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:40px}
+.sec-head p{font-size:18px;line-height:1.55;color:var(--ink-2);max-width:46ch}
+h2{font-weight:500;font-size:clamp(2.6rem,5.4vw,6rem);letter-spacing:-.045em;line-height:.92;margin-top:12px}
+
+.feat{display:grid;grid-template-columns:1.25fr 1fr;border:1px solid var(--ink);background:var(--paper);margin-bottom:28px}
+.feat .img{position:relative;border-right:1px solid var(--ink);overflow:hidden;min-height:440px}
+.feat .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.feat .img .ph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:var(--ink-3);background:repeating-linear-gradient(45deg,transparent 0 10px,var(--blue-soft) 10px 11px)}
+.feat .body{display:flex;flex-direction:column}
+.feat .top{padding:28px;flex:1}
+.feat .row1{display:flex;justify-content:space-between}
+.feat h3{font-weight:500;font-size:clamp(2.2rem,3.6vw,3.8rem);letter-spacing:-.04em;line-height:1;margin:14px 0}
+.feat p{font-size:16px;line-height:1.6;color:var(--ink-2);max-width:46ch}
+.feat p + p{margin-top:10px}
+.stackline{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
+.stackline span{font-family:var(--mono);font-size:12px;padding:6px 9px;border:1px solid var(--grid-2);color:var(--ink-2)}
+.feat .kpis{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+.feat .kpis div{padding:18px 20px;border-right:1px solid var(--ink);font-size:13px;color:var(--ink-2)}
+.feat .kpis div:last-child{border-right:0}
+.feat .kpis b{display:block;font-weight:500;font-size:30px;letter-spacing:-.03em;color:var(--blue)}
+.feat .open{display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 20px;border-top:1px solid var(--ink);font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.05em;background:var(--ink);color:var(--bg)}
+.feat.rev{grid-template-columns:1fr 1.25fr}
+.feat.rev .img{order:2;border-right:0;border-left:1px solid var(--ink)}
+
+.more{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px}
+.more a{display:block;border-top:2px solid var(--ink);padding-top:14px}
+.more small{font-family:var(--mono);font-size:12px;color:var(--blue)}
+.more h4{font-weight:500;font-size:24px;letter-spacing:-.02em;margin:6px 0}
+.more p{font-size:15px;line-height:1.5;color:var(--ink-2)}
+.allp{display:inline-flex;margin-top:36px;padding:16px 22px;border:1px solid var(--ink);font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.05em;background:var(--paper)}
+
+.svc-band{margin-top:140px;background:var(--ink);color:var(--bg);border:1px solid var(--ink);
+  background-image:linear-gradient(oklch(0.95 0 0 / .05) 1px,transparent 1px),linear-gradient(90deg,oklch(0.95 0 0 / .05) 1px,transparent 1px);background-size:24px 24px}
+.svc-band .sec-head{padding:56px 40px 0;margin-bottom:40px}
+.svc-band .tag{color:var(--blue-2)}
+.svc-band .sec-head p{color:oklch(0.8 0.02 265)}
+.svc{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid oklch(0.95 0 0 / .15)}
+.svc a{display:flex;flex-direction:column;gap:20px;padding:28px 24px 26px;border-right:1px solid oklch(0.95 0 0 / .15)}
+.svc a:last-child{border-right:0}
+.svc img{width:120px;height:120px;object-fit:contain;filter:invert(1) hue-rotate(180deg) brightness(1.15)}
+.svc h3{font-weight:500;font-size:26px;letter-spacing:-.03em;line-height:1.1}
+.svc p{font-size:15px;color:oklch(0.82 0.02 265);line-height:1.55}
+.svc .go{margin-top:auto;font-family:var(--mono);font-size:13px;color:var(--blue-2);text-transform:uppercase;letter-spacing:.05em}
+
+.jobs{position:relative;padding-left:28px;border-left:1px solid var(--blue)}
+.job{position:relative;display:grid;grid-template-columns:200px 1fr 1.3fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--grid-2)}
+.job:before{content:"";position:absolute;left:-34px;top:32px;width:11px;height:11px;background:var(--bg);border:2px solid var(--blue)}
+.job.now:before{background:var(--blue)}
+.job .per{font-family:var(--mono);font-size:14px;color:var(--ink-2);padding-top:6px}
+.job h4{font-weight:500;font-size:24px;letter-spacing:-.025em;line-height:1.15}
+.job small{display:block;font-size:15px;color:var(--ink-2);margin-top:4px}
+.job p{font-size:16px;line-height:1.55;color:var(--ink-2)}
+.job p b{color:var(--ink);font-weight:500}
+
+
+.me{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:center}
+.me .ph{position:relative;border:1px solid var(--ink);background:var(--paper);padding:14px}
+.me .ph img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.me .ph span{position:absolute;left:28px;bottom:28px;font-family:var(--mono);font-size:12px;padding:5px 8px;background:var(--bg)}
+.me p{font-size:clamp(19px,1.6vw,23px);line-height:1.55;color:oklch(0.3 0.04 265);margin-top:18px;max-width:40ch}
+.me .lst{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.me .lst span{font-size:15px;padding:9px 14px;border:1px solid var(--grid-2);background:var(--paper)}
+
+.contact{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid var(--ink);background:var(--paper);margin-top:140px}
+.contact .l{padding:52px 40px;border-right:1px solid var(--ink)}
+.contact .l h2{font-size:clamp(3rem,6.4vw,7rem)}
+.contact .l h2 span{color:var(--blue)}
+.contact .l p{margin-top:24px;font-size:18px;color:var(--ink-2);max-width:38ch;line-height:1.55}
+.contact .opts{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.contact .opts span{font-family:var(--mono);font-size:13px;padding:12px 16px;border:1px solid var(--ink);min-height:44px;display:flex;align-items:center}
+.contact .opts span.on{background:var(--ink);color:var(--bg)}
+.contact form{display:flex;flex-direction:column}
+.field{padding:18px 24px;border-bottom:1px solid var(--grid-2)}
+.field label{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+.field div{font-size:18px;color:var(--ink-3)}
+.field.area{flex:1;min-height:150px}
+.send{display:flex;justify-content:space-between;align-items:center;min-height:60px;padding:0 24px;background:var(--blue);font-family:var(--mono);font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--bg)}
+
+.mbar{display:none}
+
+@media (max-width:900px){
+  header nav,header .lang{display:none}
+  header{grid-template-columns:1fr auto}
+  .hero{grid-template-columns:1fr;min-height:0}
+  .left{border-right:0;border-bottom:1px solid var(--ink);padding:24px 18px}
+  h1{font-size:clamp(2.8rem,13.5vw,4.4rem);margin-top:20px}
+  .who{grid-template-columns:56px 1fr;gap:14px;margin-top:26px}
+  .who img{width:56px;height:56px}
+  .who p{font-size:16px}
+  .cta{flex-direction:column;margin-top:26px}
+  .cta a{display:flex;align-items:center}
+  .right{min-height:0;padding:16px 18px 18px}
+  .draw{position:relative;inset:auto;height:300px}
+  .call,.right .note{display:none}
+  .legend-m{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-top:10px;font-family:var(--mono);font-size:13px}
+  .legend-m b{color:var(--blue);font-weight:500;margin-right:6px}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div{padding:20px 16px}
+  .facts div:nth-child(2){border-right:0}
+  .facts div:nth-child(-n+2){border-bottom:1px solid var(--ink)}
+  .sec{padding-top:88px}
+  .sec-head{grid-template-columns:1fr;gap:14px;margin-bottom:28px}
+  .sec-head p{font-size:16px}
+  .feat,.feat.rev{grid-template-columns:1fr}
+  .feat .img,.feat.rev .img{order:0;border:0;border-bottom:1px solid var(--ink);min-height:220px}
+  .feat .top{padding:20px 18px}
+  .more{grid-template-columns:1fr;gap:20px;margin-top:36px}
+  .svc-band{margin-top:88px}
+  .svc-band .sec-head{padding:36px 18px 0}
+  .svc{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+  .svc a{flex:0 0 82%;scroll-snap-align:start;border-right:1px solid oklch(0.95 0 0 / .15)}
+  .svc img{width:96px;height:96px}
+  .jobs{padding-left:22px}
+  .job{grid-template-columns:1fr;gap:6px;padding:22px 0}
+  .job:before{left:-28px;top:26px}
+  .job .per{padding-top:0;font-size:13px;color:var(--blue)}
+  .me{grid-template-columns:1fr;gap:28px}
+  .contact{grid-template-columns:1fr;margin-top:88px}
+  .contact .l{padding:32px 18px;border-right:0;border-bottom:1px solid var(--ink)}
+  .field{padding:16px 18px}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;left:12px;right:12px;bottom:12px;z-index:30;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--ink);box-shadow:0 12px 30px -10px oklch(0.2 0.04 265 / .5)}
+  .mbar span{display:flex;align-items:center;justify-content:center;min-height:52px;border-right:1px solid oklch(0.95 0 0 / .15)}
+  .mbar span:last-child{border-right:0;background:var(--blue)}
+}
+.sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 56px}
+.sgroup h4{font-family:var(--mono);font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--grid-2)}
+.sname{font-size:19px;font-weight:500;letter-spacing:-.015em}
+.sname em{display:block;font-style:normal;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink-2);margin-top:3px}
+.sproj{display:flex;flex-wrap:wrap;gap:6px}
+.sproj a{font-size:14px;padding:6px 10px;border:1px solid var(--grid-2);background:var(--paper);color:var(--ink-2);min-height:32px;display:inline-flex;align-items:center}
+.sproj a:hover{border-color:var(--blue);color:var(--blue)}
+@media (max-width:900px){.sgrid{grid-template-columns:minmax(0,1fr);gap:36px}.srow{grid-template-columns:minmax(0,1fr);gap:8px}.sproj a{min-height:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="frame">
+<header><div class="id">N. Šepić</div><nav><span>Projekti</span><span>Usluge</span><span>Iskustvo</span><span>Blog</span><span>Kontakt</span></nav><div class="lang">SR / EN</div><div class="cv">CV ↓</div></header>
+<section class="hero">
+  <div class="left">
+    <div>
+      <span class="status">Otvoren za novi posao</span>
+      <h1>Gradim <span class="strike">sajtove</span><br><span>sisteme</span> i dovodim<br>im korisnike.</h1>
+      <div class="who"><img src="../../public/images/nikola.webp" alt="Nikola Šepić"><p>Ja sam <b>Nikola Šepić</b>, full-stack developer iz Beograda. Od 2025. radim na bolničkoj platformi, TMS-u za američki transport i dva svoja SaaS proizvoda, a vodim i Google Ads kampanje. Tražim mid-level poziciju, a primam i freelance projekte.</p></div>
+    </div>
+    <div class="cta"><a href="#">Pogledaj projekte →</a><a href="#">Preuzmi CV (PDF)</a></div>
+  </div>
+  <div class="right" aria-hidden="true">
+    <div class="draw"></div>
+    <div class="call c1"><span><b>04</b> Klijentska aplikacija</span></div>
+    <div class="call c2"><span><b>03</b> Studio za salon</span></div>
+    <div class="call c3"><span><b>02</b> Go API, 11 modula</span></div>
+    <div class="call c4"><span><b>01</b> PostgreSQL</span></div>
+    <div class="legend-m"><span><b>01</b>PostgreSQL</span><span><b>02</b>Go API</span><span><b>03</b>Studio</span><span><b>04</b>Klijentska app</span></div>
+    <div class="note">Nacrt: Makaze, softver za salone</div>
+  </div>
+</section>
+</div>
+<div class="facts">
+  <div><b>16</b><span>projekata, 10 za klijente</span></div>
+  <div><b>400k</b><span>linija koda na platformi Medical Time</span></div>
+  <div><b>5</b><span>jezika koje održavam na jednoj platformi</span></div>
+  <div><b>−54%</b><span>cena konverzije na najboljim kampanjama</span></div>
+</div>
+
+<section class="sec">
+  <div class="sec-head"><div><div class="tag">Projekti</div><h2>Na čemu radim</h2></div><p>Tri projekta na kojima sam najviše naučio. Ostalih 13 su na strani Projekti, svaki sa pričom i brojevima.</p></div>
+
+  <article class="feat">
+    <div class="img"><img src="../../public/images/projects/medical-time.webp" alt="Sajt Medical Time"></div>
+    <div class="body">
+      <div class="top">
+        <div class="row1 tag"><span>Bolnica · klijent</span><span>2025-26</span></div>
+        <h3>Medical Time</h3>
+        <p>Platforma bolnice, oko 400 hiljada linija u Nuxt-u i Laravelu. Ja vodim prevode na 5 jezika. Napravio sam chatbot koji zakazuje preglede i potpisivanje saglasnosti na daljinu.</p>
+        <p>Vodim i njihov Google Ads nalog: 8 Search kampanja i 370+ negativnih ključnih reči.</p>
+        <div class="stackline"><span>Nuxt</span><span>Laravel</span><span>MySQL</span><span>Flutter</span><span>Google Ads</span></div>
+      </div>
+      <div class="kpis"><div><b>5</b>jezika</div><div><b>98%</b>Site Health</div><div><b>−54%</b>cena konverzije</div></div>
+      <a class="open" href="#"><span>Cela priča</span><span>→</span></a>
+    </div>
+  </article>
+
+  <article class="feat rev">
+    <div class="img"><div class="ph">[ screenshot: Kafe kasa i ekran za kuhinju ]</div></div>
+    <div class="body">
+      <div class="top">
+        <div class="row1 tag"><span>Moj SaaS</span><span>2026</span></div>
+        <h3>Kafe</h3>
+        <p>Softver za restorane i kafiće: back-office, kasa, ekran za kuhinju i aplikacija za konobare. Sve radi na jednom Django API-ju, a u lokalu stoji gateway.</p>
+        <p>Arhitektura, odluke i pregled koda su moji. Kod pišem uz AI agente.</p>
+        <div class="stackline"><span>Django</span><span>TypeScript</span><span>Flutter</span><span>Docker</span><span>Terraform</span></div>
+      </div>
+      <div class="kpis"><div><b>4</b>aplikacije</div><div><b>1</b>API</div><div><b>3</b>jezika koda</div></div>
+      <a class="open" href="#"><span>Cela priča</span><span>→</span></a>
+    </div>
+  </article>
+
+  <article class="feat">
+    <div class="img"><div class="ph">[ screenshot: Makaze kalendar ]</div></div>
+    <div class="body">
+      <div class="top">
+        <div class="row1 tag"><span>Moj SaaS</span><span>2026</span></div>
+        <h3>Makaze</h3>
+        <p>Softver za frizerske salone. Kalendar, kasa sa fiskalnim računom, depozit preko IPS-a i online zakazivanje za klijente.</p>
+        <p>Go API ima 11 modula. Iz OpenAPI ugovora se generiše TypeScript klijent, pa studio i sajt uvek govore isti jezik sa serverom.</p>
+        <div class="stackline"><span>Go</span><span>React</span><span>Astro</span><span>PostgreSQL</span><span>OpenAPI</span></div>
+      </div>
+      <div class="kpis"><div><b>11</b>modula</div><div><b>IPS</b>plaćanje</div><div><b>1</b>API ugovor</div></div>
+      <a class="open" href="#"><span>Cela priča</span><span>→</span></a>
+    </div>
+  </article>
+
+  <div class="more">
+    <a href="#"><small>Transport · SAD</small><h4>Logistics TMS</h4><p>Preradio sam 40+ formi u korake, sa tamnim režimom.</p></a>
+    <a href="#"><small>Agencija</small><h4>IT Expert</h4><p>Portali, prodavnica i naplata karticom. 133 testa samo za naplatu.</p></a>
+    <a href="#"><small>Transport · SAD</small><h4>Shipment Tracking</h4><p>Mapa pošiljki uživo, rute po stvarnim putevima.</p></a>
+    <a href="#"><small>Poslastičarnica</small><h4>Mango</h4><p>Dve verzije sajta, 32 torte, 109 commitova.</p></a>
+  </div>
+  <a class="allp" href="#">Svih 16 projekata →</a>
+</section>
+</div>
+
+<section class="svc-band">
+  <div class="sec-head"><div><div class="tag">Usluge za firme</div><h2>Sajt, oglasi, SEO</h2></div><p>Ovo radim za firme kao freelancer. Cenu dajem kad znam obim posla, obično posle jednog razgovora.</p></div>
+  <div class="svc">
+    <a href="#"><img src="assets/obj-web.png" alt=""><h3>Sajtovi i aplikacije</h3><p>Next.js, Nuxt ili Laravel, zavisi šta projekat traži. Sajt za Mango ima 100 na tri od četiri Lighthouse merenja.</p><span class="go">Više →</span></a>
+    <a href="#"><img src="assets/obj-ads.png" alt=""><h3>Google Ads</h3><p>Search i PMax. Na nalogu bolnice najviše novca su sačuvale negativne ključne reči i granice za cenu klika.</p><span class="go">Više →</span></a>
+    <a href="#"><img src="assets/obj-meta.png" alt=""><h3>Meta Ads</h3><p>Facebook i Instagram kampanje, trenutno za Medical Time.</p><span class="go">Više →</span></a>
+    <a href="#"><img src="assets/obj-seo.png" alt=""><h3>SEO i analitika</h3><p>Tehnički SEO, GA4, GTM i strukturirani podaci. Site Health sa 90% na 98% za nedelju dana.</p><span class="go">Više →</span></a>
+  </div>
+</section>
+
+<div class="wrap">
+<section class="sec">
+  <div class="sec-head"><div><div class="tag">Iskustvo</div><h2>Gde sam radio</h2></div><p>Dva ugovora i freelance u isto vreme, od 2025. Pre toga studije i kursevi.</p></div>
+  <div class="jobs">
+    <div class="job now"><span class="per">mar 2025 · danas</span><div><h4>Freelance developer i PPC</h4><small>IT Expert, Beograd</small></div><p>Vodim <b>8 Google Ads kampanja</b> i Meta oglase za Medical Time. Napravio sam sajtove za Mango, Vuk Studio i Stanke Enterijer.</p></div>
+    <div class="job now"><span class="per">feb 2025 · danas</span><div><h4>Web developer</h4><small>Medical Time bolnica, ugovor</small></div><p>Održavam <b>prevode na 5 jezika</b>, napravio chatbot za zakazivanje, radio na fiskalizaciji i e-zdravlju.</p></div>
+    <div class="job"><span class="per">maj 2025 · jul 2026</span><div><h4>Front-end developer</h4><small>Logistics company, SAD, remote</small></div><p>Pretvorio <b>40+ formi</b> u korake u Logistics TMS-u. Mapa pošiljki u Rails-u.</p></div>
+    <div class="job"><span class="per">2020 · 2024</span><div><h4>Diploma, informacione tehnologije</h4><small>Univerzitet Singidunum, Beograd</small></div><p>Osnovne studije. Uz njih freeCodeCamp i Udemy kursevi za JavaScript i React.</p></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head"><div><div class="tag">Veštine</div><h2>Šta koristim, i gde</h2></div><p>Ne ocenjujem sebe od 1 do 5. Pored svake tehnologije su projekti u kojima sam je koristio, pa proverite sami.</p></div>
+  <div class="sgrid"><div class="sgroup"><h4>Front-end</h4><div class="srow"><div class="sname">TypeScript<em>svakodnevno</em></div><div class="sproj"><a href="#">Medical Time</a><a href="#">Kafe</a><a href="#">Makaze</a><a href="#">Job Tracker</a><a href="#">GymAI</a></div></div><div class="srow"><div class="sname">Vue, Nuxt<em>svakodnevno</em></div><div class="sproj"><a href="#">Medical Time</a><a href="#">IT Expert</a><a href="#">Mango</a><a href="#">Vuk Studio</a></div></div><div class="srow"><div class="sname">React, Next.js</div><div class="sproj"><a href="#">Makaze</a><a href="#">Job Tracker</a><a href="#">LaunchHub</a><a href="#">NST</a></div></div><div class="srow"><div class="sname">ASP.NET Razor</div><div class="sproj"><a href="#">Logistics TMS</a></div></div><div class="srow"><div class="sname">Rails, Hotwire</div><div class="sproj"><a href="#">Shipment Tracking</a></div></div></div><div class="sgroup"><h4>Back-end i baze</h4><div class="srow"><div class="sname">Laravel</div><div class="sproj"><a href="#">Medical Time</a><a href="#">IT Expert</a></div></div><div class="srow"><div class="sname">Go</div><div class="sproj"><a href="#">Makaze</a></div></div><div class="srow"><div class="sname">Django</div><div class="sproj"><a href="#">Kafe</a></div></div><div class="srow"><div class="sname">Node, Express</div><div class="sproj"><a href="#">GymAI</a></div></div><div class="srow"><div class="sname">PostgreSQL, MySQL, MongoDB</div><div class="sproj"><a href="#">Makaze</a><a href="#">Medical Time</a><a href="#">Job Tracker</a></div></div></div><div class="sgroup"><h4>Marketing</h4><div class="srow"><div class="sname">Google Ads<em>svakodnevno</em></div><div class="sproj"><a href="#">Medical Time</a></div></div><div class="srow"><div class="sname">Meta Ads</div><div class="sproj"><a href="#">Medical Time</a></div></div><div class="srow"><div class="sname">Tehnički SEO, JSON-LD</div><div class="sproj"><a href="#">Medical Time</a><a href="#">Vuk Studio</a><a href="#">NST</a></div></div><div class="srow"><div class="sname">GA4, GTM</div><div class="sproj"><a href="#">Medical Time</a><a href="#">Mango</a></div></div></div><div class="sgroup"><h4>Kvalitet i alati</h4><div class="srow"><div class="sname">Testovi (Vitest, PHPUnit, Playwright)</div><div class="sproj"><a href="#">IT Expert</a><a href="#">GymAI</a><a href="#">ovaj sajt</a></div></div><div class="srow"><div class="sname">i18n, 5 jezika</div><div class="sproj"><a href="#">Medical Time</a><a href="#">IT Expert</a></div></div><div class="srow"><div class="sname">Blender, Three.js</div><div class="sproj"><a href="#">NST</a><a href="#">ovaj sajt</a></div></div><div class="srow"><div class="sname">Docker, Vercel, GitHub Actions</div><div class="sproj"><a href="#">Kafe</a><a href="#">Vuk Studio</a></div></div></div></div>
+</section>
+
+<section class="sec">
+  <div class="me">
+    <div class="ph"><img src="../../public/images/nikola.webp" alt="Nikola Šepić"><span>Beograd, 2026.</span></div>
+    <div>
+      <div class="tag">O meni</div>
+      <h2>Kad ne kodiram</h2>
+      <p>Čitam, idem u teretanu i šetam po Beogradu. Kod kuće me čeka mačka. Dok radim, uglavnom slušam synthwave.</p>
+      <p>Govorim srpski i engleski (C1), a španski učim.</p>
+      <div class="lst"><span>Knjige</span><span>Teretana</span><span>Mačka</span><span>Synthwave</span><span>Šetnje po Beogradu</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="l"><div class="tag">Kontakt</div><h2 style="margin-top:12px">Pišite<br><span>mi.</span></h2><p>Recite ukratko šta vam treba. Ako je posao za mene, javiću se sa predlogom. Ako nije, reći ću vam i to.</p>
+    <div class="opts"><span class="on">Posao (zaposlenje)</span><span>Sajt ili aplikacija</span><span>Oglasi i SEO</span></div></div>
+  <form>
+    <div class="field"><label>Ime</label><div>Vaše ime</div></div>
+    <div class="field"><label>Email</label><div>ime@firma.rs</div></div>
+    <div class="field area"><label>Poruka</label><div>Par rečenica o poslu</div></div>
+    <a class="send" href="#"><span>Pošalji</span><span>→</span></a>
+  </form>
+</section>
+</div>
+
+<footer class="foot">
+  <div class="cols">
+    <div><h5>Sledeći korak</h5><div class="say">Imate projekat ili<br><span>otvorenu poziciju?</span></div><a class="mail" href="#">Pišite mi →</a></div>
+    <div><h5>Strane</h5><ul><li>Projekti</li><li>Usluge</li><li>Blog</li><li>O meni</li><li>CV</li></ul></div>
+    <div><h5>Usluge</h5><ul><li>Izrada sajtova</li><li>Google Ads</li><li>Meta Ads</li><li>SEO i analitika</li></ul></div>
+    <div><h5>Na mreži</h5><ul><li>GitHub ↗</li><li>LinkedIn ↗</li><li>RSS ↗</li></ul></div>
+  </div>
+  <div class="giant"><div class="dimline"><span>BEOGRAD · 44.81°N 20.46°E</span></div>Šepić<i>.</i></div>
+  <div class="bar"><span>© 2026 Nikola Šepić</span><span class="clock">Beograd, <b>14:32</b></span><span>Privatnost · Na vrh ↑</span></div>
+</footer>
+<div style="height:16px"></div>
+<div class="mbar"><span>Meni</span><span>CV</span><span>Pišite mi</span></div>
+</body>
+</html>

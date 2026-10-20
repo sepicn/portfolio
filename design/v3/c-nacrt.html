@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C Nacrt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.975 0.006 250);
+  --ink:oklch(0.22 0.04 265);
+  --ink-2:oklch(0.45 0.04 265);
+  --ink-3:oklch(0.65 0.03 265);
+  --blue:oklch(0.47 0.21 265);
+  --grid:oklch(0.47 0.21 265 / 0.07);
+  --grid-2:oklch(0.47 0.21 265 / 0.14);
+  --sans:"IBM Plex Sans",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid-2) 1px,transparent 1px),linear-gradient(90deg,var(--grid-2) 1px,transparent 1px);
+  background-size:24px 24px,24px 24px,120px 120px,120px 120px}
+.wrap{padding:0 clamp(16px,3vw,48px)}
+.frame{border:1px solid var(--ink);margin:16px 0;position:relative}
+header{display:grid;grid-template-columns:auto 1fr auto;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+header>*{padding:14px 18px}
+header .id{border-right:1px solid var(--ink);font-weight:500}
+header nav{display:flex;gap:28px}
+header .rev{border-left:1px solid var(--ink);color:var(--blue)}
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 140px)}
+.left{padding:56px 40px 40px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--ink)}
+.tag{font-family:var(--mono);font-size:12px;color:var(--blue);letter-spacing:.06em}
+h1{font-weight:500;font-size:clamp(3rem,6.4vw,7.4rem);line-height:.92;letter-spacing:-.045em;margin-top:22px}
+h1 span{color:var(--blue)}
+h1 .strike{position:relative;color:var(--ink-3)}
+h1 .strike:after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:.07em;background:var(--blue)}
+.desc{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.cta{display:flex;gap:0;margin-top:40px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.cta a{padding:16px 22px;border:1px solid var(--ink);color:inherit;text-decoration:none}
+.cta a:first-child{background:var(--blue);border-color:var(--blue);color:var(--bg)}
+.right{position:relative;overflow:hidden}
+.draw{position:absolute;inset:2% 24% 4% 2%;background:url(assets/stack.png) center/contain no-repeat}
+.call{position:absolute;font-family:var(--mono);font-size:12px;letter-spacing:.04em;display:flex;align-items:center;gap:10px;color:var(--ink)}
+.call:before{content:"";width:120px;height:1px;background:var(--blue)}
+.call b{color:var(--blue);font-weight:500}
+.c1{right:6%;top:18%}.c2{right:4%;top:38%}.c3{right:5%;top:56%}.c4{right:6%;top:73%}
+.call.l{flex-direction:row-reverse}
+.titleblock{position:absolute;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,auto);border-top:1px solid var(--ink);border-left:1px solid var(--ink);font-family:var(--mono);font-size:11px;background:var(--bg)}
+.titleblock div{padding:8px 12px;border-right:1px solid var(--ink)}
+.titleblock div:last-child{border-right:0}
+.titleblock small{display:block;color:var(--ink-3);font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+.dim{position:absolute;left:8%;bottom:16%;top:16%;width:1px;background:var(--blue)}
+.dim:before,.dim:after{content:"";position:absolute;left:-5px;width:11px;height:1px;background:var(--blue)}
+.dim:before{top:0}.dim:after{bottom:0}
+.dim span{position:absolute;left:10px;top:50%;transform:rotate(-90deg) translateX(-50%);transform-origin:left;font-family:var(--mono);font-size:11px;color:var(--blue);white-space:nowrap}
+section.sheets{padding:100px 0 60px}
+.sh-head{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+h2{font-weight:500;font-size:clamp(2.4rem,5vw,5.4rem);letter-spacing:-.04em;line-height:.95}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sheet{border:1px solid var(--ink);background:var(--bg)}
+.sheet .img{aspect-ratio:16/10;border-bottom:1px solid var(--ink);overflow:hidden}
+.sheet img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);mix-blend-mode:multiply}
+.sheet .body{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:16px}
+.sheet h3{font-weight:500;font-size:24px;letter-spacing:-.02em}
+.sheet .no{font-family:var(--mono);font-size:12px;color:var(--blue)}
+.sheet p{grid-column:1/-1;font-size:14px;color:var(--ink-2);line-height:1.45}
+.sheet .specs{grid-column:1/-1;display:flex;gap:0;border-top:1px dashed var(--ink-3);margin-top:8px;padding-top:10px;font-family:var(--mono);font-size:11px}
+.sheet .specs span{flex:1}
+.sheet .specs b{display:block;font-size:18px;font-weight:500;color:var(--blue)}
+@media (max-width:900px){
+  header nav,header .rev{display:none}
+  .hero{grid-template-columns:1fr}
+  .left{border-right:0;border-bottom:1px solid var(--ink);padding:28px 18px}
+  .desc{grid-template-columns:1fr;gap:12px}
+  .right{min-height:420px}
+  .call:before{width:28px}
+  .titleblock{display:none}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="frame">
+<header><div class="id">N. Šepić · sepic.me</div><nav style="padding-left:24px"><span>01 Projekti</span><span>02 Usluge</span><span>03 O meni</span><span>04 CV</span></nav><div class="rev">Rev. 3 · 2026</div></header>
+<section class="hero">
+  <div class="left">
+    <div>
+      <div class="tag">[A-01] FULL-STACK · GOOGLE ADS · BEOGRAD</div>
+      <h1>Gradim <span class="strike">stranice</span><br><span>sisteme</span> koji<br>donose posao.</h1>
+      <div class="desc"><p>Nikola Šepić. Arhitektura, front-end i back-end za bolnice, logistiku i SaaS proizvode.</p><p>Pa onda kampanje i SEO koji dovedu ljude da ih koriste. Merljivo, do poslednjeg dinara.</p></div>
+    </div>
+    <div class="cta"><a href="#">Pogledaj nacrte →</a><a href="#">Preuzmi CV</a></div>
+  </div>
+  <div class="right" aria-hidden="true">
+    <div class="dim"><span>4 sloja · 1 ugovor (OpenAPI)</span></div>
+    <div class="draw"></div>
+    <div class="call c1 l"><span><b>04</b> Klijentska app · PWA</span></div>
+    <div class="call c2 l"><span><b>03</b> Studio · React + TanStack</span></div>
+    <div class="call c3 l"><span><b>02</b> API · Go modularni monolit</span></div>
+    <div class="call c4 l"><span><b>01</b> PostgreSQL · fiskalizacija</span></div>
+    <div class="titleblock"><div><small>Projekat</small>Makaze</div><div><small>Razmera</small>1:1</div><div><small>List</small>01/14</div><div><small>Crtao</small>N.Š.</div></div>
+  </div>
+</section>
+</div>
+
+<section class="sheets">
+  <div class="sh-head"><h2>Nacrti projekata</h2><span class="tag">14 LISTOVA · 2024-2026</span></div>
+  <div class="grid">
+    <div class="sheet"><div class="img"><img src="../../public/images/projects/medical-time.webp" alt=""></div><div class="body"><h3>Medical Time</h3><span class="no">L-01</span><p>Nuxt + Laravel bolnička platforma, chatbot za zakazivanje, i18n za 5 jezika.</p><div class="specs"><span><b>400k</b>linija</span><span><b>5</b>jezika</span><span><b>98%</b>Site Health</span></div></div></div>
+    <div class="sheet"><div class="img"><img src="../../public/images/projects/itexpert.webp" alt=""></div><div class="body"><h3>Kafe</h3><span class="no">L-02</span><p>Restoran SaaS: back-office, POS, KDS i Staff PWA, Django API, gateway u lokalu.</p><div class="specs"><span><b>4</b>aplikacije</span><span><b>3</b>jezika koda</span><span><b>1</b>API</span></div></div></div>
+    <div class="sheet"><div class="img"><img src="../../public/images/projects/logistics-tms.webp" alt=""></div><div class="body"><h3>Logistics TMS</h3><span class="no">L-03</span><p>Redizajn TMS-a za kamionski transport u SAD, ASP.NET MVC, tamni režim.</p><div class="specs"><span><b>40+</b>formi</span><span><b>101</b>commit</span><span><b>12</b>projekata</span></div></div></div>
+  </div>
+</section>
+</div>
+</body>
+</html>

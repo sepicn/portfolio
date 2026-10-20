@@ -3,16 +3,10 @@ import { routing } from "@/i18n/routing";
 import { publicPath } from "@/i18n/paths";
 import { siteConfig } from "@/lib/site-config";
 
-/**
- * Public URL path of a page in one locale, given its internal path (the app/[locale]
- * folder path, e.g. "/projects/mango" or "/services/web"). Serbian URLs are translated
- * through routing.pathnames: ("sr", "/about") -> "/o-meni", ("en", "/about") -> "/en/about".
- */
 export function localePath(locale: string, path: string): string {
   return publicPath(locale, path);
 }
 
-/** Canonical and hreflang entries for one page, given its locale-less path. */
 export function alternatesFor(
   locale: string,
   path: string,
@@ -26,11 +20,6 @@ export function alternatesFor(
   };
 }
 
-/**
- * Canonical, hreflang, Open Graph and Twitter tags for one page.
- * Next replaces a parent's `openGraph` object instead of merging it, so every page sets the full set.
- * `ogKey` names the image rendered by scripts/og.mjs: public/og/{locale}-{ogKey}.jpg
- */
 export function pageMetadata({
   locale,
   path,

@@ -16,20 +16,26 @@
     "openMenu": "Otvori meni",
     "closeMenu": "Zatvori meni",
     "language": "Jezik",
-    "switchTo": "English"
+    "switchTo": "English",
+    "blog": "Blog",
+    "main": "Glavna navigacija",
+    "menu": "Meni",
+    "menuShort": "Meni",
+    "write": "Pišite mi",
+    "cvDownload": "CV ↓"
   },
   "footer": {
-    "rights": "Nikola Šepić. Sav sadržaj je moj, osim logotipa klijenata i preuzetih 3D modela.",
-    "credit": "3D model računara:",
     "privacy": "Privatnost",
     "cookies": "Podešavanja kolačića",
-    "location": "Beograd, Srbija · radim i remote",
-    "ctaEyebrow": "// sledeći korak",
-    "ctaTitle": "Imate projekat na umu?",
-    "ctaBody": "Napišite šta Vam treba, odgovaram istog radnog dana. Ili prvo pogledajte moj CV.",
-    "ctaContact": "Kontaktirajte me",
-    "ctaCv": "Pogledajte CV",
-    "backToTop": "Nazad na vrh"
+    "backToTop": "Na vrh",
+    "nextStep": "Sledeći korak",
+    "ctaLine1": "Imate projekat ili",
+    "ctaLine2": "otvorenu poziciju?",
+    "ctaButton": "Pišite mi",
+    "pages": "Strane",
+    "online": "Na mreži",
+    "cvPdf": "CV (PDF)",
+    "clock": "Beograd,"
   },
   "home": {
     "title": "Izrada sajtova i Google Ads kampanje u Beogradu",
@@ -58,7 +64,7 @@
   "projects": {
     "title": "Projekti",
     "headline": "Sajtovi i web aplikacije koje sam izradio",
-    "intro": "Klijentski rad i lični projekti. Za svaki pišem šta sam tačno radio i šta je bilo teško.",
+    "intro": "Bolnica, transport u SAD, dva moja SaaS proizvoda i sajtovi za lokalne firme. Uz svaki projekat piše šta sam ja radio i šta je bilo teško.",
     "clientEyebrow": "Klijenti",
     "clientTitle": "Sajtovi i sistemi koje koriste prave firme",
     "clientLead": "Bolnica, logistička firma iz SAD, web agencija, magazin, poslastičarnica, muzički studio i sportski centar.",
@@ -73,12 +79,17 @@
     "live": "Sajt uživo",
     "repo": "Kod",
     "metaTitle": "Projekti: sajtovi, web aplikacije i kampanje",
-    "metaDescription": "Platforma privatne bolnice, TMS za logističku firmu iz SAD, sajtovi za lokalne firme i lični projekti u Next.js. Za svaki: šta sam radio i šta je bilo teško."
+    "metaDescription": "Platforma privatne bolnice, TMS za logističku firmu iz SAD, sajtovi za lokalne firme i lični projekti u Next.js. Za svaki: šta sam radio i šta je bilo teško.",
+    "tag": "{count} projekata, 2024-2026",
+    "kindClient": "Klijent",
+    "kindSaas": "SaaS",
+    "kindPersonal": "Lični",
+    "filterSaas": "SaaS"
   },
   "services": {
     "title": "Usluge",
     "headline": "Izrada sajtova, Google Ads i SEO",
-    "intro": "Sajtovi i web aplikacije, Google Ads, Meta Ads, SEO i analitika, sve kod jedne osobe. Fiksnu ponudu dobijate za dva dana posle kratkog razgovora.",
+    "intro": "Sajtovi i aplikacije, Google Ads, Meta Ads i SEO. Sve radim sam, pa razgovarate sa osobom koja piše kod i vodi kampanje.",
     "forWhom": "Za koga",
     "includes": "Šta ulazi",
     "processEyebrow": "Proces",
@@ -87,7 +98,9 @@
     "cta": "Zakažite razgovor",
     "metaTitle": "Izrada sajtova, Google Ads i SEO u Beogradu",
     "metaDescription": "Izrada sajtova i web aplikacija, vođenje Google Ads i Meta Ads kampanja, SEO optimizacija i GA4/GTM analitika. Fiksna ponuda posle kratkog razgovora.",
-    "examples": "Primeri iz prakse"
+    "examples": "Primeri iz prakse",
+    "tag": "Za firme, kao freelancer",
+    "more": "Detaljnije"
   },
   "about": {
     "title": "O meni",
@@ -129,17 +142,17 @@
   },
   "contact": {
     "title": "Kontakt",
-    "intro": "Najbrže je preko forme ili poziva. Mejl i telefon su sakriveni od botova, kliknite da ih vidite.",
+    "intro": "Za posao, projekat ili oglase. Mejl i telefon su sakriveni od botova, kliknite da ih vidite.",
     "email": "Mejl",
     "phone": "Telefon",
     "location": "Beograd, Srbija",
     "metaTitle": "Kontakt: upit za sajt, Google Ads ili SEO",
     "metaDescription": "Pošaljite upit za izradu sajta, Google Ads kampanju ili SEO. Forma, poziv ili WhatsApp, a ponudu dobijate posle kratkog razgovora, obično istog dana.",
-    "signal": "Dostupan · odgovaram istog dana",
     "howTitle": "Pozovite ili pošaljite mejl",
     "how": "Kako Vam je lakše: poziv, WhatsApp ili mejl. Na upit odgovaram istog radnog dana, a ponudu šaljem posle kratkog razgovora o tome šta Vam treba i do kada.",
     "areaTitle": "Beograd i remote",
-    "area": "Radim iz Beograda. Sa klijentima u Beogradu mogu da se vidim uživo, a sa svima ostalima, u Srbiji i inostranstvu, radim remote preko poziva, mejla i deljenog ekrana."
+    "area": "Radim iz Beograda. Sa klijentima u Beogradu mogu da se vidim uživo, a sa svima ostalima, u Srbiji i inostranstvu, radim remote preko poziva, mejla i deljenog ekrana.",
+    "tag": "Posao ili projekat"
   },
   "notFound": {
     "title": "Stranica ne postoji",
@@ -155,22 +168,6 @@
       "best": "REKORD"
     }
   },
-  "hotspots": {
-    "projects": "Projekti",
-    "services": "Usluge",
-    "clients": "Klijenti",
-    "contact": "Kontakt",
-    "education": "Obrazovanje",
-    "about": "O meni",
-    "cv": "CV",
-    "lamp": "Lampa"
-  },
-  "music": {
-    "play": "Pusti muziku",
-    "mute": "Utišaj muziku",
-    "on": "zvuk on",
-    "off": "zvuk off"
-  },
   "reveal": {
     "email": "Prikaži mejl",
     "phone": "Prikaži telefon",
@@ -185,12 +182,19 @@
     "name": "Ime",
     "email": "Vaš mejl",
     "message": "Poruka",
-    "send": "Pošaljite",
+    "send": "Pošalji",
     "sending": "Šaljem...",
-    "sent": "Poruka je stigla. Javljam se istog dana.",
+    "sent": "Poruka je stigla. Javljam se uskoro.",
     "error": "Nije prošlo. Probajte ponovo ili mi pišite direktno.",
     "unavailable": "Slanje trenutno nije podešeno. Pišite mi direktno:",
-    "note": "Bez newslettera, bez spama. Poruka ide samo meni."
+    "topic": "Pišem zbog",
+    "topics": {
+      "job": "Posla (zaposlenje)",
+      "project": "Sajta ili aplikacije",
+      "marketing": "Oglasa i SEO-a"
+    },
+    "namePlaceholder": "Vaše ime",
+    "messagePlaceholder": "Par rečenica o poslu"
   },
   "projectPage": {
     "back": "Svi projekti",
@@ -204,7 +208,7 @@
     "privateNote": "Repo je privatan i vlasništvo klijenta, pa nema koda ni screenshotova.",
     "moreNav": "Drugi projekti",
     "previous": "Prethodni",
-    "next": "Sledeći",
+    "next": "Sledeći projekat",
     "period": "Period",
     "team": "Tim",
     "scale": "Obim",
@@ -220,7 +224,10 @@
     "ctaServices": "Usluge na ovom projektu:",
     "gallery": "Još ekrana",
     "phone": "Na telefonu",
-    "caseStudy": "studija slučaja"
+    "caseStudy": "studija slučaja",
+    "client": "Klijent",
+    "saas": "Moj SaaS",
+    "saasNote": "Repo je privatan, pa nema linka ka kodu."
   },
   "consent": {
     "label": "Saglasnost za kolačiće",
@@ -244,7 +251,7 @@
       },
       {
         "h": "Šta se čuva u Vašem pregledaču",
-        "p": "Samo Vaš izbor o kolačićima (localStorage, ključ sepic-consent). Muzika se ne pamti i nikad ne kreće sama."
+        "p": "Samo Vaš izbor o kolačićima (localStorage, ključ sepic-consent)."
       },
       {
         "h": "Promena izbora",
@@ -255,41 +262,24 @@
     "metaTitle": "Politika privatnosti",
     "metaDescription": "Koje podatke sepic.me prikuplja (Google Analytics i Google Ads samo uz saglasnost, kontakt forma preko Resend-a) i kako menjate izbor o kolačićima."
   },
-  "tour": {
-    "hint": "Skrolujte kroz sobu",
-    "open": "Otvori",
-    "skip": "Preskoči",
-    "desc": {
-      "projects": "Produkcioni sistemi i lični projekti, sa studijama slučaja.",
-      "services": "Izrada sajtova, Google Ads, Meta Ads i SEO.",
-      "clients": "Firme sa kojima radim i šta smo zajedno napravili.",
-      "about": "Ko sam, kako radim i šta me pokreće van koda.",
-      "education": "Diploma iz informacionih tehnologija i sertifikati.",
-      "cv": "Iskustvo i veštine, za čitanje ili preuzimanje u PDF i DOCX formatu.",
-      "contact": "Javite se za sajt, kampanju ili SEO."
+  "blog": {
+    "metaTitle": "Blog: sajtovi, Google Ads i SEO iz prakse",
+    "metaDescription": "Tekstovi o poslu koji sam stvarno radio: cena sajta, Google Ads nalog bolnice, tehnički SEO, sajt na pet jezika i fiskalizacija u web aplikaciji.",
+    "tag": "Beleške iz rada",
+    "intro": "Pišem o poslu koji sam stvarno radio: koliko košta sajt, kako sam sredio Google Ads nalog bolnice, šta je trebalo za fiskalizaciju.",
+    "read": "Čitaj članak",
+    "minutes": "{n} min čitanja",
+    "contents": "Sadržaj",
+    "answer": "Kratak odgovor",
+    "authorLine": "Full-stack developer i Google Ads, Beograd",
+    "ctaTitle": "Treba vam ovako nešto, ili tražite developera?",
+    "ctaButton": "Pišite mi",
+    "next": "Sledeći članak",
+    "categories": {
+      "sajtovi": "Sajtovi",
+      "google-ads": "Google Ads",
+      "seo": "SEO",
+      "razvoj": "Razvoj"
     }
-  },
-  "testimonials": {
-    "eyebrow": "Preporuke",
-    "title": "Šta kažu klijenti"
-  },
-  "perf": {
-    "title": "Pravim sajtove sa 90+ na Google Lighthouse testu",
-    "lead": "Lighthouse je Googleov alat koji stoji iza PageSpeed Insights. Ocenu 90 za neku metriku daje tek kad je sajt brži od oko 92% sajtova na webu. Ovaj sajt ima 90+ u sve četiri kategorije, na telefonu i na računaru.",
-    "mobile": "Telefon",
-    "desktop": "Računar",
-    "performance": "Performanse",
-    "accessibility": "Pristupačnost",
-    "bestPractices": "Dobre prakse",
-    "measured": "Izmereno: {date} ({source}).",
-    "sourcePagespeed": "Google PageSpeed Insights",
-    "sourceLighthouse": "Lighthouse sa PageSpeed podešavanjima (spor 4G, sporiji procesor)",
-    "rerun": "Izmeri ponovo na PageSpeed-u",
-    "compareTitle": "Za poređenje, prosečan sajt na webu",
-    "compareScore": "sajtova na webu dostigne ocenu 90 za pojedinačnu metriku",
-    "compareCwv": "sajtova na telefonu prolazi Googleove Core Web Vitals",
-    "compareLcp": "stranica na telefonu učita glavni sadržaj za 2,5 s ili brže",
-    "thisSite": "Ovaj sajt: {lcp} s",
-    "sources": "Izvori"
   }
 }

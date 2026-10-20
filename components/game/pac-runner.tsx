@@ -21,19 +21,19 @@ type Ghost = {
 };
 
 const C = {
-  bg: "#07030f",
-  grid: "#8a2be2",
-  horizon: "#ff2d95",
+  bg: "#1c2340",
+  grid: "#5b78e8",
+  horizon: "#9db1ff",
   pac: "#ffd60a",
-  dot: "#ffd9a8",
-  text: "#e9e4ff",
-  dim: "#8f86b3",
-  cyan: "#00e5ff",
-  ghosts: ["#ff2d95", "#00e5ff", "#ff8c42", "#8a2be2"],
+  dot: "#dfe6ff",
+  text: "#f3f5fa",
+  dim: "#9aa5c8",
+  cyan: "#9db1ff",
+  ghosts: ["#ffffff", "#9db1ff", "#5b78e8", "#c9d3ff"],
 };
 
 const HEIGHT = 240;
-const GROUND = 44; // ground band height below the running line
+const GROUND = 44;
 const PAC_R = 17;
 const GRAVITY = 2600;
 const JUMP_V = 830;
@@ -56,13 +56,11 @@ function writeBest(n: number) {
   try {
     localStorage.setItem(BEST_KEY, String(n));
   } catch {
-    // Private mode or blocked storage: the record just lasts for this visit.
   }
 }
 
 const pad = (n: number) => String(Math.floor(n)).padStart(5, "0");
 
-/** A Chrome-dino style runner: Pac-Man jumps over ghosts. Space, arrow up, click or tap. */
 export function PacRunner({ labels, className }: { labels: Labels; className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -85,7 +83,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
     ro.observe(canvas);
 
     const groundY = HEIGHT - GROUND;
-    // Canvas fonts cannot use CSS variables, so resolve the site fonts once.
     const rootStyle = getComputedStyle(document.documentElement);
     const monoFont = rootStyle.getPropertyValue("--font-mono").trim() || "monospace";
     const displayFont =
@@ -93,7 +90,7 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
     const pacX = 70;
 
     let state: "idle" | "running" | "over" = "idle";
-    let y = groundY; // bottom of Pac-Man
+    let y = groundY;
     let vy = 0;
     let holding = false;
     let speed = START_SPEED;
@@ -120,7 +117,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
       const score = distance / 10;
       const flying = score > 400 && Math.random() < 0.25;
       if (flying) {
-        // Floats above head height: stay on the ground and run under it.
         ghosts.push({
           x,
           y: groundY - PAC_R * 2 - 18 - GHOST_H,
@@ -186,7 +182,7 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
     const hits = (g: Ghost) => {
       const cx = pacX;
       const cy = y - PAC_R;
-      const r = PAC_R * 0.78; // a little forgiveness
+      const r = PAC_R * 0.78;
       const nx = Math.max(g.x + 3, Math.min(cx, g.x + g.w - 3));
       const ny = Math.max(g.y + 4, Math.min(cy, g.y + g.h));
       return (cx - nx) ** 2 + (cy - ny) ** 2 < r * r;
@@ -196,7 +192,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
       ctx.fillStyle = C.bg;
       ctx.fillRect(0, 0, width, HEIGHT);
 
-      // Striped synthwave sun sitting on the horizon.
       const sunR = 70;
       const sx = width * 0.72;
       const sy = groundY;
@@ -219,7 +214,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
       }
       ctx.restore();
 
-      // Horizon line and the perspective grid of the floor.
       ctx.strokeStyle = C.horizon;
       ctx.shadowColor = C.horizon;
       ctx.shadowBlur = 10;
@@ -251,7 +245,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
       }
       ctx.globalAlpha = 1;
 
-      // Pellets ahead of Pac-Man; the ones behind him are eaten.
       ctx.fillStyle = C.dot;
       const dotGap = 28;
       const dOff = scroll % dotGap;
@@ -269,7 +262,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
       ctx.beginPath();
       ctx.arc(x + w / 2, gy + w / 2, w / 2, Math.PI, 0);
       ctx.lineTo(x + w, gy + h);
-      // Wavy skirt, animated so ghosts look like they float.
       const bumps = 3;
       const bw = w / bumps;
       const up = Math.sin(t * 14 + x * 0.05) > 0;
@@ -281,7 +273,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
       ctx.lineTo(x, gy + w / 2);
       ctx.fill();
       ctx.shadowBlur = 0;
-      // Eyes look left, towards Pac-Man.
       for (const ex of [x + w * 0.32, x + w * 0.68]) {
         ctx.fillStyle = "#fff";
         ctx.beginPath();
@@ -382,7 +373,6 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
         nextSpawn -= speed * dt;
         if (nextSpawn <= width) {
           const packW = spawn(width + 20);
-          // Gap scales with speed so every pattern stays jumpable.
           const gap = speed * (0.55 + Math.random() * 0.75) + packW + 120;
           nextSpawn = width + gap;
         }
@@ -428,7 +418,7 @@ export function PacRunner({ labels, className }: { labels: Labels; className?: s
         ref={canvasRef}
         role="img"
         aria-label={labels.title}
-        className="block h-[240px] w-full touch-none border border-neon-violet/40 bg-night-950 shadow-[0_0_30px_rgba(138,43,226,0.25)] select-none"
+        className="block h-[240px] w-full touch-none border border-ink bg-ink select-none"
       />
     </div>
   );

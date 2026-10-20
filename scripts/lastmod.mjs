@@ -1,12 +1,3 @@
-// Tracks when each page's content last changed, for <lastmod> in the sitemap.
-//
-// Every route has a fingerprint: a hash of its page file, the data it renders and its
-// message namespaces in both languages. When the fingerprint differs from the one stored
-// in lib/lastmod.json, the route gets today's date; otherwise its date stays. So the date
-// moves only when the page really changes, not on every deploy.
-//
-//   node scripts/lastmod.mjs          update lib/lastmod.json (runs before every build)
-//   node scripts/lastmod.mjs --check  exit 1 if it is out of date (part of npm run check)
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
@@ -21,15 +12,12 @@ const read = (file) => readFileSync(file, "utf8").replace(/\r\n/g, "\n");
 const page = (dir) => `app/[locale]${dir}/page.tsx`;
 const data = (name) => `content/data/${name}.ts`;
 
-// One project's entry in content/data/projects.ts, so editing one case study does not
-// touch the dates of the others.
 const projectsSource = read(data("projects"));
 const projectChunks = projectsSource.split(/\n  \{\n/);
 const slugs = [...projectsSource.matchAll(/\n {4}slug: "([^"]+)"/g)].map((m) => m[1]);
 const projectChunk = (slug) =>
   projectChunks.find((chunk) => chunk.includes(`slug: "${slug}"`)) ?? "";
 
-/** route -> { files, namespaces, extra } */
 const routes = {
   "/": {
     files: [page(""), data("projects"), data("services"), data("profile")],
@@ -37,7 +25,6 @@ const routes = {
   },
   "/projects": { files: [page("/projects"), data("projects")], namespaces: ["projects"] },
   "/services": { files: [page("/services"), data("services")], namespaces: ["services"] },
-  // One page per service; they share the page file and content/data/services.ts.
   ...Object.fromEntries(
     [...read(data("service-slugs")).matchAll(/^ {2}"?([\w-]+)"?: \{ sr:/gm)].map(
       ([, id]) => [
@@ -59,6 +46,7 @@ const routes = {
   },
   "/contact": { files: [page("/contact")], namespaces: ["contact", "contactForm"] },
   "/privacy": { files: [page("/privacy")], namespaces: ["privacy"] },
+  "/blog": { files: [page("/blog"), "content/blog/index.ts"], namespaces: ["blog"] },
   ...Object.fromEntries(
     slugs.map((slug) => [
       `/projects/${slug}`,

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { useMessages, useTranslations } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
-import { PageIntro } from "@/components/page-intro";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/seo";
+import { PageHead } from "@/components/sections/page-head";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -22,25 +20,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function PrivacyPage({ params }: Props) {
-  const { locale } = use(params);
+export default async function PrivacyPage({ params }: Props) {
+  const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("privacy");
-  const sections = (useMessages().privacy as { sections: { h: string; p: string }[] })
-    .sections;
+  const t = await getTranslations({ locale, namespace: "privacy" });
+  const nav = await getTranslations({ locale, namespace: "nav" });
+  const messages = await getMessages({ locale });
+  const sections = (messages.privacy as { sections: { h: string; p: string }[] }).sections;
 
   return (
-    <>
-      <PageIntro title={t("title")} intro={t("intro")} />
-      <div className="mx-auto max-w-3xl space-y-10 px-4 pb-28 sm:px-6">
+    <div className="wrap">
+      <PageHead crumbs={[{ label: nav("home"), href: "/" }, { label: t("title") }]} tag="sepic.me" title={t("title")} lead={t("intro")} />
+      <div className="max-w-3xl space-y-10 pt-12">
         {sections.map((s) => (
           <section key={s.h}>
-            <h2 className="font-display text-2xl font-semibold text-ink-100">{s.h}</h2>
-            <p className="mt-3 leading-relaxed text-ink-200">{s.p}</p>
+            <h2 className="text-[26px] tracking-[-0.02em]">{s.h}</h2>
+            <p className="mt-3 text-[17px] leading-[1.65] text-ink-2">{s.p}</p>
           </section>
         ))}
-        <p className="font-mono text-xs text-ink-400">{t("updated")}</p>
+        <p className="label">{t("updated")}</p>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studija</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nacrt.css">
+<style>
+.cover{margin-top:16px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);display:grid;grid-template-columns:1fr 1fr;min-height:620px;
+  background-image:linear-gradient(oklch(0.95 0 0 / .05) 1px,transparent 1px),linear-gradient(90deg,oklch(0.95 0 0 / .05) 1px,transparent 1px);background-size:24px 24px}
+.cover .l{padding:40px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid oklch(0.95 0 0 / .14)}
+.cover .tag{color:var(--blue-2)}
+.cover h1{font-weight:500;font-size:clamp(3.4rem,7vw,8rem);line-height:.88;letter-spacing:-.05em;margin-top:18px}
+.cover .q{font-size:22px;line-height:1.4;color:oklch(0.85 0.02 265);max-width:30ch;margin-top:24px}
+.cover .q b{color:var(--blue-2);font-weight:500}
+.cover .r{position:relative;overflow:hidden}
+.cover .r img{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:86%;filter:invert(1) hue-rotate(180deg) brightness(1.1)}
+.cover .lbl{position:absolute;font-family:var(--mono);font-size:11px;color:var(--blue-2);display:flex;gap:8px;align-items:center}
+.cover .lbl:before{content:"";width:50px;height:1px;background:var(--blue-2)}
+.facts{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--ink);border-top:0;background:var(--paper)}
+.facts div{padding:18px 20px;border-right:1px solid var(--ink);font-family:var(--mono);font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-family:var(--sans);text-transform:none;letter-spacing:-.01em;font-size:17px;font-weight:500;color:var(--ink);margin-top:6px}
+.chap{display:grid;grid-template-columns:260px 1fr;gap:48px;padding:96px 0 0}
+.chap .side{position:sticky;top:24px;align-self:start}
+.chap .side .n{font-weight:300;font-size:96px;line-height:.8;letter-spacing:-.06em;color:var(--blue)}
+.chap .side h3{font-weight:500;font-size:28px;letter-spacing:-.03em;margin-top:12px}
+.chap p{font-size:19px;line-height:1.65;color:oklch(0.3 0.04 265);max-width:62ch;margin-bottom:18px}
+.ba{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-top:28px;background:var(--paper)}
+.ba div{position:relative;aspect-ratio:16/10;overflow:hidden}
+.ba div:first-child{border-right:1px solid var(--ink)}
+.ba img{width:100%;height:100%;object-fit:cover;object-position:top}
+.ba .pre img{filter:grayscale(1) contrast(.9) brightness(1.1)}
+.ba span{position:absolute;left:12px;top:12px;font-family:var(--mono);font-size:11px;padding:4px 8px;background:var(--ink);color:var(--bg)}
+.ba .handle{position:absolute;right:-1px;top:0;bottom:0;width:2px;background:var(--blue);z-index:2}
+.ba .handle:after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;display:grid;place-items:center;background:var(--blue);color:var(--bg);border-radius:50%;font-size:16px}
+.result{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);margin-top:28px;background:var(--paper)}
+.result div{padding:28px;border-right:1px solid var(--ink)}
+.result div:last-child{border-right:0}
+.result b{display:block;font-weight:500;font-size:clamp(3rem,5vw,5rem);letter-spacing:-.05em;line-height:1;color:var(--blue)}
+.result span{font-size:15px;color:var(--ink-2)}
+.next{display:grid;grid-template-columns:1fr auto;align-items:center;margin-top:96px;border:1px solid var(--ink);background:var(--paper);padding:28px}
+.next small{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+.next h3{font-weight:500;font-size:clamp(2.4rem,5vw,5rem);letter-spacing:-.045em;line-height:1}
+.next .arr{font-size:64px;color:var(--blue)}
+@media (max-width:900px){
+  .cover{grid-template-columns:1fr}
+  .cover .l{border-right:0;padding:24px 18px}
+  .cover .r{min-height:320px}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div{border-bottom:1px solid var(--ink)}
+  .chap{grid-template-columns:1fr;gap:16px;padding-top:56px}
+  .chap .side{position:static}
+  .chap .side .n{font-size:64px}
+  .chap p{font-size:17px}
+  .ba,.result{grid-template-columns:1fr}
+  .ba div:first-child{border-right:0;border-bottom:1px solid var(--ink)}
+  .result div{border-right:0;border-bottom:1px solid var(--ink)}
+}
+</style>
+</head>
+<body>
+<div class="ruler"><span>Pregled</span><span class="on">Problem</span><span>Rešenje</span><span>Rezultat</span><span>Sledeći</span></div>
+<div class="wrap">
+<header class="top"><div class="id">N. Šepić · sepic.me</div><nav><span class="on">01 Projekti</span><span>02 Usluge</span><span>03 Blog</span><span>04 O meni</span><span>05 Kontakt</span></nav><div class="rev">SR / EN</div></header>
+<div class="crumbs">Projekti / <b>Makaze</b></div>
+<section class="cover">
+  <div class="l">
+    <div><div class="tag">L-03 · SaaS · 2026</div><h1>Makaze</h1><p class="q">Salon zakaže, naplati i izda <b>fiskalni račun</b> iz jedne aplikacije, a klijent plati depozit preko <b>IPS-a</b>.</p></div>
+    <div class="titleblock" style="background:transparent;color:var(--bg);border:1px solid oklch(0.95 0 0 / .2);width:max-content"><div style="border-color:oklch(0.95 0 0 / .2)"><small>Uloga</small>Arhitektura, vođenje</div><div style="border-color:oklch(0.95 0 0 / .2)"><small>Trajanje</small>2026</div><div><small>Status</small>U razvoju</div></div>
+  </div>
+  <div class="r" aria-hidden="true">
+    <img src="assets/stack-open.png" alt="">
+    <span class="lbl" style="right:6%;top:16%">KLIJENTSKA APP</span>
+    <span class="lbl" style="right:4%;top:38%">STUDIO</span>
+    <span class="lbl" style="right:6%;top:60%">GO API · 11 MODULA</span>
+    <span class="lbl" style="right:6%;top:80%">POSTGRESQL</span>
+  </div>
+</section>
+<div class="facts"><div>Klijent<b>Sopstveni proizvod</b></div><div>Back-end<b>Go monolit</b></div><div>Front-end<b>React, Astro</b></div><div>Plaćanje<b>IPS, fiskalni</b></div><div>Ugovor<b>OpenAPI</b></div></div>
+
+<section class="chap">
+  <div class="side"><div class="n">01</div><h3>Problem</h3></div>
+  <div><p>Saloni u Srbiji vode termine u svesci ili Viber grupi, a kasu u posebnom programu. Kad klijent ne dođe, salon gubi termin i novac. Postojeći alati su strani i ne znaju za fiskalizaciju ni IPS.</p>
+  <div class="ba"><div class="pre"><img src="../../public/images/projects/logistics-tms.webp" alt=""><span>PRE</span><div class="handle"></div></div><div><img src="../../public/images/projects/itexpert.webp" alt=""><span>POSLE</span></div></div></div>
+</section>
+<section class="chap">
+  <div class="side"><div class="n">02</div><h3>Rezultat</h3></div>
+  <div><p>Jedan API ugovor iz kog se generiše TypeScript klijent, tako da studio, sajt i klijentska aplikacija nikad ne "pobegnu" jedno od drugog.</p>
+  <div class="result"><div><b>11</b><span>modula u jednom Go monolitu</span></div><div><b>3</b><span>aplikacije iz jednog OpenAPI ugovora</span></div><div><b>1</b><span>dugme za fiskalni račun</span></div></div></div>
+</section>
+<a class="next" href="#"><div><small>Sledeći list · L-04</small><h3>Logistics TMS</h3></div><span class="arr">→</span></a>
+</div>
+<div style="height:40px"></div>
+</body>
+</html>

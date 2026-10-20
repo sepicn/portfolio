@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B Hrom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.13 0.018 285);
+  --bg-2:oklch(0.17 0.02 285);
+  --tx:oklch(0.95 0.006 285);
+  --tx-2:oklch(0.7 0.015 285);
+  --tx-3:oklch(0.48 0.015 285);
+  --line:oklch(0.95 0 0 / 0.09);
+  --hot:oklch(0.7 0.19 45);
+  --cool:oklch(0.62 0.17 285);
+  --display:"Archivo",sans-serif;
+  --mono:"JetBrains Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:var(--display);font-variation-settings:"wdth" 100;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{padding:0 clamp(16px,3vw,48px)}
+header{position:relative;z-index:5;display:flex;justify-content:space-between;align-items:center;height:72px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-2)}
+header nav{display:flex;gap:28px}
+header b{color:var(--tx);font-weight:500}
+.hero{position:relative;height:calc(100vh - 72px);min-height:640px;display:grid;place-items:center}
+.glow{position:absolute;inset:0;background:radial-gradient(40% 50% at 30% 55%,oklch(0.7 0.19 45 / .22),transparent 70%),radial-gradient(40% 50% at 72% 45%,oklch(0.62 0.17 285 / .28),transparent 70%)}
+.giant{position:absolute;left:50%;top:50%;transform:translate(-50%,-54%);font-weight:900;font-variation-settings:"wdth" 62;font-size:clamp(9rem,31vw,34rem);line-height:.8;letter-spacing:-.02em;white-space:nowrap;color:var(--tx);opacity:.96}
+.giant.front{color:transparent;-webkit-text-stroke:1.2px oklch(0.95 0 0 / .55);z-index:3;clip-path:inset(62% 0 0 0)}
+.obj{position:relative;z-index:2;width:min(56vh,46vw);aspect-ratio:1;background:url(assets/chrome.png) center/contain no-repeat;filter:drop-shadow(0 40px 60px oklch(0 0 0 / .6))}
+.corner{position:absolute;z-index:4;font-family:var(--mono);font-size:12px;letter-spacing:.06em;line-height:1.7;color:var(--tx-2)}
+.corner b{color:var(--tx);font-weight:500}
+.tl{left:0;top:24px}.br{right:0;bottom:32px;text-align:right}.bl{left:0;bottom:32px;max-width:34ch;font-family:var(--display);font-size:clamp(17px,1.35vw,21px);letter-spacing:-.01em;line-height:1.4;color:var(--tx)}
+.bl em{font-style:normal;color:var(--hot)}
+.pill{display:inline-flex;gap:10px;align-items:center;margin-top:18px;padding:12px 20px;border-radius:999px;background:var(--tx);color:var(--bg);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.marq{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:22px 0;font-weight:800;font-variation-settings:"wdth" 75;font-size:clamp(28px,3.4vw,52px);text-transform:uppercase;letter-spacing:-.01em}
+.marq span{margin-right:48px}
+.marq i{font-style:normal;color:var(--hot);margin-right:48px}
+section.reel{padding:120px 0}
+.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:56px}
+h2{font-weight:900;font-variation-settings:"wdth" 62;font-size:clamp(4rem,11vw,12rem);line-height:.82;text-transform:uppercase}
+h2 sup{font-family:var(--mono);font-size:14px;font-weight:400;vertical-align:top;color:var(--hot);margin-left:10px}
+.track{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:20px}
+.card{position:relative;border-radius:6px;overflow:hidden;background:var(--bg-2);aspect-ratio:4/5}
+.card.big{aspect-ratio:auto;grid-row:span 1}
+.card img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.05);opacity:.85}
+.card .lbl{position:absolute;left:20px;right:20px;bottom:18px;display:flex;justify-content:space-between;align-items:end}
+.card h3{font-weight:800;font-variation-settings:"wdth" 70;font-size:clamp(28px,3vw,48px);text-transform:uppercase;line-height:.9}
+.card .m{font-family:var(--mono);font-size:12px;text-align:right;color:var(--tx-2)}
+.card .m b{display:block;font-family:var(--display);font-size:32px;color:var(--hot);font-weight:800}
+.card:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,oklch(0.1 0.02 285 / .9))}
+.card .lbl{z-index:2}
+.idx{position:absolute;z-index:2;top:16px;left:20px;font-family:var(--mono);font-size:12px;color:var(--tx-2)}
+@media (max-width:900px){
+  header nav{display:none}
+  .hero{height:auto;min-height:calc(100svh - 72px);padding:40px 0 260px}
+  .giant{font-size:46vw;top:36%}
+  .obj{width:84vw}
+  .tl{top:8px}
+  .br{display:none}
+  .bl{bottom:28px}
+  .track{grid-template-columns:1fr}
+  .card{aspect-ratio:4/3}
+  .head{flex-direction:column;align-items:start;gap:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><b>NŠ / 26</b><nav><span>Rad</span><span>Usluge</span><span>O meni</span><span>Kontakt</span></nav><span>BG 44.81°N</span></header>
+<section class="hero">
+  <div class="glow"></div>
+  <div class="giant" aria-hidden="true">ŠEPIĆ</div>
+  <div class="obj" role="img" aria-label="Hromirani monogram NŠ"></div>
+  <div class="corner tl">Full-stack developer<br><b>+ Google Ads, Meta, SEO</b></div>
+  <div class="corner bl">Nikola Šepić. Pravim web aplikacije i kampanje koje ih <em>pune</em>. Beograd, uživo ili remote.<br><span class="pill">Pogledaj rad ↘</span></div>
+  <div class="corner br">Scroll<br><b>001 / 014</b></div>
+</section>
+</div>
+<div class="marq" aria-hidden="true"><span>Next.js</span><i>✦</i><span>Nuxt</span><i>✦</i><span>Laravel</span><i>✦</i><span>Go</span><i>✦</i><span>Three.js</span><i>✦</i><span>Google Ads</span><i>✦</i><span>SEO</span><i>✦</i><span>Next.js</span></div>
+<div class="wrap">
+<section class="reel">
+  <div class="head"><h2>Izabrani<br>rad<sup>(14)</sup></h2><div class="corner" style="position:static">Prevuci ili skroluj<br><b>← →</b></div></div>
+  <div class="track">
+    <div class="card big"><span class="idx">01 · 2025-26</span><img src="../../public/images/projects/medical-time.webp" alt=""><div class="lbl"><h3>Medical<br>Time</h3><div class="m"><b>−54%</b>CPA</div></div></div>
+    <div class="card"><span class="idx">02 · 2026</span><img src="../../public/images/projects/itexpert.webp" alt=""><div class="lbl"><h3>Kafe</h3><div class="m"><b>4</b>aplikacije</div></div></div>
+    <div class="card"><span class="idx">03 · 2026</span><img src="../../public/images/projects/logistics-tms.webp" alt=""><div class="lbl"><h3>Makaze</h3><div class="m"><b>11</b>modula</div></div></div>
+  </div>
+</section>
+</div>
+</body>
+</html>

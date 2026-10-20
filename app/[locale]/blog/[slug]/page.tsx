@@ -1,0 +1,165 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+import { blogHref } from "@/i18n/paths";
+import { routing } from "@/i18n/routing";
+import { getPost, posts, type Locale } from "@/content/blog";
+import { profile } from "@/content/data/profile";
+import { siteConfig } from "@/lib/site-config";
+import { pageMetadata } from "@/lib/seo";
+import { formatDate } from "@/lib/format";
+import { Blocks, slugify } from "@/components/blog/blocks";
+import { ReadProgress } from "@/components/blog/read-progress";
+import { absoluteUrl, breadcrumbJsonLd, graph, personId, serializeJsonLd } from "@/lib/structured-data";
+
+type Props = { params: Promise<{ locale: string; slug: string }> };
+
+const lc = (locale: string) => (locale === "en" ? "en" : "sr") as Locale;
+
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) => posts.map((p) => ({ locale, slug: p.slug[locale] })));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const post = getPost(lc(locale), slug);
+  if (!post) return {};
+  const meta = pageMetadata({
+    locale,
+    path: `/blog/${post.slug.sr}`,
+    title: post.title[lc(locale)],
+    description: post.description[lc(locale)],
+    ogKey: `post-${post.slug.sr}`,
+  });
+  return {
+    title: post.title[lc(locale)],
+    ...meta,
+    openGraph: { ...meta.openGraph, type: "article", publishedTime: post.date, authors: [siteConfig.name] },
+  };
+}
+
+export default async function PostPage({ params }: Props) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const l = lc(locale);
+  const post = getPost(l, slug);
+  if (!post) notFound();
+  const t = await getTranslations({ locale, namespace: "blog" });
+  const nav = await getTranslations({ locale, namespace: "nav" });
+  const blocks = post.body[l];
+  const toc = blocks.filter((b) => b.type === "h2").map((b) => (b as { text: string }).text);
+  const index = posts.indexOf(post);
+  const next = posts[(index + 1) % posts.length];
+  const url = absoluteUrl(locale, `/blog/${post.slug.sr}`);
+
+  const jsonLd = graph(
+    {
+      "@type": "BlogPosting",
+      "@id": `${url}#post`,
+      headline: post.title[l],
+      description: post.description[l],
+      abstract: post.answer[l],
+      datePublished: post.date,
+      dateModified: post.date,
+      inLanguage: l === "sr" ? "sr-Latn-RS" : "en",
+      author: { "@id": personId },
+      publisher: { "@id": personId },
+      mainEntityOfPage: url,
+      url,
+      image: `${siteConfig.url}/og/${locale}-post-${post.slug.sr}.jpg`,
+      timeRequired: `PT${post.minutes}M`,
+    },
+    breadcrumbJsonLd(locale, [
+      [siteConfig.name, "/"],
+      ["Blog", "/blog"],
+      [post.title[l], `/blog/${post.slug.sr}`],
+    ]),
+  );
+
+  return (
+    <article className="wrap">
+      <ReadProgress />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <nav aria-label="Breadcrumb" className="py-3.5">
+        <ol className="flex flex-wrap gap-2.5 font-mono text-[12px] tracking-[0.06em] text-ink-3 uppercase">
+          <li>
+            <Link href="/" className="hover:text-blue">
+              {nav("home")}
+            </Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <Link href="/blog" className="hover:text-blue">
+              Blog
+            </Link>
+          </li>
+        </ol>
+      </nav>
+
+      <header className="grid items-end gap-8 border-b border-ink pt-10 pb-10 lg:grid-cols-[1fr_340px] lg:gap-12 lg:pt-14">
+        <div>
+          <p className="flex flex-wrap gap-4 font-mono text-[12px] tracking-[0.05em] text-ink-2 uppercase">
+            <span className="text-blue">{t(`categories.${post.category}`)}</span>
+            <span>{t("minutes", { n: post.minutes })}</span>
+            <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
+          </p>
+          <h1 className="mt-4 text-[clamp(2.4rem,5.2vw,5.6rem)] leading-[0.98] tracking-[-0.045em]">{post.title[l]}</h1>
+        </div>
+        <div className="flex items-center gap-3.5">
+          <Image src={profile.photo} alt="" width={112} height={112} className="size-14 border border-ink object-cover grayscale" />
+          <p>
+            <span className="block font-medium">{profile.name}</span>
+            <span className="text-[14px] leading-[1.4] text-ink-2">{t("authorLine")}</span>
+          </p>
+        </div>
+      </header>
+
+      <div className="grid gap-12 pt-10 lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:pt-12">
+        <aside className="hidden lg:sticky lg:top-6 lg:block lg:self-start">
+          <p className="label mb-3">{t("contents")}</p>
+          <ol className="font-mono text-[12px] leading-[1.45]">
+            {toc.map((h) => (
+              <li key={h}>
+                <a href={`#${slugify(h)}`} className="block border-l border-rule py-2 pl-3 text-ink-2 hover:border-blue hover:text-blue">
+                  {h}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
+        <div className="min-w-0 max-w-[68ch]">
+          <div className="mb-9 border border-ink bg-paper p-5 lg:p-6">
+            <p className="tag mb-2">{t("answer")}</p>
+            <p className="text-[17px] leading-[1.6] lg:text-[18px]">{post.answer[l]}</p>
+          </div>
+          <Blocks blocks={blocks} />
+        </div>
+
+        <aside className="lg:sticky lg:top-6 lg:self-start">
+          <div className="dark-sheet border border-ink p-5">
+            <p className="text-[20px] leading-[1.2] font-medium tracking-[-0.02em]">{t("ctaTitle")}</p>
+            <Link href="/contact" className="mt-4 flex min-h-12 items-center justify-center bg-blue px-4 font-mono text-[12px] tracking-[0.05em] uppercase hover:bg-blue-2 hover:text-ink">
+              {t("ctaButton")} →
+            </Link>
+          </div>
+        </aside>
+      </div>
+
+      <Link
+        href={blogHref(next.slug[l])}
+        className="group mt-20 grid items-center border border-ink bg-paper p-6 transition-colors hover:bg-ink hover:text-paper lg:grid-cols-[1fr_auto] lg:p-7"
+      >
+        <span>
+          <span className="label group-hover:text-paper/70">{t("next")}</span>
+          <span className="mt-1 block text-[clamp(1.8rem,3.4vw,3.2rem)] leading-[1.05] tracking-[-0.04em]">{next.title[l]}</span>
+        </span>
+        <span aria-hidden="true" className="text-[56px] text-blue transition-transform duration-500 ease-out-expo group-hover:translate-x-2 group-hover:text-blue-2">
+          →
+        </span>
+      </Link>
+    </article>
+  );
+}

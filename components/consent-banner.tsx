@@ -3,24 +3,13 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { CyberFrame } from "@/components/cyber-frame";
-import {
-  CONSENT_OPEN_EVENT,
-  readConsent,
-  saveConsent,
-  type ConsentChoice,
-} from "@/lib/consent";
+import { CONSENT_OPEN_EVENT, readConsent, saveConsent, type ConsentChoice } from "@/lib/consent";
 
-/**
- * Cookie consent for analytics and ads measurement. Both buttons carry the same weight,
- * nothing loads with consent before a click, and the footer link reopens it.
- */
 export function ConsentBanner() {
   const t = useTranslations("consent");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // Reading localStorage has to wait for the client, so the banner appears after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (readConsent() === null) setOpen(true);
     const reopen = () => setOpen(true);
@@ -39,46 +28,33 @@ export function ConsentBanner() {
     <section
       role="region"
       aria-label={t("label")}
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl text-sm text-ink-200 [filter:drop-shadow(0_0_14px_rgba(255,45,149,0.45))] sm:bottom-5"
+      className="fixed inset-x-3 bottom-20 z-50 mx-auto max-w-xl border border-ink bg-paper p-5 text-[15px] text-ink-2 shadow-[0_20px_40px_-20px_oklch(0.2_0.04_265/0.45)] lg:bottom-5"
     >
-      <CyberFrame variant={1} scale={0.7} tone="pink" className="bg-night-900 p-5">
-        <p className="font-mono text-xs tracking-widest text-neon-cyan uppercase">
-          {t("eyebrow")}
-        </p>
-        <p className="mt-2">
-          {t("text")}{" "}
-          <Link href="/privacy" className="text-ink-100 underline underline-offset-4">
-            {t("more")}
-          </Link>
-        </p>
-        <div className="mt-4 flex gap-3">
-          <button
-            type="button"
-            onClick={() => choose("granted")}
-            className="flex-1 border border-neon-pink/60 notch px-4 py-2 font-medium text-ink-100 transition [--nc:rgba(255,45,149,0.6)] hover:bg-neon-pink/15"
-          >
-            {t("accept")}
-          </button>
-          <button
-            type="button"
-            onClick={() => choose("denied")}
-            className="flex-1 border border-neon-pink/60 notch-alt px-4 py-2 font-medium text-ink-100 transition [--nc:rgba(255,45,149,0.6)] hover:bg-neon-pink/15"
-          >
-            {t("decline")}
-          </button>
-        </div>
-      </CyberFrame>
+      <p className="tag">{t("eyebrow")}</p>
+      <p className="mt-2">
+        {t("text")}{" "}
+        <Link href="/privacy" className="text-ink underline underline-offset-4">
+          {t("more")}
+        </Link>
+      </p>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <button type="button" onClick={() => choose("granted")} className="btn btn-primary justify-center">
+          {t("accept")}
+        </button>
+        <button type="button" onClick={() => choose("denied")} className="btn btn-ghost justify-center">
+          {t("decline")}
+        </button>
+      </div>
     </section>
   );
 }
 
-/** Footer button that brings the banner back so a choice can be changed. */
 export function ConsentSettingsButton({ label }: { label: string }) {
   return (
     <button
       type="button"
       onClick={() => window.dispatchEvent(new Event(CONSENT_OPEN_EVENT))}
-      className="hover:text-neon-cyan"
+      className="hover:text-paper"
     >
       {label}
     </button>

@@ -16,20 +16,26 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "language": "Language",
-    "switchTo": "Srpski"
+    "switchTo": "Srpski",
+    "blog": "Blog",
+    "main": "Main navigation",
+    "menu": "Menu",
+    "menuShort": "Menu",
+    "write": "Write me",
+    "cvDownload": "CV ↓"
   },
   "footer": {
-    "rights": "Nikola Šepić. All content is mine, except client logos and third-party 3D models.",
-    "credit": "3D computer model:",
     "privacy": "Privacy",
     "cookies": "Cookie settings",
-    "location": "Belgrade, Serbia · also remote",
-    "ctaEyebrow": "// next step",
-    "ctaTitle": "Have a project in mind?",
-    "ctaBody": "Tell me what you need. I reply the same working day. Or look through my CV first.",
-    "ctaContact": "Contact me",
-    "ctaCv": "View CV",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "nextStep": "Next step",
+    "ctaLine1": "Got a project or",
+    "ctaLine2": "an open role?",
+    "ctaButton": "Write to me",
+    "pages": "Pages",
+    "online": "Online",
+    "cvPdf": "CV (PDF)",
+    "clock": "Belgrade,"
   },
   "home": {
     "title": "Websites and Google Ads for growing businesses",
@@ -58,7 +64,7 @@
   "projects": {
     "title": "Projects",
     "headline": "Websites and web apps I have built",
-    "intro": "Client work and personal projects. For each one I write what I actually did and what was hard.",
+    "intro": "A hospital, US trucking, two SaaS products of my own and sites for local businesses. Each one says what I did and what was hard.",
     "clientEyebrow": "Clients",
     "clientTitle": "Sites and systems real businesses use",
     "clientLead": "A hospital, a US logistics company, a web agency, a magazine, a pastry shop, a music studio and a sports centre.",
@@ -73,12 +79,17 @@
     "live": "Live site",
     "repo": "Code",
     "metaTitle": "Projects: websites, web apps and campaigns",
-    "metaDescription": "A private hospital platform, a TMS for a US logistics company, sites for local businesses and personal Next.js projects. What I did on each and what was hard."
+    "metaDescription": "A private hospital platform, a TMS for a US logistics company, sites for local businesses and personal Next.js projects. What I did on each and what was hard.",
+    "tag": "{count} projects, 2024-2026",
+    "kindClient": "Client",
+    "kindSaas": "SaaS",
+    "kindPersonal": "Personal",
+    "filterSaas": "SaaS"
   },
   "services": {
     "title": "Services",
     "headline": "Web development, Google Ads and SEO",
-    "intro": "Websites and web apps, Google Ads, Meta Ads, SEO and analytics, all from one person. You get a fixed quote within two days of a short call.",
+    "intro": "Websites and apps, Google Ads, Meta Ads and SEO. I do all of it myself, so you talk to the person who writes the code and runs the campaigns.",
     "forWhom": "For whom",
     "includes": "What is included",
     "processEyebrow": "Process",
@@ -87,13 +98,15 @@
     "cta": "Book a call",
     "metaTitle": "Web development, Google Ads and SEO in Belgrade",
     "metaDescription": "Websites and web apps, Google Ads and Meta Ads campaign management, SEO and GA4/GTM analytics. A fixed quote after a short conversation.",
-    "examples": "Examples from real work"
+    "examples": "Examples from real work",
+    "tag": "For businesses, as a freelancer",
+    "more": "Details"
   },
   "about": {
     "title": "About",
     "intro": "Nikola Šepić, full-stack web developer in Belgrade. BSc in Information Technology, Singidunum University.",
     "experienceEyebrow": "Experience",
-    "experienceTitle": "Where I worked and what I built there",
+    "experienceTitle": "Where I have worked and what I built there",
     "skillsEyebrow": "Skills",
     "skillsTitle": "What I know, honestly",
     "skillsLead": "Three levels, no percentages or stars.",
@@ -129,17 +142,17 @@
   },
   "contact": {
     "title": "Contact",
-    "intro": "The form or a call is fastest. Email and phone are hidden from bots, click to reveal them.",
+    "intro": "For a job, a project or ads. Email and phone are hidden from bots, click to show them.",
     "email": "Email",
     "phone": "Phone",
     "location": "Belgrade, Serbia",
     "metaTitle": "Contact: a website, Google Ads or SEO",
     "metaDescription": "Ask about a website, a Google Ads campaign or SEO. Use the form, call or WhatsApp; you get a quote after a short conversation, usually the same day.",
-    "signal": "Available · same-day replies",
     "howTitle": "Call or send an email",
     "how": "Whatever suits you: a call, WhatsApp or email. I reply the same working day and send a quote after a short talk about what you need and by when.",
     "areaTitle": "Belgrade and remote",
-    "area": "I work from Belgrade. I can meet clients in Belgrade in person, and I work remotely with everyone else, in Serbia and abroad, over calls, email and screen sharing."
+    "area": "I work from Belgrade. I can meet clients in Belgrade in person, and I work remotely with everyone else, in Serbia and abroad, over calls, email and screen sharing.",
+    "tag": "A job or a project"
   },
   "notFound": {
     "title": "Page not found",
@@ -154,22 +167,6 @@
       "score": "SCORE",
       "best": "BEST"
     }
-  },
-  "hotspots": {
-    "projects": "Projects",
-    "services": "Services",
-    "clients": "Clients",
-    "contact": "Contact",
-    "education": "Education",
-    "about": "About",
-    "cv": "CV",
-    "lamp": "Lamp"
-  },
-  "music": {
-    "play": "Play music",
-    "mute": "Mute music",
-    "on": "sound on",
-    "off": "sound off"
   },
   "reveal": {
     "email": "Show email",
@@ -187,10 +184,17 @@
     "message": "Message",
     "send": "Send",
     "sending": "Sending...",
-    "sent": "Got it. I reply the same day.",
+    "sent": "Message received. I will get back to you soon.",
     "error": "That did not go through. Try again or write to me directly.",
     "unavailable": "Sending is not set up yet. Write to me directly:",
-    "note": "No newsletter, no spam. The message goes only to me."
+    "topic": "I am writing about",
+    "topics": {
+      "job": "A job (hiring)",
+      "project": "A site or app",
+      "marketing": "Ads and SEO"
+    },
+    "namePlaceholder": "Your name",
+    "messagePlaceholder": "A few sentences about the work"
   },
   "projectPage": {
     "back": "All projects",
@@ -204,7 +208,7 @@
     "privateNote": "The repo is private and client-owned, so no code or screenshots.",
     "moreNav": "Other projects",
     "previous": "Previous",
-    "next": "Next",
+    "next": "Next project",
     "period": "Period",
     "team": "Team",
     "scale": "Scale",
@@ -220,7 +224,10 @@
     "ctaServices": "Services on this project:",
     "gallery": "More screens",
     "phone": "On a phone",
-    "caseStudy": "case study"
+    "caseStudy": "case study",
+    "client": "Client",
+    "saas": "My SaaS",
+    "saasNote": "The repository is private, so there is no link to the code."
   },
   "consent": {
     "label": "Cookie consent",
@@ -244,7 +251,7 @@
       },
       {
         "h": "What your browser keeps",
-        "p": "Only your cookie choice (localStorage, key sepic-consent). The music setting is not stored and sound never starts on its own."
+        "p": "Only your cookie choice (localStorage, key sepic-consent)."
       },
       {
         "h": "Changing your choice",
@@ -255,41 +262,24 @@
     "metaTitle": "Privacy policy",
     "metaDescription": "What sepic.me collects (Google Analytics and Google Ads only with consent, the contact form through Resend) and how to change your cookie choice."
   },
-  "tour": {
-    "hint": "Scroll through the room",
-    "open": "Open",
-    "skip": "Skip",
-    "desc": {
-      "projects": "Production systems and personal projects, with case studies.",
-      "services": "Websites, Google Ads, Meta Ads and SEO.",
-      "clients": "The companies I work with and what we built together.",
-      "about": "Who I am, how I work and what drives me off the clock.",
-      "education": "A degree in information technology and certificates.",
-      "cv": "Experience and skills, to read here or download as PDF and DOCX.",
-      "contact": "Get in touch about a website, a campaign or SEO."
+  "blog": {
+    "metaTitle": "Blog: websites, Google Ads and SEO from real work",
+    "metaDescription": "Posts about work I actually did: what a website costs, a hospital Google Ads account, technical SEO, a five-language site and fiscal receipts in a web app.",
+    "tag": "Notes from the work",
+    "intro": "I write about work I actually did: what a website costs, how I cleaned up a hospital Google Ads account, what fiscal receipts took.",
+    "read": "Read the post",
+    "minutes": "{n} min read",
+    "contents": "Contents",
+    "answer": "Short answer",
+    "authorLine": "Full-stack developer and Google Ads, Belgrade",
+    "ctaTitle": "Need something like this, or looking for a developer?",
+    "ctaButton": "Write to me",
+    "next": "Next post",
+    "categories": {
+      "sajtovi": "Websites",
+      "google-ads": "Google Ads",
+      "seo": "SEO",
+      "razvoj": "Development"
     }
-  },
-  "testimonials": {
-    "eyebrow": "Testimonials",
-    "title": "What clients say"
-  },
-  "perf": {
-    "title": "I build sites that score 90+ on Google Lighthouse",
-    "lead": "Lighthouse is the Google tool behind PageSpeed Insights. It gives a metric a 90 only when the site is faster than about 92% of sites on the web. This site scores 90+ in all four categories, on a phone and on a desktop.",
-    "mobile": "Mobile",
-    "desktop": "Desktop",
-    "performance": "Performance",
-    "accessibility": "Accessibility",
-    "bestPractices": "Best practices",
-    "measured": "Measured on {date} ({source}).",
-    "sourcePagespeed": "Google PageSpeed Insights",
-    "sourceLighthouse": "Lighthouse with PageSpeed settings (slow 4G, slower CPU)",
-    "rerun": "Run it again on PageSpeed",
-    "compareTitle": "For comparison, the average site on the web",
-    "compareScore": "of sites on the web reach a 90 on a given metric",
-    "compareCwv": "of sites pass Google's Core Web Vitals on mobile",
-    "compareLcp": "of mobile pages load their main content in 2.5 s or less",
-    "thisSite": "This site: {lcp} s",
-    "sources": "Sources"
   }
 }

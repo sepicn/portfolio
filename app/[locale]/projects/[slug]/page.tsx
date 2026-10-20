@@ -1,40 +1,21 @@
 import type { Metadata } from "next";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { use } from "react";
 import { Link } from "@/i18n/navigation";
 import { projectHref, serviceHref } from "@/i18n/paths";
 import { routing } from "@/i18n/routing";
-import { Reveal } from "@/components/reveal";
-import { CyberFrame, cyberClip } from "@/components/cyber-frame";
-import { CyberDivider } from "@/components/cyber-divider";
-import { Parallax } from "@/components/motion/parallax";
-import { SplitHeading } from "@/components/motion/split-heading";
-import { PrivateArt } from "@/components/project-card";
-import { Testimonials } from "@/components/testimonials";
-import { PerfScores } from "@/components/perf-scores";
 import { pick, pickList } from "@/content/i18n";
 import { projects } from "@/content/data/projects";
-import { servicePages, services } from "@/content/data/services";
+import { services } from "@/content/data/services";
 import { siteConfig } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/seo";
-import {
-  absoluteUrl,
-  breadcrumbJsonLd,
-  graph,
-  personId,
-  serializeJsonLd,
-} from "@/lib/structured-data";
+import { absoluteUrl, breadcrumbJsonLd, graph, personId, serializeJsonLd } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
-  return routing.locales.flatMap((locale) =>
-    projects.map((p) => ({ locale, slug: p.slug })),
-  );
+  return routing.locales.flatMap((locale) => projects.map((p) => ({ locale, slug: p.slug })));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -57,28 +38,38 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ProjectPage({ params }: Props) {
-  const { locale, slug } = use(params);
+function Chapter({ no, title, children }: { no: string; title: string; children: React.ReactNode }) {
+  return (
+    <section className="grid gap-4 pt-16 lg:grid-cols-[260px_1fr] lg:gap-12 lg:pt-24">
+      <div className="lg:sticky lg:top-6 lg:self-start">
+        <p aria-hidden="true" className="text-[64px] leading-[0.8] font-light tracking-[-0.06em] text-blue lg:text-[96px]">
+          {no}
+        </p>
+        <h2 className="mt-3 text-[28px] tracking-[-0.03em]">{title}</h2>
+      </div>
+      <div className="max-w-[68ch] text-[17px] leading-[1.65] text-ink lg:text-[19px]">{children}</div>
+    </section>
+  );
+}
+
+export default async function ProjectPage({ params }: Props) {
+  const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("projectPage");
-  const navT = useTranslations("nav");
+  const t = await getTranslations({ locale, namespace: "projectPage" });
+  const nav = await getTranslations({ locale, namespace: "nav" });
   const index = projects.findIndex((p) => p.slug === slug);
   if (index === -1) notFound();
   const project = projects[index];
-  const prev = projects[(index - 1 + projects.length) % projects.length];
   const next = projects[(index + 1) % projects.length];
-  const desktopShots = (project.gallery ?? []).filter((g) => !g.endsWith("-m.webp"));
-  const phoneShot = (project.gallery ?? []).find((g) => g.endsWith("-m.webp"));
-  const isClient = project.kind !== "personal";
-  const usedServices = services.filter((s) => s.examples.includes(slug));
-  const ctaServices = usedServices.length
-    ? usedServices
-    : services.filter((s) => s.id === "web");
+  const shots = (project.gallery ?? []).filter((g) => !g.endsWith("-m.webp"));
+  const phone = (project.gallery ?? []).find((g) => g.endsWith("-m.webp"));
+  const isPersonal = project.kind === "personal";
+  const used = services.filter((s) => s.examples.includes(slug));
 
   const jsonLd = graph(
     breadcrumbJsonLd(locale, [
       [siteConfig.name, "/"],
-      [navT("projects"), "/projects"],
+      [nav("projects"), "/projects"],
       [project.title, `/projects/${slug}`],
     ]),
     {
@@ -91,17 +82,13 @@ export default function ProjectPage({ params }: Props) {
       mainEntityOfPage: absoluteUrl(locale, `/projects/${slug}`),
       inLanguage: locale === "sr" ? "sr-Latn-RS" : "en",
       url: absoluteUrl(locale, `/projects/${slug}`),
-      // The case study is about the client and their live site; sameAs would claim the page
-      // *is* that site, and funder would claim the client paid for the write-up.
       ...(project.client || project.links.live
         ? {
             about: project.links.live
               ? {
                   "@type": "WebSite",
                   url: project.links.live,
-                  ...(project.client
-                    ? { publisher: { "@type": "Organization", name: project.client } }
-                    : {}),
+                  ...(project.client ? { publisher: { "@type": "Organization", name: project.client } } : {}),
                 }
               : { "@type": "Organization", name: project.client },
           }
@@ -115,343 +102,156 @@ export default function ProjectPage({ params }: Props) {
     { label: t("role"), value: pick(project.role, locale) },
     { label: t("period"), value: project.year },
     { label: t("team"), value: pick(project.team, locale) },
-    { label: t("scale"), value: pick(project.scale, locale) },
+    { label: t("stack"), value: project.stack.slice(0, 5).join(", ") },
   ];
 
   return (
-    <article className="pb-28">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-      />
-
-      {/* Title block */}
-      <header className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 grid-floor" />
-        <div className="mx-auto max-w-6xl px-4 pt-14 pb-14 sm:px-6">
-          <Reveal from="left">
-            <Link
-              href="/projects"
-              className="font-mono text-xs tracking-widest text-neon-cyan uppercase hover:underline"
-            >
-              <ArrowLeftIcon
-                aria-hidden="true"
-                className="inline size-4 align-[-3px] transition group-hover:-translate-x-0.5"
-              />{" "}
-              {t("back")}
+    <article className="wrap">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <nav aria-label="Breadcrumb" className="py-3.5">
+        <ol className="flex flex-wrap gap-2.5 font-mono text-[12px] tracking-[0.06em] text-ink-3 uppercase">
+          <li>
+            <Link href="/projects" className="hover:text-blue">
+              {nav("projects")}
             </Link>
-            <p className="mt-6 font-mono text-xs tracking-[0.3em] text-ink-400 uppercase">
-              {project.client ?? t("personal")} · {project.year}
+          </li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" className="font-medium text-blue">
+            {project.title}
+          </li>
+        </ol>
+      </nav>
+
+      <header className="dark-sheet grid border border-ink lg:min-h-[600px] lg:grid-cols-2">
+        <div className="flex flex-col justify-between gap-8 border-b border-rule-dark px-[18px] py-7 lg:border-r lg:border-b-0 lg:p-10">
+          <div>
+            <p className="tag text-blue-2">
+              {isPersonal ? t("personal") : project.kind === "saas" ? t("saas") : (project.client ?? t("client"))} · {project.year}
             </p>
-          </Reveal>
-          <SplitHeading
-            as="h1"
-            text={project.title}
-            className="mt-3 max-w-4xl font-display text-5xl font-semibold tracking-tight text-ink-100 sm:text-7xl"
-            accentLast
-          />
-          <Reveal delay={0.2}>
-            <p className="mt-6 max-w-2xl text-xl text-ink-200">
+            <h1 className="mt-4 text-[clamp(3.2rem,7vw,8rem)] leading-[0.88] tracking-[-0.05em]">{project.title}</h1>
+            <p className="mt-6 max-w-[34ch] text-[20px] leading-[1.4] text-paper/85 lg:text-[22px]">
               {pick(project.tagline, locale)}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+          </div>
+          {project.links.live || project.links.repo ? (
+            <div className="flex flex-wrap gap-3">
               {project.links.live ? (
-                <a
-                  href={project.links.live}
-                  target="_blank"
-                  rel="noopener"
-                  className="bg-neon-pink notch px-5 py-2.5 font-medium text-night-950 transition [--n:9px] hover:brightness-110"
-                >
+                <a href={project.links.live} target="_blank" rel="noopener" className="btn border-blue-2 text-paper hover:bg-blue-2 hover:text-ink">
                   {t("visit")} ↗
                 </a>
               ) : null}
               {project.links.repo ? (
-                <a
-                  href={project.links.repo}
-                  target="_blank"
-                  rel="noopener"
-                  className="border border-neon-cyan/60 notch-alt px-5 py-2.5 font-medium text-neon-cyan transition [--n:9px] [--nc:rgba(0,229,255,0.6)] hover:bg-neon-cyan/10"
-                >
+                <a href={project.links.repo} target="_blank" rel="noopener" className="btn border-rule-dark text-paper hover:bg-paper hover:text-ink">
                   GitHub ↗
                 </a>
               ) : null}
             </div>
-          </Reveal>
+          ) : (
+            <p className="font-mono text-[13px] text-paper/60">{project.kind === "saas" ? t("saasNote") : t("privateNote")}</p>
+          )}
+        </div>
+        <div className="relative min-h-[260px] overflow-hidden">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={`${project.title}: ${t("screenshot")}`}
+              fill
+              priority
+              sizes="(min-width: 1024px) 48vw, 100vw"
+              className="object-cover object-top opacity-95"
+            />
+          ) : (
+            <Image
+              src="/images/drawings/stack-open.webp"
+              alt=""
+              width={630}
+              height={748}
+              priority
+              className="absolute inset-0 m-auto max-h-[80%] w-auto invert hue-rotate-180 brightness-[1.15]"
+            />
+          )}
         </div>
       </header>
 
-      {/* Hero screenshot in a monitor frame, drifting on scroll */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal from="up">
-          <Parallax distance={60}>
-            <div className="[filter:drop-shadow(0_24px_40px_rgba(0,0,0,0.6))]">
-              <CyberFrame variant={2} scale={0.8} className="bg-night-900 p-2 pt-4">
-                <div
-                  className="relative aspect-[16/10] overflow-hidden bg-night-950"
-                  style={{ clipPath: cyberClip(3, 0.5) }}
-                >
-                  {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={`${project.title}, ${t("screenshot")}`}
-                      fill
-                      preload
-                      fetchPriority="high"
-                      sizes="(max-width: 1200px) 100vw, 1152px"
-                      className="object-cover object-top"
-                    />
-                  ) : (
-                    <PrivateArt label={project.title} accent={project.accent} />
-                  )}
-                </div>
-                <div className="flex items-center justify-between px-3 pt-2 pb-1 font-mono text-xs tracking-widest text-ink-400 uppercase">
-                  <span>
-                    {project.links.live
-                      ?.replace(/^https?:\/\/(www\.)?/, "")
-                      .replace(/\/$/, "") ?? t("privateLabel")}
-                  </span>
-                  <span className="flex gap-1.5" aria-hidden="true">
-                    <span className="size-2 rounded-full bg-neon-red" />
-                    <span className="size-2 rounded-full bg-neon-yellow" />
-                    <span className="size-2 rounded-full bg-neon-green" />
-                  </span>
-                </div>
-              </CyberFrame>
-            </div>
-          </Parallax>
-        </Reveal>
-      </div>
-
-      {/* Facts bar: what a recruiter scans first */}
-      <section aria-label={t("facts")} className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        {/* One <dl> per card: the Reveal and CyberFrame wrappers may not sit between a
-            <dl> and its <dt>/<dd>. */}
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map((f, i) => (
-            <Reveal key={f.label} as="div" delay={i * 0.06}>
-              <CyberFrame
-                variant={[4, 9, 7, 1][i % 4]}
-                scale={0.55}
-                edgeClassName="h-full"
-                className="bg-night-900 p-5"
-              >
-                <dl>
-                  <dt className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-                    {f.label}
-                  </dt>
-                  <dd className="mt-2 text-ink-100">{f.value}</dd>
-                </dl>
-              </CyberFrame>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal className="mt-6">
-          <ul className="flex flex-wrap gap-1.5">
-            {project.stack.map((item) => (
-              <li
-                key={item}
-                className="border border-white/10 notch-one px-2.5 py-1 font-mono text-xs text-ink-200 [--nc:rgba(255,255,255,0.1)]"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </section>
-
-      <PerfScores slug={slug} locale={locale} />
-
-      {/* Story */}
-      <div className="mx-auto mt-20 grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-[3fr_2fr]">
-        <div className="space-y-14">
-          <Reveal from="left">
-            <h2 className="font-display text-2xl font-semibold text-ink-100 sm:text-3xl">
-              {t("summary")}
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-ink-200">
-              {pick(project.summary, locale)}
-            </p>
-          </Reveal>
-          <Reveal from="left">
-            <h2 className="font-display text-2xl font-semibold text-ink-100 sm:text-3xl">
-              {t("did")}
-            </h2>
-            <ol className="mt-5 space-y-4">
-              {pickList(project.did, locale).map((item, i) => (
-                <li key={item} className="flex gap-4 text-ink-200">
-                  <span className="mt-0.5 font-mono text-sm text-neon-pink">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ol>
-          </Reveal>
-        </div>
-
-        <div className="space-y-6">
-          <Reveal from="right">
-            <CyberFrame variant={5} tone="cyan" className="bg-night-800 p-7">
-              <h2 className="font-mono text-xs tracking-[0.3em] text-neon-cyan uppercase">
-                {t("hard")}
-              </h2>
-              <p className="mt-4 leading-relaxed text-ink-100">
-                {pick(project.hard, locale)}
-              </p>
-            </CyberFrame>
-          </Reveal>
-          <Reveal from="right" delay={0.1}>
-            <CyberFrame variant={10} tone="pink" className="bg-night-800 p-7">
-              <h2 className="font-mono text-xs tracking-[0.3em] text-neon-pink uppercase">
-                {isClient ? t("impactClient") : t("impact")}
-              </h2>
-              <ul className="mt-4 space-y-3">
-                {pickList(project.impact, locale).map((item) => (
-                  <li key={item} className="leading-relaxed text-ink-100">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </CyberFrame>
-          </Reveal>
-          {!project.links.live && !project.links.repo ? (
-            <Reveal from="right" delay={0.15}>
-              <p className="text-sm text-ink-400">{t("privateNote")}</p>
-            </Reveal>
-          ) : null}
-        </div>
-      </div>
-
-      {/* Gallery: desktop shots alternate sides, the phone view floats beside them */}
-      {desktopShots.length || phoneShot ? (
-        <section
-          aria-label={t("gallery")}
-          className="mx-auto mt-24 max-w-6xl px-4 sm:px-6"
-        >
-          <Reveal>
-            <h2 className="font-display text-2xl font-semibold text-ink-100 sm:text-3xl">
-              {t("gallery")}
-            </h2>
-          </Reveal>
-          <div className="mt-10 grid items-start gap-8 lg:grid-cols-[3fr_1fr]">
-            <div className="space-y-8">
-              {desktopShots.map((src, i) => (
-                <Reveal key={src} from={i % 2 === 0 ? "left" : "right"}>
-                  <CyberFrame
-                    variant={[0, 6, 9, 1, 8][i % 5]}
-                    scale={0.8}
-                    className="overflow-hidden bg-night-950"
-                  >
-                    <Image
-                      src={src}
-                      alt={`${project.title}, ${t("screenshot")} ${i + 2}`}
-                      width={1600}
-                      height={1000}
-                      sizes="(max-width: 1024px) 100vw, 860px"
-                      className="h-auto w-full"
-                    />
-                  </CyberFrame>
-                </Reveal>
-              ))}
-            </div>
-            {phoneShot ? (
-              <Reveal from="right" className="lg:sticky lg:top-24">
-                <Parallax distance={40}>
-                  <div className="mx-auto w-56 rounded-[2rem] border border-white/15 bg-night-900 p-2 shadow-2xl shadow-black/60">
-                    <div className="overflow-hidden rounded-[1.6rem]">
-                      <Image
-                        src={phoneShot}
-                        alt={`${project.title}, ${t("phone")}`}
-                        width={585}
-                        height={1266}
-                        sizes="224px"
-                        className="h-auto w-full"
-                      />
-                    </div>
-                  </div>
-                  <p className="mt-3 text-center font-mono text-xs tracking-widest text-ink-400 uppercase">
-                    {t("phone")}
-                  </p>
-                </Parallax>
-              </Reveal>
-            ) : null}
+      <dl className="grid border-x border-b border-ink bg-paper sm:grid-cols-2 lg:grid-cols-4">
+        {facts.map((f) => (
+          <div key={f.label} className="border-b border-ink px-5 py-4 last:border-b-0 sm:border-r lg:border-b-0 lg:last:border-r-0">
+            <dt className="label">{f.label}</dt>
+            <dd className="mt-1.5 text-[16px] leading-[1.4] font-medium">{f.value}</dd>
           </div>
+        ))}
+      </dl>
+
+      <Chapter no="01" title={t("summary")}>
+        <p>{pick(project.summary, locale)}</p>
+        <p className="mt-4 text-ink-2">{pick(project.scale, locale)}</p>
+      </Chapter>
+
+      <Chapter no="02" title={t("did")}>
+        <ul className="space-y-3">
+          {pickList(project.did, locale).map((d) => (
+            <li key={d} className="grid grid-cols-[18px_1fr] gap-3">
+              <span aria-hidden="true" className="mt-[0.7em] h-px w-3.5 bg-blue" />
+              <span>{d}</span>
+            </li>
+          ))}
+        </ul>
+      </Chapter>
+
+      {shots.length || phone ? (
+        <section aria-label={t("gallery")} className="mt-16 grid gap-5 lg:mt-24 lg:grid-cols-[1fr_auto]">
+          <div className="grid gap-5">
+            {shots.map((src) => (
+              <figure key={src} className="border border-ink bg-paper p-2.5">
+                <Image src={src} alt={`${project.title}: ${t("screenshot")}`} width={1600} height={1000} sizes="(min-width: 1024px) 70vw, 100vw" className="img-load h-auto w-full" />
+              </figure>
+            ))}
+          </div>
+          {phone ? (
+            <figure className="mx-auto w-[260px] border border-ink bg-paper p-2.5 lg:sticky lg:top-6 lg:self-start">
+              <Image src={phone} alt={`${project.title}: ${t("phone")}`} width={390} height={844} className="img-load h-auto w-full" />
+              <figcaption className="label mt-2">{t("phone")}</figcaption>
+            </figure>
+          ) : null}
         </section>
       ) : null}
 
-      <Testimonials locale={locale} project={slug} />
+      <Chapter no="03" title={t("hard")}>
+        <p>{pick(project.hard, locale)}</p>
+      </Chapter>
 
-      <section
-        aria-labelledby="case-cta"
-        className="mx-auto mt-24 max-w-6xl px-4 sm:px-6"
-      >
-        <Reveal>
-          <CyberFrame variant={2} tone="cyan" className="bg-night-800 p-8 sm:p-10">
-            <h2
-              id="case-cta"
-              className="font-display text-2xl font-semibold text-ink-100 sm:text-3xl"
-            >
-              {t("ctaTitle")}
-            </h2>
-            <p className="mt-3 max-w-2xl text-ink-200">{t("ctaBody")}</p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Link
-                href="/contact"
-                className="bg-neon-cyan notch px-6 py-3 font-medium text-night-950 transition [--n:10px] hover:brightness-110"
-              >
-                {t("ctaButton")}
+      <Chapter no="04" title={isPersonal ? t("impact") : t("impactClient")}>
+        <ul className="grid gap-4">
+          {pickList(project.impact, locale).map((d) => (
+            <li key={d} className="border-l-2 border-blue pl-4">
+              {d}
+            </li>
+          ))}
+        </ul>
+        {used.length ? (
+          <p className="mt-8 flex flex-wrap items-center gap-2 text-[15px] text-ink-2">
+            {t("ctaServices")}
+            {used.map((s) => (
+              <Link key={s.id} href={serviceHref(s.id, locale)} className="chip hover:border-blue hover:text-blue">
+                {pick(s.title, locale)}
               </Link>
-              <p className="text-sm text-ink-300">
-                {t("ctaServices")}{" "}
-                {ctaServices.map((s, i) => (
-                  <span key={s.id}>
-                    {i > 0 ? ", " : null}
-                    <Link
-                      href={serviceHref(s.id, locale)}
-                      className="text-neon-cyan underline-offset-4 hover:underline"
-                    >
-                      {pick(servicePages[s.id].h1, locale)}
-                    </Link>
-                  </span>
-                ))}
-              </p>
-            </div>
-          </CyberFrame>
-        </Reveal>
-      </section>
+            ))}
+          </p>
+        ) : null}
+      </Chapter>
 
-      <div className="mx-auto mt-24 max-w-6xl px-4 sm:px-6">
-        <CyberDivider variant={4} />
-      </div>
-      <nav
-        aria-label={t("moreNav")}
-        className="mx-auto flex max-w-6xl justify-between gap-4 px-4 pt-10 sm:px-6"
+      <Link
+        href={projectHref(next.slug)}
+        className="group mt-20 grid items-center border border-ink bg-paper p-6 transition-colors hover:bg-ink hover:text-paper lg:mt-28 lg:grid-cols-[1fr_auto] lg:p-7"
       >
-        <Link href={projectHref(prev.slug)} className="group max-w-[45%]">
-          <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-            <ArrowLeftIcon
-              aria-hidden="true"
-              className="inline size-4 align-[-3px] transition group-hover:-translate-x-0.5"
-            />{" "}
-            {t("previous")}
-          </span>
-          <span className="mt-1 block font-display text-xl text-ink-100 group-hover:text-neon-cyan">
-            {prev.title}
-          </span>
-        </Link>
-        <Link href={projectHref(next.slug)} className="group max-w-[45%] text-right">
-          <span className="font-mono text-xs tracking-widest text-ink-400 uppercase">
-            {t("next")}{" "}
-            <ArrowRightIcon
-              aria-hidden="true"
-              className="inline size-4 align-[-3px] transition group-hover:translate-x-0.5"
-            />
-          </span>
-          <span className="mt-1 block font-display text-xl text-ink-100 group-hover:text-neon-cyan">
-            {next.title}
-          </span>
-        </Link>
-      </nav>
+        <span>
+          <span className="label group-hover:text-paper/70">{t("next")}</span>
+          <span className="mt-1 block text-[clamp(2.4rem,5vw,5rem)] leading-none tracking-[-0.045em]">{next.title}</span>
+        </span>
+        <span aria-hidden="true" className="text-[64px] text-blue transition-transform duration-500 ease-out-expo group-hover:translate-x-2 group-hover:text-blue-2">
+          →
+        </span>
+      </Link>
     </article>
   );
 }

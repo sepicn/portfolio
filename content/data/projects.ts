@@ -1,6 +1,6 @@
 import type { Localized, LocalizedList } from "../i18n";
 
-export type ProjectKind = "client" | "personal" | "maintenance";
+export type ProjectKind = "client" | "personal" | "maintenance" | "saas";
 
 export type Project = {
   slug: string;
@@ -131,6 +131,172 @@ export const projects: Project[] = [
     links: { live: "https://www.medicaltime.rs" },
     image: "/images/projects/medical-time.webp",
     accent: "pink",
+  },
+  {
+    slug: "kafe",
+    title: "Kafe",
+    kind: "saas",
+    featured: true,
+    year: "2026",
+    seoTitle: {
+      sr: "Kafe: SaaS za restorane, POS i fiskalizacija",
+      en: "Kafe: restaurant SaaS, POS and fiscal receipts",
+    },
+    description: {
+      sr: "Studija slučaja: Kafe, SaaS za restorane u Srbiji. Back-office, POS, ekran za kuhinju, rad bez interneta i fiskalni račun bez dupliranja. Django, Next.js, Flutter.",
+      en: "Case study: Kafe, a restaurant SaaS for Serbia. Back office, POS, kitchen display, work without internet and fiscal receipts that never duplicate. Django, Next.js, Flutter.",
+    },
+    role: {
+      sr: "Arhitektura, odluke i pregled koda; implementacija uz AI agente",
+      en: "Architecture, decisions and code review; implementation with AI agents",
+    },
+    tagline: {
+      sr: "Moj SaaS za restorane i kafiće: back-office, kasa, ekran za kuhinju i aplikacija za osoblje, koji rade i kad padne internet.",
+      en: "My SaaS for restaurants and cafés: back office, POS, kitchen display and a staff app, all of which keep working when the internet goes down.",
+    },
+    summary: {
+      sr: "Kafe pokriva ceo dan jednog lokala. Menadžer u pregledaču sređuje meni, salu, zalihe, nabavku, smene i dnevni pazar. Konobari rade na POS-u, kuhinja vidi porudžbine na svom ekranu, a osoblje ima PWA koja radi i bez mreže. U samom lokalu stoji mali servis, Site Gateway, koji štampa bonove i razgovara sa fiskalnim uređajem. Uz to postoje dve Flutter aplikacije i AI uvoz: faktura ili meni se pretvori u predlog koji čovek pregleda i potvrdi. Sistem je pravljen za više firmi na istoj bazi, sa fiskalizacijom po srpskim pravilima i plaćanjem preko IPS QR koda. Arhitekturu i odluke sam doneo ja, svaki kod sam pregledao, a implementaciju sam radio uz AI agente.",
+      en: "Kafe covers a venue's whole day. The manager sorts out the menu, floor plan, stock, purchasing, shifts and the daily take in the browser. Waiters work on the POS, the kitchen sees orders on its own screen, and staff have a PWA that works without a network. A small service called the Site Gateway sits in the venue itself, prints tickets and talks to the fiscal device. On top of that there are two Flutter apps and an AI import: an invoice or a menu becomes a draft that a person reviews and confirms. It is built for many businesses on one database, with fiscal receipts under Serbian rules and payment by IPS QR code. The architecture and the decisions are mine, I reviewed every change, and I built it together with AI agents.",
+    },
+    did: {
+      sr: [
+        "Back-office, POS, ekran za kuhinju i Staff PWA u Next.js-u, sa lokalnom Dexie bazom tako da uređaji rade i bez mreže.",
+        "Django API sa OpenAPI ugovorom, 25 modula i 65 migracija, uživo događaji preko Channels-a.",
+        "Island Mode: kad nestane interneta, gateway u lokalu preuzima porudžbine, štampa bonove i potpisuje račun lokalnim fiskalnim uređajem, pa sve vrati u cloud kad se veza vrati.",
+        "Fiskalno jezgro kao poseban paket bez Django-a, koje koriste i API i gateway.",
+        "Odvojeni podaci firmi kroz PostgreSQL row-level security koji aplikacija ne može da zaobiđe.",
+        "AI uvoz faktura i menija preko Claude API-ja, uz obavezan pregled čoveka.",
+        "2.265 Python testova, 58 Vitest i 37 Playwright fajlova, testovi opterećenja u k6 i Locust-u.",
+      ],
+      en: [
+        "Back office, POS, kitchen display and Staff PWA in Next.js, with a local Dexie database so devices keep working offline.",
+        "A Django API with an OpenAPI contract, 25 modules and 65 migrations, with live events over Channels.",
+        "Island Mode: when the internet drops, the gateway in the venue takes orders, prints tickets and signs receipts with a local fiscal device, then replays everything to the cloud when the link returns.",
+        "A fiscal core as a separate package without Django, shared by the API and the gateway.",
+        "Business data kept apart with PostgreSQL row-level security that the app cannot bypass.",
+        "AI import of invoices and menus through the Claude API, always with a human review step.",
+        "2,265 Python tests, 58 Vitest and 37 Playwright files, load tests in k6 and Locust.",
+      ],
+    },
+    hard: {
+      sr: "Fiskalni uređaj ume da odgovara i do 30 sekundi, a odgovor može da se izgubi. Ako se račun pošalje ponovo, može nastati dupli račun, a ako se ne pošalje, gubi se pazar. Zato izdavanje ide u tri koraka: prvo se trajno upiše zahtev sa svojim ključem, pa se uređaj zove bez otvorene transakcije, pa se upiše odgovor zajedno sa tačnim sadržajem koji je poslat. Ishod koji ostane nepoznat rešava se po tom ključu i nikad se ne šalje ponovo, a potpisan račun posle toga ne može da se menja ni direktno u bazi.",
+      en: "A fiscal device can take up to 30 seconds to answer, and the answer can get lost. Sending the receipt again risks a duplicate, not sending it loses the sale. So issuing goes in three steps: the request is first stored durably with its own key, then the device is called with no open transaction, then the answer is stored together with the exact payload that was sent. An outcome that stays unknown is resolved by that key and never sent twice, and a signed receipt cannot be changed afterwards, not even directly in the database.",
+    },
+    stack: ["Django", "Next.js", "TypeScript", "PostgreSQL", "Flutter", "Python", "Redis", "Docker"],
+    links: {},
+    image: "/images/projects/kafe.webp",
+    gallery: [
+      "/images/projects/gallery/kafe-pos.webp",
+      "/images/projects/gallery/kafe-kds.webp",
+      "/images/projects/gallery/kafe-pos-floor.webp",
+      "/images/projects/gallery/kafe-shifts.webp",
+      "/images/projects/gallery/kafe-menu-analysis.webp",
+      "/images/projects/gallery/kafe-m.webp",
+    ],
+    team: {
+      sr: "Ja i AI agenti, ja odlučujem i pregledam",
+      en: "Me and AI agents, I decide and review",
+    },
+    scale: {
+      sr: "138 commitova za 21 radni dan, 41 od 64 faze završeno, 32 zapisa arhitektonskih odluka, 2.265 Python testova",
+      en: "138 commits in 21 working days, 41 of 64 phases done, 32 architecture decision records, 2,265 Python tests",
+    },
+    impact: {
+      sr: [
+        "Pokazuje da umem da postavim ceo sistem: podatke, offline rad, fiskalizaciju i više aplikacija na jednom ugovoru.",
+        "Svaka važna odluka je zapisana kao ADR, pa se zna zašto je nešto urađeno baš tako.",
+        "Rad sa AI agentima uz jasna pravila i pregled svakog koraka, bez slepog prihvatanja koda.",
+      ],
+      en: [
+        "Shows I can lay out a whole system: data, offline work, fiscal receipts and several apps on one contract.",
+        "Every important decision is written down as an ADR, so it is clear why something was done that way.",
+        "Working with AI agents under clear rules and a review of every step, without accepting code blindly.",
+      ],
+    },
+    accent: "violet",
+  },
+  {
+    slug: "makaze",
+    title: "Makaze",
+    kind: "saas",
+    featured: true,
+    year: "2026",
+    seoTitle: {
+      sr: "Makaze: softver za frizerske salone",
+      en: "Makaze: software for hair salons",
+    },
+    description: {
+      sr: "Studija slučaja: Makaze, softver za salone u Srbiji. Kalendar bez duplih termina, IPS depozit, fiskalni račun i online zakazivanje. Go, React, Astro, PostgreSQL.",
+      en: "Case study: Makaze, salon software for Serbia. A calendar with no double bookings, IPS deposits, fiscal receipts and online booking. Go, React, Astro, PostgreSQL.",
+    },
+    role: {
+      sr: "Arhitektura, odluke i pregled koda; implementacija uz AI agente",
+      en: "Architecture, decisions and code review; implementation with AI agents",
+    },
+    tagline: {
+      sr: "Softver za frizerske salone: kalendar, kasa sa fiskalnim računom, depozit preko IPS-a i online zakazivanje za klijente.",
+      en: "Software for hair salons: a calendar, a till with fiscal receipts, deposits through IPS and online booking for clients.",
+    },
+    summary: {
+      sr: "Makaze je softver za frizerske salone i barbershopove u Srbiji. Salon radi u Makaze Studiju, PWA aplikaciji sa kalendarom, kasom, kartonom klijenta sa slikama pre i posle i porukama klijentima preko Vibera, SMS-a i mejla. Klijent zakazuje sam na javnoj stranici salona i plaća depozit preko IPS-a. Iza svega stoji Go API sa 11 domenskih modula i 111 operacija u OpenAPI ugovoru, iz kog se generišu i server i klijent. Arhitekturu i odluke sam doneo ja, svaki kod sam pregledao, a implementaciju sam radio uz AI agente.",
+      en: "Makaze is software for hair salons and barbershops in Serbia. The salon works in Makaze Studio, a PWA with a calendar, a till, a client record with before and after photos, and messages to clients over Viber, SMS and email. Clients book on the salon's public page and pay a deposit through IPS. Behind it sits a Go API with 11 domain modules and 111 operations in an OpenAPI contract that both the server and the client are generated from. The architecture and the decisions are mine, I reviewed every change, and I built it together with AI agents.",
+    },
+    did: {
+      sr: [
+        "Go modularni monolit sa 11 modula: chi, pgx i sqlc bez ORM-a, OpenAPI ugovor prvo.",
+        "Kalendar sa fazama usluga: dok boja deluje, frizer je slobodan za drugog klijenta.",
+        "Dupli termin sprečava sama baza, ograničenjem EXCLUDE nad salonom, frizerom i vremenom.",
+        "IPS depozit kao mašina stanja sa osam stanja, poziv na broj po modelu 97 i HMAC proverom webhook-a.",
+        "Fiskalni račun kroz outbox, tako da račun koji je izdat a odgovor se izgubio ne nastane dva puta.",
+        "Javna stranica salona u Astru sa server renderovanjem i JSON-LD-om, zakazivanje kao Preact ostrvo.",
+        "Uživo osvežavanje kalendara preko SSE i pg_notify, sa ponovnim slanjem propuštenih događaja.",
+        "120 Go testova sa pravim Postgres-om i 7 Playwright tokova protiv pravog API-ja.",
+      ],
+      en: [
+        "A Go modular monolith with 11 modules: chi, pgx and sqlc without an ORM, OpenAPI contract first.",
+        "A calendar with service phases: while the colour sets, the stylist is free for another client.",
+        "The database itself prevents double bookings, with an EXCLUDE constraint over salon, stylist and time.",
+        "IPS deposits as a state machine with eight states, a model 97 payment reference and HMAC-checked webhooks.",
+        "Fiscal receipts through an outbox, so a receipt that was issued but whose answer got lost is never issued twice.",
+        "The salon's public page in Astro with server rendering and JSON-LD, booking as a Preact island.",
+        "Live calendar updates over SSE and pg_notify, with missed events sent again.",
+        "120 Go tests against a real Postgres and 7 Playwright flows against the real API.",
+      ],
+    },
+    hard: {
+      sr: "Dva klijenta mogu da kliknu isti termin u istoj sekundi, a termin nije jedan blok: usluga ima faze, pa frizer tokom čekanja legalno radi nekog drugog. Provera u kodu nije dovoljna kad stignu dva zahteva odjednom. Zato dupli termin sprečava sama baza, ograničenjem koje gleda samo zauzete segmente aktivnih termina. Kod vrati jasnu poruku i nove slobodne termine, a test sa 8 istovremenih zahteva za isti termin potvrđuje da prolazi tačno jedan.",
+      en: "Two clients can click the same slot in the same second, and a booking is not one block: a service has phases, so during the waiting time the stylist can legitimately work on someone else. A check in code is not enough when two requests arrive at once. So the database itself prevents double bookings, with a constraint that looks only at the busy segments of active bookings. The code returns a clear message and fresh free slots, and a test with 8 simultaneous requests for one slot confirms that exactly one gets through.",
+    },
+    stack: ["Go", "React", "TypeScript", "Astro", "PostgreSQL", "OpenAPI", "Tailwind"],
+    links: {},
+    image: "/images/projects/makaze.webp",
+    gallery: [
+      "/images/projects/gallery/makaze-checkout.webp",
+      "/images/projects/gallery/makaze-booking.webp",
+      "/images/projects/gallery/makaze-appointment.webp",
+      "/images/projects/gallery/makaze-m.webp",
+    ],
+    team: {
+      sr: "Ja i AI agenti, ja odlučujem i pregledam",
+      en: "Me and AI agents, I decide and review",
+    },
+    scale: {
+      sr: "57 commitova i 14 spojenih pull requestova, 11 modula, 111 API operacija, 120 Go testova",
+      en: "57 commits and 14 merged pull requests, 11 modules, 111 API operations, 120 Go tests",
+    },
+    impact: {
+      sr: [
+        "Pokazuje kako rešavam tvrde probleme na nivou baze, gde kod sam nije dovoljan.",
+        "Plaćanja i fiskalizacija su napravljeni tako da ne mogu da se izgube ni dupliraju.",
+        "Jedan OpenAPI ugovor drži studio, sajt i server usklađenim.",
+      ],
+      en: [
+        "Shows how I solve hard problems at the database level, where code alone is not enough.",
+        "Payments and fiscal receipts are built so they can neither get lost nor duplicate.",
+        "One OpenAPI contract keeps the studio, the site and the server in step.",
+      ],
+    },
+    accent: "cyan",
   },
   {
     slug: "logistics-tms",
@@ -1193,5 +1359,5 @@ export const projects: Project[] = [
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
-export const clientProjects = projects.filter((p) => p.kind !== "personal");
+export const clientProjects = projects.filter((p) => p.kind === "client" || p.kind === "maintenance");
 export const personalProjects = projects.filter((p) => p.kind === "personal");

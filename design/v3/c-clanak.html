@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clanak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nacrt.css">
+<style>
+.progress{position:fixed;left:0;top:0;height:3px;width:38%;background:var(--blue);z-index:20}
+.hd{padding:56px 0 40px;border-bottom:1px solid var(--ink);display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:end}
+.hd h1{font-weight:500;font-size:clamp(2.6rem,5.4vw,6rem);line-height:.96;letter-spacing:-.045em;margin-top:18px}
+.meta{display:flex;gap:18px;font-family:var(--mono);font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.meta b{color:var(--blue);font-weight:500}
+.author{display:flex;gap:14px;align-items:center}
+.author img{width:56px;height:56px;object-fit:cover;filter:grayscale(1);border:1px solid var(--ink)}
+.author b{font-weight:500}
+.author small{display:block;font-size:13px;color:var(--ink-2)}
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr) 240px;gap:48px;padding-top:48px}
+.toc{position:sticky;top:24px;align-self:start;font-family:var(--mono);font-size:12px}
+.toc h5{font-weight:500;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-size:11px}
+.toc li{list-style:none;padding:8px 0 8px 12px;border-left:1px solid var(--grid-2);color:var(--ink-2)}
+.toc li.on{border-left:2px solid var(--blue);color:var(--blue)}
+.prose{min-width:0;max-width:68ch;font-size:19px;line-height:1.65}
+.prose .answer{border:1px solid var(--ink);background:var(--paper);padding:20px 22px;font-size:18px;line-height:1.55;margin-bottom:36px}
+.prose .answer b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;font-weight:500}
+.prose h2{font-size:34px;letter-spacing:-.03em;margin:44px 0 14px}
+.prose p{margin-bottom:18px;color:oklch(0.3 0.04 265)}
+.prose table{display:block;overflow-x:auto;width:100%;border-collapse:collapse;font-size:15px;margin:24px 0;background:var(--paper);border:1px solid var(--ink)}
+.prose th,.prose td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--grid-2)}
+.prose th{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--ink)}
+.prose td b{color:var(--blue);font-weight:500}
+.fig{border:1px solid var(--ink);background:var(--bg);margin:28px 0;position:relative}
+.fig img{width:60%;margin:0 auto}
+.fig figcaption{border-top:1px solid var(--ink);padding:10px 14px;font-family:var(--mono);font-size:12px;color:var(--ink-2);background:var(--paper)}
+.side{position:sticky;top:24px;align-self:start;display:flex;flex-direction:column;gap:16px}
+.cta{border:1px solid var(--ink);background:var(--ink);color:var(--bg);padding:20px}
+.cta h4{font-weight:500;font-size:20px;letter-spacing:-.02em;line-height:1.2}
+.cta a{display:block;margin-top:16px;padding:12px;background:var(--blue);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;text-align:center}
+.share{border:1px solid var(--ink);padding:14px;font-family:var(--mono);font-size:12px;display:flex;justify-content:space-between;background:var(--paper)}
+@media (max-width:1100px){.layout{grid-template-columns:minmax(0,1fr)}.toc,.side{position:static}.toc{display:none}}
+@media (max-width:900px){.hd{grid-template-columns:1fr;gap:24px}.prose{font-size:17px}}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}
+.opt{border:1px solid var(--ink);background:var(--paper);padding:18px}
+.opt.on{border:2px solid var(--blue)}
+.opt small{font-family:var(--mono);font-size:12px;color:var(--blue);text-transform:uppercase;letter-spacing:.05em}
+.opt h4{font-weight:500;font-size:24px;letter-spacing:-.02em;margin:4px 0 12px}
+.opt dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:15px;border-top:1px dashed var(--grid-2);padding-top:10px}
+.opt dt{color:var(--ink-2)}
+.opt dd{text-align:right;font-weight:500}
+.opt p{font-size:15px;line-height:1.45;color:var(--ink-2);margin:12px 0 0}
+@media (max-width:900px){.opts{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="progress"></div>
+<div class="wrap">
+<header class="top"><div class="id">N. Šepić · sepic.me</div><nav><span>01 Projekti</span><span>02 Usluge</span><span class="on">03 Blog</span><span>04 O meni</span><span>05 Kontakt</span></nav><div class="rev">SR / EN</div></header>
+<div class="crumbs">Početna / Blog / <b>Cena izrade sajta</b></div>
+<section class="hd">
+  <div><div class="meta"><b>B-01 · Sajtovi</b><span>9 min čitanja</span><span>14. 10. 2026.</span></div><h1>Koliko košta izrada sajta u Srbiji i od čega zavisi cena</h1></div>
+  <div class="author"><img src="../../public/images/nikola.webp" alt=""><div><b>Nikola Šepić</b><small>Full-stack developer i Google Ads specijalista, Beograd</small></div></div>
+</section>
+<div class="layout">
+  <aside class="toc"><h5>Sadržaj</h5><ul><li>Kratak odgovor</li><li class="on">Šablon, WordPress ili po meri</li><li>Šta podiže cenu</li><li>Skriveni troškovi</li><li>Kako tražiti ponudu</li></ul></aside>
+  <article class="prose">
+    <div class="answer"><b>Kratak odgovor</b>Najviše zavisi od toga koliko strana i jezika imate i da li sajt nešto radi (zakazuje, naplaćuje, šalje u CRM). Dizajn je obično manji deo računa nego što ljudi očekuju.</div>
+    <h2>Šablon, WordPress ili sajt po meri</h2>
+    <p>Ovo me klijenti pitaju prvo, pa evo kako ja to objašnjavam. Postoje tri puta, i nijedan nije pogrešan. Pitanje je samo šta vam sajt treba da radi.</p>
+    <div class="opts">
+      <div class="opt"><small>Opcija 1</small><h4>Šablon</h4><dl><dt>Rok</dt><dd>par dana</dd><dt>Izmene kasnije</dt><dd>skupe</dd><dt>Više jezika</dt><dd>teško</dd></dl><p>Za firmu kojoj treba vizitkarta na internetu, sutra.</p></div>
+      <div class="opt"><small>Opcija 2</small><h4>WordPress</h4><dl><dt>Rok</dt><dd>1 do 3 nedelje</dd><dt>Izmene kasnije</dt><dd>sami ih radite</dd><dt>Više jezika</dt><dd>preko dodatka</dd></dl><p>Za sajt sa puno tekstova, kao e-magazin Prostor Između.</p></div>
+      <div class="opt on"><small>Opcija 3</small><h4>Po meri</h4><dl><dt>Rok</dt><dd>3 do 8 nedelja</dd><dt>Izmene kasnije</dt><dd>brze i jeftine</dd><dt>Više jezika</dt><dd>ugrađeno</dd></dl><p>Kad brzina sajta i upiti direktno donose novac.</p></div>
+    </div>
+    <figure class="fig"><img src="assets/stack-open.png" alt=""><figcaption>SL. 1 · Delovi sajta koji čine cenu: sadržaj, funkcije, integracije, merenje</figcaption></figure>
+    <h2>Šta podiže cenu</h2>
+    <p>Svaki novi jezik je posao za sebe: prevodi, posebne adrese, sitemap. Na Medical Time-u to je pet jezika i 779 adresa u sitemap-u...</p>
+  </article>
+  <aside class="side"><div class="cta"><h4>Treba vam procena za vaš sajt?</h4><a href="#">Pošaljite opis →</a></div><div class="share"><span>Podeli</span><span>LinkedIn · Kopiraj link</span></div></aside>
+</div>
+</div>
+</body>
+</html>

@@ -1,102 +1,114 @@
 {
   "/": {
-    "hash": "88b87f37e79fa799",
-    "date": "2026-09-28"
+    "hash": "6294c70a7fa5cb7a",
+    "date": "2026-10-20"
   },
   "/projects": {
-    "hash": "621877a2efa86e39",
-    "date": "2026-09-27"
+    "hash": "7d51583619cbb114",
+    "date": "2026-10-20"
   },
   "/services": {
-    "hash": "585ff2a319751897",
-    "date": "2026-09-28"
+    "hash": "9c2ab2483fc2078d",
+    "date": "2026-10-20"
   },
   "/services/web": {
-    "hash": "cd0208ec446da155",
-    "date": "2026-09-28"
+    "hash": "ca793bc20a1a93da",
+    "date": "2026-10-20"
   },
   "/services/google-ads": {
-    "hash": "cd0208ec446da155",
-    "date": "2026-09-28"
+    "hash": "ca793bc20a1a93da",
+    "date": "2026-10-20"
   },
   "/services/meta-ads": {
-    "hash": "cd0208ec446da155",
-    "date": "2026-09-28"
+    "hash": "ca793bc20a1a93da",
+    "date": "2026-10-20"
   },
   "/services/seo": {
-    "hash": "cd0208ec446da155",
-    "date": "2026-09-28"
+    "hash": "ca793bc20a1a93da",
+    "date": "2026-10-20"
   },
   "/about": {
-    "hash": "6336681752b0da8b",
-    "date": "2026-09-28"
+    "hash": "2da4d84292fa8757",
+    "date": "2026-10-20"
   },
   "/cv": {
-    "hash": "732884f1a34a57a3",
-    "date": "2026-09-28"
+    "hash": "a08f338735f60113",
+    "date": "2026-10-20"
   },
   "/contact": {
-    "hash": "d19ee797c35a0f22",
-    "date": "2026-09-27"
+    "hash": "6ade450c3f5a3e67",
+    "date": "2026-10-20"
   },
   "/privacy": {
-    "hash": "7c125bfd4a246b54",
-    "date": "2026-09-27"
+    "hash": "ae6b742cab887dc8",
+    "date": "2026-10-20"
+  },
+  "/blog": {
+    "hash": "81546842e1eacdcd",
+    "date": "2026-10-20"
   },
   "/projects/medical-time": {
-    "hash": "fac4ec4bfa983b5a",
-    "date": "2026-09-27"
+    "hash": "bb0cc741c71fb713",
+    "date": "2026-10-20"
+  },
+  "/projects/kafe": {
+    "hash": "cf179a1cb8f18c2e",
+    "date": "2026-10-20"
+  },
+  "/projects/makaze": {
+    "hash": "b507339579ef64b6",
+    "date": "2026-10-20"
   },
   "/projects/logistics-tms": {
-    "hash": "a6e8897863ddf68e",
-    "date": "2026-09-27"
+    "hash": "baed7ab169ccc141",
+    "date": "2026-10-20"
   },
   "/projects/shipment-tracking": {
-    "hash": "c60c99bfc78c03ee",
-    "date": "2026-09-27"
+    "hash": "cb0f081f7872f84e",
+    "date": "2026-10-20"
   },
   "/projects/itexpert": {
-    "hash": "8a42cde5454ea681",
-    "date": "2026-09-27"
+    "hash": "12c48ee0b44f2939",
+    "date": "2026-10-20"
   },
   "/projects/prostor-izmedju": {
-    "hash": "c89137644f2f65c9",
-    "date": "2026-09-27"
+    "hash": "c5eb2f6e24acdb5f",
+    "date": "2026-10-20"
   },
   "/projects/mango": {
-    "hash": "b1c05441bc146219",
-    "date": "2026-09-27"
+    "hash": "967285a702c08f70",
+    "date": "2026-10-20"
   },
   "/projects/vuk-studio": {
-    "hash": "afca1931a44c9877",
-    "date": "2026-09-27"
+    "hash": "3327b731309c6916",
+    "date": "2026-10-20"
   },
   "/projects/stanke-enterijer": {
-    "hash": "4e1da8ec2d9125f8",
-    "date": "2026-09-27"
+    "hash": "2e67668acf9a857a",
+    "date": "2026-10-20"
   },
   "/projects/nst-print-mill": {
-    "hash": "0eb6de831d7b9e4e",
-    "date": "2026-09-27"
+    "hash": "82d86f99b55ddd64",
+    "date": "2026-10-20"
   },
   "/projects/olimp": {
-    "hash": "f8518c9682c5598f",
-    "date": "2026-09-27"
+    "hash": "cf0b91cf03bc62e1",
+    "date": "2026-10-20"
   },
   "/projects/job-application-tracker": {
-    "hash": "8d746d1f2db13f1a",
-    "date": "2026-09-27"
+    "hash": "a35e833dc72a6907",
+    "date": "2026-10-20"
   },
   "/projects/gymai": {
-    "hash": "837f2519fd72723c",
-    "date": "2026-09-27"
+    "hash": "dd4c9726f22814b9",
+    "date": "2026-10-20"
   },
   "/projects/launchhub": {
-    "hash": "7cfe581fa42e79f7",
-    "date": "2026-09-27"
+    "hash": "436a42771b0ad834",
+    "date": "2026-10-20"
   },
   "/projects/echo": {
-    "hash": "46d923c35ce0209d",
-    "date": "2026-09-27"
+    "hash": "436279bece402335",
+    "date": "2026-10-20"
   }
 }

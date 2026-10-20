@@ -54,3 +54,7 @@ next-env.d.ts
 /docs/
 /.claude/
 __pycache__/
+
+# design review screenshots
+/design/v3/build/
+/design/v3/shots/

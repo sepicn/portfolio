@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Rang 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(0.975 0.004 95);
+  --ink:oklch(0.17 0.01 60);
+  --ink-2:oklch(0.42 0.01 60);
+  --ink-3:oklch(0.62 0.01 60);
+  --line:oklch(0.17 0 0 / 0.09);
+  --hot:oklch(0.66 0.21 42);
+  --hot-soft:oklch(0.66 0.21 42 / 0.1);
+  --serif:"Instrument Serif",serif;
+  --sans:"Geist",system-ui,sans-serif;
+  --mono:"Geist Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;letter-spacing:-0.01em;-webkit-font-smoothing:antialiased}
+.wrap{padding:0 clamp(16px,4vw,64px)}
+header{display:flex;justify-content:space-between;align-items:center;height:76px;font-family:var(--mono);font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
+header nav{display:flex;gap:32px}
+header .logo{font-family:var(--serif);font-size:28px;letter-spacing:-0.02em;text-transform:none}
+header .logo i{color:var(--hot)}
+.avail{display:flex;align-items:center;gap:8px}
+.avail:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--hot);box-shadow:0 0 0 4px var(--hot-soft)}
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;padding-top:7vh;min-height:calc(100vh - 76px)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.4rem,8.4vw,9.6rem);line-height:0.88;letter-spacing:-0.035em}
+h1 em{color:var(--hot)}
+h1 .row{display:block}
+.lead{margin-top:40px;max-width:30ch;font-size:clamp(18px,1.4vw,22px);color:var(--ink-2);line-height:1.45}
+.serp{align-self:center;border:1px solid var(--line);background:oklch(0.995 0 0);border-radius:22px;padding:22px;box-shadow:0 40px 80px -40px oklch(0.2 0.02 60 / 0.25)}
+.q{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:999px;padding:14px 20px;font-size:16px}
+.q svg{flex:none}
+.q .caret{display:inline-block;width:2px;height:20px;background:var(--hot);margin-left:2px;vertical-align:middle}
+.meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin:16px 6px 10px;letter-spacing:0.04em}
+.res{padding:14px 8px;border-top:1px solid var(--line)}
+.res.me{background:var(--hot-soft);border-radius:14px;border-top:0;padding:16px 14px;position:relative}
+.res.me .rank{position:absolute;right:14px;top:14px;font-family:var(--serif);font-size:44px;line-height:1;color:var(--hot)}
+.url{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.tt{font-size:19px;font-weight:500;margin:4px 0 6px}
+.ds{font-size:14px;color:var(--ink-2);line-height:1.4;max-width:46ch}
+.chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
+.res.ghost .bar{height:10px;border-radius:6px;background:oklch(0.9 0.004 95);margin:6px 0}
+.res.ghost{opacity:.65;filter:blur(.4px)}
+.strip{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:48px;padding:22px 0;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.strip b{color:var(--ink);font-weight:500}
+section.work{padding:140px 0 120px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,5.5vw,6rem);line-height:.92;letter-spacing:-.03em;margin:18px 0 64px;max-width:14ch}
+.list{border-top:1px solid var(--ink)}
+.item{display:grid;grid-template-columns:90px 1.3fr 1fr 240px;gap:28px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line)}
+.item .n{font-family:var(--serif);font-size:56px;line-height:1;color:var(--ink-3)}
+.item:first-child .n{color:var(--hot)}
+.item h3{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,3.4vw,3.6rem);letter-spacing:-.02em;line-height:1}
+.item p{font-size:15px;color:var(--ink-2);line-height:1.45}
+.item .kpi{font-family:var(--mono);font-size:13px;text-align:right}
+.item .kpi strong{display:block;font-family:var(--serif);font-weight:400;font-size:40px;letter-spacing:-.02em;color:var(--ink)}
+.item.feat{grid-template-columns:90px 1.3fr 1fr 240px;background:linear-gradient(90deg,var(--hot-soft),transparent 70%)}
+@media (max-width:900px){
+  header nav{display:none}
+  .hero{grid-template-columns:1fr;gap:36px;padding-top:24px}
+  h1{font-size:clamp(3.2rem,15vw,5rem)}
+  .lead{margin-top:22px}
+  .serp{padding:14px;border-radius:18px}
+  .strip{flex-direction:column;gap:8px}
+  .item{grid-template-columns:48px 1fr;gap:12px 16px}
+  .item .n{font-size:36px}
+  .item p,.item .kpi{grid-column:2;text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">Šepić<i>.</i></div>
+  <nav><span>Projekti</span><span>Usluge</span><span>O meni</span><span>CV</span></nav>
+  <div class="avail">Slobodan od novembra</div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1><span class="row">Pravim sajt.</span><span class="row">Dovodim <em>ljude</em></span><span class="row">na njega.</span></h1>
+    <p class="lead">Nikola Šepić, full-stack developer i Google Ads specijalista iz Beograda. Kod i kampanje iz iste ruke.</p>
+  </div>
+  <div class="serp" aria-hidden="true">
+    <div class="q"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>izrada sajtova beograd<span class="caret"></span></div>
+    <div class="meta">OKO 1.240.000 REZULTATA · 0,31 S</div>
+    <div class="res me">
+      <span class="rank">#1</span>
+      <div class="url">sepic.me › projekti</div>
+      <div class="tt">Nikola Šepić: sajtovi koji donose upite</div>
+      <div class="ds">Next.js, Nuxt i Laravel aplikacije. Google Ads kampanje do 54% ispod prosečne cene konverzije.</div>
+      <div class="chips"><span class="chip">14 projekata</span><span class="chip">5 jezika</span><span class="chip">Lighthouse 100</span></div>
+    </div>
+    <div class="res ghost"><div class="bar" style="width:30%"></div><div class="bar" style="width:70%;height:14px"></div><div class="bar" style="width:90%"></div></div>
+    <div class="res ghost"><div class="bar" style="width:25%"></div><div class="bar" style="width:60%;height:14px"></div><div class="bar" style="width:80%"></div></div>
+  </div>
+</section>
+<div class="strip"><span><b>01</b> Kod</span><span><b>02</b> Kampanje</span><span><b>03</b> Merenje</span><span>Skrol ↓</span></div>
+
+<section class="work">
+  <div class="kicker">Rezultati pretrage: moj rad</div>
+  <h2>Projekti koji rangiraju i rade.</h2>
+  <div class="list">
+    <div class="item feat"><span class="n">01</span><h3>Medical Time</h3><p>Bolnička platforma od 400k linija, 5 jezika, chatbot za zakazivanje i Google Ads nalog.</p><div class="kpi"><strong>−54%</strong>cena konverzije</div></div>
+    <div class="item"><span class="n">02</span><h3>Kafe</h3><p>SaaS za restorane: back-office, POS, kuhinjski ekran i aplikacija za osoblje.</p><div class="kpi"><strong>4</strong>aplikacije, 1 API</div></div>
+    <div class="item"><span class="n">03</span><h3>Makaze</h3><p>Softver za salone: kalendar, fiskalni račun, IPS depozit, online zakazivanje.</p><div class="kpi"><strong>11</strong>Go modula</div></div>
+    <div class="item"><span class="n">04</span><h3>Logistics TMS</h3><p>Redizajn sistema za kamionski transport u SAD, 40+ formi u čarobnjake.</p><div class="kpi"><strong>101</strong>commit</div></div>
+  </div>
+</section>
+</div>
+</body>
+</html>

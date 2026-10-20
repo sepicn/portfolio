@@ -1,5 +1,3 @@
-// Root not-found: renders for paths that never matched a locale segment.
-// Keep it dependency-free so it works without the intl provider.
 import Link from "next/link";
 import "./globals.css";
 
@@ -10,11 +8,11 @@ export default function RootNotFound() {
         <title>404 | Nikola Šepić</title>
         <meta name="robots" content="noindex" />
       </head>
-      <body className="flex min-h-full flex-col items-center justify-center p-8 text-center">
-        <h1 className="text-3xl font-semibold">404</h1>
-        <p className="mt-2">Stranica ne postoji. / Page not found.</p>
-        <Link href="/" className="mt-6 underline">
-          sepic.me
+      <body className="flex min-h-dvh flex-col items-center justify-center p-8 text-center">
+        <h1 className="text-5xl font-medium tracking-tight">404</h1>
+        <p className="mt-3 text-ink-2">Stranica ne postoji. / Page not found.</p>
+        <Link href="/" className="btn btn-primary mt-8">
+          sepic.me →
         </Link>
       </body>
     </html>
