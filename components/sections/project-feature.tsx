@@ -4,14 +4,12 @@ import { projectHref } from "@/i18n/paths";
 import type { Project } from "@/content/data/projects";
 import { pick } from "@/content/i18n";
 
-export type FeatureKpi = { value: string; label: string };
-
 export function ProjectFeature({
   project,
   locale,
   kind,
   body,
-  kpis,
+  features,
   cta,
   reverse = false,
   priority = false,
@@ -20,7 +18,7 @@ export function ProjectFeature({
   locale: string;
   kind: string;
   body: string[];
-  kpis: FeatureKpi[];
+  features: string[];
   cta: string;
   reverse?: boolean;
   priority?: boolean;
@@ -68,19 +66,19 @@ export function ProjectFeature({
             ))}
           </ul>
         </div>
-        <dl className="grid grid-cols-3 border-t border-ink">
-          {kpis.map((k) => (
-            <div key={k.label} className="border-r border-ink px-4 py-4 last:border-r-0 lg:px-5">
-              <dt className="sr-only">{k.label}</dt>
-              <dd>
-                <b className="block text-[26px] font-medium tracking-[-0.03em] text-blue lg:text-[30px]">
-                  {k.value}
-                </b>
-                <span className="text-[13px] text-ink-2">{k.label}</span>
-              </dd>
-            </div>
+        <ul className="grid border-t border-ink sm:grid-cols-3">
+          {features.map((feature) => (
+            <li
+              key={feature}
+              className="flex items-start gap-2.5 border-b border-ink px-4 py-3.5 text-[15px] leading-[1.35] font-medium last:border-b-0 sm:border-r sm:border-b-0 sm:last:border-r-0 lg:px-5 lg:py-4"
+            >
+              <span aria-hidden="true" className="mt-0.5 grid size-5 shrink-0 place-items-center bg-blue font-mono text-[11px] text-paper">
+                ✓
+              </span>
+              {feature}
+            </li>
           ))}
-        </dl>
+        </ul>
         <Link
           href={projectHref(project.slug)}
           className="flex min-h-14 items-center justify-between border-t border-ink bg-ink px-5 font-mono text-[13px] tracking-[0.05em] text-paper uppercase transition-colors hover:bg-blue"

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function Hero3D() {
+export function Hero3D({ labels }: { labels: string[] }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const [ready, setReady] = useState(false);
 
@@ -23,7 +23,7 @@ export function Hero3D() {
         .then(({ createStackScene }) => {
           if (disposed || !el.getContext) return;
           const figure = el.parentElement!;
-          const scene = createStackScene(el, () => setReady(true), { auto: !wide, view: wide ? 9.8 : 8.6 });
+          const scene = createStackScene(el, () => setReady(true), { auto: !wide, view: wide ? 11.5 : 8.6, labels });
           const onPointer = (e: PointerEvent) => {
             scene.setPointer((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1);
           };
@@ -56,14 +56,14 @@ export function Hero3D() {
       events.forEach((e) => window.removeEventListener(e, load));
       cleanup?.();
     };
-  }, []);
+  }, [labels]);
 
   return (
     <canvas
       ref={canvas}
       aria-hidden="true"
       data-ready={ready || undefined}
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-700 data-ready:opacity-100 lg:right-auto lg:w-[64%]"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-700 data-ready:opacity-100"
     />
   );
 }

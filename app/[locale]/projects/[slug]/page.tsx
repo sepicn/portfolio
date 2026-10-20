@@ -186,7 +186,6 @@ export default async function ProjectPage({ params }: Props) {
 
       <Chapter no="01" title={t("summary")}>
         <p>{pick(project.summary, locale)}</p>
-        <p className="mt-4 text-ink-2">{pick(project.scale, locale)}</p>
       </Chapter>
 
       <Chapter no="02" title={t("did")}>

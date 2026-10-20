@@ -88,7 +88,7 @@ export default async function HomePage({ params }: Props) {
                 locale={locale}
                 kind={pick(f.copy.kind, locale)}
                 body={f.copy.body.map((b) => pick(b, locale))}
-                kpis={f.copy.kpis.map((k) => ({ value: k.value, label: pick(k.label, locale) }))}
+                features={f.copy.features.map((x) => pick(x, locale))}
                 cta={pick(home.story, locale)}
                 reverse={i % 2 === 1}
               />

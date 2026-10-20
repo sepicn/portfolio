@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { home } from "@/content/data/home";
-import { pick } from "@/content/i18n";
+import { pick, pickList } from "@/content/i18n";
 import { profile } from "@/content/data/profile";
 import { cvPdf } from "@/lib/cv";
 import { Hero3D } from "@/components/hero/hero-3d";
@@ -38,17 +38,17 @@ export function Hero({ locale }: { locale: string }) {
           </a>
         </div>
       </div>
-      <figure aria-hidden="true" className="hero-art relative h-[340px] overflow-hidden lg:h-auto lg:min-h-[520px]">
+      <figure aria-hidden="true" className="hero-art relative h-[400px] overflow-hidden lg:h-auto lg:min-h-[520px]">
         <Image
-          src="/images/drawings/stack.webp"
-          width={838}
-          height={983}
+          src={locale === "en" ? "/images/drawings/stack-en.webp" : "/images/drawings/stack-sr.webp"}
+          width={locale === "en" ? 623 : 586}
+          height={802}
           alt=""
           priority
           sizes="(min-width: 1024px) 38vw, 240px"
-          className="hero-poster absolute top-1/2 left-1/2 h-auto w-[230px] -translate-x-1/2 -translate-y-1/2 object-contain transition-opacity duration-700 lg:left-[5%] lg:max-h-[84%] lg:w-[54%] lg:translate-x-0"
+          className="hero-poster absolute top-1/2 left-1/2 h-auto max-h-[92%] w-auto max-w-[92%] -translate-x-1/2 -translate-y-1/2 object-contain transition-opacity duration-700"
         />
-        <Hero3D />
+        <Hero3D labels={pickList(home.stackLabels, locale)} />
       </figure>
     </section>
   );

@@ -19,7 +19,7 @@ const dataUrl = (path) => {
   return `data:image/${type};base64,${readFileSync(`public${path}`).toString("base64")}`;
 };
 const drawings = {
-  home: "/images/drawings/stack.webp",
+  home: "/images/drawings/stack-sr.webp",
   projects: "/images/drawings/stack-open.webp",
   services: "/images/drawings/obj-ads.webp",
   blog: "/images/drawings/st-2-nacrt.webp",

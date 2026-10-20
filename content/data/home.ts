@@ -10,6 +10,10 @@ export const home = {
     sr: "Ja sam Nikola, programer iz Beograda. Pravim web aplikacije od baze do ekrana i dovodim im korisnike preko Google Ads-a.",
     en: "I am Nikola, a developer from Belgrade. I build web apps from the database to the screen and bring them users through Google Ads.",
   },
+  stackLabels: {
+    sr: ["Baza", "Backend", "API", "Frontend"],
+    en: ["Database", "Backend", "API", "Frontend"],
+  },
   ctaProjects: { sr: "Pogledaj projekte", en: "See the projects" },
   ctaCv: { sr: "Preuzmi CV (PDF)", en: "Download CV (PDF)" },
   facts: [
@@ -158,7 +162,7 @@ export const home = {
   },
 };
 
-type Feature = { kind: Localized; body: Localized[]; kpis: { value: string; label: Localized }[] };
+type Feature = { kind: Localized; body: Localized[]; features: Localized[] };
 
 export const featured: { slug: string; copy: Feature }[] = [
   {
@@ -171,10 +175,10 @@ export const featured: { slug: string; copy: Feature }[] = [
           en: "A hospital platform in 5 languages and its Google Ads account.",
         },
       ],
-      kpis: [
-        { value: "5", label: { sr: "jezika", en: "languages" } },
-        { value: "98%", label: { sr: "Site Health", en: "Site Health" } },
-        { value: "−54%", label: { sr: "cena konverzije", en: "cost per conversion" } },
+      features: [
+        { sr: "Sajt na 5 jezika", en: "Site in 5 languages" },
+        { sr: "Chatbot koji zakazuje preglede", en: "Chatbot that books appointments" },
+        { sr: "Google Ads i Meta kampanje", en: "Google Ads and Meta campaigns" },
       ],
     },
   },
@@ -188,10 +192,10 @@ export const featured: { slug: string; copy: Feature }[] = [
           en: "Restaurant SaaS that keeps working when the internet drops.",
         },
       ],
-      kpis: [
-        { value: "2.265", label: { sr: "Python testova", en: "Python tests" } },
-        { value: "25", label: { sr: "Django modula", en: "Django modules" } },
-        { value: "32", label: { sr: "zapisane odluke (ADR)", en: "decision records (ADR)" } },
+      features: [
+        { sr: "Kasa i ekran za kuhinju", en: "POS and kitchen display" },
+        { sr: "Radi i kad padne internet", en: "Works when the internet drops" },
+        { sr: "Fiskalni račun i IPS plaćanje", en: "Fiscal receipts and IPS payments" },
       ],
     },
   },
@@ -205,10 +209,10 @@ export const featured: { slug: string; copy: Feature }[] = [
           en: "Salon software: calendar, till and online booking.",
         },
       ],
-      kpis: [
-        { value: "11", label: { sr: "Go modula", en: "Go modules" } },
-        { value: "111", label: { sr: "API operacija", en: "API operations" } },
-        { value: "120", label: { sr: "Go testova", en: "Go tests" } },
+      features: [
+        { sr: "Online zakazivanje za klijente", en: "Online booking for clients" },
+        { sr: "Kalendar bez duplih termina", en: "Calendar with no double bookings" },
+        { sr: "IPS depozit i fiskalna kasa", en: "IPS deposits and a fiscal till" },
       ],
     },
   },
