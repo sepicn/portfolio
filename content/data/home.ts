@@ -38,35 +38,35 @@ export const home = {
   },
   process: [
     {
-      title: { sr: "Zahtev", en: "The ask" },
+      title: { sr: "Ideja", en: "The idea" },
       body: {
         sr: "Sve počne porukom: klijent, poslodavac ili moja ideja.",
         en: "It starts with a message: a client, an employer or my own idea.",
       },
     },
     {
-      title: { sr: "Nacrt", en: "The drawing" },
+      title: { sr: "Plan", en: "The plan" },
       body: {
         sr: "Arhitektura pre koda: moduli, baza, API.",
         en: "Architecture before code: modules, database, API.",
       },
     },
     {
-      title: { sr: "Gradim", en: "Building" },
+      title: { sr: "Razvoj", en: "Building" },
       body: {
         sr: "Back-end i front-end, od baze do ekrana.",
         en: "Back end and front end, from database to screen.",
       },
     },
     {
-      title: { sr: "Puštam", en: "Shipping" },
+      title: { sr: "Objava", en: "Launch" },
       body: {
         sr: "Brzina, prevodi, SEO i merenje od prvog dana.",
         en: "Speed, translations, SEO and tracking from day one.",
       },
     },
     {
-      title: { sr: "Dovodim ljude", en: "Bringing people" },
+      title: { sr: "Korisnici", en: "Users" },
       body: {
         sr: "Google Ads, Meta i SEO, uz stalno praćenje.",
         en: "Google Ads, Meta and SEO, monitored continuously.",
