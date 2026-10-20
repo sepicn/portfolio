@@ -29,8 +29,8 @@
     "cookies": "Podešavanja kolačića",
     "backToTop": "Na vrh",
     "nextStep": "Sledeći korak",
-    "ctaLine1": "Imate projekat ili",
-    "ctaLine2": "otvorenu poziciju?",
+    "ctaLine1": "Imate ideju ili",
+    "ctaLine2": "projekat?",
     "ctaButton": "Pišite mi",
     "pages": "Strane",
     "online": "Na mreži",
@@ -125,7 +125,7 @@
   },
   "cv": {
     "title": "CV",
-    "intro": "Ista biografija u dve verzije: ova za čitanje, PDF i DOCX za slanje.",
+    "intro": "Otvoren sam za mid-level poziciju (front-end ili full-stack), u Beogradu ili remote, a primam i freelance projekte. Ista biografija je i u PDF-u i DOCX-u.",
     "downloadPdf": "Preuzmi PDF",
     "downloadDocx": "Preuzmi DOCX (ATS)",
     "sections": {

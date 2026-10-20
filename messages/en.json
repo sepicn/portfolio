@@ -29,8 +29,8 @@
     "cookies": "Cookie settings",
     "backToTop": "Back to top",
     "nextStep": "Next step",
-    "ctaLine1": "Got a project or",
-    "ctaLine2": "an open role?",
+    "ctaLine1": "Got an idea or",
+    "ctaLine2": "a project?",
     "ctaButton": "Write to me",
     "pages": "Pages",
     "online": "Online",
@@ -125,7 +125,7 @@
   },
   "cv": {
     "title": "CV",
-    "intro": "The same CV in two forms: this one to read, PDF and DOCX to send.",
+    "intro": "I am open to a mid-level role (front end or full stack), in Belgrade or remote, and I take freelance projects too. The same CV is in PDF and DOCX.",
     "downloadPdf": "Download PDF",
     "downloadDocx": "Download DOCX (ATS)",
     "sections": {

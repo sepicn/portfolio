@@ -1,14 +1,14 @@
 import type { Localized } from "../i18n";
 
 export const home = {
-  status: { sr: "Otvoren za novi posao", en: "Open to a new role" },
+  kicker: { sr: "Full-stack · Google Ads · Beograd", en: "Full-stack · Google Ads · Belgrade" },
   titleBefore: { sr: "Gradim", en: "I build" },
   titleStrike: { sr: "sajtove", en: "websites" },
   titleBlue: { sr: "sisteme", en: "systems" },
   titleAfter: { sr: "i dovodim im korisnike.", en: "and bring them users." },
   who: {
-    sr: "Ja sam Nikola Šepić, full-stack developer iz Beograda. Od 2025. radim na bolničkoj platformi, TMS-u za američki transport i dva svoja SaaS proizvoda, a vodim i Google Ads kampanje. Tražim mid-level poziciju, a primam i freelance projekte.",
-    en: "I am Nikola Šepić, a full-stack developer from Belgrade. Since 2025 I have worked on a hospital platform, a TMS for US trucking and two SaaS products of my own, and I run Google Ads campaigns too. I am looking for a mid-level role and also take freelance projects.",
+    sr: "Ja sam Nikola, programer iz Beograda. Volim da napravim ceo sistem, od baze do dugmeta na ekranu, a onda da vidim da ga ljudi stvarno koriste. Zato radim i kod i Google Ads. Ispod je kako to izgleda u praksi.",
+    en: "I am Nikola, a developer from Belgrade. I like building the whole system, from the database to the button on the screen, and then seeing people actually use it. That is why I do both the code and Google Ads. Below is what that looks like in practice.",
   },
   ctaProjects: { sr: "Pogledaj projekte", en: "See the projects" },
   ctaCv: { sr: "Preuzmi CV (PDF)", en: "Download CV (PDF)" },
@@ -77,8 +77,8 @@ export const home = {
     },
   ] satisfies { title: Localized; body: Localized }[],
   processOutro: {
-    sr: "Tražim posao, a primam i projekte. Ako imate jedno ili drugo, pišite mi.",
-    en: "I am looking for a job and I take projects too. If you have either, write to me.",
+    sr: "Svaki projekat ovde je prošao ovaj put, negde ceo, negde samo deo.",
+    en: "Every project here went down this road, some of it or all of it.",
   },
   servicesTag: { sr: "Usluge za firme", en: "Services for businesses" },
   servicesTitle: { sr: "Sajt, oglasi, SEO", en: "Site, ads, SEO" },

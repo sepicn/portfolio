@@ -12,11 +12,8 @@ export function Hero({ locale }: { locale: string }) {
     <section className="grid border-x border-b border-ink lg:min-h-[calc(100svh-80px)] lg:grid-cols-[1.05fr_1fr]">
       <div className="flex flex-col justify-between gap-8 border-b border-ink px-[18px] pt-6 pb-6 lg:border-r lg:border-b-0 lg:px-10 lg:pt-12 lg:pb-9">
         <div>
-          <p className="inline-flex items-center gap-2.5 border border-rule bg-paper px-3 py-2 font-mono text-[13px]">
-            <span className="size-2 rounded-full bg-ok shadow-[0_0_0_4px_oklch(0.65_0.17_150/0.15)]" aria-hidden="true" />
-            {pick(home.status, locale)}
-          </p>
-          <h1 className="hero-title mt-6 text-hero">
+          <p className="tag">{pick(home.kicker, locale)}</p>
+          <h1 className="hero-title mt-5 text-hero">
             {pick(home.titleBefore, locale)} <span className="strike">{pick(home.titleStrike, locale)}</span>
             <br />
             <span className="hero-new text-blue">{pick(home.titleBlue, locale)}</span> {pick(home.titleAfter, locale)}
@@ -49,8 +46,8 @@ export function Hero({ locale }: { locale: string }) {
           height={983}
           alt=""
           priority
-          sizes="(min-width: 1024px) 38vw, 90vw"
-          className="hero-poster mx-auto h-[300px] w-auto object-contain transition-opacity duration-700 lg:absolute lg:top-1/2 lg:left-[5%] lg:h-auto lg:max-h-[84%] lg:w-[54%] lg:-translate-y-1/2"
+          sizes="(min-width: 1024px) 38vw, 240px"
+          className="hero-poster img-load mx-auto h-auto w-[240px] object-contain transition-opacity duration-700 lg:absolute lg:top-1/2 lg:left-[5%] lg:h-auto lg:max-h-[84%] lg:w-[54%] lg:-translate-y-1/2"
         />
         <Hero3D />
         <ol className="hidden lg:block" aria-label={pick(home.drawingNote, locale)}>

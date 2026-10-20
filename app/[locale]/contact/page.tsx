@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/seo";
 import { profile } from "@/content/data/profile";
-import { pick } from "@/content/i18n";
 import { encodeContact } from "@/lib/obfuscate";
 import { siteConfig } from "@/lib/site-config";
 import { cvPdf } from "@/lib/cv";
@@ -68,7 +67,7 @@ export default async function ContactPage({ params }: Props) {
           <h2 className="mt-10 text-[24px] tracking-[-0.02em]">{t("areaTitle")}</h2>
           <p className="mt-3 max-w-[52ch] text-[16px] leading-[1.6] text-ink-2">{t("area")}</p>
           <p className="mt-4 font-mono text-[13px] text-ink-2">
-            {t("location")} · {pick(profile.availability, locale)}
+            {t("location")}
           </p>
         </div>
         <ContactForm encodedEmail={encodeContact(profile.email)} />
