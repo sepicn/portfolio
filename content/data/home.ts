@@ -233,7 +233,7 @@ export const featured: { slug: string; copy: Feature }[] = [
   },
 ];
 
-export type SkillRow ={ name: string; note?: Localized; projects: string[] };
+export type SkillRow = { name: string | Localized; note?: Localized; projects: string[] };
 
 export const skillProof: { group: Localized; rows: SkillRow[] }[] = [
   {
@@ -273,6 +273,15 @@ export const skillProof: { group: Localized; rows: SkillRow[] }[] = [
       { name: "i18n", projects: ["medical-time", "itexpert"] },
       { name: "Blender, Three.js", projects: ["nst-print-mill"] },
       { name: "Docker, GitHub Actions, Vercel", projects: ["kafe", "vuk-studio", "job-application-tracker"] },
+    ],
+  },
+  {
+    group: { sr: "AI u radu", en: "AI workflow" },
+    rows: [
+      { name: "Claude Code, Codex", note: { sr: "svakodnevno", en: "daily" }, projects: ["kafe", "makaze"] },
+      { name: { sr: "Paralelni agenti u git worktree-ima", en: "Parallel agents in git worktrees" }, projects: ["kafe", "nst-print-mill"] },
+      { name: { sr: "Plan po fazama, ADR, pregled koda", en: "Phased plans, ADRs, code review" }, projects: ["kafe", "makaze"] },
+      { name: { sr: "LLM u proizvodu: Claude API, OpenRouter", en: "LLMs in the product: Claude API, OpenRouter" }, projects: ["kafe", "gymai"] },
     ],
   },
 ];

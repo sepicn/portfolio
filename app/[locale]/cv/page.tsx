@@ -50,7 +50,10 @@ export default async function CvPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "cv" });
-  const cvProjects = projects.filter((p) => p.kind === "personal").slice(0, 3);
+  const cvProjects = [
+    ...projects.filter((p) => p.kind === "saas"),
+    ...projects.filter((p) => p.kind === "personal"),
+  ].slice(0, 4);
   const en = locale === "en";
   const jsonLd = graph(
     {

@@ -1,20 +1,9 @@
 import type { Localized } from "../i18n";
 
-/**
- * One-page, role-specific CVs built by scripts/build-cv-variants.mjs.
- *
- * Rules these follow (recruiters skim a CV in 6 to 8 seconds, and ATS parsers read it first):
- *  - one page, one column, standard section names, no tables or text boxes in the DOCX
- *  - the headline and summary carry the keywords of the role
- *  - bullets start with a verb, fit on one or two lines and end in a concrete result
- *  - only public numbers: percentages and counts of my own work, never client spend
- *    or conversion counts
- */
 
 export type SectionId = "summary" | "skills" | "experience" | "projects" | "education";
 
 export type CvJob = {
-  /** Id from content/data/experience.ts: dates, company and location come from there. */
   id: string;
   role?: Localized;
   stack: string;
@@ -30,7 +19,6 @@ export type CvProject = {
 
 export type CvVariant = {
   id: string;
-  /** Used in the file name: Nikola_Sepic_<file>_CV_EN.pdf */
   file: string;
   label: Localized;
   headline: Localized;
@@ -42,8 +30,6 @@ export type CvVariant = {
   educationNote?: Localized;
 };
 
-// ---------------------------------------------------------------------------
-// Bullets, written once and picked per role. Every number here is public.
 
 const b = {
   mtChatbot: {
@@ -105,8 +91,6 @@ const both = (...items: Localized[]) => ({
   en: items.map((i) => i.en),
 });
 
-// ---------------------------------------------------------------------------
-// Projects, one line each.
 
 const p = {
   tracker: {
@@ -147,10 +131,10 @@ const p = {
   },
   portfolio: {
     title: "sepic.me",
-    stack: "Next.js, React Three Fiber, GSAP",
+    stack: "Next.js, three.js, TypeScript",
     line: {
-      sr: "Portfolio kao 3D soba, dvojezičan, WCAG AA, Playwright i Vitest testovi.",
-      en: "Portfolio built as a 3D room, bilingual, WCAG AA, Playwright and Vitest tests.",
+      sr: "Portfolio u stilu tehničkog nacrta: 3D na skrol, dva jezika, blog, Lighthouse 100 na desktopu.",
+      en: "Portfolio styled as a technical drawing: 3D on scroll, two languages, a blog, Lighthouse 100 on desktop.",
     },
     link: "sepic.me",
   },
@@ -190,11 +174,35 @@ const p = {
     },
     link: "prostorizmedju.rs",
   },
+  kafe: {
+    title: "Kafe",
+    stack: "Django, Next.js, Flutter, PostgreSQL",
+    line: {
+      sr: "SaaS za restorane: POS, ekran za kuhinju i rad bez interneta; arhitektura moja, kod uz AI agente, 2.265 testova.",
+      en: "Restaurant SaaS: POS, kitchen display and offline mode; my architecture, built with AI agents, 2,265 tests.",
+    },
+    link: "sepic.me/projekti/kafe",
+  },
+  makaze: {
+    title: "Makaze",
+    stack: "Go, React, Astro, PostgreSQL",
+    line: {
+      sr: "Softver za salone: kalendar bez duplih termina, IPS depozit, fiskalni račun; arhitektura moja, kod uz AI agente.",
+      en: "Salon software: no double bookings, IPS deposits, fiscal receipts; my architecture, built with AI agents.",
+    },
+    link: "sepic.me/projekti/makaze",
+  },
 } satisfies Record<string, CvProject>;
 
 const freelanceDev: Localized = {
   sr: "Freelance web developer",
   en: "Freelance Web Developer",
+};
+
+const aiSkill: CvVariant["skills"][number] = {
+  label: { sr: "AI u radu", en: "AI workflow" },
+  items:
+    "Claude Code, Codex, parallel agent sessions in git worktrees, phased plans and ADRs, review of every step, Claude API, OpenRouter, MCP",
 };
 
 const midSkills: CvVariant["skills"] = [
@@ -216,6 +224,7 @@ const midSkills: CvVariant["skills"] = [
     items:
       "PostgreSQL, MySQL, MongoDB, Redis, Prisma, Drizzle, Git, Jira, Vitest, Playwright, GitHub Actions, Docker",
   },
+  aiSkill,
 ];
 
 const midJobs: CvJob[] = [
@@ -244,8 +253,8 @@ export const variants: CvVariant[] = [
       en: "Full-Stack Developer | TypeScript · Next.js · Nuxt · Laravel · Node.js",
     },
     summary: {
-      sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima: bolnička platforma od ~400 hiljada linija koda (Nuxt, Laravel), TMS za logistiku iz SAD (ASP.NET Core) i portal za praćenje pošiljki (Rails). Funkcionalnost vodim od interfejsa preko REST API-ja do baze.",
-      en: "Full-stack developer with 1.5 years on production systems: a ~400k-line hospital platform (Nuxt, Laravel), a US logistics TMS (ASP.NET Core) and a shipment tracking portal (Rails). I take features from the UI through REST APIs to the database.",
+      sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima: bolnička platforma od ~400 hiljada linija koda (Nuxt, Laravel), TMS za logistiku iz SAD (ASP.NET Core) i portal za praćenje pošiljki (Rails). Funkcionalnost vodim od interfejsa preko REST API-ja do baze. Svakodnevno radim sa AI agentima (Claude Code, Codex): planiram po fazama, zapisujem odluke i pregledam svaki korak.",
+      en: "Full-stack developer with 1.5 years on production systems: a ~400k-line hospital platform (Nuxt, Laravel), a US logistics TMS (ASP.NET Core) and a shipment tracking portal (Rails). I take features from the UI through REST APIs to the database. I work with AI agents every day (Claude Code, Codex): phased plans, written decisions and a review of every step.",
     },
     skills: midSkills,
     order: ["summary", "skills", "experience", "projects", "education"],
@@ -261,7 +270,7 @@ export const variants: CvVariant[] = [
         bullets: both(b.fPlatform, b.fSites),
       },
     ],
-    projects: [p.tracker, p.gymai, p.launchhub],
+    projects: [p.kafe, p.makaze, p.gymai],
   },
   {
     id: "fullstack-junior",
@@ -295,6 +304,7 @@ export const variants: CvVariant[] = [
         label: { sr: "Upoznat sa", en: "Familiar with" },
         items: "ASP.NET Core (C#), Ruby on Rails, Redis, Docker",
       },
+      aiSkill,
     ],
     order: ["summary", "skills", "projects", "experience", "education"],
     jobs: [
@@ -349,6 +359,7 @@ export const variants: CvVariant[] = [
         label: { sr: "Alati", en: "Tools" },
         items: "Git, Jira, Vercel, GitHub Actions, Node.js, REST APIs",
       },
+      aiSkill,
     ],
     order: ["summary", "skills", "experience", "projects", "education"],
     jobs: [
@@ -404,6 +415,7 @@ export const variants: CvVariant[] = [
         label: { sr: "Alati", en: "Tools" },
         items: "Git, GitHub, Jira, Vitest, Playwright, Vercel",
       },
+      aiSkill,
     ],
     order: ["summary", "education", "skills", "projects", "experience"],
     jobs: [
@@ -452,6 +464,7 @@ export const variants: CvVariant[] = [
         items:
           "TypeScript, Vue, Nuxt, React, Next.js, Laravel, Tailwind CSS, WordPress",
       },
+      aiSkill,
     ],
     order: ["summary", "skills", "experience", "projects", "education"],
     jobs: [
@@ -479,7 +492,6 @@ export const variants: CvVariant[] = [
   },
 ];
 
-/** The CV offered for download on sepic.me/cv: the broad version, dev plus marketing. */
 export const siteVariant: CvVariant = {
   id: "site",
   file: "",
@@ -489,8 +501,8 @@ export const siteVariant: CvVariant = {
     en: "Full-Stack Web Developer | Next.js · Nuxt · Laravel · Google Ads · SEO",
   },
   summary: {
-    sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima (Nuxt i Laravel, ASP.NET Core, Rails) i rezultatima u digitalnom marketingu: 8 Google Ads kampanja za privatnu bolnicu i tehnički SEO koji je Site Health podigao sa 90% na 98%. Najjači u front-endu: TypeScript, React, Next.js, Vue.",
-    en: "Full-stack developer with 1.5 years on production systems (Nuxt and Laravel, ASP.NET Core, Rails) and measurable digital marketing results: 8 Google Ads campaigns for a private hospital and technical SEO that raised Site Health from 90% to 98%. Strongest on the front end: TypeScript, React, Next.js, Vue.",
+    sr: "Full-stack developer sa 1,5 godinom na produkcionim sistemima (Nuxt i Laravel, ASP.NET Core, Rails) i rezultatima u digitalnom marketingu: 8 Google Ads kampanja za privatnu bolnicu i tehnički SEO koji je Site Health podigao sa 90% na 98%. Najjači u front-endu: TypeScript, React, Next.js, Vue. Svakodnevno radim sa AI agentima (Claude Code, Codex): planiram po fazama, zapisujem odluke i pregledam svaki korak.",
+    en: "Full-stack developer with 1.5 years on production systems (Nuxt and Laravel, ASP.NET Core, Rails) and measurable digital marketing results: 8 Google Ads campaigns for a private hospital and technical SEO that raised Site Health from 90% to 98%. Strongest on the front end: TypeScript, React, Next.js, Vue. I work with AI agents every day (Claude Code, Codex): phased plans, written decisions and a review of every step.",
   },
   skills: [
     ...midSkills,
@@ -508,5 +520,5 @@ export const siteVariant: CvVariant = {
       bullets: both(b.fPlatform, b.fAds, b.fNegatives),
     },
   ],
-  projects: [p.tracker, p.gymai],
+  projects: [p.kafe, p.makaze, p.gymai],
 };

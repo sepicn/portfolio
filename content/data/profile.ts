@@ -24,14 +24,13 @@ export const profile = {
     en: "I build web apps and websites, then bring them customers through Google Ads, Meta Ads and SEO. For more than a year and a half I have shipped on production systems: a ~400k-line private hospital platform in Nuxt and Laravel, the UI redesign of a US logistics company's TMS in .NET, and a shipment tracking portal in Rails. For the same hospital I run eight Google Ads campaigns, and my technical SEO took Semrush Site Health from 90% to 98% in one week. My personal projects are Next.js with TypeScript. I graduated in Information Technology from Singidunum University in 2024.",
   } satisfies Localized,
   cvSummary: {
-    sr: "Web developer sa više od godinu i po dana rada na produkcionim sistemima (Nuxt i Laravel, .NET MVC, Rails) koji za privatnu bolnicu vodi i digitalni marketing: osam Google Ads kampanja, Meta Ads, GA4, GTM i tehnički SEO koji je Semrush Site Health podigao sa 90% na 98%. Najjači u front-end sloju: TypeScript, React i Next.js, Vue i Nuxt, Tailwind. Tražim medior front-end ili full-stack poziciju, uz otvorenost za freelance.",
-    en: "Web developer with more than a year and a half on production systems (Nuxt and Laravel, .NET MVC, Rails) who also runs digital marketing for a private hospital: eight Google Ads campaigns, Meta Ads, GA4, GTM, and technical SEO that raised Semrush Site Health from 90% to 98%. Strongest on the front end: TypeScript, React and Next.js, Vue and Nuxt, Tailwind. Looking for a mid-level front-end or full-stack role, open to freelance work.",
+    sr: "Web developer sa više od godinu i po dana rada na produkcionim sistemima (Nuxt i Laravel, .NET MVC, Rails) koji za privatnu bolnicu vodi i digitalni marketing: osam Google Ads kampanja, Meta Ads, GA4, GTM i tehnički SEO koji je Semrush Site Health podigao sa 90% na 98%. Najjači u front-end sloju: TypeScript, React i Next.js, Vue i Nuxt, Tailwind. Tražim medior front-end ili full-stack poziciju, uz otvorenost za freelance. Svakodnevno radim sa AI agentima (Claude Code, Codex), uz plan po fazama i pregled svakog koraka.",
+    en: "Web developer with more than a year and a half on production systems (Nuxt and Laravel, .NET MVC, Rails) who also runs digital marketing for a private hospital: eight Google Ads campaigns, Meta Ads, GA4, GTM, and technical SEO that raised Semrush Site Health from 90% to 98%. Strongest on the front end: TypeScript, React and Next.js, Vue and Nuxt, Tailwind. Looking for a mid-level front-end or full-stack role, open to freelance work. I work with AI agents every day (Claude Code, Codex), with phased plans and a review of every step.",
   } satisfies Localized,
   availability: {
     sr: "Dostupan za freelance projekte i stalno zaposlenje, Beograd ili remote.",
     en: "Available for freelance projects and full-time roles, Belgrade or remote.",
   } satisfies Localized,
-  /** Client-facing availability for the home and contact pages; job-seeking stays on /about and /cv. */
   openFor: {
     sr: "Primam nove projekte, uživo u Beogradu ili remote.",
     en: "Taking on new projects, in person in Belgrade or remote.",
@@ -46,12 +45,6 @@ export type SkillGroup = {
   skills: { name: string; level: SkillLevel; note?: Localized }[];
 };
 
-/**
- * Levels are honest, not marketing:
- *  daily   = used every week on production work for a year or more
- *  solid   = shipped real features with it, comfortable without hand holding
- *  working = used on a project, can read and extend, would not call myself an expert
- */
 export const skillGroups: SkillGroup[] = [
   {
     id: "frontend",
@@ -114,6 +107,16 @@ export const skillGroups: SkillGroup[] = [
       { name: "Accessibility (WCAG AA, axe)", level: "solid" },
       { name: "Blender (glTF pipeline)", level: "working" },
       { name: "Docker, Azure App Service", level: "working" },
+    ],
+  },
+  {
+    id: "ai",
+    label: { sr: "AI u radu", en: "AI workflow" },
+    skills: [
+      { name: "Claude Code, Codex", level: "daily" },
+      { name: "Parallel AI agents in git worktrees", level: "daily" },
+      { name: "Phased plans, ADRs, code review", level: "daily" },
+      { name: "Claude API, OpenRouter, MCP", level: "solid" },
     ],
   },
 ];

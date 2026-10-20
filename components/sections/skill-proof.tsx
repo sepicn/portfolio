@@ -17,11 +17,11 @@ export function SkillProof({ locale }: { locale: string }) {
           <dl>
             {group.rows.map((row) => (
               <div
-                key={row.name}
+                key={typeof row.name === "string" ? row.name : row.name.en}
                 className="grid items-baseline gap-2 border-b border-rule py-3.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-4"
               >
                 <dt className="text-[19px] font-medium tracking-[-0.015em]">
-                  {row.name}
+                  {typeof row.name === "string" ? row.name : pick(row.name, locale)}
                   {row.note ? (
                     <span className="mt-0.5 block font-mono text-[12px] font-normal text-ink-2">
                       {pick(row.note, locale)}
