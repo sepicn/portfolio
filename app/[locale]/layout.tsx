@@ -9,7 +9,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { MobileBar } from "@/components/mobile-bar";
 import { SkipLink } from "@/components/skip-link";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { RevealObserver } from "@/components/motion/reveal-observer";
 import { SectionRuler } from "@/components/motion/section-ruler";
 import { Analytics, gtmId } from "@/components/analytics";
 import { ConsentBanner } from "@/components/consent-banner";
@@ -87,7 +86,6 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body className="flex min-h-dvh flex-col">
         <NextIntlClientProvider messages={clientMessages}>
           <SmoothScroll />
-          <RevealObserver />
           <SectionRuler />
           <SkipLink />
           <SiteHeader />

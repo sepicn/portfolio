@@ -10,7 +10,7 @@ import { profile } from "@/content/data/profile";
 import { siteConfig } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
-import { Blocks, slugify } from "@/components/blog/blocks";
+import { ArticleBody, layoutBySlug, toSections } from "@/components/blog/layouts";
 import { ReadProgress } from "@/components/blog/read-progress";
 import { absoluteUrl, breadcrumbJsonLd, graph, personId, serializeJsonLd } from "@/lib/structured-data";
 
@@ -51,7 +51,6 @@ export default async function PostPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "blog" });
   const nav = await getTranslations({ locale, namespace: "nav" });
   const blocks = post.body[l];
-  const toc = blocks.filter((b) => b.type === "h2").map((b) => (b as { text: string }).text);
   const index = posts.indexOf(post);
   const next = posts[(index + 1) % posts.length];
   const url = absoluteUrl(locale, `/blog/${post.slug.sr}`);
@@ -70,7 +69,7 @@ export default async function PostPage({ params }: Props) {
       publisher: { "@id": personId },
       mainEntityOfPage: url,
       url,
-      image: `${siteConfig.url}/og/${locale}-post-${post.slug.sr}.jpg`,
+      image: `${siteConfig.url}/images/blog/${post.slug.sr}.webp`,
       timeRequired: `PT${post.minutes}M`,
     },
     breadcrumbJsonLd(locale, [
@@ -118,36 +117,20 @@ export default async function PostPage({ params }: Props) {
         </div>
       </header>
 
-      <div className="grid gap-12 pt-10 lg:grid-cols-[220px_minmax(0,1fr)_240px] lg:pt-12">
-        <aside className="hidden lg:sticky lg:top-6 lg:block lg:self-start">
-          <p className="label mb-3">{t("contents")}</p>
-          <ol className="font-mono text-[12px] leading-[1.45]">
-            {toc.map((h) => (
-              <li key={h}>
-                <a href={`#${slugify(h)}`} className="block border-l border-rule py-2 pl-3 text-ink-2 hover:border-blue hover:text-blue">
-                  {h}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </aside>
+      <ArticleBody
+        layout={layoutBySlug[post.slug.sr] ?? "split"}
+        sections={toSections(blocks)}
+        image={`/images/blog/${post.slug.sr}.webp`}
+        alt={post.title[l]}
+        answer={post.answer[l]}
+        answerLabel={t("answer")}
+      />
 
-        <div className="min-w-0 max-w-[76ch] border border-rule bg-paper px-5 py-6 lg:px-10 lg:py-10">
-          <div className="mb-9 border border-ink bg-bg p-5 lg:p-6">
-            <p className="tag mb-2">{t("answer")}</p>
-            <p className="text-[17px] leading-[1.6] lg:text-[18px]">{post.answer[l]}</p>
-          </div>
-          <Blocks blocks={blocks} />
-        </div>
-
-        <aside className="lg:sticky lg:top-6 lg:self-start">
-          <div className="dark-sheet border border-ink p-5">
-            <p className="text-[20px] leading-[1.2] font-medium tracking-[-0.02em]">{t("ctaTitle")}</p>
-            <Link href="/contact" className="mt-4 flex min-h-12 items-center justify-center bg-blue px-4 font-mono text-[12px] tracking-[0.05em] uppercase hover:bg-blue-2 hover:text-ink">
-              {t("ctaButton")} →
-            </Link>
-          </div>
-        </aside>
+      <div data-reveal className="dark-sheet mt-16 flex flex-col gap-5 border border-ink p-6 lg:flex-row lg:items-center lg:justify-between lg:p-8">
+        <p className="text-[clamp(22px,2.2vw,30px)] leading-[1.2] font-medium tracking-[-0.02em]">{t("ctaTitle")}</p>
+        <Link href="/contact" className="flex min-h-12 shrink-0 items-center justify-center bg-blue px-6 font-mono text-[13px] tracking-[0.05em] uppercase hover:bg-blue-2 hover:text-ink">
+          {t("ctaButton")} →
+        </Link>
       </div>
 
       <Link
