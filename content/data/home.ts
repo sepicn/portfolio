@@ -133,11 +133,8 @@ export const home = {
   },
   now: { sr: "danas", en: "now" },
   skillsTag: { sr: "Veštine", en: "Skills" },
-  skillsTitle: { sr: "Šta koristim, i gde", en: "What I use, and where" },
-  skillsLead: {
-    sr: "Bez ocena od 1 do 5. Uz svaku tehnologiju je projekat gde se vidi.",
-    en: "No 1 to 5 ratings. Each technology links to a project that shows it.",
-  },
+  skillsTitle: { sr: "Tehnologije", en: "Tech stack" },
+  skillsLead: { sr: "Sa čim radim svaki dan.", en: "What I work with every day." },
   meTag: { sr: "O meni", en: "About me" },
   meTitle: { sr: "Kad ne kodiram", en: "When I am not coding" },
   meBody: {
@@ -269,4 +266,12 @@ export const skillProof: { group: Localized; rows: SkillRow[] }[] = [
       { name: { sr: "LLM u proizvodu: Claude API, OpenRouter", en: "LLMs in the product: Claude API, OpenRouter" }, projects: ["kafe", "gymai"] },
     ],
   },
+];
+
+export const techStack: { group: Localized; items: string[] }[] = [
+  { group: { sr: "Front-end", en: "Front end" }, items: ["TypeScript", "React, Next.js", "Vue, Nuxt", "Tailwind CSS", "Three.js"] },
+  { group: { sr: "Back-end", en: "Back end" }, items: ["Laravel", "Node, Express", "Go", "Django", "Rails, ASP.NET"] },
+  { group: { sr: "Baze i alati", en: "Data and tools" }, items: ["PostgreSQL, MySQL", "MongoDB, Redis", "Prisma, Drizzle", "Docker, Vercel", "Vitest, Playwright"] },
+  { group: { sr: "Marketing", en: "Marketing" }, items: ["Google Ads", "Meta Ads", "Technical SEO", "GA4, GTM", "JSON-LD"] },
+  { group: { sr: "AI u radu", en: "AI workflow" }, items: ["Claude Code, Codex", "Parallel AI agents", "Phased plans, ADRs", "Claude API, OpenRouter", "MCP"] },
 ];
