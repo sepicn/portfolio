@@ -85,7 +85,7 @@ function resolve(v, l) {
       if (!job) throw new Error(`Unknown job ${j.id} in ${v.id}`);
       return {
         role: pick(j.role ?? job.role, l),
-        company: job.company,
+        company: pick(job.company, l),
         location: pick(job.location, l),
         period: period(job.start, job.end, l),
         stack: j.stack,

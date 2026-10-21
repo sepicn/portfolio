@@ -3,7 +3,7 @@ import type { Localized, LocalizedList } from "../i18n";
 export type Experience = {
   id: string;
   role: Localized;
-  company: string;
+  company: Localized;
   companyUrl?: string;
   location: Localized;
   start: string; // YYYY-MM
@@ -21,7 +21,7 @@ export const experience: Experience[] = [
       sr: "Freelance web developer i digitalni marketing",
       en: "Freelance web developer and digital marketing specialist",
     },
-    company: "IT Expert",
+    company: { sr: "IT Expert", en: "IT Expert" },
     companyUrl: "https://itexpert.rs",
     location: { sr: "Beograd", en: "Belgrade" },
     start: "2025-03",
@@ -64,7 +64,7 @@ export const experience: Experience[] = [
   {
     id: "medicaltime",
     role: { sr: "Web developer", en: "Web developer" },
-    company: "Medical Time Hospital",
+    company: { sr: "Medical Time Hospital", en: "Medical Time Hospital" },
     companyUrl: "https://www.medicaltime.rs",
     location: { sr: "Beograd", en: "Belgrade" },
     start: "2025-02",
@@ -101,29 +101,29 @@ export const experience: Experience[] = [
     ],
   },
   {
-    id: "delta",
+    id: "logistics",
     role: { sr: "Front-end developer", en: "Front-end developer" },
-    company: "Logistics company",
+    company: { sr: "Logistička firma", en: "Logistics company" },
     location: { sr: "Remote (SAD)", en: "Remote (USA)" },
     start: "2025-05",
     end: "2026-07",
     kind: "contract",
     summary: {
-      sr: "Bio sam zadužen za kompletan UI dva sistema logističke firme iz SAD: Logistics TMS, back-office za dispečere, flotu, bezbednost i računovodstvo u .NET MVC, i Shipment Tracking, portal na kome kupci prate pošiljke, u Rails.",
-      en: "I owned the entire UI for two systems at a US logistics company: Logistics TMS, the back office for dispatch, fleet, safety and accounting in .NET MVC, and Shipment Tracking, a customer shipment tracking portal in Rails.",
+      sr: "Bio sam zadužen za kompletan UI dva sistema logističke firme iz SAD: TMS, back-office za dispečere, flotu, bezbednost i računovodstvo u .NET MVC, i portal na kome kupci prate pošiljke, u Rails.",
+      en: "I owned the entire UI for two systems at a US logistics company: a TMS, the back office for dispatch, fleet, safety and accounting in .NET MVC, and a customer shipment tracking portal in Rails.",
     },
     bullets: {
       sr: [
         "Kao UI developer u timu od dva developera, redizajnirao svih 40 i više Add/Edit formi u TMS-u u modularne višestepene wizard-e sa doslednim sekcijama, statusima i responsive ponašanjem.",
-        "Prebacio Safety modul na grid stranice sa horizontalnim skrolom i standardizovanim akcijama.",
-        "Redizajnirao Invoicing i Fuel Transactions ekrane, modale za faktoring kompanije i driver statement-e; 101 commit u Razor, CSS i JavaScript sloju.",
-        "Na Shipment Tracking portalu napravio interaktivnu Leaflet mapu pošiljke sa stanicama, živom lokacijom kamiona i statusima po lokaciji, i redizajnirao admin i customer stranice u brend bojama.",
+        "Prebacio bezbednosni modul na grid stranice sa horizontalnim skrolom i standardizovanim akcijama.",
+        "Redizajnirao finansijske ekrane i modale u Razor, CSS i JavaScript sloju.",
+        "Na portalu za praćenje pošiljki napravio interaktivnu Leaflet mapu pošiljke sa stanicama, živom lokacijom kamiona i statusima po lokaciji, i redizajnirao admin i customer stranice.",
       ],
       en: [
         "As the UI developer on a two-developer team, redesigned all 40+ Add/Edit forms in the TMS into modular multi-step wizards with consistent sections, status blocks and responsive behaviour.",
-        "Moved the Safety module to grid pages with horizontal scroll and standardized actions.",
-        "Redesigned the Invoicing and Fuel Transactions screens, factoring company modals and driver statements; 101 commits across the Razor, CSS and JavaScript layer.",
-        "On Shipment Tracking, built the interactive Leaflet shipment map with stops, live truck location and per-location status labels, and redesigned the admin and customer pages in brand colours.",
+        "Moved the safety module to grid pages with horizontal scroll and standardized actions.",
+        "Redesigned the finance screens and modals across the Razor, CSS and JavaScript layer.",
+        "On the shipment tracking portal, built the interactive Leaflet shipment map with stops, live truck location and per-location status labels, and redesigned the admin and customer pages.",
       ],
     },
     stack: [

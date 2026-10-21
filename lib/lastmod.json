@@ -1,10 +1,10 @@
 {
   "/": {
-    "hash": "3820761804e39711",
+    "hash": "080a589a28cd25b6",
     "date": "2026-10-20"
   },
   "/projects": {
-    "hash": "ae285d06783553ad",
+    "hash": "ffdcf5750bf35507",
     "date": "2026-10-20"
   },
   "/services": {
@@ -28,11 +28,11 @@
     "date": "2026-10-20"
   },
   "/about": {
-    "hash": "dbf18319e2ef270d",
+    "hash": "3571a7a065c6364c",
     "date": "2026-10-20"
   },
   "/cv": {
-    "hash": "ad5da65928e0a38b",
+    "hash": "ddf8bcb4f40c81c9",
     "date": "2026-10-20"
   },
   "/contact": {
@@ -44,7 +44,7 @@
     "date": "2026-10-20"
   },
   "/blog": {
-    "hash": "3664bd7a6ef9fe5b",
+    "hash": "79416a823530a447",
     "date": "2026-10-20"
   },
   "/projects/medical-time": {
@@ -60,11 +60,11 @@
     "date": "2026-10-20"
   },
   "/projects/logistics-tms": {
-    "hash": "72de876d65273788",
+    "hash": "3dce738311faa088",
     "date": "2026-10-20"
   },
   "/projects/shipment-tracking": {
-    "hash": "e4d5c4748fd8f1db",
+    "hash": "55a9195f394d61b9",
     "date": "2026-10-20"
   },
   "/projects/itexpert": {

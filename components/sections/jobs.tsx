@@ -44,7 +44,7 @@ export function Jobs({ locale }: { locale: string }) {
     now: job.end === null,
     period: `${month(job.start, locale)} · ${job.end ? month(job.end, locale) : pick(home.now, locale)}`,
     title: pick(job.role, locale),
-    place: `${job.company}, ${pick(job.location, locale)}`,
+    place: `${pick(job.company, locale)}, ${pick(job.location, locale)}`,
     note: pick(
       home.jobsShort[job.id as keyof typeof home.jobsShort] ?? job.summary,
       locale,

@@ -176,7 +176,7 @@ export default async function CvPage({ params }: Props) {
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h3 className="text-[20px] tracking-[-0.02em]">
                     {pick(job.role, locale)}{" "}
-                    <span className="text-ink-2">· {job.company}</span>
+                    <span className="text-ink-2">· {pick(job.company, locale)}</span>
                   </h3>
                   <span className="font-mono text-[12px] text-ink-2">
                     {period(job.start, job.end, locale)} · {pick(job.location, locale)}

@@ -278,8 +278,8 @@ export const projects: Project[] = [
   {
     slug: "logistics-tms",
     seoTitle: {
-      sr: "Logistics TMS: UI za softver kamionske logistike",
-      en: "Logistics TMS: UI for a trucking logistics TMS",
+      sr: "TMS za kamionsku logistiku: redizajn interfejsa",
+      en: "Trucking logistics TMS: interface redesign",
     },
     description: {
       sr: "Studija slučaja: redizajn interfejsa TMS sistema za kamionsku logistiku u .NET MVC. Tamni režim, nova navigacija i 40+ formi pretvorenih u vođene korake.",
@@ -290,8 +290,8 @@ export const projects: Project[] = [
       en: "Two developers, me on the UI",
     },
     scale: {
-      sr: "101 moj commit, 40+ formi u koracima, 12 .NET projekata",
-      en: "101 commits of mine, 40+ step forms, 12 .NET projects",
+      sr: "40+ formi u koracima, ceo interfejs sistema",
+      en: "40+ step forms, the whole interface of the system",
     },
     impact: {
       sr: [
@@ -312,7 +312,6 @@ export const projects: Project[] = [
       "/images/projects/gallery/logistics-tms-m.webp",
     ],
     title: "Logistics TMS",
-    client: "Logistics company, SAD",
     kind: "client",
     featured: true,
     year: "2025-2026",
@@ -325,26 +324,26 @@ export const projects: Project[] = [
       en: "A UI redesign of a US trucking company's TMS, with 40+ forms turned into guided steps.",
     },
     summary: {
-      sr: "Logistics TMS je sistem za upravljanje transportom firme Logistics company iz SAD-a: dispečeri, flota, vozači, bezbednost i računovodstvo. Od oktobra 2025. do jula 2026. redizajnirao sam interfejs, kroz 101 commit u Razor pogledima, CSS-u i JavaScript-u. Backend su radile kolege iz tima.",
-      en: "Logistics TMS is the transport management system of Logistics company, a US trucking company: dispatch, fleet, drivers, safety and accounting. From October 2025 to July 2026 I redesigned its interface in 101 commits across Razor views, CSS and JavaScript. My teammates built the back end.",
+      sr: "Sistem za upravljanje transportom jedne američke logističke firme: dispečeri, flota, vozači, bezbednost i računovodstvo. Od oktobra 2025. do jula 2026. redizajnirao sam interfejs u Razor pogledima, CSS-u i JavaScript-u. Backend su radile kolege iz tima.",
+      en: "The transport management system of a US trucking company: dispatch, fleet, drivers, safety and accounting. From October 2025 to July 2026 I redesigned its interface across Razor views, CSS and JavaScript. My teammates built the back end.",
     },
     did: {
       sr: [
-        "Pretvorio 40+ formi za unos u vođene korake, uključujući šest bezbednosnih formi.",
+        "Pretvorio 40+ formi za unos u vođene korake.",
         "Izdvojio logiku koraka u jedno zajedničko jezgro, pa svaka forma opisuje samo svoje korake.",
         "Napravio novu prijavu, navigaciju, kontrolnu tablu i tamni režim za ceo sistem.",
         "Dodao maske sa proverom za SSN, EIN i telefon, da nepotpun broj ne može da se sačuva.",
       ],
       en: [
-        "Turned 40+ data entry forms into guided steps, including six safety forms.",
+        "Turned 40+ data entry forms into guided steps.",
         "Moved the step logic into one shared core, so each form only describes its steps.",
         "Built new sign-in, navigation, dashboard and dark mode for the whole system.",
         "Added validated input masks for SSN, EIN and phone, so incomplete numbers cannot be saved.",
       ],
     },
     hard: {
-      sr: "Iste forme se otvaraju i same i iz drugih formi, a logika koraka je živela u svakoj formi posebno. Otvorena iz druge forme, forma je padala na ravan prikaz bez koraka. Koraci, validacija i navigacija izvučeni su u zajedničko jezgro, a poslednji commit tog niza uklonio je 42 linije i dodao 9.",
-      en: "The same forms open on their own and from inside other forms, and the step logic lived in each form separately. Opened from another form, a form fell back to a flat layout. Steps, validation and navigation moved into a shared core, and the last commit in that series removed 42 lines and added 9.",
+      sr: "Iste forme se otvaraju i same i iz drugih formi, a logika koraka je živela u svakoj formi posebno. Otvorena iz druge forme, forma je padala na ravan prikaz bez koraka. Koraci, validacija i navigacija izvučeni su u zajedničko jezgro, pa forma radi isto gde god da se otvori.",
+      en: "The same forms open on their own and from inside other forms, and the step logic lived in each form separately. Opened from another form, a form fell back to a flat layout. Steps, validation and navigation moved into a shared core, so a form behaves the same wherever it opens.",
     },
     stack: [
       "ASP.NET Core MVC",
@@ -361,20 +360,20 @@ export const projects: Project[] = [
   {
     slug: "shipment-tracking",
     seoTitle: {
-      sr: "Shipment Tracking: praćenje pošiljki na mapi",
-      en: "Shipment Tracking: live shipment tracking portal",
+      sr: "Portal za praćenje pošiljki na mapi",
+      en: "Live shipment tracking portal",
     },
     description: {
-      sr: "Studija slučaja: portal za praćenje pošiljki u Rails. Leaflet mapa sa rutom po putevima, status svake stanice i redizajn ekrana, u 20 mojih commit-a.",
-      en: "Case study: a shipment tracking portal in Rails. A Leaflet map with road routing, a status for every stop and redesigned screens, in 20 commits of mine.",
+      sr: "Studija slučaja: portal za praćenje pošiljki u Rails. Leaflet mapa sa rutom po putevima, status svake stanice i redizajn ekrana.",
+      en: "Case study: a shipment tracking portal in Rails. A Leaflet map with road routing, a status for every stop and redesigned screens.",
     },
     team: {
       sr: "Drugi developer na aplikaciji, ja na UI-ju",
       en: "Another developer on the app, me on the UI",
     },
     scale: {
-      sr: "20 mojih commit-a, mapa od ~700 linija",
-      en: "20 commits of mine, a ~700-line map",
+      sr: "Mapa od ~700 linija, 30+ SVG ikona",
+      en: "A ~700-line map, 30+ SVG icons",
     },
     impact: {
       sr: [
@@ -395,7 +394,6 @@ export const projects: Project[] = [
       "/images/projects/gallery/shipment-tracking-m.webp",
     ],
     title: "Shipment Tracking",
-    client: "Logistics company, SAD",
     kind: "client",
     featured: true,
     year: "2025",
@@ -405,8 +403,8 @@ export const projects: Project[] = [
       en: "A live shipment map for a US logistics company's customers, with a status for every stop.",
     },
     summary: {
-      sr: "Portal na kome kupci firme Logistics company prate svoje pošiljke. Aplikaciju u Rails-u pravi drugi developer, a ja sam od maja do oktobra 2025, u 20 commit-a, preuzeo izgled i ponašanje ekrana. Najveći deo mog posla je mapa od oko 700 linija.",
-      en: "A portal where Logistics company customers follow their shipments. Another developer builds the Rails app, and from May to October 2025 I took over how the screens look and behave, in 20 commits. The biggest piece of my work is a ~700-line map.",
+      sr: "Portal na kome kupci jedne američke logističke firme prate svoje pošiljke. Aplikaciju u Rails-u pravi drugi developer, a ja sam od maja do oktobra 2025. preuzeo izgled i ponašanje ekrana. Najveći deo mog posla je mapa od oko 700 linija.",
+      en: "A portal where the customers of a US logistics company follow their shipments. Another developer builds the Rails app, and from May to October 2025 I took over how the screens look and behave. The biggest piece of my work is a ~700-line map.",
     },
     did: {
       sr: [

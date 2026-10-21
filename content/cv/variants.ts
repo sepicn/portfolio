@@ -59,8 +59,8 @@ const b = {
     en: "Built a live Leaflet shipment map with stops, truck location and ETA per stop (Rails, Hotwire).",
   },
   dScreens: {
-    sr: "Standardizovao Safety, Invoicing i Fuel ekrane u grid prikaze i modale; 101 commit kroz Jira i code review.",
-    en: "Rebuilt the Safety, Invoicing and Fuel screens as standard grids and modals; 101 commits via Jira and code review.",
+    sr: "Standardizovao ekrane bezbednosti i finansija u grid prikaze i modale, kroz Jira i code review.",
+    en: "Rebuilt the safety and finance screens as standard grids and modals, via Jira and code review.",
   },
   fPlatform: {
     sr: "Gradim klijentsku platformu IT Expert (Nuxt, Laravel): portal, pretplate i Raiffeisen naplata pokrivena sa 133 testa.",
@@ -231,7 +231,7 @@ const midJobs: CvJob[] = [
     bullets: both(b.mtChatbot, b.mtConsent, b.mtI18n, b.seo),
   },
   {
-    id: "delta",
+    id: "logistics",
     stack: "ASP.NET Core MVC, Razor, Rails, Hotwire, Leaflet",
     bullets: both(b.dForms, b.dMap, b.dScreens),
   },
@@ -311,7 +311,7 @@ export const variants: CvVariant[] = [
         bullets: both(b.mtChatbot, b.mtI18n),
       },
       {
-        id: "delta",
+        id: "logistics",
         stack: "ASP.NET Core MVC, Rails, Leaflet",
         bullets: both(b.dForms, b.dMap),
       },
@@ -366,7 +366,7 @@ export const variants: CvVariant[] = [
         bullets: both(b.mtI18n, b.seo, b.mtChatbot),
       },
       {
-        id: "delta",
+        id: "logistics",
         stack: "Razor, JavaScript, Bootstrap, Rails, Hotwire, Tailwind, Leaflet",
         bullets: both(b.dForms, b.dMap, b.dScreens),
       },
@@ -422,7 +422,7 @@ export const variants: CvVariant[] = [
         bullets: both(b.mtChatbot, b.mtI18n),
       },
       {
-        id: "delta",
+        id: "logistics",
         stack: "ASP.NET Core MVC, Rails",
         bullets: both(b.dForms, b.dMap),
       },
@@ -479,7 +479,7 @@ export const variants: CvVariant[] = [
         bullets: both(b.mtI18n, b.mtChatbot),
       },
       {
-        id: "delta",
+        id: "logistics",
         stack: "ASP.NET Core MVC, Rails, Leaflet",
         bullets: both(b.dForms, b.dMap),
       },

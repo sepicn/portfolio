@@ -132,7 +132,7 @@ export const home = {
       sr: "Prevodi na 5 jezika, chatbot za zakazivanje.",
       en: "Translations in 5 languages, a booking chatbot.",
     },
-    delta: {
+    logistics: {
       sr: "40+ formi pretvoreno u korake, mapa pošiljki.",
       en: "40+ forms turned into wizards, a shipment map.",
     },

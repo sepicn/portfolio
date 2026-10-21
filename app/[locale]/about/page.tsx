@@ -112,10 +112,10 @@ export default async function AboutPage({ params }: Props) {
                       rel="noopener"
                       className="underline-offset-4 hover:text-blue hover:underline"
                     >
-                      {job.company}
+                      {pick(job.company, locale)}
                     </a>
                   ) : (
-                    job.company
+                    pick(job.company, locale)
                   )}
                   , {pick(job.location, locale)}
                 </p>
