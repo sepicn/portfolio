@@ -1,6 +1,5 @@
 import type { Localized } from "../i18n";
 
-
 export type SectionId = "summary" | "skills" | "experience" | "projects" | "education";
 
 export type CvJob = {
@@ -29,7 +28,6 @@ export type CvVariant = {
   projects: CvProject[];
   educationNote?: Localized;
 };
-
 
 const b = {
   mtChatbot: {
@@ -90,7 +88,6 @@ const both = (...items: Localized[]) => ({
   sr: items.map((i) => i.sr),
   en: items.map((i) => i.en),
 });
-
 
 const p = {
   tracker: {
@@ -461,8 +458,7 @@ export const variants: CvVariant[] = [
       },
       {
         label: { sr: "Web razvoj", en: "Web development" },
-        items:
-          "TypeScript, Vue, Nuxt, React, Next.js, Laravel, Tailwind CSS, WordPress",
+        items: "TypeScript, Vue, Nuxt, React, Next.js, Laravel, Tailwind CSS, WordPress",
       },
       aiSkill,
     ],

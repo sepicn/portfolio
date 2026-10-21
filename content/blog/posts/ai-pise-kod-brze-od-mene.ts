@@ -123,11 +123,11 @@ export const post: Post = {
       { type: "h2", text: "What my day with AI looks like" },
       {
         type: "p",
-        text: "I don't tell the agent \"build me an app\" and go grab a coffee. First I make a plan in phases. Each phase is small and easy to check. Important decisions go into an ADR, a short document that says what we decided and why. That helps me a few months later, and it helps the agent too. I hand it that file and it stops reinventing things we already settled.",
+        text: 'I don\'t tell the agent "build me an app" and go grab a coffee. First I make a plan in phases. Each phase is small and easy to check. Important decisions go into an ADR, a short document that says what we decided and why. That helps me a few months later, and it helps the agent too. I hand it that file and it stops reinventing things we already settled.',
       },
       {
         type: "p",
-        text: "I often run several sessions in parallel. One works on the database, another on the frontend, a third writes tests. Sounds like I have a team. Sort of, I do. Except this team never asks \"are you sure?\". So I review every step. Every diff. Then I run the tests.",
+        text: 'I often run several sessions in parallel. One works on the database, another on the frontend, a third writes tests. Sounds like I have a team. Sort of, I do. Except this team never asks "are you sure?". So I review every step. Every diff. Then I run the tests.',
       },
       { type: "h2", text: "Things AI won't add unless you ask" },
       {
@@ -168,7 +168,7 @@ export const post: Post = {
         type: "list",
         items: [
           "Repetition: forms, CRUD, migrations, tests for cases I've already described.",
-          "Finding my way around someone else's code. I ask \"where does this get calculated?\" and get an answer right away instead of digging through files.",
+          'Finding my way around someone else\'s code. I ask "where does this get calculated?" and get an answer right away instead of digging through files.',
           "A first version of something I'm going to change anyway.",
           "Translations and interface copy, with me checking them.",
         ],
@@ -180,7 +180,7 @@ export const post: Post = {
           "It invents a function that doesn't exist in the library version I'm using.",
           "It fixes a failing test by changing the test and leaving the code as it was.",
           "In a long session it forgets a decision from an hour ago. That's why I write ADRs.",
-          "It says \"done\" without having run anything.",
+          'It says "done" without having run anything.',
         ],
       },
       {

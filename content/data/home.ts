@@ -1,7 +1,10 @@
 import type { Localized } from "../i18n";
 
 export const home = {
-  kicker: { sr: "Full-stack · Google Ads · Beograd", en: "Full-stack · Google Ads · Belgrade" },
+  kicker: {
+    sr: "Full-stack · Google Ads · Beograd",
+    en: "Full-stack · Google Ads · Belgrade",
+  },
   titleBefore: { sr: "Gradim", en: "I build" },
   titleStrike: { sr: "sajtove", en: "websites" },
   titleBlue: { sr: "sisteme", en: "systems" },
@@ -18,9 +21,21 @@ export const home = {
   ctaCv: { sr: "Preuzmi CV (PDF)", en: "Download CV (PDF)" },
   facts: [
     { value: "16", label: { sr: "projekata", en: "projects" } },
-    { value: "400k", label: { sr: "linija koda u jednoj platformi", en: "lines of code in one platform" } },
-    { value: "5", label: { sr: "jezika na jednoj platformi", en: "languages on one platform" } },
-    { value: "−54%", label: { sr: "niža cena konverzije", en: "lower cost per conversion" } },
+    {
+      value: "400k",
+      label: {
+        sr: "linija koda u jednoj platformi",
+        en: "lines of code in one platform",
+      },
+    },
+    {
+      value: "5",
+      label: { sr: "jezika na jednoj platformi", en: "languages on one platform" },
+    },
+    {
+      value: "−54%",
+      label: { sr: "niža cena konverzije", en: "lower cost per conversion" },
+    },
   ] satisfies { value: string; label: Localized }[],
   projectsTag: { sr: "Projekti", en: "Projects" },
   projectsTitle: { sr: "Na čemu radim", en: "What I work on" },
@@ -125,7 +140,10 @@ export const home = {
   education: {
     period: "2020 · 2024",
     title: { sr: "Diploma, informacione tehnologije", en: "BSc, Information Technology" },
-    place: { sr: "Univerzitet Singidunum, Beograd", en: "Singidunum University, Belgrade" },
+    place: {
+      sr: "Univerzitet Singidunum, Beograd",
+      en: "Singidunum University, Belgrade",
+    },
     note: {
       sr: "Osnovne studije, plus kursevi za JavaScript i React.",
       en: "Undergraduate studies, plus JavaScript and React courses.",
@@ -221,9 +239,20 @@ export const skillProof: { group: Localized; rows: SkillRow[] }[] = [
   {
     group: { sr: "Front-end", en: "Front end" },
     rows: [
-      { name: "TypeScript", note: { sr: "svakodnevno", en: "daily" }, projects: ["medical-time", "job-application-tracker", "gymai", "launchhub"] },
-      { name: "Vue, Nuxt", note: { sr: "svakodnevno", en: "daily" }, projects: ["medical-time", "itexpert", "mango", "vuk-studio"] },
-      { name: "React, Next.js", projects: ["makaze", "kafe", "job-application-tracker", "nst-print-mill"] },
+      {
+        name: "TypeScript",
+        note: { sr: "svakodnevno", en: "daily" },
+        projects: ["medical-time", "job-application-tracker", "gymai", "launchhub"],
+      },
+      {
+        name: "Vue, Nuxt",
+        note: { sr: "svakodnevno", en: "daily" },
+        projects: ["medical-time", "itexpert", "mango", "vuk-studio"],
+      },
+      {
+        name: "React, Next.js",
+        projects: ["makaze", "kafe", "job-application-tracker", "nst-print-mill"],
+      },
       { name: "ASP.NET Razor", projects: ["logistics-tms"] },
       { name: "Rails, Hotwire", projects: ["shipment-tracking"] },
     ],
@@ -235,43 +264,108 @@ export const skillProof: { group: Localized; rows: SkillRow[] }[] = [
       { name: "Go", projects: ["makaze"] },
       { name: "Django, Python", projects: ["kafe"] },
       { name: "Node, Express", projects: ["gymai"] },
-      { name: "PostgreSQL, MySQL, MongoDB", projects: ["makaze", "kafe", "medical-time", "job-application-tracker"] },
+      {
+        name: "PostgreSQL, MySQL, MongoDB",
+        projects: ["makaze", "kafe", "medical-time", "job-application-tracker"],
+      },
       { name: "Prisma, Drizzle", projects: ["gymai", "launchhub"] },
     ],
   },
   {
     group: { sr: "Marketing", en: "Marketing" },
     rows: [
-      { name: "Google Ads", note: { sr: "svakodnevno", en: "daily" }, projects: ["medical-time"] },
+      {
+        name: "Google Ads",
+        note: { sr: "svakodnevno", en: "daily" },
+        projects: ["medical-time"],
+      },
       { name: "Meta Ads", projects: ["medical-time"] },
-      { name: "Tehnički SEO, JSON-LD", projects: ["medical-time", "vuk-studio", "nst-print-mill"] },
+      {
+        name: "Tehnički SEO, JSON-LD",
+        projects: ["medical-time", "vuk-studio", "nst-print-mill"],
+      },
       { name: "GA4, GTM", projects: ["medical-time", "mango"] },
     ],
   },
   {
     group: { sr: "Kvalitet i alati", en: "Quality and tooling" },
     rows: [
-      { name: "Vitest, pytest, Playwright", projects: ["kafe", "makaze", "itexpert", "gymai"] },
+      {
+        name: "Vitest, pytest, Playwright",
+        projects: ["kafe", "makaze", "itexpert", "gymai"],
+      },
       { name: "i18n", projects: ["medical-time", "itexpert"] },
       { name: "Blender, Three.js", projects: ["nst-print-mill"] },
-      { name: "Docker, GitHub Actions, Vercel", projects: ["kafe", "vuk-studio", "job-application-tracker"] },
+      {
+        name: "Docker, GitHub Actions, Vercel",
+        projects: ["kafe", "vuk-studio", "job-application-tracker"],
+      },
     ],
   },
   {
     group: { sr: "AI u radu", en: "AI workflow" },
     rows: [
-      { name: "Claude Code, Codex", note: { sr: "svakodnevno", en: "daily" }, projects: ["kafe", "makaze"] },
-      { name: { sr: "Paralelni agenti u git worktree-ima", en: "Parallel agents in git worktrees" }, projects: ["kafe", "nst-print-mill"] },
-      { name: { sr: "Plan po fazama, ADR, pregled koda", en: "Phased plans, ADRs, code review" }, projects: ["kafe", "makaze"] },
-      { name: { sr: "LLM u proizvodu: Claude API, OpenRouter", en: "LLMs in the product: Claude API, OpenRouter" }, projects: ["kafe", "gymai"] },
+      {
+        name: "Claude Code, Codex",
+        note: { sr: "svakodnevno", en: "daily" },
+        projects: ["kafe", "makaze"],
+      },
+      {
+        name: {
+          sr: "Paralelni agenti u git worktree-ima",
+          en: "Parallel agents in git worktrees",
+        },
+        projects: ["kafe", "nst-print-mill"],
+      },
+      {
+        name: {
+          sr: "Plan po fazama, ADR, pregled koda",
+          en: "Phased plans, ADRs, code review",
+        },
+        projects: ["kafe", "makaze"],
+      },
+      {
+        name: {
+          sr: "LLM u proizvodu: Claude API, OpenRouter",
+          en: "LLMs in the product: Claude API, OpenRouter",
+        },
+        projects: ["kafe", "gymai"],
+      },
     ],
   },
 ];
 
 export const techStack: { group: Localized; items: string[] }[] = [
-  { group: { sr: "Front-end", en: "Front end" }, items: ["TypeScript", "React, Next.js", "Vue, Nuxt", "Tailwind CSS", "Three.js"] },
-  { group: { sr: "Back-end", en: "Back end" }, items: ["Laravel", "Node, Express", "Go", "Django", "Rails, ASP.NET"] },
-  { group: { sr: "Baze i alati", en: "Data and tools" }, items: ["PostgreSQL, MySQL", "MongoDB, Redis", "Prisma, Drizzle", "Docker, Vercel", "Vitest, Playwright"] },
-  { group: { sr: "Marketing", en: "Marketing" }, items: ["Google Ads", "Meta Ads", "Technical SEO", "GA4, GTM", "JSON-LD"] },
-  { group: { sr: "AI u radu", en: "AI workflow" }, items: ["Claude Code, Codex", "Parallel AI agents", "Phased plans, ADRs", "Claude API, OpenRouter", "MCP"] },
+  {
+    group: { sr: "Front-end", en: "Front end" },
+    items: ["TypeScript", "React, Next.js", "Vue, Nuxt", "Tailwind CSS", "Three.js"],
+  },
+  {
+    group: { sr: "Back-end", en: "Back end" },
+    items: ["Laravel", "Node, Express", "Go", "Django", "Rails, ASP.NET"],
+  },
+  {
+    group: { sr: "Baze i alati", en: "Data and tools" },
+    items: [
+      "PostgreSQL, MySQL",
+      "MongoDB, Redis",
+      "Prisma, Drizzle",
+      "Docker, Vercel",
+      "Vitest, Playwright",
+    ],
+  },
+  {
+    group: { sr: "Marketing", en: "Marketing" },
+    items: ["Google Ads", "Meta Ads", "Technical SEO", "GA4, GTM", "JSON-LD"],
+  },
+  {
+    group: { sr: "AI u radu", en: "AI workflow" },
+    items: [
+      "Claude Code, Codex",
+      "Parallel AI agents",
+      "Phased plans, ADRs",
+      "Claude API, OpenRouter",
+      "MCP",
+    ],
+  },
 ];

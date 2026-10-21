@@ -34,7 +34,11 @@ function translateParams(params: Params, locale: string): Params {
   return Object.fromEntries(
     Object.entries(params).map(([key, value]) => [
       key,
-      key === "service" ? serviceSlug(value, locale) : key === "slug" ? blogSlug(value, locale) : value,
+      key === "service"
+        ? serviceSlug(value, locale)
+        : key === "slug"
+          ? blogSlug(value, locale)
+          : value,
     ]),
   );
 }

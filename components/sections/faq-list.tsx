@@ -12,7 +12,9 @@ export function FaqList({ items }: { items: { q: string; a: string }[] }) {
               +
             </span>
           </summary>
-          <p className="max-w-[68ch] pb-6 text-[17px] leading-[1.6] text-ink-2">{item.a}</p>
+          <p className="max-w-[68ch] pb-6 text-[17px] leading-[1.6] text-ink-2">
+            {item.a}
+          </p>
         </details>
       ))}
     </div>

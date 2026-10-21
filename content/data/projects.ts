@@ -158,7 +158,16 @@ export const projects: Project[] = [
       sr: "Fiskalni uređaj odgovara i do 30 sekundi, a odgovor može da se izgubi: ponovo poslat račun je duplikat, neposlat je izgubljen pazar. Zato se zahtev prvo trajno upiše sa svojim ključem, pa se tek onda zove uređaj. Nepoznat ishod se rešava po tom ključu i račun se nikad ne šalje dvaput.",
       en: "A fiscal device can take up to 30 seconds to answer, and the answer can get lost: resending risks a duplicate, not sending loses the sale. So the request is stored first with its own key, then the device is called. An unknown outcome is resolved by that key and never sent twice.",
     },
-    stack: ["Django", "Next.js", "TypeScript", "PostgreSQL", "Flutter", "Python", "Redis", "Docker"],
+    stack: [
+      "Django",
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Flutter",
+      "Python",
+      "Redis",
+      "Docker",
+    ],
     links: {},
     image: "/images/projects/kafe.webp",
     gallery: [
@@ -417,15 +426,7 @@ export const projects: Project[] = [
       sr: "Lokalno je mapa radila, a u produkciji su nestale sve ikone markera: Rails dodaje otisak u ime fajla, pa putanja upisana u JavaScript nije postojala. Rešenje je bilo da view prosledi stvarne putanje iz asset helper-a kao Stimulus vrednosti.",
       en: "The map worked locally, but in production every marker icon vanished: Rails fingerprints file names, so the path hardcoded in JavaScript did not exist. The fix was to have the view pass the real paths from the asset helper as Stimulus values.",
     },
-    stack: [
-      "Rails",
-      "Hotwire",
-      "Stimulus",
-      "Tailwind",
-      "Leaflet",
-      "OSRM",
-      "PostgreSQL",
-    ],
+    stack: ["Rails", "Hotwire", "Stimulus", "Tailwind", "Leaflet", "OSRM", "PostgreSQL"],
     links: {},
     accent: "violet",
   },
@@ -650,15 +651,7 @@ export const projects: Project[] = [
       sr: "Brend boje roze, krem i bordo nisu prošle Lighthouse proveru kontrasta. Nisam menjao brend, nego sam svaku boju tamnio samo koliko treba da pređe prag. Uz kritični CSS i samo četiri fonta unapred, Lighthouse je pokazao 91, 100, 100 i 100.",
       en: "The brand's pink, cream and burgundy failed the Lighthouse contrast check. I kept the brand and darkened each colour only as far as it needed to pass. With critical CSS and only four preloaded fonts, Lighthouse showed 91, 100, 100 and 100.",
     },
-    stack: [
-      "Nuxt",
-      "Vue",
-      "TypeScript",
-      "Pinia",
-      "@nuxtjs/i18n",
-      "reCAPTCHA",
-      "GTM",
-    ],
+    stack: ["Nuxt", "Vue", "TypeScript", "Pinia", "@nuxtjs/i18n", "reCAPTCHA", "GTM"],
     links: { live: "https://mangoposlasticarnica.rs" },
     accent: "yellow",
   },
@@ -864,14 +857,7 @@ export const projects: Project[] = [
       sr: "Traka od 72 frejma bila je široka 27.360 piksela, a WebP ide najviše do 16.383. Zato je složena u mrežu 12 puta 6. Model je presečen na pola, pa je silueta lutala 36 piksela; skripta sada centrira svaki frejm.",
       en: "A 72-frame strip was 27,360 pixels wide, and WebP stops at 16,383. So it is laid out as a 12 by 6 grid. The model is cut in half, so the silhouette wandered by 36 pixels; a script now centres every frame.",
     },
-    stack: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind",
-      "Blender",
-      "JSON-LD",
-      "GitHub Pages",
-    ],
+    stack: ["Next.js", "TypeScript", "Tailwind", "Blender", "JSON-LD", "GitHub Pages"],
     links: { live: "https://itimers.github.io/newsolutionsteam/" },
     accent: "pink",
   },
@@ -1267,5 +1253,7 @@ export const projects: Project[] = [
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
-export const clientProjects = projects.filter((p) => p.kind === "client" || p.kind === "maintenance");
+export const clientProjects = projects.filter(
+  (p) => p.kind === "client" || p.kind === "maintenance",
+);
 export const personalProjects = projects.filter((p) => p.kind === "personal");

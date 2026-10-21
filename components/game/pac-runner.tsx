@@ -55,8 +55,7 @@ function readBest(): number {
 function writeBest(n: number) {
   try {
     localStorage.setItem(BEST_KEY, String(n));
-  } catch {
-  }
+  } catch {}
 }
 
 const pad = (n: number) => String(Math.floor(n)).padStart(5, "0");

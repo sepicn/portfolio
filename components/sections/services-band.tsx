@@ -34,9 +34,16 @@ export function ServicesBand({ locale }: { locale: string }) {
             className="group flex h-full min-h-[380px] flex-col gap-5 border border-rule-dark bg-paper/[0.03] p-7 transition-colors hover:bg-paper/[0.07] lg:min-h-[440px]"
           >
             <div className="hpin-spin w-max">
-              <ServiceArt id={s.id} size={150} dark className="transition-transform duration-500 ease-out-expo group-hover:-translate-y-1 group-hover:rotate-[-6deg]" />
+              <ServiceArt
+                id={s.id}
+                size={150}
+                dark
+                className="transition-transform duration-500 ease-out-expo group-hover:-translate-y-1 group-hover:rotate-[-6deg]"
+              />
             </div>
-            <h3 className="text-[28px] leading-[1.1] tracking-[-0.03em]">{pick(s.title, locale)}</h3>
+            <h3 className="text-[28px] leading-[1.1] tracking-[-0.03em]">
+              {pick(s.title, locale)}
+            </h3>
             <p className="text-[16px] leading-[1.55] text-paper/80">
               {pick(home.serviceCards[s.id as keyof typeof home.serviceCards], locale)}
             </p>

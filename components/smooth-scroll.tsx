@@ -21,7 +21,12 @@ export function SmoothScroll() {
     const start = () => {
       import("lenis").then(({ default: Lenis }) => {
         if (cancelled) return;
-        const lenis = new Lenis({ lerp: 0.1, smoothWheel: true, autoRaf: true, anchors: true });
+        const lenis = new Lenis({
+          lerp: 0.1,
+          smoothWheel: true,
+          autoRaf: true,
+          anchors: true,
+        });
         active = lenis;
         const observer = new ResizeObserver(() => lenis.resize());
         observer.observe(document.body);

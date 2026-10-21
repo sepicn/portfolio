@@ -4,7 +4,13 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { navItems } from "@/lib/site-config";
 
-export function NavLinks({ onNavigate, className }: { onNavigate?: () => void; className?: string }) {
+export function NavLinks({
+  onNavigate,
+  className,
+}: {
+  onNavigate?: () => void;
+  className?: string;
+}) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   return (

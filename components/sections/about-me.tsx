@@ -5,7 +5,10 @@ import { profile } from "@/content/data/profile";
 
 export function AboutMe({ locale }: { locale: string }) {
   return (
-    <div data-reveal className="grid items-center gap-7 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
+    <div
+      data-reveal
+      className="grid items-center gap-7 lg:grid-cols-[1fr_1.2fr] lg:gap-14"
+    >
       <figure data-reveal="tilt" className="relative border border-ink bg-paper p-3.5">
         <Image
           src={profile.photo}

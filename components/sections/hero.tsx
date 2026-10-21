@@ -13,9 +13,13 @@ export function Hero({ locale }: { locale: string }) {
         <div>
           <p className="tag">{pick(home.kicker, locale)}</p>
           <h1 className="hero-title mt-5 text-hero">
-            {pick(home.titleBefore, locale)} <span className="strike">{pick(home.titleStrike, locale)}</span>
+            {pick(home.titleBefore, locale)}{" "}
+            <span className="strike">{pick(home.titleStrike, locale)}</span>
             <br />
-            <span className="hero-new text-blue">{pick(home.titleBlue, locale)}</span> {pick(home.titleAfter, locale)}
+            <span className="hero-new text-blue">
+              {pick(home.titleBlue, locale)}
+            </span>{" "}
+            {pick(home.titleAfter, locale)}
           </h1>
           <div className="mt-7 grid max-w-[600px] grid-cols-[56px_1fr] gap-3.5 lg:mt-9 lg:grid-cols-[72px_1fr] lg:gap-[18px]">
             <Image
@@ -26,21 +30,33 @@ export function Hero({ locale }: { locale: string }) {
               priority
               className="size-14 border border-ink object-cover grayscale lg:size-[72px]"
             />
-            <p className="text-[16px] leading-[1.55] text-ink-2 lg:text-[17px]">{pick(home.who, locale)}</p>
+            <p className="text-[16px] leading-[1.55] text-ink-2 lg:text-[17px]">
+              {pick(home.who, locale)}
+            </p>
           </div>
         </div>
         <div className="flex flex-col lg:flex-row">
           <Link href="/projects" className="btn btn-primary">
             {pick(home.ctaProjects, locale)} <span aria-hidden="true">→</span>
           </Link>
-          <a href={cvPdf(locale)} className="btn btn-ghost border-t-0 lg:border-t lg:border-l-0">
+          <a
+            href={cvPdf(locale)}
+            className="btn btn-ghost border-t-0 lg:border-t lg:border-l-0"
+          >
             {pick(home.ctaCv, locale)}
           </a>
         </div>
       </div>
-      <figure aria-hidden="true" className="hero-art relative h-[400px] overflow-hidden lg:h-auto lg:min-h-[520px]">
+      <figure
+        aria-hidden="true"
+        className="hero-art relative h-[400px] overflow-hidden lg:h-auto lg:min-h-[520px]"
+      >
         <Image
-          src={locale === "en" ? "/images/drawings/stack-en.webp" : "/images/drawings/stack-sr.webp"}
+          src={
+            locale === "en"
+              ? "/images/drawings/stack-en.webp"
+              : "/images/drawings/stack-sr.webp"
+          }
           width={locale === "en" ? 623 : 586}
           height={802}
           alt=""

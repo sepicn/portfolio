@@ -68,7 +68,8 @@ export function RevealContact({
 
   if (variant === "button") return shown;
 
-  const label = kind === "email" ? t("labelEmail") : kind === "phone" ? t("labelPhone") : "WhatsApp";
+  const label =
+    kind === "email" ? t("labelEmail") : kind === "phone" ? t("labelPhone") : "WhatsApp";
   return (
     <div className="flex min-h-[68px] items-center justify-between gap-4 border-b border-rule py-3">
       <span className="label">{label}</span>

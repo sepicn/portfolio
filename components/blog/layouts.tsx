@@ -24,10 +24,24 @@ export function toSections(blocks: Block[]): Section[] {
   return out.filter((s) => s.heading || s.blocks.length);
 }
 
-function Heading({ text, index, dark = false }: { text: string; index: number; dark?: boolean }) {
+function Heading({
+  text,
+  index,
+  dark = false,
+}: {
+  text: string;
+  index: number;
+  dark?: boolean;
+}) {
   return (
-    <h2 id={slugify(text)} className="scroll-mt-6 text-[clamp(24px,2.6vw,32px)] leading-[1.15] tracking-[-0.03em]">
-      <span aria-hidden="true" className={`mb-2 block font-mono text-[12px] tracking-[0.06em] ${dark ? "text-blue-2" : "text-blue"}`}>
+    <h2
+      id={slugify(text)}
+      className="scroll-mt-6 text-[clamp(24px,2.6vw,32px)] leading-[1.15] tracking-[-0.03em]"
+    >
+      <span
+        aria-hidden="true"
+        className={`mb-2 block font-mono text-[12px] tracking-[0.06em] ${dark ? "text-blue-2" : "text-blue"}`}
+      >
         {String(index).padStart(2, "0")}
       </span>
       {text}
@@ -35,9 +49,20 @@ function Heading({ text, index, dark = false }: { text: string; index: number; d
   );
 }
 
-function Panel({ section, index, className = "" }: { section: Section; index: number; className?: string }) {
+function Panel({
+  section,
+  index,
+  className = "",
+}: {
+  section: Section;
+  index: number;
+  className?: string;
+}) {
   return (
-    <section data-reveal className={`border border-ink bg-paper px-5 py-6 lg:px-9 lg:py-8 ${className}`}>
+    <section
+      data-reveal
+      className={`border border-ink bg-paper px-5 py-6 lg:px-9 lg:py-8 ${className}`}
+    >
       {section.heading ? <Heading text={section.heading} index={index} /> : null}
       <div className={section.heading ? "mt-4" : ""}>
         <Blocks blocks={section.blocks} />
@@ -46,19 +71,50 @@ function Panel({ section, index, className = "" }: { section: Section; index: nu
   );
 }
 
-function Answer({ text, label, dark = false }: { text: string; label: string; dark?: boolean }) {
+function Answer({
+  text,
+  label,
+  dark = false,
+}: {
+  text: string;
+  label: string;
+  dark?: boolean;
+}) {
   return (
-    <div data-reveal className={`border p-5 lg:p-6 ${dark ? "border-rule-dark bg-paper/5" : "border-ink bg-bg"}`}>
+    <div
+      data-reveal
+      className={`border p-5 lg:p-6 ${dark ? "border-rule-dark bg-paper/5" : "border-ink bg-bg"}`}
+    >
       <p className={`tag mb-2 ${dark ? "text-blue-2" : ""}`}>{label}</p>
       <p className="text-[17px] leading-[1.6] lg:text-[18px]">{text}</p>
     </div>
   );
 }
 
-function Hero({ src, alt, priority = true, className = "" }: { src: string; alt: string; priority?: boolean; className?: string }) {
+function Hero({
+  src,
+  alt,
+  priority = true,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+  className?: string;
+}) {
   return (
-    <figure className={`img-load relative overflow-hidden border border-ink bg-paper ${className}`}>
-      <Image src={src} alt={alt} width={1600} height={893} priority={priority} sizes="(min-width: 1024px) 80vw, 100vw" className="h-auto w-full" />
+    <figure
+      className={`img-load relative overflow-hidden border border-ink bg-paper ${className}`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={1600}
+        height={893}
+        priority={priority}
+        sizes="(min-width: 1024px) 80vw, 100vw"
+        className="h-auto w-full"
+      />
     </figure>
   );
 }
@@ -140,13 +196,21 @@ export function ArticleBody({
           <Answer text={answer} label={answerLabel} />
         </div>
         <div className="mt-10 grid gap-6 lg:grid-cols-12">
-          {intro ? <Panel section={intro} index={0} className="lg:col-span-8 lg:col-start-3" /> : null}
+          {intro ? (
+            <Panel section={intro} index={0} className="lg:col-span-8 lg:col-start-3" />
+          ) : null}
           {rest.map((s, i) => (
             <Panel
               key={s.heading}
               section={s}
               index={i + 1}
-              className={i % 3 === 0 ? "lg:col-span-7" : i % 3 === 1 ? "lg:col-span-7 lg:col-start-6" : "lg:col-span-8 lg:col-start-3"}
+              className={
+                i % 3 === 0
+                  ? "lg:col-span-7"
+                  : i % 3 === 1
+                    ? "lg:col-span-7 lg:col-start-6"
+                    : "lg:col-span-8 lg:col-start-3"
+              }
             />
           ))}
         </div>
@@ -161,7 +225,9 @@ export function ArticleBody({
           <Answer text={answer} label={answerLabel} />
           <Hero src={image} alt={alt} />
         </div>
-        {intro ? <Panel section={intro} index={0} className="mt-10 lg:ml-[96px]" /> : null}
+        {intro ? (
+          <Panel section={intro} index={0} className="mt-10 lg:ml-[96px]" />
+        ) : null}
         <ol className="relative mt-10 space-y-6 border-l-2 border-blue pl-6 lg:ml-10 lg:pl-14">
           {rest.map((s, i) => (
             <li key={s.heading} className="relative">
@@ -192,7 +258,17 @@ export function ArticleBody({
             key={s.heading}
             section={s}
             index={i + 1}
-            className={[ "lg:col-span-3", "lg:col-span-3", "lg:col-span-2", "lg:col-span-4", "lg:col-span-4", "lg:col-span-2", "lg:col-span-6" ][i % 7]}
+            className={
+              [
+                "lg:col-span-3",
+                "lg:col-span-3",
+                "lg:col-span-2",
+                "lg:col-span-4",
+                "lg:col-span-4",
+                "lg:col-span-2",
+                "lg:col-span-6",
+              ][i % 7]
+            }
           />
         ))}
       </div>

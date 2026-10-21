@@ -3,7 +3,6 @@ import { pick } from "@/content/i18n";
 import { localePath } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-
 export const personId = `${siteConfig.url}/#person`;
 export const websiteId = `${siteConfig.url}/#website`;
 export const businessId = `${siteConfig.url}/#business`;

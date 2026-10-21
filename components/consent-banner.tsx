@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { CONSENT_OPEN_EVENT, readConsent, saveConsent, type ConsentChoice } from "@/lib/consent";
+import {
+  CONSENT_OPEN_EVENT,
+  readConsent,
+  saveConsent,
+  type ConsentChoice,
+} from "@/lib/consent";
 
 export function ConsentBanner() {
   const t = useTranslations("consent");
@@ -38,10 +43,18 @@ export function ConsentBanner() {
         </Link>
       </p>
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <button type="button" onClick={() => choose("granted")} className="btn btn-primary justify-center">
+        <button
+          type="button"
+          onClick={() => choose("granted")}
+          className="btn btn-primary justify-center"
+        >
           {t("accept")}
         </button>
-        <button type="button" onClick={() => choose("denied")} className="btn btn-ghost justify-center">
+        <button
+          type="button"
+          onClick={() => choose("denied")}
+          className="btn btn-ghost justify-center"
+        >
           {t("decline")}
         </button>
       </div>

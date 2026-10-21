@@ -41,7 +41,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const jsonLd = graph(websiteJsonLd(locale), personJsonLd(locale), businessJsonLd(locale));
+  const jsonLd = graph(
+    websiteJsonLd(locale),
+    personJsonLd(locale),
+    businessJsonLd(locale),
+  );
   const total = String(projects.length);
   const facts = home.facts.map((f, i) => (i === 0 ? { ...f, value: total } : f));
 
@@ -71,7 +75,6 @@ export default async function HomePage({ params }: Props) {
             </div>
           ))}
         </dl>
-
       </div>
 
       <HorizontalPin
@@ -117,19 +120,26 @@ export default async function HomePage({ params }: Props) {
             <span className="text-[clamp(2.4rem,4vw,4.4rem)] leading-[0.95] tracking-[-0.045em]">
               {pick(home.allProjects, locale).replace("16", total)}
             </span>
-            <span aria-hidden="true" className="text-[64px] text-blue-2 transition-transform duration-500 ease-out-expo group-hover:translate-x-3">
+            <span
+              aria-hidden="true"
+              className="text-[64px] text-blue-2 transition-transform duration-500 ease-out-expo group-hover:translate-x-3"
+            >
               →
             </span>
           </Link>
         </div>
       </HorizontalPin>
 
-
       <ProcessSteps locale={locale} />
       <ServicesBand locale={locale} />
 
       <div className="wrap">
-        <section id="iskustvo" data-ruler={pick(home.jobsTag, locale)} aria-labelledby="jobs-title" className="scroll-mt-6 pt-24 lg:pt-36">
+        <section
+          id="iskustvo"
+          data-ruler={pick(home.jobsTag, locale)}
+          aria-labelledby="jobs-title"
+          className="scroll-mt-6 pt-24 lg:pt-36"
+        >
           <SectionHead
             id="jobs-title"
             tag={pick(home.jobsTag, locale)}
@@ -139,7 +149,12 @@ export default async function HomePage({ params }: Props) {
           <Jobs locale={locale} />
         </section>
 
-        <section id="vestine" data-ruler={pick(home.skillsTag, locale)} aria-labelledby="skills-title" className="scroll-mt-6 pt-24 lg:pt-36">
+        <section
+          id="vestine"
+          data-ruler={pick(home.skillsTag, locale)}
+          aria-labelledby="skills-title"
+          className="scroll-mt-6 pt-24 lg:pt-36"
+        >
           <SectionHead
             id="skills-title"
             tag={pick(home.skillsTag, locale)}
@@ -149,7 +164,11 @@ export default async function HomePage({ params }: Props) {
           <SkillProof locale={locale} />
         </section>
 
-        <section id="o-meni" data-ruler={pick(home.meTag, locale)} className="scroll-mt-6 pt-24 lg:pt-36">
+        <section
+          id="o-meni"
+          data-ruler={pick(home.meTag, locale)}
+          className="scroll-mt-6 pt-24 lg:pt-36"
+        >
           <AboutMe locale={locale} />
         </section>
 

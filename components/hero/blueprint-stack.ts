@@ -57,12 +57,23 @@ export function createStackScene(
 
   function outline(geometry: THREE.BufferGeometry, mesh: THREE.Object3D, angle = 20) {
     const edges = new THREE.EdgesGeometry(geometry, angle);
-    const lines = new LineSegments2(new LineSegmentsGeometry().fromEdgesGeometry(edges), lineMaterial);
+    const lines = new LineSegments2(
+      new LineSegmentsGeometry().fromEdgesGeometry(edges),
+      lineMaterial,
+    );
     mesh.add(lines);
     disposables.push(geometry, edges, lines.geometry);
   }
 
-  function box(w: number, h: number, d: number, material: THREE.Material, x = 0, y = 0, z = 0) {
+  function box(
+    w: number,
+    h: number,
+    d: number,
+    material: THREE.Material,
+    x = 0,
+    y = 0,
+    z = 0,
+  ) {
     const geometry = new THREE.BoxGeometry(w, h, d);
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(x, y, z);
@@ -70,7 +81,14 @@ export function createStackScene(
     return mesh;
   }
 
-  function cylinder(r: number, h: number, material: THREE.Material, x: number, y: number, z: number) {
+  function cylinder(
+    r: number,
+    h: number,
+    material: THREE.Material,
+    x: number,
+    y: number,
+    z: number,
+  ) {
     const geometry = new THREE.CylinderGeometry(r, r, h, 40);
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(x, y, z);
@@ -90,7 +108,11 @@ export function createStackScene(
     ctx.fillText(text.toUpperCase(), 500, 64);
     const texture = new THREE.CanvasTexture(c);
     texture.colorSpace = THREE.SRGBColorSpace;
-    const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
+    const material = new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      depthTest: false,
+    });
     const sprite = new THREE.Sprite(material);
     sprite.center.set(1, 0.5);
     sprite.scale.set(1.6, 0.4, 1);
@@ -102,7 +124,9 @@ export function createStackScene(
   function database(layer: THREE.Group) {
     for (const x of [-0.75, 0.75]) {
       for (let k = 0; k < 3; k++) {
-        layer.add(cylinder(0.42, 0.17, k === 2 ? accent : paper, x, TOP + 0.1 + k * 0.21, 0));
+        layer.add(
+          cylinder(0.42, 0.17, k === 2 ? accent : paper, x, TOP + 0.1 + k * 0.21, 0),
+        );
       }
     }
   }
@@ -132,16 +156,19 @@ export function createStackScene(
   function frontend(layer: THREE.Group) {
     const win = box(1.75, 1.05, 0.06, paper, -0.3, TOP + 0.53, -0.35);
     win.add(box(1.75, 0.16, 0.08, accent, 0, 0.445, 0.01));
-    for (let k = 0; k < 3; k++) win.add(box(0.07, 0.07, 0.04, paper, -0.78 + k * 0.11, 0.445, 0.06));
+    for (let k = 0; k < 3; k++)
+      win.add(box(0.07, 0.07, 0.04, paper, -0.78 + k * 0.11, 0.445, 0.06));
     win.add(box(0.8, 0.42, 0.04, paper, -0.4, 0.12, 0.05));
     win.add(box(0.3, 0.1, 0.04, ink, -0.6, -0.18, 0.06));
-    for (let k = 0; k < 3; k++) win.add(box(0.24, 0.3, 0.04, paper, 0.18 + k * 0.17 - 0.12, -0.28, 0.05));
+    for (let k = 0; k < 3; k++)
+      win.add(box(0.24, 0.3, 0.04, paper, 0.18 + k * 0.17 - 0.12, -0.28, 0.05));
     win.add(box(0.5, 0.05, 0.04, ink, 0.4, 0.25, 0.06));
     win.add(box(0.4, 0.05, 0.04, paper, 0.35, 0.13, 0.06));
     layer.add(win);
     const phone = box(0.36, 0.68, 0.05, paper, 0.9, TOP + 0.34, 0.25);
     phone.add(box(0.28, 0.08, 0.03, accent, 0, 0.24, 0.03));
-    for (let k = 0; k < 3; k++) phone.add(box(0.26, 0.1, 0.03, paper, 0, 0.08 - k * 0.15, 0.03));
+    for (let k = 0; k < 3; k++)
+      phone.add(box(0.26, 0.1, 0.03, paper, 0, 0.08 - k * 0.15, 0.03));
     layer.add(phone);
   }
 
@@ -164,7 +191,10 @@ export function createStackScene(
     const x = w * 0.42;
     const z = -d * 0.38;
     const geometry = new THREE.CylinderGeometry(0.06, 0.06, 1, 16, 1, true);
-    const pillar = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: ACCENT, transparent: true, opacity: 0.35 }));
+    const pillar = new THREE.Mesh(
+      geometry,
+      new THREE.MeshBasicMaterial({ color: ACCENT, transparent: true, opacity: 0.35 }),
+    );
     pillar.position.set(x, 0, z);
     outline(geometry, pillar, 30);
     disposables.push(pillar.material as THREE.Material);
@@ -198,7 +228,7 @@ export function createStackScene(
     layers.forEach((layer, i) => {
       layer.position.y = i * gap - 1.5 * gap;
     });
-      flow += (flowTarget - flow) * 0.08;
+    flow += (flowTarget - flow) * 0.08;
     links.forEach(({ pillar, packets, phase }, i) => {
       const bottom = layers[i].position.y + 0.08;
       const length = Math.max(0.01, gap - 0.16);
@@ -219,7 +249,10 @@ export function createStackScene(
     const { clientWidth: w, clientHeight: h } = canvas;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
-    lineMaterial.resolution.set(w * renderer.getPixelRatio(), h * renderer.getPixelRatio());
+    lineMaterial.resolution.set(
+      w * renderer.getPixelRatio(),
+      h * renderer.getPixelRatio(),
+    );
     const aspect = w / h;
     const view = options.view;
     camera.left = (-view * aspect) / 2;

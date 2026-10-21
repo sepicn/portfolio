@@ -1,142 +1,602 @@
 <!doctype html>
 <html lang="sr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Storyboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="nacrt.css">
-<style>
-.head{padding:56px 0 40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end}
-.head p{font-size:18px;line-height:1.5;color:var(--ink-2);max-width:52ch}
-.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;padding-bottom:80px}
-@media (max-width:900px){.head,.board{grid-template-columns:minmax(0,1fr)}.fr .mini-h{font-size:30px!important}}
-.shot{border:1px solid var(--ink);background:var(--paper)}
-.fr{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--ink);background:var(--bg);
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:12px 12px}
-.cap{display:grid;grid-template-columns:70px 1fr;gap:0}
-.cap .k{padding:16px;border-right:1px solid var(--ink);font-family:var(--mono);font-size:22px;color:var(--blue)}
-.cap .t{padding:14px 18px}
-.cap h3{font-weight:500;font-size:22px;letter-spacing:-.02em}
-.cap p{font-size:14px;line-height:1.5;color:var(--ink-2);margin-top:6px}
-.cap .tech{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.mini-h{position:absolute;font-weight:500;letter-spacing:-.045em;line-height:.92}
-.arrow{position:absolute;font-family:var(--mono);font-size:11px;color:var(--blue);display:flex;align-items:center;gap:6px}
-.scroll{position:absolute;right:10px;top:10px;font-family:var(--mono);font-size:10px;padding:4px 7px;background:var(--ink);color:var(--bg)}
-.mbar{position:absolute;left:0;right:0;top:0;height:22px;border-bottom:1px solid var(--ink);background:var(--bg);font-family:var(--mono);font-size:8px;display:flex;align-items:center;padding:0 8px;gap:12px;color:var(--ink-2)}
-.dash{position:absolute;border:1px dashed var(--blue)}
-.line{position:absolute;background:var(--blue)}
-.stamp{position:absolute;border:3px solid var(--blue);color:var(--blue);font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.12em;padding:8px 14px;transform:rotate(-8deg)}
-</style>
-</head>
-<body>
-<div class="wrap">
-<div class="head">
-  <div><div class="tag">Motion storyboard · putovanje kroz sajt</div><h1 class="page" style="margin-top:16px">Kako sajt<br><span>vozi</span> posetioca.</h1></div>
-  <p>Jedna plava linija nacrta prolazi kroz ceo sajt, od učitavanja do kontakt forme. Skrol je olovka: sve što vidiš se iscrtava, razlaže i sklapa dok skroluješ. Svaki pokret odgovara na pitanje "gde da gledam sledeće". Na telefonu i uz smanjeno kretanje ostaju isti kadrovi, bez animacije.</p>
-</div>
-
-<div class="board">
-
-  <div class="shot">
-    <div class="fr">
-      <div class="mbar"><span>N. ŠEPIĆ</span></div>
-      <div class="line" style="left:0;top:50%;height:1px;width:62%"></div>
-      <div class="line" style="left:50%;top:0;width:1px;height:70%"></div>
-      <div class="mini-h" style="left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:56px;color:var(--blue);background:var(--bg);padding:6px 16px">68%</div>
-      <div class="arrow" style="left:50%;top:66%;transform:translateX(-50%)">ISCRTAVANJE NACRTA...</div>
-      <div class="scroll">0,0 s</div>
-    </div>
-    <div class="cap"><div class="k">01</div><div class="t"><h3>Učitavanje: mreža se iscrtava</h3><p>Linije mreže se povlače sa ivica, procenat broji do 100, pa se nacrt "otvori". Ispod 0,8 s, samo pri prvoj poseti, ne blokira LCP (tekst je već tu).</p><div class="tech"><span class="chip">CSS @property</span><span class="chip">sessionStorage</span></div></div></div>
-  </div>
-
-  <div class="shot">
-    <div class="fr">
-      <div class="mbar"><span>N. ŠEPIĆ</span><span>01 PROJEKTI</span><span>02 USLUGE</span><span>03 BLOG</span></div>
-      <div class="mini-h" style="left:18px;top:52px;font-size:46px">Gradim<br><span style="color:var(--ink-3);position:relative">stranice<i style="position:absolute;left:-4px;right:30%;top:52%;height:4px;background:var(--blue)"></i></span><br><span style="color:var(--blue)">siste</span><span style="border-right:2px solid var(--blue)">&nbsp;</span></div>
-      <img src="assets/stack-closed.png" style="position:absolute;right:4%;top:18%;width:44%">
-      <div class="arrow" style="left:18px;bottom:16px">← LINIJA PRECRTAVA, PA SE KUCA NOVA REČ</div>
-      <div class="scroll">0,9 s</div>
-    </div>
-    <div class="cap"><div class="k">02</div><div class="t"><h3>Hero: precrtavanje</h3><p>Plava linija precrta "stranice", a "sisteme" se ispiše slovo po slovo. Sklopljen 3D nacrt se lagano okreće za mišem (do 8 stepeni).</p><div class="tech"><span class="chip">GSAP SplitText</span><span class="chip">three.js</span></div></div></div>
-  </div>
-
-  <div class="shot">
-    <div class="fr">
-      <img src="assets/stack-open.png" style="position:absolute;left:8%;top:-4%;width:58%">
-      <div class="arrow" style="right:6%;top:18%"><span style="width:60px;height:1px;background:var(--blue)"></span>04 KLIJENTSKA APP · PWA</div>
-      <div class="arrow" style="right:6%;top:38%"><span style="width:60px;height:1px;background:var(--blue)"></span>03 STUDIO · REACT</div>
-      <div class="arrow" style="right:6%;top:58%"><span style="width:60px;height:1px;background:var(--blue)"></span>02 API · GO</div>
-      <div class="arrow" style="right:6%;top:78%"><span style="width:60px;height:1px;background:var(--blue)"></span>01 POSTGRESQL</div>
-      <div class="scroll">SKROL 15%</div>
-    </div>
-    <div class="cap"><div class="k">03</div><div class="t"><h3>Razlaganje sistema</h3><p>Sekcija se zakuca (pin), slojevi se razmaknu i svaki dobije kotu sa nazivom tehnologije. Posetilac za 2 sekunde vidi da ne praviš samo izgled nego ceo sistem.</p><div class="tech"><span class="chip">ScrollTrigger pin</span><span class="chip">glTF 90 KB</span></div></div></div>
-  </div>
-
-  <div class="shot">
-    <div class="fr">
-      <div style="position:absolute;inset:8% 10%;border:1px solid var(--ink);overflow:hidden;background:var(--paper)">
-        <img src="../../public/images/projects/medical-time.webp" style="width:100%;height:100%;object-fit:cover;object-position:top;clip-path:inset(0 0 0 52%)">
-        <img src="../../public/images/projects/medical-time.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(3) brightness(1.4);mix-blend-mode:multiply;opacity:.45;clip-path:inset(0 48% 0 0)">
-        <div class="line" style="left:52%;top:0;bottom:0;width:2px;box-shadow:0 0 18px var(--blue)"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Storyboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="nacrt.css" />
+    <style>
+      .head {
+        padding: 56px 0 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: end;
+      }
+      .head p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: var(--ink-2);
+        max-width: 52ch;
+      }
+      .board {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+        padding-bottom: 80px;
+      }
+      @media (max-width: 900px) {
+        .head,
+        .board {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .fr .mini-h {
+          font-size: 30px !important;
+        }
+      }
+      .shot {
+        border: 1px solid var(--ink);
+        background: var(--paper);
+      }
+      .fr {
+        position: relative;
+        aspect-ratio: 16/10;
+        overflow: hidden;
+        border-bottom: 1px solid var(--ink);
+        background: var(--bg);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 12px 12px;
+      }
+      .cap {
+        display: grid;
+        grid-template-columns: 70px 1fr;
+        gap: 0;
+      }
+      .cap .k {
+        padding: 16px;
+        border-right: 1px solid var(--ink);
+        font-family: var(--mono);
+        font-size: 22px;
+        color: var(--blue);
+      }
+      .cap .t {
+        padding: 14px 18px;
+      }
+      .cap h3 {
+        font-weight: 500;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+      }
+      .cap p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ink-2);
+        margin-top: 6px;
+      }
+      .cap .tech {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .mini-h {
+        position: absolute;
+        font-weight: 500;
+        letter-spacing: -0.045em;
+        line-height: 0.92;
+      }
+      .arrow {
+        position: absolute;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--blue);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .scroll {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-family: var(--mono);
+        font-size: 10px;
+        padding: 4px 7px;
+        background: var(--ink);
+        color: var(--bg);
+      }
+      .mbar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 22px;
+        border-bottom: 1px solid var(--ink);
+        background: var(--bg);
+        font-family: var(--mono);
+        font-size: 8px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        gap: 12px;
+        color: var(--ink-2);
+      }
+      .dash {
+        position: absolute;
+        border: 1px dashed var(--blue);
+      }
+      .line {
+        position: absolute;
+        background: var(--blue);
+      }
+      .stamp {
+        position: absolute;
+        border: 3px solid var(--blue);
+        color: var(--blue);
+        font-family: var(--mono);
+        font-weight: 500;
+        font-size: 22px;
+        letter-spacing: 0.12em;
+        padding: 8px 14px;
+        transform: rotate(-8deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <div class="tag">Motion storyboard · putovanje kroz sajt</div>
+          <h1 class="page" style="margin-top: 16px">
+            Kako sajt<br /><span>vozi</span> posetioca.
+          </h1>
+        </div>
+        <p>
+          Jedna plava linija nacrta prolazi kroz ceo sajt, od učitavanja do kontakt forme.
+          Skrol je olovka: sve što vidiš se iscrtava, razlaže i sklapa dok skroluješ.
+          Svaki pokret odgovara na pitanje "gde da gledam sledeće". Na telefonu i uz
+          smanjeno kretanje ostaju isti kadrovi, bez animacije.
+        </p>
       </div>
-      <div class="arrow" style="left:10%;bottom:3%">SKEN LINIJA: NACRT → GOTOV PROIZVOD</div>
-      <div class="scroll">SKROL 30%</div>
-    </div>
-    <div class="cap"><div class="k">04</div><div class="t"><h3>Sklapanje u pravi ekran</h3><p>Slojevi se spuste jedan na drugi i postanu screenshot. Sken linija prelazi preko njega: levo nacrt (linije), desno gotov proizvod u boji. Isti efekat se koristi na svakoj kartici projekta.</p><div class="tech"><span class="chip">clip-path</span><span class="chip">CSS scroll-timeline</span></div></div></div>
-  </div>
 
-  <div class="shot">
-    <div class="fr">
-      <svg viewBox="0 0 400 250" style="position:absolute;inset:0;width:100%;height:100%" fill="none" stroke="oklch(0.47 0.21 265)" stroke-width="2"><path d="M30 0 V60 H200 V130 H340 V250" stroke-dasharray="1000" stroke-dashoffset="0"/><path d="M340 250 V250" /><circle cx="200" cy="60" r="5" fill="oklch(0.47 0.21 265)"/><circle cx="340" cy="130" r="5" fill="oklch(0.47 0.21 265)"/></svg>
-      <div class="arrow" style="left:52%;top:18%">[01] PROJEKTI</div>
-      <div class="arrow" style="left:72%;top:46%">[02] USLUGE</div>
-      <div style="position:absolute;right:8px;top:30px;display:flex;flex-direction:column;gap:12px;font-family:var(--mono);font-size:9px;color:var(--ink-3);text-align:right">
-        <span>HERO ──</span><span style="color:var(--blue)">PROJEKTI ────</span><span>USLUGE ──</span><span>BLOG ──</span><span>KONTAKT ──</span>
+      <div class="board">
+        <div class="shot">
+          <div class="fr">
+            <div class="mbar"><span>N. ŠEPIĆ</span></div>
+            <div class="line" style="left: 0; top: 50%; height: 1px; width: 62%"></div>
+            <div class="line" style="left: 50%; top: 0; width: 1px; height: 70%"></div>
+            <div
+              class="mini-h"
+              style="
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                font-family: var(--mono);
+                font-size: 56px;
+                color: var(--blue);
+                background: var(--bg);
+                padding: 6px 16px;
+              "
+            >
+              68%
+            </div>
+            <div class="arrow" style="left: 50%; top: 66%; transform: translateX(-50%)">
+              ISCRTAVANJE NACRTA...
+            </div>
+            <div class="scroll">0,0 s</div>
+          </div>
+          <div class="cap">
+            <div class="k">01</div>
+            <div class="t">
+              <h3>Učitavanje: mreža se iscrtava</h3>
+              <p>
+                Linije mreže se povlače sa ivica, procenat broji do 100, pa se nacrt
+                "otvori". Ispod 0,8 s, samo pri prvoj poseti, ne blokira LCP (tekst je već
+                tu).
+              </p>
+              <div class="tech">
+                <span class="chip">CSS @property</span
+                ><span class="chip">sessionStorage</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="fr">
+            <div class="mbar">
+              <span>N. ŠEPIĆ</span><span>01 PROJEKTI</span><span>02 USLUGE</span
+              ><span>03 BLOG</span>
+            </div>
+            <div class="mini-h" style="left: 18px; top: 52px; font-size: 46px">
+              Gradim<br /><span style="color: var(--ink-3); position: relative"
+                >stranice<i
+                  style="
+                    position: absolute;
+                    left: -4px;
+                    right: 30%;
+                    top: 52%;
+                    height: 4px;
+                    background: var(--blue);
+                  "
+                ></i></span
+              ><br /><span style="color: var(--blue)">siste</span
+              ><span style="border-right: 2px solid var(--blue)">&nbsp;</span>
+            </div>
+            <img
+              src="assets/stack-closed.png"
+              style="position: absolute; right: 4%; top: 18%; width: 44%"
+            />
+            <div class="arrow" style="left: 18px; bottom: 16px">
+              ← LINIJA PRECRTAVA, PA SE KUCA NOVA REČ
+            </div>
+            <div class="scroll">0,9 s</div>
+          </div>
+          <div class="cap">
+            <div class="k">02</div>
+            <div class="t">
+              <h3>Hero: precrtavanje</h3>
+              <p>
+                Plava linija precrta "stranice", a "sisteme" se ispiše slovo po slovo.
+                Sklopljen 3D nacrt se lagano okreće za mišem (do 8 stepeni).
+              </p>
+              <div class="tech">
+                <span class="chip">GSAP SplitText</span><span class="chip">three.js</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="fr">
+            <img
+              src="assets/stack-open.png"
+              style="position: absolute; left: 8%; top: -4%; width: 58%"
+            />
+            <div class="arrow" style="right: 6%; top: 18%">
+              <span style="width: 60px; height: 1px; background: var(--blue)"></span>04
+              KLIJENTSKA APP · PWA
+            </div>
+            <div class="arrow" style="right: 6%; top: 38%">
+              <span style="width: 60px; height: 1px; background: var(--blue)"></span>03
+              STUDIO · REACT
+            </div>
+            <div class="arrow" style="right: 6%; top: 58%">
+              <span style="width: 60px; height: 1px; background: var(--blue)"></span>02
+              API · GO
+            </div>
+            <div class="arrow" style="right: 6%; top: 78%">
+              <span style="width: 60px; height: 1px; background: var(--blue)"></span>01
+              POSTGRESQL
+            </div>
+            <div class="scroll">SKROL 15%</div>
+          </div>
+          <div class="cap">
+            <div class="k">03</div>
+            <div class="t">
+              <h3>Razlaganje sistema</h3>
+              <p>
+                Sekcija se zakuca (pin), slojevi se razmaknu i svaki dobije kotu sa
+                nazivom tehnologije. Posetilac za 2 sekunde vidi da ne praviš samo izgled
+                nego ceo sistem.
+              </p>
+              <div class="tech">
+                <span class="chip">ScrollTrigger pin</span
+                ><span class="chip">glTF 90 KB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="fr">
+            <div
+              style="
+                position: absolute;
+                inset: 8% 10%;
+                border: 1px solid var(--ink);
+                overflow: hidden;
+                background: var(--paper);
+              "
+            >
+              <img
+                src="../../public/images/projects/medical-time.webp"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: top;
+                  clip-path: inset(0 0 0 52%);
+                "
+              />
+              <img
+                src="../../public/images/projects/medical-time.webp"
+                style="
+                  position: absolute;
+                  inset: 0;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: top;
+                  filter: grayscale(1) contrast(3) brightness(1.4);
+                  mix-blend-mode: multiply;
+                  opacity: 0.45;
+                  clip-path: inset(0 48% 0 0);
+                "
+              />
+              <div
+                class="line"
+                style="
+                  left: 52%;
+                  top: 0;
+                  bottom: 0;
+                  width: 2px;
+                  box-shadow: 0 0 18px var(--blue);
+                "
+              ></div>
+            </div>
+            <div class="arrow" style="left: 10%; bottom: 3%">
+              SKEN LINIJA: NACRT → GOTOV PROIZVOD
+            </div>
+            <div class="scroll">SKROL 30%</div>
+          </div>
+          <div class="cap">
+            <div class="k">04</div>
+            <div class="t">
+              <h3>Sklapanje u pravi ekran</h3>
+              <p>
+                Slojevi se spuste jedan na drugi i postanu screenshot. Sken linija prelazi
+                preko njega: levo nacrt (linije), desno gotov proizvod u boji. Isti efekat
+                se koristi na svakoj kartici projekta.
+              </p>
+              <div class="tech">
+                <span class="chip">clip-path</span
+                ><span class="chip">CSS scroll-timeline</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="fr">
+            <svg
+              viewBox="0 0 400 250"
+              style="position: absolute; inset: 0; width: 100%; height: 100%"
+              fill="none"
+              stroke="oklch(0.47 0.21 265)"
+              stroke-width="2"
+            >
+              <path
+                d="M30 0 V60 H200 V130 H340 V250"
+                stroke-dasharray="1000"
+                stroke-dashoffset="0"
+              />
+              <path d="M340 250 V250" />
+              <circle cx="200" cy="60" r="5" fill="oklch(0.47 0.21 265)" />
+              <circle cx="340" cy="130" r="5" fill="oklch(0.47 0.21 265)" />
+            </svg>
+            <div class="arrow" style="left: 52%; top: 18%">[01] PROJEKTI</div>
+            <div class="arrow" style="left: 72%; top: 46%">[02] USLUGE</div>
+            <div
+              style="
+                position: absolute;
+                right: 8px;
+                top: 30px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                font-family: var(--mono);
+                font-size: 9px;
+                color: var(--ink-3);
+                text-align: right;
+              "
+            >
+              <span>HERO ──</span><span style="color: var(--blue)">PROJEKTI ────</span
+              ><span>USLUGE ──</span><span>BLOG ──</span><span>KONTAKT ──</span>
+            </div>
+            <div class="scroll">CEO SAJT</div>
+          </div>
+          <div class="cap">
+            <div class="k">05</div>
+            <div class="t">
+              <h3>Nit: linija koja vodi</h3>
+              <p>
+                Jedna linija se crta dok skroluješ i "skreće" ka sledećoj sekciji, kao
+                putanja na nacrtu. Desno je lenjir sa listovima koji pokazuje gde si. Klik
+                na list te tamo odvede.
+              </p>
+              <div class="tech">
+                <span class="chip">SVG stroke-dashoffset</span
+                ><span class="chip">Lenis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="fr">
+            <div
+              style="position: absolute; left: -8%; top: 16%; display: flex; gap: 16px"
+            >
+              <div
+                style="
+                  width: 220px;
+                  height: 150px;
+                  border: 1px solid var(--ink);
+                  background: var(--paper);
+                  opacity: 0.5;
+                "
+              ></div>
+              <div
+                style="
+                  width: 260px;
+                  height: 180px;
+                  border: 1px solid var(--ink);
+                  background: var(--paper);
+                  overflow: hidden;
+                  transform: translateY(-14px);
+                  box-shadow: 0 20px 40px -20px oklch(0.2 0.04 265 / 0.4);
+                "
+              >
+                <img
+                  src="../../public/images/projects/logistics-tms.webp"
+                  style="width: 100%; height: 120px; object-fit: cover"
+                />
+                <div style="padding: 8px; font-weight: 500; font-size: 16px">
+                  Logistics TMS
+                  <span
+                    style="font-family: var(--mono); font-size: 9px; color: var(--blue)"
+                    >L-04</span
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  width: 220px;
+                  height: 150px;
+                  border: 1px solid var(--ink);
+                  background: var(--paper);
+                  opacity: 0.5;
+                "
+              ></div>
+            </div>
+            <div
+              class="arrow"
+              style="left: 50%; bottom: 10%; transform: translateX(-50%)"
+            >
+              ← SKROL NADOLE = LISTOVI KLIZE BOČNO →
+            </div>
+            <div class="scroll">/PROJEKTI</div>
+          </div>
+          <div class="cap">
+            <div class="k">06</div>
+            <div class="t">
+              <h3>Crtaći sto: projekti bočno</h3>
+              <p>
+                Na /projekti listovi klize horizontalno dok skroluješ nadole. List u
+                centru se podigne i dobije boju. Prevlačenje mišem ili prstom radi takođe.
+                Filter: Klijenti, SaaS, Lični.
+              </p>
+              <div class="tech">
+                <span class="chip">ScrollTrigger horizontal</span
+                ><span class="chip">Flip</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div class="fr">
+            <img
+              src="assets/obj-web.png"
+              style="position: absolute; left: 2%; top: 10%; width: 26%"
+            />
+            <img
+              src="assets/obj-ads.png"
+              style="
+                position: absolute;
+                left: 26%;
+                top: 22%;
+                width: 24%;
+                transform: rotate(-10deg);
+              "
+            />
+            <img
+              src="assets/obj-meta.png"
+              style="position: absolute; left: 50%; top: 6%; width: 24%"
+            />
+            <img
+              src="assets/obj-seo.png"
+              style="position: absolute; left: 74%; top: 18%; width: 24%"
+            />
+            <div class="arrow" style="left: 30%; top: 80%">
+              PREVUCI DA OKRENEŠ · HOVER = PUNA BOJA
+            </div>
+            <div class="scroll">USLUGE</div>
+          </div>
+          <div class="cap">
+            <div class="k">07</div>
+            <div class="t">
+              <h3>Usluge kao predmeti</h3>
+              <p>
+                Četiri 3D predmeta iz Blendera: ekran (sajtovi), meta sa strelicom (Google
+                Ads), slojevi objava (Meta), grafikon sa lupom (SEO). Okreću se sa
+                skrolom, mogu da se uhvate i zavrte.
+              </p>
+              <div class="tech">
+                <span class="chip">1 canvas, 4 modela</span
+                ><span class="chip">Draco</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shot">
+          <div
+            class="fr"
+            style="
+              background: var(--ink);
+              background-image:
+                linear-gradient(oklch(0.95 0 0 / 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, oklch(0.95 0 0 / 0.06) 1px, transparent 1px);
+              background-size: 12px 12px;
+            "
+          >
+            <div
+              class="mini-h"
+              style="left: 22px; top: 30px; font-size: 48px; color: var(--bg)"
+            >
+              Počnimo<br /><span style="color: var(--blue-2)">nacrt.</span>
+            </div>
+            <div
+              style="
+                position: absolute;
+                right: 6%;
+                top: 14%;
+                width: 40%;
+                height: 70%;
+                border: 1px solid oklch(0.95 0 0 / 0.2);
+              "
+            ></div>
+            <div
+              class="stamp"
+              style="
+                right: 12%;
+                top: 38%;
+                color: var(--blue-2);
+                border-color: var(--blue-2);
+              "
+            >
+              POSLATO ✓
+            </div>
+            <div class="arrow" style="left: 22px; bottom: 14px; color: var(--blue-2)">
+              LINIJA SE ZAVRŠAVA U FORMI · POSLE SLANJA: PEČAT
+            </div>
+            <div class="scroll">KRAJ PUTA</div>
+          </div>
+          <div class="cap">
+            <div class="k">08</div>
+            <div class="t">
+              <h3>Kontakt: kraj linije</h3>
+              <p>
+                Linija koja je vodila kroz sajt ulazi u formu i obeleži je. Kad se poruka
+                pošalje, pečat "POSLATO" udari u list. Na 404 strani linija "pukne" i vodi
+                na Pac-Man.
+              </p>
+              <div class="tech">
+                <span class="chip">View Transitions</span
+                ><span class="chip">Web Animations</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="scroll">CEO SAJT</div>
     </div>
-    <div class="cap"><div class="k">05</div><div class="t"><h3>Nit: linija koja vodi</h3><p>Jedna linija se crta dok skroluješ i "skreće" ka sledećoj sekciji, kao putanja na nacrtu. Desno je lenjir sa listovima koji pokazuje gde si. Klik na list te tamo odvede.</p><div class="tech"><span class="chip">SVG stroke-dashoffset</span><span class="chip">Lenis</span></div></div></div>
-  </div>
-
-  <div class="shot">
-    <div class="fr">
-      <div style="position:absolute;left:-8%;top:16%;display:flex;gap:16px">
-        <div style="width:220px;height:150px;border:1px solid var(--ink);background:var(--paper);opacity:.5"></div>
-        <div style="width:260px;height:180px;border:1px solid var(--ink);background:var(--paper);overflow:hidden;transform:translateY(-14px);box-shadow:0 20px 40px -20px oklch(0.2 0.04 265 / .4)"><img src="../../public/images/projects/logistics-tms.webp" style="width:100%;height:120px;object-fit:cover"><div style="padding:8px;font-weight:500;font-size:16px">Logistics TMS <span style="font-family:var(--mono);font-size:9px;color:var(--blue)">L-04</span></div></div>
-        <div style="width:220px;height:150px;border:1px solid var(--ink);background:var(--paper);opacity:.5"></div>
-      </div>
-      <div class="arrow" style="left:50%;bottom:10%;transform:translateX(-50%)">← SKROL NADOLE = LISTOVI KLIZE BOČNO →</div>
-      <div class="scroll">/PROJEKTI</div>
-    </div>
-    <div class="cap"><div class="k">06</div><div class="t"><h3>Crtaći sto: projekti bočno</h3><p>Na /projekti listovi klize horizontalno dok skroluješ nadole. List u centru se podigne i dobije boju. Prevlačenje mišem ili prstom radi takođe. Filter: Klijenti, SaaS, Lični.</p><div class="tech"><span class="chip">ScrollTrigger horizontal</span><span class="chip">Flip</span></div></div></div>
-  </div>
-
-  <div class="shot">
-    <div class="fr">
-      <img src="assets/obj-web.png" style="position:absolute;left:2%;top:10%;width:26%">
-      <img src="assets/obj-ads.png" style="position:absolute;left:26%;top:22%;width:24%;transform:rotate(-10deg)">
-      <img src="assets/obj-meta.png" style="position:absolute;left:50%;top:6%;width:24%">
-      <img src="assets/obj-seo.png" style="position:absolute;left:74%;top:18%;width:24%">
-      <div class="arrow" style="left:30%;top:80%">PREVUCI DA OKRENEŠ · HOVER = PUNA BOJA</div>
-      <div class="scroll">USLUGE</div>
-    </div>
-    <div class="cap"><div class="k">07</div><div class="t"><h3>Usluge kao predmeti</h3><p>Četiri 3D predmeta iz Blendera: ekran (sajtovi), meta sa strelicom (Google Ads), slojevi objava (Meta), grafikon sa lupom (SEO). Okreću se sa skrolom, mogu da se uhvate i zavrte.</p><div class="tech"><span class="chip">1 canvas, 4 modela</span><span class="chip">Draco</span></div></div></div>
-  </div>
-
-  <div class="shot">
-    <div class="fr" style="background:var(--ink);background-image:linear-gradient(oklch(0.95 0 0 / .06) 1px,transparent 1px),linear-gradient(90deg,oklch(0.95 0 0 / .06) 1px,transparent 1px);background-size:12px 12px">
-      <div class="mini-h" style="left:22px;top:30px;font-size:48px;color:var(--bg)">Počnimo<br><span style="color:var(--blue-2)">nacrt.</span></div>
-      <div style="position:absolute;right:6%;top:14%;width:40%;height:70%;border:1px solid oklch(0.95 0 0 / .2)"></div>
-      <div class="stamp" style="right:12%;top:38%;color:var(--blue-2);border-color:var(--blue-2)">POSLATO ✓</div>
-      <div class="arrow" style="left:22px;bottom:14px;color:var(--blue-2)">LINIJA SE ZAVRŠAVA U FORMI · POSLE SLANJA: PEČAT</div>
-      <div class="scroll">KRAJ PUTA</div>
-    </div>
-    <div class="cap"><div class="k">08</div><div class="t"><h3>Kontakt: kraj linije</h3><p>Linija koja je vodila kroz sajt ulazi u formu i obeleži je. Kad se poruka pošalje, pečat "POSLATO" udari u list. Na 404 strani linija "pukne" i vodi na Pac-Man.</p><div class="tech"><span class="chip">View Transitions</span><span class="chip">Web Animations</span></div></div></div>
-  </div>
-
-</div>
-</div>
-</body>
+  </body>
 </html>

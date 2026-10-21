@@ -60,7 +60,12 @@ export function HorizontalPin({
       for (const item of items()) {
         const r = item.getBoundingClientRect();
         const center = r.left + r.width / 2;
-        const v = 1 - Math.min(1, Math.max(0, Math.abs(center - vw * 0.5) - r.width * 0.25) / (vw * 0.6));
+        const v =
+          1 -
+          Math.min(
+            1,
+            Math.max(0, Math.abs(center - vw * 0.5) - r.width * 0.25) / (vw * 0.6),
+          );
         item.style.setProperty("--v", v.toFixed(3));
       }
     };
@@ -83,7 +88,13 @@ export function HorizontalPin({
   }, []);
 
   return (
-    <section ref={section} id={id} data-ruler={ruler} aria-labelledby={labelledBy} className={`hpin relative ${className}`}>
+    <section
+      ref={section}
+      id={id}
+      data-ruler={ruler}
+      aria-labelledby={labelledBy}
+      className={`hpin relative ${className}`}
+    >
       <div className="hpin-sticky">
         {head}
         <div ref={viewport} className="hpin-viewport">

@@ -30,7 +30,10 @@ export function ProjectSheets({
     <>
       <div role="group" className="flex flex-wrap gap-2 border-b border-ink py-4">
         {filters.map((f) => {
-          const count = f.key === "all" ? sheets.length : sheets.filter((s) => s.group === f.key).length;
+          const count =
+            f.key === "all"
+              ? sheets.length
+              : sheets.filter((s) => s.group === f.key).length;
           if (!count) return null;
           return (
             <button
@@ -71,9 +74,13 @@ export function ProjectSheets({
                   </span>
                   <span>{s.year}</span>
                 </p>
-                <h2 className="mt-2 text-[28px] leading-[1.05] tracking-[-0.03em]">{s.title}</h2>
+                <h2 className="mt-2 text-[28px] leading-[1.05] tracking-[-0.03em]">
+                  {s.title}
+                </h2>
                 <p className="mt-2 text-[15px] leading-[1.5] text-ink-2">{s.tagline}</p>
-                <p className="mt-auto pt-4 font-mono text-[12px] text-ink-3">{s.stack.slice(0, 4).join(" · ")}</p>
+                <p className="mt-auto pt-4 font-mono text-[12px] text-ink-3">
+                  {s.stack.slice(0, 4).join(" · ")}
+                </p>
               </div>
             </Link>
           </li>

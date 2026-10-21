@@ -3,8 +3,34 @@ import { home } from "@/content/data/home";
 import { pick } from "@/content/i18n";
 
 const months = {
-  sr: ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "avg", "sep", "okt", "nov", "dec"],
-  en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  sr: [
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "maj",
+    "jun",
+    "jul",
+    "avg",
+    "sep",
+    "okt",
+    "nov",
+    "dec",
+  ],
+  en: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
 };
 
 function month(value: string, locale: string) {
@@ -19,7 +45,10 @@ export function Jobs({ locale }: { locale: string }) {
     period: `${month(job.start, locale)} · ${job.end ? month(job.end, locale) : pick(home.now, locale)}`,
     title: pick(job.role, locale),
     place: `${job.company}, ${pick(job.location, locale)}`,
-    note: pick(home.jobsShort[job.id as keyof typeof home.jobsShort] ?? job.summary, locale),
+    note: pick(
+      home.jobsShort[job.id as keyof typeof home.jobsShort] ?? job.summary,
+      locale,
+    ),
   }));
   rows.push({
     key: "edu",

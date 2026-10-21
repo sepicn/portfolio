@@ -39,7 +39,12 @@ export function ContactForm({ encodedEmail }: { encodedEmail: string }) {
   const caption = "label";
 
   return (
-    <form method="post" action="/api/contact" onSubmit={onSubmit} className="flex flex-col">
+    <form
+      method="post"
+      action="/api/contact"
+      onSubmit={onSubmit}
+      className="flex flex-col"
+    >
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="topic" value={topic} />
       <fieldset className="border-b border-rule px-6 py-[18px] max-lg:px-[18px]">
@@ -51,7 +56,7 @@ export function ContactForm({ encodedEmail }: { encodedEmail: string }) {
               type="button"
               aria-pressed={topic === k}
               onClick={() => setTopic(k)}
-              className="min-h-11 border border-ink px-4 font-mono text-[13px] transition-colors aria-pressed:bg-ink aria-pressed:text-paper hover:bg-blue-soft"
+              className="min-h-11 border border-ink px-4 font-mono text-[13px] transition-colors hover:bg-blue-soft aria-pressed:bg-ink aria-pressed:text-paper"
             >
               {t(`topics.${k}`)}
             </button>
@@ -60,15 +65,36 @@ export function ContactForm({ encodedEmail }: { encodedEmail: string }) {
       </fieldset>
       <label className={label}>
         <span className={caption}>{t("name")}</span>
-        <input name="name" required minLength={2} autoComplete="name" className={field} placeholder={t("namePlaceholder")} />
+        <input
+          name="name"
+          required
+          minLength={2}
+          autoComplete="name"
+          className={field}
+          placeholder={t("namePlaceholder")}
+        />
       </label>
       <label className={label}>
         <span className={caption}>{t("email")}</span>
-        <input name="email" type="email" required autoComplete="email" className={field} placeholder="ime@firma.rs" />
+        <input
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          className={field}
+          placeholder="ime@firma.rs"
+        />
       </label>
       <label className={`${label} flex-1`}>
         <span className={caption}>{t("message")}</span>
-        <textarea name="message" required minLength={10} rows={5} className={`${field} resize-y`} placeholder={t("messagePlaceholder")} />
+        <textarea
+          name="message"
+          required
+          minLength={10}
+          rows={5}
+          className={`${field} resize-y`}
+          placeholder={t("messagePlaceholder")}
+        />
       </label>
       <label className="absolute -left-[9999px] opacity-0" aria-hidden="true">
         Company
@@ -82,7 +108,11 @@ export function ContactForm({ encodedEmail }: { encodedEmail: string }) {
         <span>{status === "sending" ? t("sending") : t("send")}</span>
         <span aria-hidden="true">→</span>
       </button>
-      <p className="min-h-6 px-6 pt-3 text-[15px] max-lg:px-[18px]" role="status" aria-live="polite">
+      <p
+        className="min-h-6 px-6 pt-3 text-[15px] max-lg:px-[18px]"
+        role="status"
+        aria-live="polite"
+      >
         {status === "sent" ? <span className="text-blue">{t("sent")}</span> : null}
         {status === "error" ? <span className="text-ink">{t("error")}</span> : null}
         {status === "unavailable" ? (

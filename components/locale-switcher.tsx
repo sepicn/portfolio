@@ -20,7 +20,9 @@ export function LocaleSwitcher({ className = "" }: { className?: string }) {
         return [key, translateRouteParam(pathname, key, v, locale, target)];
       }),
   );
-  const href = (pathname.includes("[") ? { pathname, params: routeParams } : pathname) as AppHref;
+  const href = (
+    pathname.includes("[") ? { pathname, params: routeParams } : pathname
+  ) as AppHref;
 
   return (
     <Link
@@ -32,7 +34,9 @@ export function LocaleSwitcher({ className = "" }: { className?: string }) {
     >
       <span className="sr-only">{t("language")}: </span>
       <span className={locale === "sr" ? "text-blue" : "text-ink-2"}>SR</span>
-      <span aria-hidden="true" className="text-ink-3">/</span>
+      <span aria-hidden="true" className="text-ink-3">
+        /
+      </span>
       <span className={locale === "en" ? "text-blue" : "text-ink-2"}>EN</span>
     </Link>
   );

@@ -15,7 +15,13 @@ import { SectionHead } from "@/components/sections/section-head";
 import { FaqList } from "@/components/sections/faq-list";
 import { ContactBlock } from "@/components/sections/contact-block";
 import { ServiceArt } from "@/components/sections/service-art";
-import { absoluteUrl, breadcrumbJsonLd, graph, personId, serializeJsonLd } from "@/lib/structured-data";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  graph,
+  personId,
+  serializeJsonLd,
+} from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string; service: string }> };
 
@@ -108,7 +114,10 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <article className="wrap">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <PageHead
         crumbs={[
           { label: nav("home"), href: "/" },
@@ -141,13 +150,19 @@ export default async function ServicePage({ params }: Props) {
           </div>
           <div className="p-5">
             <h2 className="label">{pick(L.notFor, locale)}</h2>
-            <p className="mt-3 text-[15px] leading-[1.5] text-ink-2">{pick(page.notFor, locale)}</p>
+            <p className="mt-3 text-[15px] leading-[1.5] text-ink-2">
+              {pick(page.notFor, locale)}
+            </p>
           </div>
         </aside>
       </div>
 
       <section aria-labelledby="inc-title" className="pt-24 lg:pt-32">
-        <SectionHead id="inc-title" tag={pick(service.title, locale)} title={pick(page.includedTitle, locale)} />
+        <SectionHead
+          id="inc-title"
+          tag={pick(service.title, locale)}
+          title={pick(page.includedTitle, locale)}
+        />
         <ul className="grid border-t border-l border-ink sm:grid-cols-2 lg:grid-cols-3">
           {page.included[key].map((item) => (
             <li key={item.title} className="border-r border-b border-ink bg-paper p-6">
@@ -159,11 +174,22 @@ export default async function ServicePage({ params }: Props) {
       </section>
 
       <section aria-labelledby="proc-title" className="pt-24 lg:pt-32">
-        <SectionHead id="proc-title" tag={pick(L.timeline, locale)} title={pick(page.processTitle, locale)} lead={pick(page.timeline, locale)} />
+        <SectionHead
+          id="proc-title"
+          tag={pick(L.timeline, locale)}
+          title={pick(page.processTitle, locale)}
+          lead={pick(page.timeline, locale)}
+        />
         <ol className="border-l border-blue pl-6">
           {page.process[key].map((step, i) => (
-            <li key={step.title} className="relative grid gap-1.5 border-b border-rule py-6 lg:grid-cols-[160px_1fr_1.4fr] lg:gap-7">
-              <span aria-hidden="true" className="absolute top-[30px] -left-[30px] size-[11px] border-2 border-blue bg-bg" />
+            <li
+              key={step.title}
+              className="relative grid gap-1.5 border-b border-rule py-6 lg:grid-cols-[160px_1fr_1.4fr] lg:gap-7"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute top-[30px] -left-[30px] size-[11px] border-2 border-blue bg-bg"
+              />
               <span className="font-mono text-[13px] text-blue">
                 0{i + 1} · {step.time}
               </span>
@@ -174,7 +200,10 @@ export default async function ServicePage({ params }: Props) {
         </ol>
       </section>
 
-      <section aria-labelledby="tools-title" className="grid gap-10 pt-24 lg:grid-cols-2 lg:pt-32">
+      <section
+        aria-labelledby="tools-title"
+        className="grid gap-10 pt-24 lg:grid-cols-2 lg:pt-32"
+      >
         <div>
           <h2 id="tools-title" className="text-title">
             {pick(L.tools, locale)}
@@ -186,7 +215,9 @@ export default async function ServicePage({ params }: Props) {
               </li>
             ))}
           </ul>
-          <p className="mt-5 text-[16px] leading-[1.55] text-ink-2">{pick(page.toolsNote, locale)}</p>
+          <p className="mt-5 text-[16px] leading-[1.55] text-ink-2">
+            {pick(page.toolsNote, locale)}
+          </p>
         </div>
         <div>
           <h2 className="text-title">{pick(L.measure, locale)}</h2>
@@ -202,13 +233,22 @@ export default async function ServicePage({ params }: Props) {
 
       {proof.length ? (
         <section aria-labelledby="proof-title" className="pt-24 lg:pt-32">
-          <SectionHead id="proof-title" tag={pick(L.proofEyebrow, locale)} title={pick(L.proofTitle, locale)} />
+          <SectionHead
+            id="proof-title"
+            tag={pick(L.proofEyebrow, locale)}
+            title={pick(L.proofTitle, locale)}
+          />
           <ul className="grid gap-5 lg:grid-cols-3">
             {proof.map(({ slug: s, text, project }) => (
               <li key={s}>
-                <Link href={projectHref(s)} className="group flex h-full flex-col border border-ink bg-paper p-6 transition-colors hover:bg-ink hover:text-paper">
+                <Link
+                  href={projectHref(s)}
+                  className="group flex h-full flex-col border border-ink bg-paper p-6 transition-colors hover:bg-ink hover:text-paper"
+                >
                   <h3 className="text-[26px] tracking-[-0.03em]">{project!.title}</h3>
-                  <p className="mt-3 text-[15px] leading-[1.55] text-ink-2 group-hover:text-paper/80">{pick(text, locale)}</p>
+                  <p className="mt-3 text-[15px] leading-[1.55] text-ink-2 group-hover:text-paper/80">
+                    {pick(text, locale)}
+                  </p>
                   <span className="mt-auto pt-5 font-mono text-[13px] tracking-[0.05em] text-blue uppercase group-hover:text-blue-2">
                     {pick(L.proofLink, locale)} →
                   </span>
@@ -227,7 +267,11 @@ export default async function ServicePage({ params }: Props) {
       <nav aria-label={pick(L.related, locale)} className="mt-20 flex flex-wrap gap-2.5">
         <span className="label mr-2 self-center">{pick(L.related, locale)}:</span>
         {related.map((s) => (
-          <Link key={s.id} href={serviceHref(s.id, locale)} className="chip min-h-11 hover:border-blue hover:text-blue">
+          <Link
+            key={s.id}
+            href={serviceHref(s.id, locale)}
+            className="chip min-h-11 hover:border-blue hover:text-blue"
+          >
             {pick(s.title, locale)}
           </Link>
         ))}

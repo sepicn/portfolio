@@ -40,7 +40,14 @@ export function ProcessPin({
       if (active === last) return;
       last = active;
       items.forEach((item, i) => {
-        item.dataset.state = i < active ? "past" : i === active ? "active" : i === active + 1 ? "next" : "far";
+        item.dataset.state =
+          i < active
+            ? "past"
+            : i === active
+              ? "active"
+              : i === active + 1
+                ? "next"
+                : "far";
       });
       arts.forEach((art, i) => {
         art.dataset.state = i < active ? "past" : i === active ? "active" : "next";

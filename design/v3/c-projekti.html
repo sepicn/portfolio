@@ -1,106 +1,465 @@
 <!doctype html>
 <html lang="sr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Projekti</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="nacrt.css">
-<style>
-.intro{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end;padding:64px 0 32px}
-.intro p{font-size:18px;line-height:1.5;color:var(--ink-2)}
-.fbar{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:14px 0}
-.fbar .f{display:flex;gap:8px}
-.fbar .hint{font-family:var(--mono);font-size:12px;color:var(--blue)}
-.table{position:relative;height:620px;overflow:hidden;margin-top:28px}
-.track{position:absolute;left:-120px;top:40px;display:flex;gap:28px;align-items:flex-start}
-.sheet{flex:none;width:420px;border:1px solid var(--ink);background:var(--paper);transition:transform .4s}
-.sheet .im{height:250px;border-bottom:1px solid var(--ink);overflow:hidden;position:relative}
-.sheet .im img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.1)}
-.sheet .bd{padding:18px}
-.sheet .row1{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--blue)}
-.sheet h3{font-weight:500;font-size:30px;letter-spacing:-.03em;margin:8px 0}
-.sheet p{font-size:14px;color:var(--ink-2);line-height:1.5}
-.sheet .kp{display:flex;border-top:1px dashed var(--ink-3);margin-top:14px;padding-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink-2)}
-.sheet .kp span{flex:1}
-.sheet .kp b{display:block;font-family:var(--sans);font-size:22px;font-weight:500;color:var(--ink)}
-.sheet.focus{width:560px;transform:translateY(-24px);box-shadow:0 40px 80px -40px oklch(0.2 0.04 265 / .45)}
-.sheet.focus .im{height:330px}
-.sheet.focus .im img{filter:none}
-.sheet.focus .kp b{color:var(--blue)}
-.sheet.dim{opacity:.55}
-.scan{position:absolute;top:0;bottom:0;left:62%;width:2px;background:var(--blue);box-shadow:0 0 18px var(--blue)}
-.sheet.focus .im img.l{position:absolute;inset:0;filter:grayscale(1) contrast(3) brightness(1.4);mix-blend-mode:multiply;opacity:.5;clip-path:inset(0 0 0 62%)}
-.progress{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-top:12px}
-.progress .rail{flex:1;height:1px;background:var(--grid-2);position:relative}
-.progress .rail i{position:absolute;left:0;top:-1px;height:3px;width:24%;background:var(--blue)}
-.index{margin-top:64px}
-.ihead{display:grid;grid-template-columns:70px 1.2fr 140px 1.6fr 110px;gap:16px;padding:10px 0;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
-.irow{display:grid;grid-template-columns:70px 1.2fr 140px 1.6fr 110px;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--grid-2);font-size:15px}
-.irow .n{font-family:var(--mono);font-size:12px;color:var(--blue)}
-.irow h4{font-weight:500;font-size:21px;letter-spacing:-.02em}
-.irow .k{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
-.irow .d{color:var(--ink-2)}
-.irow .y{font-family:var(--mono);font-size:12px;text-align:right}
-.irow.hl{background:var(--blue-soft)}
-@media (max-width:900px){
-  .intro{grid-template-columns:1fr}
-  .fbar{flex-direction:column;align-items:flex-start;gap:10px}
-  .fbar .f{flex-wrap:wrap}
-  .table{height:520px}
-  .track{left:-300px}
-  .sheet{width:280px}.sheet.focus{width:320px}
-  .sheet .im{height:160px}.sheet.focus .im{height:200px}
-  .ihead{display:none}
-  .irow{grid-template-columns:50px 1fr;gap:4px 12px}
-  .irow .k,.irow .d,.irow .y{grid-column:2;text-align:left}
-}
-</style>
-</head>
-<body>
-<div class="ruler"><span>Početna</span><span class="on">Projekti</span><span>Usluge</span><span>Blog</span><span>O meni</span><span>Kontakt</span></div>
-<div class="wrap">
-<header class="top"><div class="id">N. Šepić · sepic.me</div><nav><span class="on">01 Projekti</span><span>02 Usluge</span><span>03 Blog</span><span>04 O meni</span><span>05 Kontakt</span></nav><div class="rev">SR / EN</div></header>
-<div class="crumbs">Početna / <b>Projekti</b></div>
-<section class="intro">
-  <div><div class="tag">16 projekata, 2024-2026</div><h1 class="page" style="margin-top:14px">Projekti<span>.</span></h1></div>
-  <p>Bolnica, transport u SAD, dva moja SaaS proizvoda i sajtovi za lokalne firme. Uz svaki projekat piše šta sam ja radio i šta je bilo teško.</p>
-</section>
-<div class="fbar"><div class="f"><span class="chip on">Sve 16</span><span class="chip">Klijenti 10</span><span class="chip">SaaS 2</span><span class="chip">Lični 4</span></div><span class="hint">↓ Skroluj: listovi klize bočno · ili prevuci</span></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projekti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="nacrt.css" />
+    <style>
+      .intro {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 40px;
+        align-items: end;
+        padding: 64px 0 32px;
+      }
+      .intro p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: var(--ink-2);
+      }
+      .fbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+        padding: 14px 0;
+      }
+      .fbar .f {
+        display: flex;
+        gap: 8px;
+      }
+      .fbar .hint {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--blue);
+      }
+      .table {
+        position: relative;
+        height: 620px;
+        overflow: hidden;
+        margin-top: 28px;
+      }
+      .track {
+        position: absolute;
+        left: -120px;
+        top: 40px;
+        display: flex;
+        gap: 28px;
+        align-items: flex-start;
+      }
+      .sheet {
+        flex: none;
+        width: 420px;
+        border: 1px solid var(--ink);
+        background: var(--paper);
+        transition: transform 0.4s;
+      }
+      .sheet .im {
+        height: 250px;
+        border-bottom: 1px solid var(--ink);
+        overflow: hidden;
+        position: relative;
+      }
+      .sheet .im img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        filter: grayscale(1) contrast(1.1);
+      }
+      .sheet .bd {
+        padding: 18px;
+      }
+      .sheet .row1 {
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--blue);
+      }
+      .sheet h3 {
+        font-weight: 500;
+        font-size: 30px;
+        letter-spacing: -0.03em;
+        margin: 8px 0;
+      }
+      .sheet p {
+        font-size: 14px;
+        color: var(--ink-2);
+        line-height: 1.5;
+      }
+      .sheet .kp {
+        display: flex;
+        border-top: 1px dashed var(--ink-3);
+        margin-top: 14px;
+        padding-top: 10px;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink-2);
+      }
+      .sheet .kp span {
+        flex: 1;
+      }
+      .sheet .kp b {
+        display: block;
+        font-family: var(--sans);
+        font-size: 22px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .sheet.focus {
+        width: 560px;
+        transform: translateY(-24px);
+        box-shadow: 0 40px 80px -40px oklch(0.2 0.04 265 / 0.45);
+      }
+      .sheet.focus .im {
+        height: 330px;
+      }
+      .sheet.focus .im img {
+        filter: none;
+      }
+      .sheet.focus .kp b {
+        color: var(--blue);
+      }
+      .sheet.dim {
+        opacity: 0.55;
+      }
+      .scan {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 62%;
+        width: 2px;
+        background: var(--blue);
+        box-shadow: 0 0 18px var(--blue);
+      }
+      .sheet.focus .im img.l {
+        position: absolute;
+        inset: 0;
+        filter: grayscale(1) contrast(3) brightness(1.4);
+        mix-blend-mode: multiply;
+        opacity: 0.5;
+        clip-path: inset(0 0 0 62%);
+      }
+      .progress {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--ink-2);
+        margin-top: 12px;
+      }
+      .progress .rail {
+        flex: 1;
+        height: 1px;
+        background: var(--grid-2);
+        position: relative;
+      }
+      .progress .rail i {
+        position: absolute;
+        left: 0;
+        top: -1px;
+        height: 3px;
+        width: 24%;
+        background: var(--blue);
+      }
+      .index {
+        margin-top: 64px;
+      }
+      .ihead {
+        display: grid;
+        grid-template-columns: 70px 1.2fr 140px 1.6fr 110px;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--ink);
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--ink-3);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .irow {
+        display: grid;
+        grid-template-columns: 70px 1.2fr 140px 1.6fr 110px;
+        gap: 16px;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--grid-2);
+        font-size: 15px;
+      }
+      .irow .n {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--blue);
+      }
+      .irow h4 {
+        font-weight: 500;
+        font-size: 21px;
+        letter-spacing: -0.02em;
+      }
+      .irow .k {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink-2);
+      }
+      .irow .d {
+        color: var(--ink-2);
+      }
+      .irow .y {
+        font-family: var(--mono);
+        font-size: 12px;
+        text-align: right;
+      }
+      .irow.hl {
+        background: var(--blue-soft);
+      }
+      @media (max-width: 900px) {
+        .intro {
+          grid-template-columns: 1fr;
+        }
+        .fbar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        .fbar .f {
+          flex-wrap: wrap;
+        }
+        .table {
+          height: 520px;
+        }
+        .track {
+          left: -300px;
+        }
+        .sheet {
+          width: 280px;
+        }
+        .sheet.focus {
+          width: 320px;
+        }
+        .sheet .im {
+          height: 160px;
+        }
+        .sheet.focus .im {
+          height: 200px;
+        }
+        .ihead {
+          display: none;
+        }
+        .irow {
+          grid-template-columns: 50px 1fr;
+          gap: 4px 12px;
+        }
+        .irow .k,
+        .irow .d,
+        .irow .y {
+          grid-column: 2;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ruler">
+      <span>Početna</span><span class="on">Projekti</span><span>Usluge</span
+      ><span>Blog</span><span>O meni</span><span>Kontakt</span>
+    </div>
+    <div class="wrap">
+      <header class="top">
+        <div class="id">N. Šepić · sepic.me</div>
+        <nav>
+          <span class="on">01 Projekti</span><span>02 Usluge</span><span>03 Blog</span
+          ><span>04 O meni</span><span>05 Kontakt</span>
+        </nav>
+        <div class="rev">SR / EN</div>
+      </header>
+      <div class="crumbs">Početna / <b>Projekti</b></div>
+      <section class="intro">
+        <div>
+          <div class="tag">16 projekata, 2024-2026</div>
+          <h1 class="page" style="margin-top: 14px">Projekti<span>.</span></h1>
+        </div>
+        <p>
+          Bolnica, transport u SAD, dva moja SaaS proizvoda i sajtovi za lokalne firme. Uz
+          svaki projekat piše šta sam ja radio i šta je bilo teško.
+        </p>
+      </section>
+      <div class="fbar">
+        <div class="f">
+          <span class="chip on">Sve 16</span><span class="chip">Klijenti 10</span
+          ><span class="chip">SaaS 2</span><span class="chip">Lični 4</span>
+        </div>
+        <span class="hint">↓ Skroluj: listovi klize bočno · ili prevuci</span>
+      </div>
 
-<div class="table">
-  <div class="track">
-    <div class="sheet dim"><div class="im"><img src="../../public/images/projects/shipment-tracking.webp" alt=""></div><div class="bd"><div class="row1"><span>L-06</span><span>2025</span></div><h3>Shipment Tracking</h3><p>Mapa pošiljki uživo sa rutiranjem po putevima.</p></div></div>
-    <div class="sheet focus"><div class="im"><img src="../../public/images/projects/logistics-tms.webp" alt=""><img class="l" src="../../public/images/projects/logistics-tms.webp" alt=""><div class="scan"></div></div><div class="bd"><div class="row1"><span>L-04 · KLIJENT · SAD</span><span>2025-26</span></div><h3>Logistics TMS</h3><p>Redizajn sistema za kamionski transport: 40+ formi pretvoreno u čarobnjake, tamni režim, ASP.NET MVC.</p><div class="kp"><span><b>40+</b>formi</span><span><b>101</b>commit</span><span><b>100+</b>migracija</span></div></div></div>
-    <div class="sheet"><div class="im"><img src="../../public/images/projects/itexpert.webp" alt=""></div><div class="bd"><div class="row1"><span>L-05</span><span>2026</span></div><h3>IT Expert</h3><p>Portali, prodavnica, tiketi, naplata karticom.</p><div class="kp"><span><b>5</b>jezika</span><span><b>133</b>testa</span></div></div></div>
-    <div class="sheet dim"><div class="im"><img src="../../public/images/projects/mango.webp" alt=""></div><div class="bd"><div class="row1"><span>L-07</span><span>2024-26</span></div><h3>Mango</h3><p>Sajt poslastičarnice, dve verzije.</p></div></div>
-  </div>
-</div>
-<div class="progress"><span>04 / 16</span><div class="rail"><i></i></div><span>Prevuci →</span></div>
+      <div class="table">
+        <div class="track">
+          <div class="sheet dim">
+            <div class="im">
+              <img src="../../public/images/projects/shipment-tracking.webp" alt="" />
+            </div>
+            <div class="bd">
+              <div class="row1"><span>L-06</span><span>2025</span></div>
+              <h3>Shipment Tracking</h3>
+              <p>Mapa pošiljki uživo sa rutiranjem po putevima.</p>
+            </div>
+          </div>
+          <div class="sheet focus">
+            <div class="im">
+              <img src="../../public/images/projects/logistics-tms.webp" alt="" /><img
+                class="l"
+                src="../../public/images/projects/logistics-tms.webp"
+                alt=""
+              />
+              <div class="scan"></div>
+            </div>
+            <div class="bd">
+              <div class="row1">
+                <span>L-04 · KLIJENT · SAD</span><span>2025-26</span>
+              </div>
+              <h3>Logistics TMS</h3>
+              <p>
+                Redizajn sistema za kamionski transport: 40+ formi pretvoreno u
+                čarobnjake, tamni režim, ASP.NET MVC.
+              </p>
+              <div class="kp">
+                <span><b>40+</b>formi</span><span><b>101</b>commit</span
+                ><span><b>100+</b>migracija</span>
+              </div>
+            </div>
+          </div>
+          <div class="sheet">
+            <div class="im">
+              <img src="../../public/images/projects/itexpert.webp" alt="" />
+            </div>
+            <div class="bd">
+              <div class="row1"><span>L-05</span><span>2026</span></div>
+              <h3>IT Expert</h3>
+              <p>Portali, prodavnica, tiketi, naplata karticom.</p>
+              <div class="kp">
+                <span><b>5</b>jezika</span><span><b>133</b>testa</span>
+              </div>
+            </div>
+          </div>
+          <div class="sheet dim">
+            <div class="im">
+              <img src="../../public/images/projects/mango.webp" alt="" />
+            </div>
+            <div class="bd">
+              <div class="row1"><span>L-07</span><span>2024-26</span></div>
+              <h3>Mango</h3>
+              <p>Sajt poslastičarnice, dve verzije.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="progress">
+        <span>04 / 16</span>
+        <div class="rail"><i></i></div>
+        <span>Prevuci →</span>
+      </div>
 
-<section class="index">
-  <div class="tag" style="margin-bottom:14px">Svi projekti</div>
-  <div class="ihead"><span>List</span><span>Projekat</span><span>Tip</span><span>Ukratko</span><span style="text-align:right">Godina</span></div>
-  <div class="irow"><span class="n">L-01</span><h4>Medical Time</h4><span class="k">Klijent</span><span class="d">Bolnička platforma, 5 jezika, Google Ads</span><span class="y">2025-26</span></div>
-  <div class="irow"><span class="n">L-02</span><h4>Kafe</h4><span class="k">SaaS</span><span class="d">POS, kuhinjski ekran i aplikacija za osoblje</span><span class="y">2026</span></div>
-  <div class="irow"><span class="n">L-03</span><h4>Makaze</h4><span class="k">SaaS</span><span class="d">Kalendar, fiskalni račun i IPS za salone</span><span class="y">2026</span></div>
-  <div class="irow hl"><span class="n">L-04</span><h4>Logistics TMS</h4><span class="k">Klijent · SAD</span><span class="d">Redizajn TMS-a, 40+ formi</span><span class="y">2025-26</span></div>
-  <div class="irow"><span class="n">L-05</span><h4>IT Expert</h4><span class="k">Klijent</span><span class="d">Agencijska platforma sa naplatom</span><span class="y">2026</span></div>
-  <div class="irow"><span class="n">L-06</span><h4>Shipment Tracking</h4><span class="k">Klijent · SAD</span><span class="d">Mapa pošiljki uživo</span><span class="y">2025</span></div>
-</section>
-</div>
+      <section class="index">
+        <div class="tag" style="margin-bottom: 14px">Svi projekti</div>
+        <div class="ihead">
+          <span>List</span><span>Projekat</span><span>Tip</span><span>Ukratko</span
+          ><span style="text-align: right">Godina</span>
+        </div>
+        <div class="irow">
+          <span class="n">L-01</span>
+          <h4>Medical Time</h4>
+          <span class="k">Klijent</span
+          ><span class="d">Bolnička platforma, 5 jezika, Google Ads</span
+          ><span class="y">2025-26</span>
+        </div>
+        <div class="irow">
+          <span class="n">L-02</span>
+          <h4>Kafe</h4>
+          <span class="k">SaaS</span
+          ><span class="d">POS, kuhinjski ekran i aplikacija za osoblje</span
+          ><span class="y">2026</span>
+        </div>
+        <div class="irow">
+          <span class="n">L-03</span>
+          <h4>Makaze</h4>
+          <span class="k">SaaS</span
+          ><span class="d">Kalendar, fiskalni račun i IPS za salone</span
+          ><span class="y">2026</span>
+        </div>
+        <div class="irow hl">
+          <span class="n">L-04</span>
+          <h4>Logistics TMS</h4>
+          <span class="k">Klijent · SAD</span
+          ><span class="d">Redizajn TMS-a, 40+ formi</span><span class="y">2025-26</span>
+        </div>
+        <div class="irow">
+          <span class="n">L-05</span>
+          <h4>IT Expert</h4>
+          <span class="k">Klijent</span
+          ><span class="d">Agencijska platforma sa naplatom</span
+          ><span class="y">2026</span>
+        </div>
+        <div class="irow">
+          <span class="n">L-06</span>
+          <h4>Shipment Tracking</h4>
+          <span class="k">Klijent · SAD</span><span class="d">Mapa pošiljki uživo</span
+          ><span class="y">2025</span>
+        </div>
+      </section>
+    </div>
 
-<footer class="foot">
-  <div class="cols">
-    <div><h5>Sledeći korak</h5><div class="say">Imate projekat?<br><span>Napravimo nacrt.</span></div><a class="mail" href="#">Pišite mi →</a></div>
-    <div><h5>Strane</h5><ul><li>Projekti</li><li>Usluge</li><li>Blog</li><li>O meni</li><li>CV</li></ul></div>
-    <div><h5>Usluge</h5><ul><li>Izrada sajtova</li><li>Google Ads</li><li>Meta Ads</li><li>SEO i analitika</li></ul></div>
-    <div><h5>Na mreži</h5><ul><li>GitHub ↗</li><li>LinkedIn ↗</li><li>RSS ↗</li></ul></div>
-  </div>
-  <div class="giant"><div class="dimline"><span>NIKOLA ŠEPIĆ · BEOGRAD · 44.81°N 20.46°E</span></div>Šepić<i>.</i></div>
-  <div class="bar"><span>© 2026 Nikola Šepić</span><span class="clock">Beograd, <b>14:32</b></span><span>Privatnost · Nazad na vrh ↑</span></div>
-</footer>
-<div style="height:16px"></div>
-</body>
+    <footer class="foot">
+      <div class="cols">
+        <div>
+          <h5>Sledeći korak</h5>
+          <div class="say">Imate projekat?<br /><span>Napravimo nacrt.</span></div>
+          <a class="mail" href="#">Pišite mi →</a>
+        </div>
+        <div>
+          <h5>Strane</h5>
+          <ul>
+            <li>Projekti</li>
+            <li>Usluge</li>
+            <li>Blog</li>
+            <li>O meni</li>
+            <li>CV</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Usluge</h5>
+          <ul>
+            <li>Izrada sajtova</li>
+            <li>Google Ads</li>
+            <li>Meta Ads</li>
+            <li>SEO i analitika</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Na mreži</h5>
+          <ul>
+            <li>GitHub ↗</li>
+            <li>LinkedIn ↗</li>
+            <li>RSS ↗</li>
+          </ul>
+        </div>
+      </div>
+      <div class="giant">
+        <div class="dimline"><span>NIKOLA ŠEPIĆ · BEOGRAD · 44.81°N 20.46°E</span></div>
+        Šepić<i>.</i>
+      </div>
+      <div class="bar">
+        <span>© 2026 Nikola Šepić</span><span class="clock">Beograd, <b>14:32</b></span
+        ><span>Privatnost · Nazad na vrh ↑</span>
+      </div>
+    </footer>
+    <div style="height: 16px"></div>
+  </body>
 </html>

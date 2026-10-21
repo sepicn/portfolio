@@ -91,7 +91,10 @@ export default async function ProjectsPage({ params }: Props) {
 
   return (
     <div className="wrap">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <PageHead
         crumbs={[{ label: nav("home"), href: "/" }, { label: nav("projects") }]}
         tag={t("tag", { count: projects.length })}

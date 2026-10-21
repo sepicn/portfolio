@@ -5,12 +5,23 @@ import { projects } from "../content/data/projects.ts";
 
 const posts = (
   await Promise.all(
-    readdirSync("content/blog/posts").map((f) => import(`../content/blog/posts/${f}`).then((m) => m.post)),
+    readdirSync("content/blog/posts").map((f) =>
+      import(`../content/blog/posts/${f}`).then((m) => m.post),
+    ),
   )
 ).sort((a, b) => b.date.localeCompare(a.date));
 
 const locales = ["sr", "en"];
-const pages = ["home", "projects", "services", "blog", "about", "cv", "contact", "privacy"];
+const pages = [
+  "home",
+  "projects",
+  "services",
+  "blog",
+  "about",
+  "cv",
+  "contact",
+  "privacy",
+];
 const out = "public/og";
 mkdirSync(out, { recursive: true });
 
@@ -30,9 +41,17 @@ const drawings = {
   post: "/images/drawings/obj-web.webp",
 };
 const esc = (s) =>
-  s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  s.replace(
+    /[&<>"]/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+  );
 const cut = (s, n) =>
-  s.length > n ? `${s.slice(0, n).replace(/\s+\S*$/, "").replace(/[.,;:]$/, "")}...` : s;
+  s.length > n
+    ? `${s
+        .slice(0, n)
+        .replace(/\s+\S*$/, "")
+        .replace(/[.,;:]$/, "")}...`
+    : s;
 
 function html({ tag, title, subtitle, shot, drawing, sheet }) {
   const art = shot
@@ -96,7 +115,8 @@ for (const locale of locales) {
   const m = JSON.parse(readFileSync(`messages/${locale}.json`, "utf8"));
   for (const key of pages) {
     const isHome = key === "home";
-    const intro = { blog: m.blog?.intro, home: m.site.description }[key] ?? m[key]?.intro ?? "";
+    const intro =
+      { blog: m.blog?.intro, home: m.site.description }[key] ?? m[key]?.intro ?? "";
     await render(`${locale}-${key}.jpg`, {
       tag: isHome ? m.site.tagline : (m.nav[key] ?? m[key]?.title ?? key),
       title: isHome ? m.site.name : key === "blog" ? "Blog" : m[key].title,
@@ -126,7 +146,10 @@ for (const locale of locales) {
   }
 }
 
-const iconSvg = (size, radius) => `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64">
+const iconSvg = (
+  size,
+  radius,
+) => `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="${radius}" fill="#1c2340"/>
   <path d="M0 16H64M0 32H64M0 48H64M16 0V64M32 0V64M48 0V64" stroke="#9db1ff" stroke-opacity=".18" stroke-width="1"/>
   <rect x="5" y="5" width="54" height="54" rx="${Math.max(radius - 4, 0)}" fill="none" stroke="#9db1ff" stroke-opacity=".55" stroke-width="1.5"/>
@@ -134,11 +157,14 @@ const iconSvg = (size, radius) => `<svg xmlns="http://www.w3.org/2000/svg" width
 
 async function icon(size, radius, file) {
   await page.setViewportSize({ width: size, height: size });
-  await page.setContent(`<!doctype html><html><head><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600&display=block" rel="stylesheet">
+  await page.setContent(
+    `<!doctype html><html><head><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600&display=block" rel="stylesheet">
 <style>*{margin:0}body{width:${size}px;height:${size}px;position:relative;background:transparent}
 svg{position:absolute;inset:0;width:100%;height:100%}
 b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:600 ${Math.round(size * 0.4)}px/1 "IBM Plex Sans",sans-serif;letter-spacing:-.06em;color:#f3f5fa;padding-top:${Math.round(size * 0.04)}px}
-b i{font-style:normal;color:#5b78e8}</style></head><body>${iconSvg(size, radius)}<b>N<i>Š</i></b></body></html>`, { waitUntil: "networkidle" });
+b i{font-style:normal;color:#5b78e8}</style></head><body>${iconSvg(size, radius)}<b>N<i>Š</i></b></body></html>`,
+    { waitUntil: "networkidle" },
+  );
   await page.evaluate(() => document.fonts.ready);
   const buf = await page.screenshot({ type: "png", omitBackground: true });
   if (file) writeFileSync(file, buf);
@@ -147,7 +173,11 @@ b i{font-style:normal;color:#5b78e8}</style></head><body>${iconSvg(size, radius)
 
 await icon(512, 14, "app/icon.png");
 await icon(180, 0, "app/apple-icon.png");
-const small = await Promise.all([16, 32, 48].map((s) => icon(s * 4, 12).then((b) => sharp(b).resize(s, s).png().toBuffer())));
+const small = await Promise.all(
+  [16, 32, 48].map((s) =>
+    icon(s * 4, 12).then((b) => sharp(b).resize(s, s).png().toBuffer()),
+  ),
+);
 const header = Buffer.alloc(6 + 16 * small.length);
 header.writeUInt16LE(0, 0);
 header.writeUInt16LE(1, 2);

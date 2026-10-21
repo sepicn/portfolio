@@ -20,7 +20,9 @@ export default function NotFoundPage() {
           {t("title")}
           <span className="text-blue">.</span>
         </h1>
-        <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.55] text-ink-2">{t("body")}</p>
+        <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.55] text-ink-2">
+          {t("body")}
+        </p>
         <Link href="/" className="btn btn-primary mt-8">
           {t("back")} <span aria-hidden="true">→</span>
         </Link>

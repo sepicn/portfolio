@@ -21,14 +21,17 @@ export function ServiceArt({
   className?: string;
 }) {
   return (
-    <div className={`relative shrink-0 ${className}`} style={{ width: size, height: size }}>
+    <div
+      className={`relative shrink-0 ${className}`}
+      style={{ width: size, height: size }}
+    >
       <Image
         src={art[id]}
         alt=""
         fill
         priority={priority}
         sizes={`${size * 2}px`}
-        className={`object-contain ${dark ? "invert hue-rotate-180 brightness-[1.15]" : ""}`}
+        className={`object-contain ${dark ? "brightness-[1.15] hue-rotate-180 invert" : ""}`}
       />
     </div>
   );

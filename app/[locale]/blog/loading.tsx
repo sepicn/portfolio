@@ -17,7 +17,7 @@ export default function Loading() {
         </div>
       </div>
       <div className="relative mt-10 h-0.5 overflow-hidden bg-rule">
-        <i className="absolute inset-0 origin-left bg-blue [animation:draw-line_1.2s_var(--ease-in-out-expo)_infinite]" />
+        <i className="absolute inset-0 origin-left [animation:draw-line_1.2s_var(--ease-in-out-expo)_infinite] bg-blue" />
       </div>
       <p className="label mt-3">Iscrtavanje nacrta...</p>
       <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">

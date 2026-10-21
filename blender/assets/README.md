@@ -50,9 +50,9 @@ CC0 declaration cannot cover those, so only its geometry is used.
 Used for the v3 "Put jednog projekta" scroll scene. Only the listed models are used; the
 packs are not stored in the repo.
 
-| Model                                              | Pack                                                      | Licence |
-| -------------------------------------------------- | --------------------------------------------------------- | ------- |
-| `desk`, `computerScreen`, `computerKeyboard`       | [Furniture Kit](https://kenney.nl/assets/furniture-kit)   | CC0     |
-| `character-female-a/c/e`, `character-male-a/b/d`   | [Mini Characters](https://kenney.nl/assets/mini-characters) | CC0   |
+| Model                                            | Pack                                                        | Licence |
+| ------------------------------------------------ | ----------------------------------------------------------- | ------- |
+| `desk`, `computerScreen`, `computerKeyboard`     | [Furniture Kit](https://kenney.nl/assets/furniture-kit)     | CC0     |
+| `character-female-a/c/e`, `character-male-a/b/d` | [Mini Characters](https://kenney.nl/assets/mini-characters) | CC0     |
 
 They are recoloured to the site's blueprint palette and rendered with Freestyle lines.

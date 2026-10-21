@@ -12,8 +12,12 @@ describe("blog", () => {
 
   it("translates the slug between locales", () => {
     const post = posts[0];
-    expect(localizedPathname("en", `/blog/${post.slug.sr}`)).toBe(`/blog/${post.slug.en}`);
-    expect(localizedPathname("sr", `/blog/${post.slug.en}`)).toBe(`/blog/${post.slug.sr}`);
+    expect(localizedPathname("en", `/blog/${post.slug.sr}`)).toBe(
+      `/blog/${post.slug.en}`,
+    );
+    expect(localizedPathname("sr", `/blog/${post.slug.en}`)).toBe(
+      `/blog/${post.slug.sr}`,
+    );
   });
 
   it("uses no em or en dashes", () => {

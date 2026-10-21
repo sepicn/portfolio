@@ -36,7 +36,10 @@ export function SectionRuler() {
 
   if (marks.length < 3) return null;
   return (
-    <nav aria-label="Sekcije" className="fixed top-1/2 right-2 z-30 hidden -translate-y-1/2 2xl:block">
+    <nav
+      aria-label="Sekcije"
+      className="fixed top-1/2 right-2 z-30 hidden -translate-y-1/2 2xl:block"
+    >
       <ol className="flex flex-col items-end gap-4">
         {marks.map((m) => {
           const on = m.id === active;
@@ -47,10 +50,14 @@ export function SectionRuler() {
                 aria-current={on ? "location" : undefined}
                 className="group flex items-center gap-2 font-mono text-[10px] tracking-[0.06em] uppercase"
               >
-                <span className={`transition-opacity ${on ? "text-blue opacity-100" : "text-ink-3 opacity-0 group-hover:opacity-100"}`}>
+                <span
+                  className={`transition-opacity ${on ? "text-blue opacity-100" : "text-ink-3 opacity-0 group-hover:opacity-100"}`}
+                >
                   {m.label}
                 </span>
-                <span className={`h-px transition-all duration-500 ease-out-expo ${on ? "w-6 bg-blue" : "w-2.5 bg-ink-3"}`} />
+                <span
+                  className={`h-px transition-all duration-500 ease-out-expo ${on ? "w-6 bg-blue" : "w-2.5 bg-ink-3"}`}
+                />
               </a>
             </li>
           );

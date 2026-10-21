@@ -14,13 +14,16 @@ export function SiteFooter({ consent }: { consent: boolean }) {
   const nav = useTranslations("nav");
   const locale = useLocale();
   const col = "border-rule-dark px-7 py-8";
-  const h5 = "mb-4 font-mono text-[11px] font-medium tracking-[0.1em] text-blue-2 uppercase";
+  const h5 =
+    "mb-4 font-mono text-[11px] font-medium tracking-[0.1em] text-blue-2 uppercase";
   const li = "py-1.5 text-[16px] text-paper/85 transition-colors hover:text-blue-2";
 
   return (
     <footer className="dark-sheet relative mt-32 overflow-hidden border-t border-ink">
       <div className="grid grid-cols-2 border-b border-rule-dark lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
-        <div className={`${col} col-span-2 border-b lg:col-span-1 lg:border-r lg:border-b-0`}>
+        <div
+          className={`${col} col-span-2 border-b lg:col-span-1 lg:border-r lg:border-b-0`}
+        >
           <p className={h5}>{t("nextStep")}</p>
           <p className="text-[clamp(26px,2.4vw,36px)] leading-[1.1] font-medium tracking-[-0.03em]">
             {t("ctaLine1")}
@@ -67,12 +70,22 @@ export function SiteFooter({ consent }: { consent: boolean }) {
           <p className={h5}>{t("online")}</p>
           <ul>
             <li>
-              <a href={siteConfig.github} rel="me noopener" target="_blank" className={li}>
+              <a
+                href={siteConfig.github}
+                rel="me noopener"
+                target="_blank"
+                className={li}
+              >
                 GitHub ↗
               </a>
             </li>
             <li>
-              <a href={siteConfig.linkedin} rel="me noopener" target="_blank" className={li}>
+              <a
+                href={siteConfig.linkedin}
+                rel="me noopener"
+                target="_blank"
+                className={li}
+              >
                 LinkedIn ↗
               </a>
             </li>

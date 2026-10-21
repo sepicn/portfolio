@@ -23,17 +23,30 @@ export function Hero3D({ labels }: { labels: string[] }) {
         .then(({ createStackScene }) => {
           if (disposed || !el.getContext) return;
           const figure = el.parentElement!;
-          const scene = createStackScene(el, () => setReady(true), { auto: !wide, view: wide ? 11.5 : 8.6, labels });
+          const scene = createStackScene(el, () => setReady(true), {
+            auto: !wide,
+            view: wide ? 11.5 : 8.6,
+            labels,
+          });
           const onPointer = (e: PointerEvent) => {
-            scene.setPointer((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1);
+            scene.setPointer(
+              (e.clientX / window.innerWidth) * 2 - 1,
+              (e.clientY / window.innerHeight) * 2 - 1,
+            );
           };
           const onScroll = () => {
             const r = figure.getBoundingClientRect();
             const vh = window.innerHeight;
             scene.setFlow(window.scrollY);
-            scene.setProgress(wide ? -r.top / (r.height * 0.9) : (vh * 0.85 - r.top - r.height) / (vh * 0.6));
+            scene.setProgress(
+              wide
+                ? -r.top / (r.height * 0.9)
+                : (vh * 0.85 - r.top - r.height) / (vh * 0.6),
+            );
           };
-          const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? scene.start() : scene.stop()));
+          const io = new IntersectionObserver(([entry]) =>
+            entry.isIntersecting ? scene.start() : scene.stop(),
+          );
           const ro = new ResizeObserver(() => scene.resize());
           io.observe(figure);
           ro.observe(el);
@@ -51,7 +64,9 @@ export function Hero3D({ labels }: { labels: string[] }) {
         .catch(() => {});
     };
 
-    events.forEach((e) => window.addEventListener(e, load, { once: true, passive: true }));
+    events.forEach((e) =>
+      window.addEventListener(e, load, { once: true, passive: true }),
+    );
     return () => {
       disposed = true;
       events.forEach((e) => window.removeEventListener(e, load));

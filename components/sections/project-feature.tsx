@@ -42,7 +42,13 @@ export function ProjectFeature({
           />
         ) : (
           <div className="absolute inset-0 grid place-items-center bg-[repeating-linear-gradient(45deg,transparent_0_10px,var(--color-blue-soft)_10px_11px)]">
-            <Image src="/images/drawings/stack-closed.webp" alt="" width={900} height={584} className="w-[70%]" />
+            <Image
+              src="/images/drawings/stack-closed.webp"
+              alt=""
+              width={900}
+              height={584}
+              className="w-[70%]"
+            />
           </div>
         )}
       </div>
@@ -54,13 +60,19 @@ export function ProjectFeature({
           </p>
           <h3 className="my-3.5 text-title">{project.title}</h3>
           {body.map((p) => (
-            <p key={p} className="mt-2.5 max-w-[46ch] text-[16px] leading-[1.6] text-ink-2 first:mt-0">
+            <p
+              key={p}
+              className="mt-2.5 max-w-[46ch] text-[16px] leading-[1.6] text-ink-2 first:mt-0"
+            >
               {p}
             </p>
           ))}
           <ul className="mt-5 flex flex-wrap gap-1.5">
             {project.stack.slice(0, 6).map((s) => (
-              <li key={s} className="border border-rule px-2 py-1.5 font-mono text-[12px] text-ink-2">
+              <li
+                key={s}
+                className="border border-rule px-2 py-1.5 font-mono text-[12px] text-ink-2"
+              >
                 {s}
               </li>
             ))}
@@ -72,7 +84,10 @@ export function ProjectFeature({
               key={feature}
               className="flex items-start gap-2.5 border-b border-ink px-4 py-3.5 text-[15px] leading-[1.35] font-medium last:border-b-0 sm:border-r sm:border-b-0 sm:last:border-r-0 lg:px-5 lg:py-4"
             >
-              <span aria-hidden="true" className="mt-0.5 grid size-5 shrink-0 place-items-center bg-blue font-mono text-[11px] text-paper">
+              <span
+                aria-hidden="true"
+                className="mt-0.5 grid size-5 shrink-0 place-items-center bg-blue font-mono text-[11px] text-paper"
+              >
                 ✓
               </span>
               {feature}

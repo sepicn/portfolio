@@ -23,7 +23,9 @@ export function SectionHead({
       </div>
       <div>
         {lead ? (
-          <p className={`max-w-[46ch] text-[16px] leading-[1.55] lg:text-[18px] ${dark ? "text-paper/80" : "text-ink-2"}`}>
+          <p
+            className={`max-w-[46ch] text-[16px] leading-[1.55] lg:text-[18px] ${dark ? "text-paper/80" : "text-ink-2"}`}
+          >
             {lead}
           </p>
         ) : null}

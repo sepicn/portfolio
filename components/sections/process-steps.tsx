@@ -16,7 +16,10 @@ export function ProcessSteps({ locale }: { locale: string }) {
   return (
     <ProcessPin steps={total} label={pick(home.processTag, locale)}>
       <div className="wrap flex h-full flex-col pt-24 lg:pt-10">
-        <div data-reveal className="mb-8 grid items-end gap-4 lg:mb-6 lg:grid-cols-2 lg:gap-10">
+        <div
+          data-reveal
+          className="mb-8 grid items-end gap-4 lg:mb-6 lg:grid-cols-2 lg:gap-10"
+        >
           <div>
             <p className="tag">{pick(home.processTag, locale)}</p>
             <h2 id="process-title" className="mt-3 text-display">
@@ -29,7 +32,10 @@ export function ProcessSteps({ locale }: { locale: string }) {
         </div>
 
         <div className="grid flex-1 border border-ink bg-paper lg:min-h-0 lg:grid-cols-[1fr_1.1fr]">
-          <div aria-hidden="true" className="relative hidden border-r border-ink lg:block">
+          <div
+            aria-hidden="true"
+            className="relative hidden border-r border-ink lg:block"
+          >
             {processArt.map((a, i) => (
               <Image
                 key={a.src}
@@ -61,8 +67,12 @@ export function ProcessSteps({ locale }: { locale: string }) {
                   0{i + 1}
                 </span>
                 <div>
-                  <h3 className="text-[21px] tracking-[-0.02em]">{pick(step.title, locale)}</h3>
-                  <p className="mt-1 text-[15px] leading-[1.5] text-ink-2">{pick(step.body, locale)}</p>
+                  <h3 className="text-[21px] tracking-[-0.02em]">
+                    {pick(step.title, locale)}
+                  </h3>
+                  <p className="mt-1 text-[15px] leading-[1.5] text-ink-2">
+                    {pick(step.body, locale)}
+                  </p>
                 </div>
                 <Image
                   src={processArt[i].src}
@@ -76,7 +86,9 @@ export function ProcessSteps({ locale }: { locale: string }) {
             ))}
           </ol>
         </div>
-        <p className="mt-6 text-[18px] leading-[1.5] font-medium lg:mt-4 lg:mb-6">{pick(home.processOutro, locale)}</p>
+        <p className="mt-6 text-[18px] leading-[1.5] font-medium lg:mt-4 lg:mb-6">
+          {pick(home.processOutro, locale)}
+        </p>
       </div>
     </ProcessPin>
   );

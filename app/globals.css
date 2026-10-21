@@ -442,12 +442,14 @@
 
   .hpin[data-pinned] .hpin-item {
     opacity: calc(0.55 + var(--v, 1) * 0.45);
-    transform: perspective(1600px) rotateY(calc((1 - var(--v, 1)) * -8deg)) scale(calc(0.94 + var(--v, 1) * 0.06));
+    transform: perspective(1600px) rotateY(calc((1 - var(--v, 1)) * -8deg))
+      scale(calc(0.94 + var(--v, 1) * 0.06));
     transform-origin: center;
   }
 
   .hpin[data-pinned] .hpin-spin {
-    transform: rotate(calc((1 - var(--v, 1)) * 28deg)) scale(calc(0.75 + var(--v, 1) * 0.25));
+    transform: rotate(calc((1 - var(--v, 1)) * 28deg))
+      scale(calc(0.75 + var(--v, 1) * 0.25));
     transition: transform 0.15s linear;
   }
 }

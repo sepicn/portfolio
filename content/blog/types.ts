@@ -8,7 +8,12 @@ export type Block =
   | { type: "list"; items: string[] }
   | {
       type: "options";
-      items: { name: string; rows: [string, string][]; note: string; highlight?: boolean }[];
+      items: {
+        name: string;
+        rows: [string, string][];
+        note: string;
+        highlight?: boolean;
+      }[];
     }
   | { type: "callout"; text: string };
 

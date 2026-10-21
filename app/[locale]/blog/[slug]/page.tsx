@@ -12,7 +12,13 @@ import { pageMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { ArticleBody, layoutBySlug, toSections } from "@/components/blog/layouts";
 import { ReadProgress } from "@/components/blog/read-progress";
-import { absoluteUrl, breadcrumbJsonLd, graph, personId, serializeJsonLd } from "@/lib/structured-data";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  graph,
+  personId,
+  serializeJsonLd,
+} from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -21,7 +27,9 @@ const lc = (locale: string) => (locale === "en" ? "en" : "sr") as Locale;
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return routing.locales.flatMap((locale) => posts.map((p) => ({ locale, slug: p.slug[locale] })));
+  return routing.locales.flatMap((locale) =>
+    posts.map((p) => ({ locale, slug: p.slug[locale] })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -38,7 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title[lc(locale)],
     ...meta,
-    openGraph: { ...meta.openGraph, type: "article", publishedTime: post.date, authors: [siteConfig.name] },
+    openGraph: {
+      ...meta.openGraph,
+      type: "article",
+      publishedTime: post.date,
+      authors: [siteConfig.name],
+    },
   };
 }
 
@@ -82,7 +95,10 @@ export default async function PostPage({ params }: Props) {
   return (
     <article className="wrap">
       <ReadProgress />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <nav aria-label="Breadcrumb" className="py-3.5">
         <ol className="flex flex-wrap gap-2.5 font-mono text-[12px] tracking-[0.06em] text-ink-3 uppercase">
           <li>
@@ -106,13 +122,23 @@ export default async function PostPage({ params }: Props) {
             <span>{t("minutes", { n: post.minutes })}</span>
             <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
           </p>
-          <h1 className="mt-4 text-[clamp(2.4rem,5.2vw,5.6rem)] leading-[0.98] tracking-[-0.045em]">{post.title[l]}</h1>
+          <h1 className="mt-4 text-[clamp(2.4rem,5.2vw,5.6rem)] leading-[0.98] tracking-[-0.045em]">
+            {post.title[l]}
+          </h1>
         </div>
         <div className="flex items-center gap-3.5">
-          <Image src={profile.photo} alt="" width={112} height={112} className="size-14 border border-ink object-cover grayscale" />
+          <Image
+            src={profile.photo}
+            alt=""
+            width={112}
+            height={112}
+            className="size-14 border border-ink object-cover grayscale"
+          />
           <p>
             <span className="block font-medium">{profile.name}</span>
-            <span className="text-[14px] leading-[1.4] text-ink-2">{t("authorLine")}</span>
+            <span className="text-[14px] leading-[1.4] text-ink-2">
+              {t("authorLine")}
+            </span>
           </p>
         </div>
       </header>
@@ -126,9 +152,17 @@ export default async function PostPage({ params }: Props) {
         answerLabel={t("answer")}
       />
 
-      <div data-reveal className="dark-sheet mt-16 flex flex-col gap-5 border border-ink p-6 lg:flex-row lg:items-center lg:justify-between lg:p-8">
-        <p className="text-[clamp(22px,2.2vw,30px)] leading-[1.2] font-medium tracking-[-0.02em]">{t("ctaTitle")}</p>
-        <Link href="/contact" className="flex min-h-12 shrink-0 items-center justify-center bg-blue px-6 font-mono text-[13px] tracking-[0.05em] uppercase hover:bg-blue-2 hover:text-ink">
+      <div
+        data-reveal
+        className="dark-sheet mt-16 flex flex-col gap-5 border border-ink p-6 lg:flex-row lg:items-center lg:justify-between lg:p-8"
+      >
+        <p className="text-[clamp(22px,2.2vw,30px)] leading-[1.2] font-medium tracking-[-0.02em]">
+          {t("ctaTitle")}
+        </p>
+        <Link
+          href="/contact"
+          className="flex min-h-12 shrink-0 items-center justify-center bg-blue px-6 font-mono text-[13px] tracking-[0.05em] uppercase hover:bg-blue-2 hover:text-ink"
+        >
           {t("ctaButton")} →
         </Link>
       </div>
@@ -139,9 +173,14 @@ export default async function PostPage({ params }: Props) {
       >
         <span>
           <span className="label group-hover:text-paper/70">{t("next")}</span>
-          <span className="mt-1 block text-[clamp(1.8rem,3.4vw,3.2rem)] leading-[1.05] tracking-[-0.04em]">{next.title[l]}</span>
+          <span className="mt-1 block text-[clamp(1.8rem,3.4vw,3.2rem)] leading-[1.05] tracking-[-0.04em]">
+            {next.title[l]}
+          </span>
         </span>
-        <span aria-hidden="true" className="text-[56px] text-blue transition-transform duration-500 ease-out-expo group-hover:translate-x-2 group-hover:text-blue-2">
+        <span
+          aria-hidden="true"
+          className="text-[56px] text-blue transition-transform duration-500 ease-out-expo group-hover:translate-x-2 group-hover:text-blue-2"
+        >
           →
         </span>
       </Link>

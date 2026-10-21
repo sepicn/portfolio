@@ -11,10 +11,15 @@ export function SkillProof({ locale }: { locale: string }) {
           style={{ "--reveal-delay": `${i * 70}ms` } as React.CSSProperties}
           className="border-r border-b border-ink bg-paper p-5 lg:p-6"
         >
-          <h3 className="font-mono text-[13px] font-medium tracking-[0.06em] text-blue uppercase">{pick(group.group, locale)}</h3>
+          <h3 className="font-mono text-[13px] font-medium tracking-[0.06em] text-blue uppercase">
+            {pick(group.group, locale)}
+          </h3>
           <ul className="mt-5 space-y-2.5">
             {group.items.map((item) => (
-              <li key={item} className="text-[18px] leading-[1.25] font-medium tracking-[-0.015em]">
+              <li
+                key={item}
+                className="text-[18px] leading-[1.25] font-medium tracking-[-0.015em]"
+              >
                 {item}
               </li>
             ))}

@@ -77,7 +77,10 @@ export default async function ServicesPage({ params }: Props) {
 
   return (
     <div className="wrap">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <PageHead
         crumbs={[{ label: nav("home"), href: "/" }, { label: nav("services") }]}
         tag={t("tag")}
@@ -98,7 +101,9 @@ export default async function ServicesPage({ params }: Props) {
               <h2 id={`svc-${s.id}`} className="mt-2 text-title">
                 {pick(s.title, locale)}
               </h2>
-              <p className="mt-4 max-w-[52ch] text-[17px] leading-[1.6] text-ink-2">{pick(s.lead, locale)}</p>
+              <p className="mt-4 max-w-[52ch] text-[17px] leading-[1.6] text-ink-2">
+                {pick(s.lead, locale)}
+              </p>
               <Link href={serviceHref(s.id, locale)} className="btn btn-primary mt-6">
                 {t("more")} <span aria-hidden="true">→</span>
               </Link>
@@ -117,7 +122,11 @@ export default async function ServicesPage({ params }: Props) {
                 {s.examples
                   .filter((slug) => titles.has(slug))
                   .map((slug) => (
-                    <Link key={slug} href={projectHref(slug)} className="chip min-h-9 hover:border-blue hover:text-blue">
+                    <Link
+                      key={slug}
+                      href={projectHref(slug)}
+                      className="chip min-h-9 hover:border-blue hover:text-blue"
+                    >
                       {titles.get(slug)}
                     </Link>
                   ))}
@@ -128,11 +137,20 @@ export default async function ServicesPage({ params }: Props) {
       </div>
 
       <section aria-labelledby="steps-title" className="pt-24 lg:pt-32">
-        <SectionHead id="steps-title" tag={t("processEyebrow")} title={t("processTitle")} />
+        <SectionHead
+          id="steps-title"
+          tag={t("processEyebrow")}
+          title={t("processTitle")}
+        />
         <ol className="grid border border-ink bg-paper sm:grid-cols-2 lg:grid-cols-4">
           {process[key].map((step, i) => (
-            <li key={step.title} className="border-b border-ink p-6 last:border-b-0 sm:border-r lg:border-b-0 lg:last:border-r-0">
-              <p className="text-[48px] leading-none font-light tracking-[-0.05em] text-blue">0{i + 1}</p>
+            <li
+              key={step.title}
+              className="border-b border-ink p-6 last:border-b-0 sm:border-r lg:border-b-0 lg:last:border-r-0"
+            >
+              <p className="text-[48px] leading-none font-light tracking-[-0.05em] text-blue">
+                0{i + 1}
+              </p>
               <h3 className="mt-4 text-[22px] tracking-[-0.02em]">{step.title}</h3>
               <p className="mt-2 text-[15px] leading-[1.55] text-ink-2">{step.body}</p>
             </li>

@@ -42,7 +42,11 @@ export function PageHead({
           </h1>
         </div>
         <div>
-          {lead ? <p className="max-w-[52ch] bg-bg/90 text-[17px] leading-[1.55] text-ink-2 lg:text-[18px]">{lead}</p> : null}
+          {lead ? (
+            <p className="max-w-[52ch] bg-bg/90 text-[17px] leading-[1.55] text-ink-2 lg:text-[18px]">
+              {lead}
+            </p>
+          ) : null}
           {children}
         </div>
       </div>

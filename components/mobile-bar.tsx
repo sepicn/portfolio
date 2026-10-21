@@ -63,7 +63,11 @@ export function MobileBar() {
         <a href={cvPdf(locale)} className={cell}>
           CV
         </a>
-        <Link href="/contact" className={`${cell} border-r-0 bg-blue`} onClick={() => setOpen(false)}>
+        <Link
+          href="/contact"
+          className={`${cell} border-r-0 bg-blue`}
+          onClick={() => setOpen(false)}
+        >
           {t("write")}
         </Link>
       </div>

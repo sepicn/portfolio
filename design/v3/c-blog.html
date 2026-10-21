@@ -1,90 +1,346 @@
 <!doctype html>
 <html lang="sr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blog</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="nacrt.css">
-<style>
-.intro{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end;padding:64px 0 40px;border-bottom:1px solid var(--ink)}
-.intro p{font-size:18px;line-height:1.5;color:var(--ink-2)}
-.filters{display:flex;gap:8px;flex-wrap:wrap;padding:18px 0}
-.lead{display:grid;grid-template-columns:1.2fr 1fr;margin-top:8px}
-.lead .art{position:relative;border-right:1px solid var(--ink);min-height:440px;background:var(--bg);overflow:hidden}
-.lead .art img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72%}
-.lead .art .num{position:absolute;left:24px;top:20px;font-family:var(--mono);font-size:12px;color:var(--blue)}
-.lead .txt{padding:32px;display:flex;flex-direction:column;justify-content:space-between}
-.lead h2{font-size:clamp(2rem,3.4vw,3.6rem)}
-.lead p{font-size:17px;line-height:1.55;color:var(--ink-2);margin-top:18px}
-.meta{display:flex;gap:18px;font-family:var(--mono);font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
-.meta b{color:var(--blue);font-weight:500}
-.read{display:flex;justify-content:space-between;margin-top:28px;padding:16px 18px;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
-.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:28px;border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
-.post{display:grid;grid-template-columns:150px 1fr;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--paper)}
-.post .ix{border-right:1px solid var(--grid-2);padding:20px;display:flex;flex-direction:column;justify-content:space-between}
-.post .ix b{font-weight:300;font-size:64px;letter-spacing:-.05em;line-height:.8;color:var(--blue)}
-.post .ix small{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
-.post .bd{padding:22px 24px}
-.post h3{font-weight:500;font-size:24px;letter-spacing:-.025em;line-height:1.15;margin:10px 0}
-.post p{font-size:15px;line-height:1.5;color:var(--ink-2)}
-.news{display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;margin-top:28px;padding:22px 24px;border:1px dashed var(--blue);font-size:16px}
-.news span{font-family:var(--mono);font-size:12px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}
-@media (max-width:900px){
-  .intro,.lead{grid-template-columns:1fr}
-  .lead .art{border-right:0;border-bottom:1px solid var(--ink);min-height:280px}
-  .posts{grid-template-columns:1fr}
-  .post{grid-template-columns:72px 1fr}
-  .post .ix{padding:14px}
-  .post .ix b{font-size:40px}
-  .news{grid-template-columns:1fr}
-}
-</style>
-</head>
-<body>
-<div class="ruler"><span>Početna</span><span>Projekti</span><span>Usluge</span><span class="on">Blog</span><span>O meni</span><span>Kontakt</span></div>
-<div class="wrap">
-<header class="top"><div class="id">N. Šepić · sepic.me</div><nav><span>01 Projekti</span><span>02 Usluge</span><span class="on">03 Blog</span><span>04 O meni</span><span>05 Kontakt</span></nav><div class="rev">SR / EN</div></header>
-<div class="crumbs">Početna / <b>Blog</b></div>
-
-<section class="intro">
-  <div><div class="tag">Blog</div><h1 class="page" style="margin-top:14px">Blog<span>.</span></h1></div>
-  <p>Pišem o poslu koji sam stvarno radio: koliko košta sajt, kako sam sredio Google Ads nalog bolnice, šta je trebalo za fiskalizaciju.</p>
-</section>
-<div class="filters"><span class="chip on">Sve (5)</span><span class="chip">Sajtovi</span><span class="chip">Google Ads</span><span class="chip">SEO</span><span class="chip">Razvoj</span></div>
-
-<article class="box lead">
-  <div class="art"><span class="num">B-01 · VODIČ</span><img src="assets/obj-web.png" alt=""></div>
-  <div class="txt">
-    <div>
-      <div class="meta"><b>Sajtovi</b><span>9 min</span><span>14. 10. 2026.</span></div>
-      <h2 style="margin-top:16px">Koliko košta izrada sajta u Srbiji i od čega zavisi cena</h2>
-      <p>Ovo me klijenti pitaju prvo. Cena se sastoji od broja strana i jezika, formi koje nešto rade i veza sa kasom ili CRM-om. Dizajn je obično manji deo računa nego što ljudi očekuju.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="nacrt.css" />
+    <style>
+      .intro {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 40px;
+        align-items: end;
+        padding: 64px 0 40px;
+        border-bottom: 1px solid var(--ink);
+      }
+      .intro p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: var(--ink-2);
+      }
+      .filters {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 18px 0;
+      }
+      .lead {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        margin-top: 8px;
+      }
+      .lead .art {
+        position: relative;
+        border-right: 1px solid var(--ink);
+        min-height: 440px;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      .lead .art img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 72%;
+      }
+      .lead .art .num {
+        position: absolute;
+        left: 24px;
+        top: 20px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--blue);
+      }
+      .lead .txt {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .lead h2 {
+        font-size: clamp(2rem, 3.4vw, 3.6rem);
+      }
+      .lead p {
+        font-size: 17px;
+        line-height: 1.55;
+        color: var(--ink-2);
+        margin-top: 18px;
+      }
+      .meta {
+        display: flex;
+        gap: 18px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--ink-3);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .meta b {
+        color: var(--blue);
+        font-weight: 500;
+      }
+      .read {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 28px;
+        padding: 16px 18px;
+        background: var(--ink);
+        color: var(--bg);
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .posts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+        margin-top: 28px;
+        border-top: 1px solid var(--ink);
+        border-left: 1px solid var(--ink);
+      }
+      .post {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+        background: var(--paper);
+      }
+      .post .ix {
+        border-right: 1px solid var(--grid-2);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .post .ix b {
+        font-weight: 300;
+        font-size: 64px;
+        letter-spacing: -0.05em;
+        line-height: 0.8;
+        color: var(--blue);
+      }
+      .post .ix small {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--ink-3);
+      }
+      .post .bd {
+        padding: 22px 24px;
+      }
+      .post h3 {
+        font-weight: 500;
+        font-size: 24px;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        margin: 10px 0;
+      }
+      .post p {
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--ink-2);
+      }
+      .news {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 20px;
+        margin-top: 28px;
+        padding: 22px 24px;
+        border: 1px dashed var(--blue);
+        font-size: 16px;
+      }
+      .news span {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--blue);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      @media (max-width: 900px) {
+        .intro,
+        .lead {
+          grid-template-columns: 1fr;
+        }
+        .lead .art {
+          border-right: 0;
+          border-bottom: 1px solid var(--ink);
+          min-height: 280px;
+        }
+        .posts {
+          grid-template-columns: 1fr;
+        }
+        .post {
+          grid-template-columns: 72px 1fr;
+        }
+        .post .ix {
+          padding: 14px;
+        }
+        .post .ix b {
+          font-size: 40px;
+        }
+        .news {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ruler">
+      <span>Početna</span><span>Projekti</span><span>Usluge</span
+      ><span class="on">Blog</span><span>O meni</span><span>Kontakt</span>
     </div>
-    <a class="read" href="#"><span>Čitaj članak</span><span>→</span></a>
-  </div>
-</article>
+    <div class="wrap">
+      <header class="top">
+        <div class="id">N. Šepić · sepic.me</div>
+        <nav>
+          <span>01 Projekti</span><span>02 Usluge</span><span class="on">03 Blog</span
+          ><span>04 O meni</span><span>05 Kontakt</span>
+        </nav>
+        <div class="rev">SR / EN</div>
+      </header>
+      <div class="crumbs">Početna / <b>Blog</b></div>
 
-<div class="posts">
-  <article class="post"><div class="ix"><b>02</b><small>7 MIN</small></div><div class="bd"><div class="meta"><b>Google Ads</b><span>8. 10. 2026.</span></div><h3>370 negativnih ključnih reči: kako sam prestao da plaćam pogrešne klikove</h3><p>Izveštaj o pretragama, liste negativnih reči i CPC granice na stvarnom nalogu bolnice.</p></div></article>
-  <article class="post"><div class="ix"><b>03</b><small>8 MIN</small></div><div class="bd"><div class="meta"><b>SEO</b><span>1. 10. 2026.</span></div><h3>Site Health sa 90% na 98% za nedelju dana</h3><p>Tehnički SEO korak po korak: greške, upozorenja i šta je zaista pomoglo.</p></div></article>
-  <article class="post"><div class="ix"><b>04</b><small>10 MIN</small></div><div class="bd"><div class="meta"><b>Razvoj</b><span>24. 9. 2026.</span></div><h3>Sajt na pet jezika: i18n i hreflang bez grešaka</h3><p>Rute, prevodi, sitemap i hreflang na platformi sa 779 adresa.</p></div></article>
-  <article class="post"><div class="ix"><b>05</b><small>11 MIN</small></div><div class="bd"><div class="meta"><b>Razvoj</b><span>17. 9. 2026.</span></div><h3>Fiskalizacija i IPS plaćanje u web aplikaciji</h3><p>Šta developer mora da zna pre nego što poveže kasu i instant plaćanje u Srbiji.</p></div></article>
-</div>
-<div class="news"><div>Novi tekst izađe otprilike jednom mesečno. Najavljujem ga na LinkedIn-u.</div><span>RSS · LinkedIn →</span></div>
-</div>
+      <section class="intro">
+        <div>
+          <div class="tag">Blog</div>
+          <h1 class="page" style="margin-top: 14px">Blog<span>.</span></h1>
+        </div>
+        <p>
+          Pišem o poslu koji sam stvarno radio: koliko košta sajt, kako sam sredio Google
+          Ads nalog bolnice, šta je trebalo za fiskalizaciju.
+        </p>
+      </section>
+      <div class="filters">
+        <span class="chip on">Sve (5)</span><span class="chip">Sajtovi</span
+        ><span class="chip">Google Ads</span><span class="chip">SEO</span
+        ><span class="chip">Razvoj</span>
+      </div>
 
-<footer class="foot">
-  <div class="cols">
-    <div><h5>Sledeći korak</h5><div class="say">Imate projekat?<br><span>Napravimo nacrt.</span></div><a class="mail" href="#">Pišite mi →</a></div>
-    <div><h5>Strane</h5><ul><li>Projekti</li><li>Usluge</li><li>Blog</li><li>O meni</li><li>CV</li></ul></div>
-    <div><h5>Usluge</h5><ul><li>Izrada sajtova</li><li>Google Ads</li><li>Meta Ads</li><li>SEO i analitika</li></ul></div>
-    <div><h5>Na mreži</h5><ul><li>GitHub ↗</li><li>LinkedIn ↗</li><li>RSS ↗</li></ul></div>
-  </div>
-  <div class="giant"><div class="dimline"><span>NIKOLA ŠEPIĆ · BEOGRAD · 44.81°N 20.46°E</span></div>Šepić<i>.</i></div>
-  <div class="bar"><span>© 2026 Nikola Šepić</span><span class="clock">Beograd, <b>14:32</b></span><span>Privatnost · Nazad na vrh ↑</span></div>
-</footer>
-<div style="height:16px"></div>
-</body>
+      <article class="box lead">
+        <div class="art">
+          <span class="num">B-01 · VODIČ</span><img src="assets/obj-web.png" alt="" />
+        </div>
+        <div class="txt">
+          <div>
+            <div class="meta">
+              <b>Sajtovi</b><span>9 min</span><span>14. 10. 2026.</span>
+            </div>
+            <h2 style="margin-top: 16px">
+              Koliko košta izrada sajta u Srbiji i od čega zavisi cena
+            </h2>
+            <p>
+              Ovo me klijenti pitaju prvo. Cena se sastoji od broja strana i jezika, formi
+              koje nešto rade i veza sa kasom ili CRM-om. Dizajn je obično manji deo
+              računa nego što ljudi očekuju.
+            </p>
+          </div>
+          <a class="read" href="#"><span>Čitaj članak</span><span>→</span></a>
+        </div>
+      </article>
+
+      <div class="posts">
+        <article class="post">
+          <div class="ix"><b>02</b><small>7 MIN</small></div>
+          <div class="bd">
+            <div class="meta"><b>Google Ads</b><span>8. 10. 2026.</span></div>
+            <h3>
+              370 negativnih ključnih reči: kako sam prestao da plaćam pogrešne klikove
+            </h3>
+            <p>
+              Izveštaj o pretragama, liste negativnih reči i CPC granice na stvarnom
+              nalogu bolnice.
+            </p>
+          </div>
+        </article>
+        <article class="post">
+          <div class="ix"><b>03</b><small>8 MIN</small></div>
+          <div class="bd">
+            <div class="meta"><b>SEO</b><span>1. 10. 2026.</span></div>
+            <h3>Site Health sa 90% na 98% za nedelju dana</h3>
+            <p>
+              Tehnički SEO korak po korak: greške, upozorenja i šta je zaista pomoglo.
+            </p>
+          </div>
+        </article>
+        <article class="post">
+          <div class="ix"><b>04</b><small>10 MIN</small></div>
+          <div class="bd">
+            <div class="meta"><b>Razvoj</b><span>24. 9. 2026.</span></div>
+            <h3>Sajt na pet jezika: i18n i hreflang bez grešaka</h3>
+            <p>Rute, prevodi, sitemap i hreflang na platformi sa 779 adresa.</p>
+          </div>
+        </article>
+        <article class="post">
+          <div class="ix"><b>05</b><small>11 MIN</small></div>
+          <div class="bd">
+            <div class="meta"><b>Razvoj</b><span>17. 9. 2026.</span></div>
+            <h3>Fiskalizacija i IPS plaćanje u web aplikaciji</h3>
+            <p>
+              Šta developer mora da zna pre nego što poveže kasu i instant plaćanje u
+              Srbiji.
+            </p>
+          </div>
+        </article>
+      </div>
+      <div class="news">
+        <div>
+          Novi tekst izađe otprilike jednom mesečno. Najavljujem ga na LinkedIn-u.
+        </div>
+        <span>RSS · LinkedIn →</span>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <div class="cols">
+        <div>
+          <h5>Sledeći korak</h5>
+          <div class="say">Imate projekat?<br /><span>Napravimo nacrt.</span></div>
+          <a class="mail" href="#">Pišite mi →</a>
+        </div>
+        <div>
+          <h5>Strane</h5>
+          <ul>
+            <li>Projekti</li>
+            <li>Usluge</li>
+            <li>Blog</li>
+            <li>O meni</li>
+            <li>CV</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Usluge</h5>
+          <ul>
+            <li>Izrada sajtova</li>
+            <li>Google Ads</li>
+            <li>Meta Ads</li>
+            <li>SEO i analitika</li>
+          </ul>
+        </div>
+        <div>
+          <h5>Na mreži</h5>
+          <ul>
+            <li>GitHub ↗</li>
+            <li>LinkedIn ↗</li>
+            <li>RSS ↗</li>
+          </ul>
+        </div>
+      </div>
+      <div class="giant">
+        <div class="dimline"><span>NIKOLA ŠEPIĆ · BEOGRAD · 44.81°N 20.46°E</span></div>
+        Šepić<i>.</i>
+      </div>
+      <div class="bar">
+        <span>© 2026 Nikola Šepić</span><span class="clock">Beograd, <b>14:32</b></span
+        ><span>Privatnost · Nazad na vrh ↑</span>
+      </div>
+    </footer>
+    <div style="height: 16px"></div>
+  </body>
 </html>
