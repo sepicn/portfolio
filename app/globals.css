@@ -78,6 +78,9 @@
 
 @layer components {
   .wrap {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
     padding-inline: clamp(16px, 3vw, 48px);
   }
 

@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { blogHref } from "@/i18n/paths";
 import { pageMetadata } from "@/lib/seo";
-import { formatDate } from "@/lib/format";
+import { PostMeta } from "@/components/blog/post-meta";
 import { posts, type Locale } from "@/content/blog";
 import { siteConfig } from "@/lib/site-config";
 import { PageHead } from "@/components/sections/page-head";
@@ -91,12 +91,13 @@ export default async function BlogPage({ params }: Props) {
         </div>
         <div className="flex flex-col justify-between gap-8 p-6 lg:p-8">
           <div>
-            <p className="flex flex-wrap gap-4 font-mono text-[12px] tracking-[0.05em] text-ink-2 uppercase">
-              <span className="text-blue">{t(`categories.${lead.category}`)}</span>
-              <span>{t("minutes", { n: lead.minutes })}</span>
-              <time dateTime={lead.date}>{formatDate(lead.date, locale)}</time>
-            </p>
-            <h2 className="mt-4 text-[clamp(2rem,3.4vw,3.4rem)] leading-[1] tracking-[-0.04em]">
+            <PostMeta
+              category={t(`categories.${lead.category}`)}
+              minutes={t("minutes", { n: lead.minutes })}
+              date={lead.date}
+              locale={locale}
+            />
+            <h2 className="mt-5 text-[clamp(2rem,3.4vw,3.4rem)] leading-[1] tracking-[-0.04em]">
               {lead.title[l]}
             </h2>
             <p className="mt-4 text-[17px] leading-[1.55] text-ink-2">
@@ -129,11 +130,14 @@ export default async function BlogPage({ params }: Props) {
                 />
               </div>
               <div className="p-5 lg:p-6">
-                <p className="flex flex-wrap gap-3 font-mono text-[12px] tracking-[0.05em] text-ink-2 uppercase">
-                  <span className="text-blue">{t(`categories.${p.category}`)}</span>
-                  <time dateTime={p.date}>{formatDate(p.date, locale)}</time>
-                </p>
-                <h2 className="mt-2.5 text-[23px] leading-[1.15] tracking-[-0.025em] group-hover:text-blue">
+                <PostMeta
+                  size="sm"
+                  category={t(`categories.${p.category}`)}
+                  minutes={t("minutes", { n: p.minutes })}
+                  date={p.date}
+                  locale={locale}
+                />
+                <h2 className="mt-3.5 text-[23px] leading-[1.15] tracking-[-0.025em] group-hover:text-blue">
                   {p.title[l]}
                 </h2>
                 <p className="mt-2 text-[15px] leading-[1.5] text-ink-2">

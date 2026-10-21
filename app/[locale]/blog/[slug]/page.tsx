@@ -9,7 +9,7 @@ import { getPost, posts, type Locale } from "@/content/blog";
 import { profile } from "@/content/data/profile";
 import { siteConfig } from "@/lib/site-config";
 import { pageMetadata } from "@/lib/seo";
-import { formatDate } from "@/lib/format";
+import { PostMeta } from "@/components/blog/post-meta";
 import { ArticleBody, layoutBySlug, toSections } from "@/components/blog/layouts";
 import { ReadProgress } from "@/components/blog/read-progress";
 import {
@@ -117,12 +117,13 @@ export default async function PostPage({ params }: Props) {
 
       <header className="grid items-end gap-8 border-b border-ink pt-10 pb-10 lg:grid-cols-[1fr_340px] lg:gap-12 lg:pt-14">
         <div>
-          <p className="flex flex-wrap gap-4 font-mono text-[12px] tracking-[0.05em] text-ink-2 uppercase">
-            <span className="text-blue">{t(`categories.${post.category}`)}</span>
-            <span>{t("minutes", { n: post.minutes })}</span>
-            <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
-          </p>
-          <h1 className="mt-4 text-[clamp(2.4rem,5.2vw,5.6rem)] leading-[0.98] tracking-[-0.045em]">
+          <PostMeta
+            category={t(`categories.${post.category}`)}
+            minutes={t("minutes", { n: post.minutes })}
+            date={post.date}
+            locale={locale}
+          />
+          <h1 className="mt-6 text-[clamp(2.4rem,5.2vw,5.6rem)] leading-[0.98] tracking-[-0.045em]">
             {post.title[l]}
           </h1>
         </div>

@@ -20,8 +20,10 @@ export function LocaleSwitcher({ className = "" }: { className?: string }) {
         return [key, translateRouteParam(pathname, key, v, locale, target)];
       }),
   );
+  const required = [...pathname.matchAll(/\[(\w+)\]/g)].map((m) => m[1]);
+  const complete = required.every((key) => routeParams[key]);
   const href = (
-    pathname.includes("[") ? { pathname, params: routeParams } : pathname
+    required.length === 0 ? pathname : complete ? { pathname, params: routeParams } : "/"
   ) as AppHref;
 
   return (
