@@ -36,7 +36,6 @@ test("English version is served under /en", async ({ page }) => {
 
 test("language switcher keeps the current page", async ({ page }) => {
   await page.goto("/usluge/izrada-sajtova");
-  await page.getByRole("button", { name: "Odbij" }).click();
   const menuButton = page.getByRole("button", { name: /meni|menu/i });
   if (await menuButton.isVisible()) await menuButton.click();
   await page
@@ -132,4 +131,16 @@ test("structured data: home graph and case study breadcrumbs", async ({ request 
   for (const type of ["Service", "BreadcrumbList", "FAQPage"]) {
     expect(service).toContain(`"@type":"${type}"`);
   }
+});
+
+test("mobile menu hides the consent banner until it closes", async ({ page }) => {
+  await page.goto("/o-meni");
+  const menuButton = page.getByRole("button", { name: "Meni" });
+  test.skip(!(await menuButton.isVisible()), "the menu bar only exists on phones");
+  const banner = page.getByRole("region", { name: /kolačić/i });
+  await expect(banner).toBeVisible();
+  await menuButton.click();
+  await expect(banner).toBeHidden();
+  await page.keyboard.press("Escape");
+  await expect(banner).toBeVisible();
 });

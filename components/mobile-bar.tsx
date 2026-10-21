@@ -17,9 +17,11 @@ export function MobileBar() {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
     document.documentElement.style.overflow = "hidden";
+    document.documentElement.dataset.menu = "open";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = "";
+      delete document.documentElement.dataset.menu;
     };
   }, [open]);
 

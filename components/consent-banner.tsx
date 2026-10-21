@@ -33,7 +33,7 @@ export function ConsentBanner() {
     <section
       role="region"
       aria-label={t("label")}
-      className="fixed inset-x-3 bottom-20 z-50 mx-auto max-w-xl border border-ink bg-paper p-5 text-[15px] text-ink-2 shadow-[0_20px_40px_-20px_oklch(0.2_0.04_265/0.45)] lg:bottom-5"
+      className="fixed inset-x-3 bottom-20 z-50 mx-auto max-w-xl border border-ink bg-paper p-5 text-[15px] text-ink-2 shadow-[0_20px_40px_-20px_oklch(0.2_0.04_265/0.45)] in-data-[menu=open]:hidden lg:bottom-5"
     >
       <p className="tag">{t("eyebrow")}</p>
       <p className="mt-2">
