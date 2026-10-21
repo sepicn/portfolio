@@ -1,7 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-// Serbian public URLs (i18n/routing.ts pathnames).
 const routes = [
   "/",
   "/projekti",
@@ -22,7 +21,6 @@ for (const route of routes) {
     expect(response?.status()).toBe(200);
     await expect(page.locator("html")).toHaveAttribute("lang", "sr");
     await expect(page.locator("h1")).toBeVisible();
-    // [data-reveal] content is hidden until hydration un-hides it; axe must see the settled page.
     await page.waitForLoadState("networkidle");
 
     const results = await new AxeBuilder({ page }).analyze();
@@ -33,15 +31,16 @@ for (const route of routes) {
 test("English version is served under /en", async ({ page }) => {
   await page.goto("/en");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator("h1")).toContainText("Websites and Google Ads");
+  await expect(page.locator("h1")).toContainText("and bring them users.");
 });
 
 test("language switcher keeps the current page", async ({ page }) => {
   await page.goto("/usluge/izrada-sajtova");
+  await page.getByRole("button", { name: "Odbij" }).click();
   const menuButton = page.getByRole("button", { name: /meni|menu/i });
   if (await menuButton.isVisible()) await menuButton.click();
   await page
-    .getByRole("link", { name: /English/ })
+    .getByRole("link", { name: /Jezik/ })
     .filter({ visible: true })
     .first()
     .click();

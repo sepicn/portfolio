@@ -50,7 +50,10 @@ export function MobileBar() {
           </div>
         </div>
       ) : null}
-      <div className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-3 border border-ink bg-ink text-paper shadow-[0_12px_30px_-10px_oklch(0.2_0.04_265/0.5)]">
+      <nav
+        aria-label={t("quick")}
+        className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-3 border border-ink bg-ink text-paper shadow-[0_12px_30px_-10px_oklch(0.2_0.04_265/0.5)]"
+      >
         <button
           type="button"
           className={cell}
@@ -70,7 +73,7 @@ export function MobileBar() {
         >
           {t("write")}
         </Link>
-      </div>
+      </nav>
     </div>
   );
 }
